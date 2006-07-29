@@ -1,0 +1,8 @@
+= GemInstaller -- Automatically manage dependencies
+
+GemInstaller is a tool to automatically install RubyGems.
+
+== Specifying which Gems to auto-install
+
+To specify which Gems should automatically be installed, edit "dependency.yml", and run
+geminstaller.
