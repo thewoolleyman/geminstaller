@@ -160,10 +160,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config_spec.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="config_spec.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/spec/config_spec.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="20" selection-start="250" selection-end="250" vertical-scroll-proportion="0.41776937">
+            <state line="22" column="82" selection-start="519" selection-end="519" vertical-scroll-proportion="0.70699435">
               <folding />
             </state>
           </provider>
@@ -196,10 +196,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="class_intercepter.rb" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="class_intercepter.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/spec/class_intercepter.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="0" selection-start="407" selection-end="458" vertical-scroll-proportion="0.44990548">
+            <state line="12" column="14" selection-start="418" selection-end="418" vertical-scroll-proportion="0.38563326">
               <folding />
             </state>
           </provider>
@@ -679,13 +679,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/spec/class_intercepter.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="0" selection-start="407" selection-end="458" vertical-scroll-proportion="0.44990548">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="0" selection-start="256" selection-end="256" vertical-scroll-proportion="0.25708884">
@@ -716,7 +709,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/spec/config_spec.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="20" selection-start="250" selection-end="250" vertical-scroll-proportion="0.41776937">
+        <state line="22" column="82" selection-start="519" selection-end="519" vertical-scroll-proportion="0.70699435">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spec/class_intercepter.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="14" selection-start="418" selection-end="418" vertical-scroll-proportion="0.38563326">
           <folding />
         </state>
       </provider>
