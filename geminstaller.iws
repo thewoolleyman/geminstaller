@@ -16,18 +16,7 @@
     <option name="USE_USER_FILTER" value="false" />
     <option name="USER" value="" />
   </component>
-  <component name="CheckinPanelState">
-    <Excluded key="D:\projects\geminstaller\bin\geminstaller" />
-    <Excluded key="D:\projects\geminstaller\lib" />
-    <Excluded key="D:\projects\geminstaller\lib\geminstaller" />
-    <Excluded key="D:\projects\geminstaller\lib\geminstaller\config.rb" />
-    <Excluded key="D:\projects\geminstaller\lib\geminstaller\container.rb" />
-    <Excluded key="D:\projects\geminstaller\lib\geminstaller.rb" />
-    <Excluded key="D:\projects\geminstaller\spec" />
-    <Excluded key="D:\projects\geminstaller\spec\class_intercepter.rb" />
-    <Excluded key="D:\projects\geminstaller\spec\config_spec.rb" />
-    <Excluded key="D:\projects\geminstaller\spec\spec_helper.rb" />
-  </component>
+  <component name="CheckinPanelState" />
   <component name="Commander">
     <leftPanel />
     <rightPanel />
