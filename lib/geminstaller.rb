@@ -3,20 +3,20 @@ require 'geminstaller/main_loop'
 module GemInstaller
 
   class << self
-    def application
-      @application ||= GemInstaller::Application.new
+    def runner
+      @application ||= GemInstaller::Runner.new
     end
   end
 
   ######################################################################
-  # GemInstaller main application object.  When invoking +geminstaller+ from the
-  # command line, a GemInstaller::Application object is created and run.
+  # GemInstaller entry point.  When invoking +geminstaller+ from the
+  # command line, a GemInstaller::Runner object is created and run.
   #
-  class Application
+  class Runner
     # Run the +geminstaller+ application.
     def run
-      container = Container.new
-      container.start
+      application = DependencyInjector.new.create_application
+      application.run
     end
   end
 end

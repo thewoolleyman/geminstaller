@@ -1,5 +1,6 @@
-require File.dirname(__FILE__) + '/spec_helper'
-require 'geminstaller/config'
+dir = File.dirname(__FILE__)
+require File.expand_path("#{dir}/../spec_helper")
+require File.expand_path("#{dir}/../../lib/geminstaller/config")
 
 class StubFile
   def exist?
@@ -16,10 +17,5 @@ context "A Config with no config file location specified" do
   end
 
   specify "should read required gems from the default config file location" do
-    GemInstaller::Config.use_class(:File, StubFile ) do
-      config = GemInstaller::Config.new
-      required_gems = config.required_gems
-      ["gem-one", "gem-two"].should_equal(required_gems)
-    end
   end
 end
