@@ -10,8 +10,9 @@ module GemInstaller
     def gems
       gem_defs = @yaml["gems"]
       gems = []
-      gem_defs.each do |name, attributes|
-        version = attributes['version'].to_s
+      gem_defs.each do |gem_def|
+        name = gem_def['name']
+        version = gem_def['version'].to_s
         gem = GemInstaller::Gem.new(name, version)
         gems << gem
       end

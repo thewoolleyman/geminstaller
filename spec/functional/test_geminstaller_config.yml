@@ -1,5 +1,5 @@
 gems:
-  testgem1:
+  - name: testgem1
     version: v1.1
-  testgem2:
+  - name: testgem2
     version: v1.2
