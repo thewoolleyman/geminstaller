@@ -1,4 +1,4 @@
-require 'geminstaller/main_loop'
+require 'geminstaller/dependency_injector'
 
 module GemInstaller
 
@@ -15,7 +15,7 @@ module GemInstaller
   class Runner
     # Run the +geminstaller+ application.
     def run
-      application = DependencyInjector.new.create_application
+      application = GemInstaller::DependencyInjector.new.create_application
       application.run
     end
   end

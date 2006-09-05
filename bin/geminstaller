@@ -4,4 +4,4 @@ rescue LoadError
   require 'rubygems'
   require 'geminstaller'
 end
-GemInstaller.application.run
+GemInstaller.runner.run
