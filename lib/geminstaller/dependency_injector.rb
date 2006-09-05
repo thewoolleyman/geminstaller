@@ -6,8 +6,6 @@ require 'geminstaller/yaml_loader'
 
 module GemInstaller
   class DependencyInjector
-    @config_file_path
-
     def config_file_path=(config_file_path)
       @config_file_path = config_file_path
     end
