@@ -1,0 +1,5 @@
+gems:
+  testgem1:
+    version: v1.1
+  testgem2:
+    version: v1.2

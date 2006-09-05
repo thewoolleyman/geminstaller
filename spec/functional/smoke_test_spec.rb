@@ -7,7 +7,10 @@ context "Placeholder for real functional tests" do
   end
 
   specify "should placehold" do
-    application = GemInstaller::DependencyInjector.new.create_application
+    dependency_injector = GemInstaller::DependencyInjector.new
+    test_config_file_path = File.expand_path("#{dir}/test_geminstaller_config.yml")
+    dependency_injector.config_file_path = test_config_file_path
+    application = dependency_injector.create_application
     application.run
   end
 end

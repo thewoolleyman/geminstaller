@@ -2,9 +2,12 @@ require 'yaml'
 
 module GemInstaller
   class Application
-    attr_writer :config
+    def config=(config)
+      @config = config
+    end
     def run
-      puts :config.inspect
+      config = @config
+      config
     end
   end
 end
