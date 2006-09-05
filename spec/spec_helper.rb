@@ -11,6 +11,7 @@ args << $0
 $context_runner  = ::Spec::Runner::OptionParser.create_context_runner(args, false, STDERR, STDOUT)
 
 def run_context_runner_if_necessary(system_exit, has_run)
+  p system_exit unless system_exit.nil?
   return if system_exit && !system_exit.success?
   return if has_run
   exit context_runner.run(true)
