@@ -1,4 +1,5 @@
 require 'yaml'
+require 'geminstaller/gem'
 
 module GemInstaller
   class Config
@@ -6,13 +7,15 @@ module GemInstaller
       @yaml = yaml
     end
 
-    def required_gems
+    def gems
       gem_defs = @yaml["gems"]
-      gem_list = []
-      gem_defs.each do |gem_def|
-        gem_list << gem_def["name"]
+      gems = []
+      gem_defs.each do |name, attributes|
+        version = attributes['version'].to_s
+        gem = GemInstaller::Gem.new(name, version)
+        gems << gem
       end
-      return gem_list
+      return gems
     end
   end
 end

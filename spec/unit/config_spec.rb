@@ -2,20 +2,20 @@ dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../spec_helper")
 require File.expand_path("#{dir}/../../lib/geminstaller/config")
 
-class StubFile
-  def exist?
-    return true;
-  end
-  def open(filepath)
-    return "{\"gems\"=>[{\"name\"=>\"gem-one\"}, {\"name\"=>\"gem-two\"}]}"
-  end
-end
-
-
-context "A Config with no config file location specified" do
+context "YAML containing a single gem" do
   setup do
+    @yaml_text = <<-STRING_END
+      gems:
+        mygem:
+          version: 1.1
+    STRING_END
+    @yaml = YAML.load(@yaml_text)
+    @config = GemInstaller::Config.new(@yaml)
   end
 
-  specify "should read required gems from the default config file location" do
+  specify "should be parsed into a corresponding gem object" do
+    gem = @config.gems[0]
+    gem.name.should_equal('mygem')
+    gem.version.should_equal('1.1')
   end
 end
