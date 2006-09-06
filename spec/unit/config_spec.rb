@@ -8,6 +8,7 @@ context "YAML containing a single gem" do
       gems:
         - name: mygem
           version: 1.1
+          install_options: -y
     STRING_END
     @yaml = YAML.load(@yaml_text)
     @config = GemInstaller::Config.new(@yaml)
@@ -17,6 +18,7 @@ context "YAML containing a single gem" do
     gem = @config.gems[0]
     gem.name.should_equal('mygem')
     gem.version.should_equal('1.1')
+    gem.install_options.should_equal('-y')
   end
 end
 
@@ -26,8 +28,10 @@ context "YAML containing two gems with the same name but different versions" do
       gems:
         - name: mygem
           version: 1.1
+          install_options: -y
         - name: mygem
           version: 1.2
+          install_options: -y
     STRING_END
     @yaml = YAML.load(@yaml_text)
     @config = GemInstaller::Config.new(@yaml)
@@ -37,9 +41,11 @@ context "YAML containing two gems with the same name but different versions" do
     gem = @config.gems[0]
     gem.name.should_equal('mygem')
     gem.version.should_equal('1.1')
+    gem.install_options.should_equal('-y')
 
     gem = @config.gems[1]
     gem.name.should_equal('mygem')
     gem.version.should_equal('1.2')
+    gem.install_options.should_equal('-y')
   end
 end
