@@ -1,7 +1,9 @@
+geminstaller_version: 1.0
+defaults:
+  install_options: -y
 gems:
   - name: testgem1
     version: v1.1
-    install_options: -y
   - name: testgem2
     version: v1.2
-    install_options: -y
+    install_options: -y -t
