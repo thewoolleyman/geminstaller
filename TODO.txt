@@ -1,0 +1,2 @@
+- install.rb must be run for some tests to pass.  The tests are picking up classes from the gem install path,
+  instead of the project, but I haven't looked at where or why yet.
