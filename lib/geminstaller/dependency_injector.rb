@@ -1,8 +1,9 @@
+dir = File.dirname(__FILE__)
 require 'needle'
-require 'geminstaller/application'
-require 'geminstaller/config'
-require 'geminstaller/file_reader'
-require 'geminstaller/yaml_loader'
+require File.expand_path("#{dir}/application")
+require File.expand_path("#{dir}/config")
+require File.expand_path("#{dir}/file_reader")
+require File.expand_path("#{dir}/yaml_loader")
 
 module GemInstaller
   class DependencyInjector

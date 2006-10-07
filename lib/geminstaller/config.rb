@@ -1,5 +1,6 @@
+dir = File.dirname(__FILE__)
 require 'yaml'
-require 'geminstaller/gem'
+require File.expand_path("#{dir}/gem")
 
 module GemInstaller
   class Config
