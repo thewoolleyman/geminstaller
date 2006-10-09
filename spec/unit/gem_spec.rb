@@ -1,10 +1,10 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../spec_helper")
-require File.expand_path("#{dir}/../../lib/geminstaller/gem")
+require File.expand_path("#{dir}/../../lib/geminstaller/ruby_gem")
 
 context "A gem" do
   setup do
-    @gem = GemInstaller::Gem.new('mygem', 'v1.1', '-y')
+    @gem = GemInstaller::RubyGem.new('mygem', 'v1.1', '-y')
   end
 
   specify "should contain a name, a version, and install options" do

@@ -8,25 +8,29 @@ require 'rubygems/installer'
 
 module GemInstaller
   class GemCommandProxy
-    def is_gem_installed(gem_name)
+    def is_gem_installed(gem)
       gems = Gem::cache.refresh!
-      gems = Gem::cache.search(/.*#{gem_name}$/)
+      gems = Gem::cache.search(/.*#{gem.name}$/)
+      # TODO: add version to install check
       gems.each do |gem|
-        return true if gem.name == gem_name
+        return true if gem.name == gem.name
       end
       return false
     end
 
-    def uninstall_gem(gem_name)
-      run_gem_command('uninstall',gem_name)
+    def uninstall_gem(gem)
+      run_gem_command('uninstall',gem)
     end
 
-    def install_gem(gem_name)
-      run_gem_command('install',gem_name)
+    def install_gem(gem)
+      run_gem_command('install',gem)
     end
 
-    def run_gem_command(gem_command,gem_name)
-      Gem::GemRunner.new.run([gem_command,"#{gem_name}"])
+    private
+    def run_gem_command(gem_command,gem)
+      run_args = [gem_command,gem.name,"--version", "#{gem.version}"]
+      run_args += gem.install_options
+      Gem::GemRunner.new.run(run_args)
     end
   end
 end

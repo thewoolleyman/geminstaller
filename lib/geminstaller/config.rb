@@ -1,6 +1,6 @@
 dir = File.dirname(__FILE__)
 require 'yaml'
-require File.expand_path("#{dir}/gem")
+require File.expand_path("#{dir}/ruby_gem")
 
 module GemInstaller
   class Config
@@ -18,13 +18,18 @@ module GemInstaller
         name = gem_def['name']
         version = gem_def['version'].to_s
         # get install_options for specific gem, if specified
-        install_options = gem_def['install_options'].to_s
+        install_options_string = gem_def['install_options'].to_s
         # if no install_options were specified for specific gem, and default install_options were specified...
-        if install_options.empty? && @default_install_options then
+        if install_options_string.empty? && @default_install_options_string then
           # then use the default install_options
-          install_options = @default_install_options
+          install_options_string = @default_install_options_string
         end
-        gem = GemInstaller::Gem.new(name, version, install_options)
+        install_options_array = []
+        # if there was an install options string specified, default or gem-specific, parse it to an array
+        if !install_options_string.empty? then
+          install_options_array = install_options_string.split(" ")
+        end
+        gem = GemInstaller::RubyGem.new(name, version, install_options_array)
         gems << gem
       end
       return gems
@@ -35,7 +40,7 @@ module GemInstaller
     def parse_defaults
       defaults = @yaml["defaults"]
       return if defaults.nil?
-      @default_install_options = defaults['install_options']
+      @default_install_options_string = defaults['install_options']
     end
 
     def check_geminstaller_version

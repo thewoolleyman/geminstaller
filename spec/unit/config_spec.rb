@@ -2,7 +2,7 @@ dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../spec_helper")
 require File.expand_path("#{dir}/../../lib/geminstaller/config")
 
-context "YAML containing a single gem" do
+context "config YAML containing a single gem" do
   setup do
     @yaml_text = <<-STRING_END
       geminstaller_version: 1.0
@@ -19,11 +19,11 @@ context "YAML containing a single gem" do
     gem = @config.gems[0]
     gem.name.should_equal('mygem')
     gem.version.should_equal('1.1')
-    gem.install_options.should_equal('-y')
+    gem.install_options.should_equal(["-y"])
   end
 end
 
-context "YAML containing two gems with the same name but different versions" do
+context "config YAML containing two gems with the same name but different versions" do
   setup do
     @yaml_text = <<-STRING_END
       geminstaller_version: 1.0
@@ -33,7 +33,7 @@ context "YAML containing two gems with the same name but different versions" do
           install_options: -y
         - name: mygem
           version: 1.2
-          install_options: -y
+          install_options: ["-y"]
     STRING_END
     @yaml = YAML.load(@yaml_text)
     @config = GemInstaller::Config.new(@yaml)
@@ -43,16 +43,16 @@ context "YAML containing two gems with the same name but different versions" do
     gem = @config.gems[0]
     gem.name.should_equal('mygem')
     gem.version.should_equal('1.1')
-    gem.install_options.should_equal('-y')
+    gem.install_options.should_equal(["-y"])
 
     gem = @config.gems[1]
     gem.name.should_equal('mygem')
     gem.version.should_equal('1.2')
-    gem.install_options.should_equal('-y')
+    gem.install_options.should_equal(["-y"])
   end
 end
 
-context "YAML containing default install_options" do
+context "config YAML containing default install_options" do
   setup do
     @yaml_text = <<-STRING_END
       geminstaller_version: 1.0
@@ -70,11 +70,11 @@ context "YAML containing default install_options" do
     gem = @config.gems[0]
     gem.name.should_equal('mygem')
     gem.version.should_equal('1.1')
-    gem.install_options.should_equal('-y')
+    gem.install_options.should_equal(["-y"])
   end
 end
 
-context "YAML containing neither default install_options nor gem-specific install options" do
+context "config YAML containing neither default install_options nor gem-specific install options" do
   setup do
     @yaml_text = <<-STRING_END
       geminstaller_version: 1.0
@@ -90,11 +90,11 @@ context "YAML containing neither default install_options nor gem-specific instal
     gem = @config.gems[0]
     gem.name.should_equal('mygem')
     gem.version.should_equal('1.1')
-    gem.install_options.should_equal('')
+    gem.install_options.should_equal([])
   end
 end
 
-context "YAML with missing geminstaller_version" do
+context "config YAML with missing geminstaller_version" do
   setup do
     @yaml_text = <<-STRING_END
       gems:
@@ -110,7 +110,7 @@ context "YAML with missing geminstaller_version" do
   end
 end
 
-context "YAML with invalid geminstaller_version" do
+context "config YAML with invalid geminstaller_version" do
   setup do
     @invalid_geminstaller_version = '2.0'
     @yaml_text = <<-STRING_END
