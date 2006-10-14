@@ -5,8 +5,12 @@ module GemInstaller
     def config=(config)
       @config = config
     end
+    def gem_command_proxy=(gem_command_proxy)
+      @gem_command_proxy = gem_command_proxy
+    end
     def run
-      config = @config
+      gem_command_proxy = @gem_command_proxy
+      gems = @config.gems
       config
     end
   end

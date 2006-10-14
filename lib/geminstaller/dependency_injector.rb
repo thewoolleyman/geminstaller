@@ -28,10 +28,12 @@ module GemInstaller
         b.file_reader { GemInstaller::FileReader.new(config_file_path) }
         b.yaml_loader { GemInstaller::YamlLoader.new(b.file_reader.read) }
         b.config { GemInstaller::Config.new(b.yaml_loader.load) }
+        b.gem_command_proxy { GemInstaller::GemCommandProxy.new() }
 
         b.app do
           app = GemInstaller::Application.new
           app.config = b.config
+          app.gem_command_proxy = b.gem_command_proxy
           app
         end
       end
