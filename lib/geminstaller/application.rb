@@ -11,7 +11,10 @@ module GemInstaller
     def run
       gem_command_proxy = @gem_command_proxy
       gems = @config.gems
-      config
+      gems.each do |gem|
+        @gem_command_proxy.install_gem(gem)
+      end
+      @config
     end
   end
 end
