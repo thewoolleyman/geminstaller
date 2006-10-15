@@ -2,6 +2,7 @@ dir = File.dirname(__FILE__)
 require 'needle'
 require File.expand_path("#{dir}/application")
 require File.expand_path("#{dir}/config")
+require File.expand_path("#{dir}/gem_command_proxy")
 require File.expand_path("#{dir}/file_reader")
 require File.expand_path("#{dir}/yaml_loader")
 

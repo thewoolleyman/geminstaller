@@ -9,8 +9,9 @@ require 'rubygems/installer'
 module GemInstaller
   class GemCommandProxy
     def is_gem_installed(gem)
-      gems = Gem::cache.refresh!
-      gems = Gem::cache.search(/.*#{gem.name}$/)
+      gem_cache = Gem::cache
+      gems = gem_cache.refresh!
+      gems = gem_cache.search(/.*#{gem.name}$/)
       # TODO: add version to install check
       gems.each do |gem|
         return true if gem.name == gem.name
@@ -30,7 +31,8 @@ module GemInstaller
     def run_gem_command(gem_command,gem)
       run_args = [gem_command,gem.name,"--version", "#{gem.version}"]
       run_args += gem.install_options
-      Gem::GemRunner.new.run(run_args)
+      gem_runner = Gem::GemRunner.new
+      gem_runner.run(run_args)
     end
   end
 end

@@ -11,6 +11,6 @@ context "Placeholder for real functional tests" do
     test_config_file_path = File.expand_path("#{dir}/test_geminstaller_config.yml")
     dependency_injector.config_file_path = test_config_file_path
     application = dependency_injector.create_application
-    application.run
+    # application.run
   end
 end
