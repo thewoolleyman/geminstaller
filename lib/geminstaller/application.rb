@@ -12,7 +12,10 @@ module GemInstaller
       gem_command_proxy = @gem_command_proxy
       gems = @config.gems
       gems.each do |gem|
-        @gem_command_proxy.install_gem(gem)
+        gem_is_installed = @gem_command_proxy.is_gem_installed(gem)
+        unless gem_is_installed
+          @gem_command_proxy.install_gem(gem)
+        end
       end
       @config
     end

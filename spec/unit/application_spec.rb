@@ -17,7 +17,17 @@ context "an application instance" do
     @application.gem_command_proxy = @mock_gem_command_proxy
     gems = [@stub_gem]
     @mock_config.should_receive(:gems).once.and_return([gems])
+    @mock_gem_command_proxy.should_receive(:is_gem_installed).once.with(@stub_gem).and_return(false)
     @mock_gem_command_proxy.should_receive(:install_gem).once.with(@stub_gem)
+    @application.run
+  end
+
+  specify "should not install a gem which is already installed" do
+    @application.config = @mock_config
+    @application.gem_command_proxy = @mock_gem_command_proxy
+    gems = [@stub_gem]
+    @mock_config.should_receive(:gems).once.and_return([gems])
+    @mock_gem_command_proxy.should_receive(:is_gem_installed).once.with(@stub_gem).and_return(true)
     @application.run
   end
 end
