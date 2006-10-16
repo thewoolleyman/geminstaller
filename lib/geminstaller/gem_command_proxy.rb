@@ -1,13 +1,13 @@
-require 'rubygems'
-require 'rubygems/doc_manager'
-require 'rubygems/config_file'
-require 'rubygems/cmd_manager'
-require 'rubygems/gem_runner'
-require 'rubygems/remote_installer'
-require 'rubygems/installer'
-
 module GemInstaller
   class GemCommandProxy
+    def gem_cache=(gem_cache)
+      @gem_cache = gem_cache
+    end
+
+    def gem_runner=(gem_runner)
+      @gem_runner = gem_runner
+    end
+
     def is_gem_installed(gem)
       gem_cache = Gem::cache
       gems = gem_cache.refresh!

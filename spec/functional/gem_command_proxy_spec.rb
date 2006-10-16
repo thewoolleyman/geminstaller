@@ -1,13 +1,14 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../spec_helper")
 require File.expand_path("#{dir}/../../lib/geminstaller/gem_command_proxy")
+require File.expand_path("#{dir}/../../lib/geminstaller/dependency_injector")
 require File.expand_path("#{dir}/../../lib/geminstaller/ruby_gem")
 
 # NOTE: this test is dependent upon RubyGems being installed, and write permissions (or sudo) to gem install dir
 context "a GemCommandProxy instance" do
   setup do
     @sample_gem = GemInstaller::RubyGem.new("ruby-doom","0.8",["--source", "http://gems.rubyforge.org"])
-    @gem_command_proxy = GemInstaller::GemCommandProxy.new
+    @gem_command_proxy = GemInstaller::DependencyInjector.new.registry.gem_command_proxy
 
     # setup to make sure gem is not installed before test
     if (@gem_command_proxy.is_gem_installed(@sample_gem)) then
