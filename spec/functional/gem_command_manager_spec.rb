@@ -1,6 +1,6 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../spec_helper")
-require File.expand_path("#{dir}/../../lib/geminstaller/gem_command_proxy")
+require File.expand_path("#{dir}/../../lib/geminstaller/gem_command_manager")
 require File.expand_path("#{dir}/../../lib/geminstaller/dependency_injector")
 require File.expand_path("#{dir}/../../lib/geminstaller/ruby_gem")
 
@@ -9,26 +9,26 @@ require File.expand_path("#{dir}/../../lib/geminstaller/ruby_gem")
 # * write permissions (or sudo) to gem install dir
 # * rubyforge.org being up and accessible
 # If rubyforge.org is down or inaccessible, you can point the --source option to a local server running gem_server
-context "a GemCommandProxy instance" do
+context "a GemCommandManager instance" do
   setup do
     @sample_gem = GemInstaller::RubyGem.new("ruby-doom","0.8",["--source", "http://gems.rubyforge.org"])
-    @gem_command_proxy = GemInstaller::DependencyInjector.new.registry.gem_command_proxy
+    @gem_command_manager = GemInstaller::DependencyInjector.new.registry.gem_command_manager
 
     # setup to make sure gem is not installed before test
-    if (@gem_command_proxy.is_gem_installed(@sample_gem)) then
-      @gem_command_proxy.uninstall_gem(@sample_gem)
+    if (@gem_command_manager.is_gem_installed(@sample_gem)) then
+      @gem_command_manager.uninstall_gem(@sample_gem)
     end
-    @gem_command_proxy.is_gem_installed(@sample_gem).should_equal(false)
+    @gem_command_manager.is_gem_installed(@sample_gem).should_equal(false)
   end
 
   specify "should be able to install and delete a gem" do
-    @gem_command_proxy.install_gem(@sample_gem)
+    @gem_command_manager.install_gem(@sample_gem)
 
-    @gem_command_proxy.is_gem_installed(@sample_gem).should_equal(true)
+    @gem_command_manager.is_gem_installed(@sample_gem).should_equal(true)
 
     # uninstall it again after we are done
-    @gem_command_proxy.uninstall_gem(@sample_gem)
-    @gem_command_proxy.is_gem_installed(@sample_gem).should_equal(false)
+    @gem_command_manager.uninstall_gem(@sample_gem)
+    @gem_command_manager.is_gem_installed(@sample_gem).should_equal(false)
   end
   
 end

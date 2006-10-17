@@ -12,7 +12,7 @@ require 'rubygems/installer'
 require 'needle'
 require File.expand_path("#{dir}/application")
 require File.expand_path("#{dir}/config")
-require File.expand_path("#{dir}/gem_command_proxy")
+require File.expand_path("#{dir}/gem_command_manager")
 require File.expand_path("#{dir}/gem_source_index_proxy")
 require File.expand_path("#{dir}/gem_runner_proxy")
 require File.expand_path("#{dir}/file_reader")
@@ -64,18 +64,18 @@ module GemInstaller
           gem_runner_proxy
         end
 
-        b.gem_command_proxy do
-          gem_command_proxy = GemInstaller::GemCommandProxy.new
-          gem_command_proxy.gem_source_index_proxy = b.gem_source_index_proxy
-          gem_command_proxy.gem_runner_proxy = b.gem_runner_proxy
-          gem_command_proxy
+        b.gem_command_manager do
+          gem_command_manager = GemInstaller::GemCommandManager.new
+          gem_command_manager.gem_source_index_proxy = b.gem_source_index_proxy
+          gem_command_manager.gem_runner_proxy = b.gem_runner_proxy
+          gem_command_manager
         end
 
         b.app do
 
           app = GemInstaller::Application.new
           app.config = b.config
-          app.gem_command_proxy = b.gem_command_proxy
+          app.gem_command_manager = b.gem_command_manager
           app
         end
       end

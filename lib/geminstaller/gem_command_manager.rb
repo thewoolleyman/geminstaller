@@ -1,5 +1,5 @@
 module GemInstaller
-  class GemCommandProxy
+  class GemCommandManager
     def gem_source_index_proxy=(gem_source_index_proxy)
       @gem_source_index_proxy = gem_source_index_proxy
     end
