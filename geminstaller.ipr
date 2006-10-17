@@ -9,6 +9,8 @@
   <component name="CodeStyleProjectProfileManger">
     <option name="PROJECT_PROFILE" />
     <option name="USE_PROJECT_LEVEL_SETTINGS" value="false" />
+    <scopes />
+    <profiles />
   </component>
   <component name="CodeStyleSettingsManager">
     <option name="PER_PROJECT_SETTINGS" />
@@ -67,7 +69,7 @@
     <option name="USE_PROJECT_LEVEL_SETTINGS" value="false" />
     <scopes />
     <profiles>
-      <profile version="1.0" is_locked="false">
+      <profile version="1.0">
         <option name="myName" value="Project Default" />
         <option name="myLocal" value="false" />
         <used_levels>
