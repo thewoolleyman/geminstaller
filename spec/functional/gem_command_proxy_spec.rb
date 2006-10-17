@@ -4,7 +4,11 @@ require File.expand_path("#{dir}/../../lib/geminstaller/gem_command_proxy")
 require File.expand_path("#{dir}/../../lib/geminstaller/dependency_injector")
 require File.expand_path("#{dir}/../../lib/geminstaller/ruby_gem")
 
-# NOTE: this test is dependent upon RubyGems being installed, and write permissions (or sudo) to gem install dir
+# NOTE: this test is dependent upon
+# * RubyGems being installed
+# * write permissions (or sudo) to gem install dir
+# * rubyforge.org being up and accessible
+# If rubyforge.org is down or inaccessible, you can point the --source option to a local server running gem_server
 context "a GemCommandProxy instance" do
   setup do
     @sample_gem = GemInstaller::RubyGem.new("ruby-doom","0.8",["--source", "http://gems.rubyforge.org"])
