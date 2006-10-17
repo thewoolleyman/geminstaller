@@ -13,6 +13,8 @@ require 'needle'
 require File.expand_path("#{dir}/application")
 require File.expand_path("#{dir}/config")
 require File.expand_path("#{dir}/gem_command_proxy")
+require File.expand_path("#{dir}/gem_source_index_proxy")
+require File.expand_path("#{dir}/gem_runner_proxy")
 require File.expand_path("#{dir}/file_reader")
 require File.expand_path("#{dir}/yaml_loader")
 
@@ -48,13 +50,24 @@ module GemInstaller
         b.config { GemInstaller::Config.new(b.yaml_loader.load) }
 
         # rubygems classes
-        b.gem_cache { Gem::Cache.new }
+        b.gem_source_index { Gem::SourceIndex.new }
+        b.gem_source_index_proxy do
+          gem_source_index_proxy = GemInstaller::GemSourceIndexProxy.new
+          gem_source_index_proxy.gem_source_index = b.gem_source_index
+          gem_source_index_proxy
+        end
+
         b.gem_runner { Gem::GemRunner.new }
+        b.gem_runner_proxy do
+          gem_runner_proxy = GemInstaller::GemRunnerProxy.new
+          gem_runner_proxy.gem_runner = b.gem_runner
+          gem_runner_proxy
+        end
 
         b.gem_command_proxy do
-          gem_command_proxy = GemInstaller::GemCommandProxy.new()
-          gem_command_proxy.gem_cache = b.gem_cache
-          gem_command_proxy.gem_runner = b.gem_runner
+          gem_command_proxy = GemInstaller::GemCommandProxy.new
+          gem_command_proxy.gem_source_index_proxy = b.gem_source_index_proxy
+          gem_command_proxy.gem_runner_proxy = b.gem_runner_proxy
           gem_command_proxy
         end
 

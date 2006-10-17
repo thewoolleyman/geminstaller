@@ -1,17 +1,16 @@
 module GemInstaller
   class GemCommandProxy
-    def gem_cache=(gem_cache)
-      @gem_cache = gem_cache
+    def gem_source_index_proxy=(gem_source_index_proxy)
+      @gem_source_index_proxy = gem_source_index_proxy
     end
 
-    def gem_runner=(gem_runner)
-      @gem_runner = gem_runner
+    def gem_runner_proxy=(gem_runner_proxy)
+      @gem_runner_proxy = gem_runner_proxy
     end
 
     def is_gem_installed(gem)
-      gem_cache = Gem::cache
-      gems = gem_cache.refresh!
-      gems = gem_cache.search(/.*#{gem.name}$/)
+      @gem_source_index_proxy.refresh!
+      gems = @gem_source_index_proxy.search(/.*#{gem.name}$/)
       # TODO: add version to install check
       gems.each do |gem|
         return true if gem.name == gem.name
@@ -31,8 +30,7 @@ module GemInstaller
     def run_gem_command(gem_command,gem)
       run_args = [gem_command,gem.name,"--version", "#{gem.version}"]
       run_args += gem.install_options
-      gem_runner = Gem::GemRunner.new
-      gem_runner.run(run_args)
+      @gem_runner_proxy.run(run_args)
     end
   end
 end
