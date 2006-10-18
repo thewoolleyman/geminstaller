@@ -29,7 +29,7 @@ module GemInstaller
         if !install_options_string.empty? then
           install_options_array = install_options_string.split(" ")
         end
-        gem = GemInstaller::RubyGem.new(name, version, install_options_array)
+        gem = GemInstaller::RubyGem.new(name, :version => version, :install_options => install_options_array)
         gems << gem
       end
       return gems

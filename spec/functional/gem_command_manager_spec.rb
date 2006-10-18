@@ -11,7 +11,11 @@ require File.expand_path("#{dir}/../../lib/geminstaller/ruby_gem")
 # If rubyforge.org is down or inaccessible, you can point the --source option to a local server running gem_server
 context "a GemCommandManager instance" do
   setup do
-    @sample_gem = GemInstaller::RubyGem.new("ruby-doom","0.8",["--source", "http://gems.rubyforge.org"])
+    sample_gem_name = "ruby-doom"
+    source_param = ["--source", "http://gems.rubyforge.org"]
+    @sample_gem = GemInstaller::RubyGem.new(sample_gem_name, :version => "0.8", :install_options => source_param)
+    @nonexistent_version_sample_gem = GemInstaller::RubyGem.new(sample_gem_name, :version => "0.0.37", :install_options => source_param)
+    @unspecified_version_sample_gem = GemInstaller::RubyGem.new(sample_gem_name,:install_options => source_param)
     @gem_command_manager = GemInstaller::DependencyInjector.new.registry.gem_command_manager
 
     # setup to make sure gem is not installed before test
@@ -21,14 +25,24 @@ context "a GemCommandManager instance" do
     @gem_command_manager.is_gem_installed(@sample_gem).should_equal(false)
   end
 
-  specify "should be able to install and delete a gem" do
+  specify "should be able to install, uninstall, and check for existence of specific versions of a gem" do
     @gem_command_manager.install_gem(@sample_gem)
 
     @gem_command_manager.is_gem_installed(@sample_gem).should_equal(true)
+    @gem_command_manager.is_gem_installed(@nonexistent_version_sample_gem).should_equal(false)
 
     # uninstall it again after we are done
     @gem_command_manager.uninstall_gem(@sample_gem)
     @gem_command_manager.is_gem_installed(@sample_gem).should_equal(false)
   end
   
+  specify "should be able to install, uninstall, and check for existence of unspecified version of a gem" do
+    @gem_command_manager.install_gem(@unspecified_version_sample_gem)
+
+    @gem_command_manager.is_gem_installed(@unspecified_version_sample_gem).should_equal(true)
+
+    # uninstall it again after we are done
+    @gem_command_manager.uninstall_gem(@unspecified_version_sample_gem)
+    @gem_command_manager.is_gem_installed(@unspecified_version_sample_gem).should_equal(false)
+  end
 end

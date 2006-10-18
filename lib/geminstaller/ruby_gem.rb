@@ -2,22 +2,15 @@ require 'yaml'
 
 module GemInstaller
   class RubyGem
-    def initialize(name, version, install_options = [])
+    attr_accessor :name
+    attr_accessor :version
+    attr_accessor :install_options
+
+
+    def initialize(name, opts={})
       @name = name
-      @version = version
-      @install_options = install_options
-    end
-
-    def name
-      @name
-    end
-
-    def version
-      @version ||= default_version
-    end
-
-    def install_options
-      @install_options
+      @version = opts[:version] ||= default_version
+      @install_options = opts[:install_options] ||= []
     end
 
     def default_version

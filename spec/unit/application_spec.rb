@@ -7,7 +7,7 @@ context "an application instance" do
   setup do
     @mock_config = mock("Mock Config")
     @mock_gem_command_manager = mock("Mock GemCommandManager")
-    @stub_gem = GemInstaller::RubyGem.new("gemname","1.0")
+    @stub_gem = GemInstaller::RubyGem.new("gemname", :version => "1.0")
 
     @application = GemInstaller::Application.new
   end

@@ -8,8 +8,9 @@ module GemInstaller
       @gem_source_index.refresh!
     end
 
-    # TODO: How can I avoid copying the default version_requirement value from the Gem source?
-    def search(gem_pattern, version_requirement=Gem::Version::Requirement.new(">= 0"))
+    # NOTE: We will require an exact version requirement, rather than the standard default Gem version_requirement of ">= 0"
+    #       GemInstaller has it's own default defined elsewhere
+    def search(gem_pattern, version_requirement)
       @gem_source_index.search(gem_pattern, version_requirement)
     end
   end
