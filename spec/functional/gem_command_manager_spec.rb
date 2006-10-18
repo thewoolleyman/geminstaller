@@ -12,8 +12,12 @@ require File.expand_path("#{dir}/../../lib/geminstaller/ruby_gem")
 context "a GemCommandManager instance" do
   setup do
     sample_gem_name = "ruby-doom"
+#    sample_gem_name = "mocha"
     source_param = ["--source", "http://gems.rubyforge.org"]
-    @sample_gem = GemInstaller::RubyGem.new(sample_gem_name, :version => "0.8", :install_options => source_param)
+#    source_param = ["--source", "http://someserver:8808"]
+    version = "0.8"
+#    version = "0.1.2"
+    @sample_gem = GemInstaller::RubyGem.new(sample_gem_name, :version => version, :install_options => source_param)
     @nonexistent_version_sample_gem = GemInstaller::RubyGem.new(sample_gem_name, :version => "0.0.37", :install_options => source_param)
     @unspecified_version_sample_gem = GemInstaller::RubyGem.new(sample_gem_name,:install_options => source_param)
     @gem_command_manager = GemInstaller::DependencyInjector.new.registry.gem_command_manager
