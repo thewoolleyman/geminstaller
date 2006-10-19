@@ -18,10 +18,12 @@ module GemInstaller
     end
 
     def uninstall_gem(gem)
+      return if !is_gem_installed(gem)
       run_gem_command('uninstall',gem)
     end
 
     def install_gem(gem)
+      return if is_gem_installed(gem)
       run_gem_command('install',gem)
     end
 
