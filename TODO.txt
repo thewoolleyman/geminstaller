@@ -1,5 +1,9 @@
-* implement geminstaller-config-version - to allow warnings about potential config format incompatibilities with future geminstaller versions.
-* create basic website
+* rewrite functional tests to use mocks
+* nice error if config file doesn't exist
+* don't install gem if already installed
+* write basic rdoc instructions
+* test and write docs about how to hook into rails
 * Test rest of rakefile tasks - docs, rcov, site publish
 * publish site
 * upload gem 
+* create basic website
