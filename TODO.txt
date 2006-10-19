@@ -1,3 +1,4 @@
+* stop test unit from attempting to run when suite is run
 * rewrite functional tests to use mocks
 * nice error if config file doesn't exist
 * don't install gem if already installed
