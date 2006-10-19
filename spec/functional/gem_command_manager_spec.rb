@@ -11,6 +11,9 @@ require File.expand_path("#{dir}/../../lib/geminstaller/ruby_gem")
 # If rubyforge.org is down or inaccessible, you can point the --source option to a local server running gem_server
 context "a GemCommandManager instance" do
   setup do
+    # provide an easy flag to skip this test, since it will fail if rubyforge is down or there is no network connectivity
+    @skip_test = false
+    p "WARNING: test is disabled..." if @skip_test
     sample_gem_name = "ruby-doom"
 #    sample_gem_name = "mocha"
     source_param = ["--source", "http://gems.rubyforge.org"]
@@ -30,6 +33,7 @@ context "a GemCommandManager instance" do
   end
 
   specify "should be able to install, uninstall, and check for existence of specific versions of a gem" do
+    return if @skip_test
     @gem_command_manager.install_gem(@sample_gem)
 
     @gem_command_manager.is_gem_installed(@sample_gem).should_equal(true)
@@ -41,6 +45,7 @@ context "a GemCommandManager instance" do
   end
   
   specify "should be able to install, uninstall, and check for existence of unspecified version of a gem" do
+    return if @skip_test
     @gem_command_manager.install_gem(@unspecified_version_sample_gem)
 
     @gem_command_manager.is_gem_installed(@unspecified_version_sample_gem).should_equal(true)
