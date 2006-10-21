@@ -1,7 +1,5 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../spec_helper")
-require File.expand_path("#{dir}/../../lib/geminstaller/dependency_injector")
-require File.expand_path("#{dir}/../../lib/geminstaller/config_builder")
 
 context "Dependency Injector" do
   setup do

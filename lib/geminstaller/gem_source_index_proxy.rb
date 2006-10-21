@@ -1,8 +1,6 @@
 module GemInstaller
   class GemSourceIndexProxy
-    def gem_source_index=(gem_source_index)
-      @gem_source_index = gem_source_index
-    end
+    attr_writer :gem_source_index
 
     def refresh!
       @gem_source_index.refresh!

@@ -1,12 +1,7 @@
 module GemInstaller
   class GemCommandManager
-    def gem_source_index_proxy=(gem_source_index_proxy)
-      @gem_source_index_proxy = gem_source_index_proxy
-    end
-
-    def gem_runner_proxy=(gem_runner_proxy)
-      @gem_runner_proxy = gem_runner_proxy
-    end
+    attr_writer :gem_source_index_proxy
+    attr_writer :gem_runner_proxy
 
     def is_gem_installed(gem)
       @gem_source_index_proxy.refresh!

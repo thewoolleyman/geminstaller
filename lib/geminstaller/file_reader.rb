@@ -1,5 +1,3 @@
-require 'yaml'
-
 module GemInstaller
   class FileReader
     def read(file_path)

@@ -1,5 +1,3 @@
-require 'yaml'
-
 module GemInstaller
   class YamlLoader
     def load(yaml_text)

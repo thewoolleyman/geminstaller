@@ -1,6 +1,5 @@
-require 'yaml'
 dir = File.dirname(__FILE__)
-require File.expand_path("#{dir}/config")
+require File.expand_path("#{dir}/requires.rb")
 
 module GemInstaller
   class ConfigBuilder

@@ -1,5 +1,3 @@
-* make one file with all the requires in it
-* use attr_reader instead of manual accessors where possible
 * nice error if config file doesn't exist
 * write basic rdoc instructions
 * test and write docs about how to hook into rails

@@ -1,7 +1,5 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../spec_helper")
-require File.expand_path("#{dir}/../../lib/geminstaller/application")
-require File.expand_path("#{dir}/../../lib/geminstaller/ruby_gem")
 
 context "an application instance" do
   setup do

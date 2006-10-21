@@ -1,6 +1,5 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../spec_helper")
-require File.expand_path("#{dir}/../../lib/geminstaller/config_builder")
 
 context "A config builder with mock dependencies" do
   setup do

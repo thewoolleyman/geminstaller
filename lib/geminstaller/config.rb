@@ -1,7 +1,3 @@
-dir = File.dirname(__FILE__)
-require 'yaml'
-require File.expand_path("#{dir}/ruby_gem")
-
 module GemInstaller
   class Config
     SUPPORTED_GEMINSTALLER_VERSION = 1.0

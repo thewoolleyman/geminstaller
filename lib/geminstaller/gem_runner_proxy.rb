@@ -1,8 +1,6 @@
 module GemInstaller
   class GemRunnerProxy
-    def gem_runner=(gem_runner)
-      @gem_runner = gem_runner
-    end
+    attr_writer :gem_runner
 
     def run(args)
       @gem_runner.run(args)

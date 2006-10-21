@@ -1,5 +1,3 @@
-require 'yaml'
-
 module GemInstaller
   class Application
     attr_writer :config_builder, :gem_command_manager

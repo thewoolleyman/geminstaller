@@ -1,34 +1,7 @@
-dir = File.dirname(__FILE__)
-
-# requires for rubygems
-require 'rubygems'
-require 'rubygems/doc_manager'
-require 'rubygems/config_file'
-require 'rubygems/cmd_manager'
-require 'rubygems/gem_runner'
-require 'rubygems/remote_installer'
-require 'rubygems/installer'
-
-require 'needle'
-require File.expand_path("#{dir}/application")
-require File.expand_path("#{dir}/config")
-require File.expand_path("#{dir}/gem_command_manager")
-require File.expand_path("#{dir}/gem_source_index_proxy")
-require File.expand_path("#{dir}/gem_runner_proxy")
-require File.expand_path("#{dir}/file_reader")
-require File.expand_path("#{dir}/yaml_loader")
-require File.expand_path("#{dir}/config_builder")
-
-
 module GemInstaller
   class DependencyInjector
-    def config_file_path=(config_file_path)
-      @config_file_path = config_file_path
-    end
-
-    def self.config_file_path
-      @config_file_path
-    end
+    attr_writer :config_file_path
+    attr_writer :config_file_path
 
     def registry
       @registry ||= create_registry

@@ -1,5 +1,3 @@
-require 'yaml'
-
 module GemInstaller
   class RubyGem
     attr_accessor :name

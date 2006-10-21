@@ -1,8 +1,5 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../spec_helper")
-require File.expand_path("#{dir}/../../lib/geminstaller/gem_command_manager")
-require File.expand_path("#{dir}/../../lib/geminstaller/dependency_injector")
-require File.expand_path("#{dir}/../../lib/geminstaller/ruby_gem")
 
 # NOTE: this test is dependent upon
 # * RubyGems being installed

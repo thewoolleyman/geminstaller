@@ -1,4 +1,4 @@
-require 'geminstaller/dependency_injector'
+require 'geminstaller/requires'
 
 module GemInstaller
 
