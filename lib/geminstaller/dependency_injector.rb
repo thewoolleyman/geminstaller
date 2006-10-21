@@ -17,6 +17,7 @@ require File.expand_path("#{dir}/gem_source_index_proxy")
 require File.expand_path("#{dir}/gem_runner_proxy")
 require File.expand_path("#{dir}/file_reader")
 require File.expand_path("#{dir}/yaml_loader")
+require File.expand_path("#{dir}/config_builder")
 
 
 module GemInstaller
@@ -45,9 +46,16 @@ module GemInstaller
       # define the service registry
       @registry = Needle::Registry.define! do |b|
         # register all services with the builder b
-        b.file_reader { GemInstaller::FileReader.new(config_file_path) }
-        b.yaml_loader { GemInstaller::YamlLoader.new(b.file_reader.read) }
-        b.config { GemInstaller::Config.new(b.yaml_loader.load) }
+        b.file_reader { GemInstaller::FileReader.new }
+        b.yaml_loader { GemInstaller::YamlLoader.new }
+        
+        b.config_builder do
+          config_builder = GemInstaller::ConfigBuilder.new
+          config_builder.config_file_path = config_file_path
+          config_builder.file_reader = b.file_reader
+          config_builder.yaml_loader = b.yaml_loader
+          config_builder
+        end
 
         # rubygems classes
         b.gem_source_index { Gem::SourceIndex.new }
@@ -74,7 +82,7 @@ module GemInstaller
         b.app do
 
           app = GemInstaller::Application.new
-          app.config = b.config
+          app.config_builder = b.config_builder
           app.gem_command_manager = b.gem_command_manager
           app
         end

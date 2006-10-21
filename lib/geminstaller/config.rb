@@ -7,7 +7,6 @@ module GemInstaller
     SUPPORTED_GEMINSTALLER_VERSION = 1.0
     def initialize(yaml)
       @yaml = yaml
-      check_geminstaller_version
     end
 
     def gems
@@ -41,17 +40,6 @@ module GemInstaller
       defaults = @yaml["defaults"]
       return if defaults.nil?
       @default_install_options_string = defaults['install_options']
-    end
-
-    def check_geminstaller_version
-      geminstaller_version = @yaml['geminstaller_version']
-      if geminstaller_version.nil? || geminstaller_version.to_s.empty? then
-        raise RuntimeError, "You must specify a valid geminstaller_version at the beginning of the config file.  For example, 'geminstaller_version: #{SUPPORTED_GEMINSTALLER_VERSION}.  This is to ensure compatibility of config files with future releases."
-      end
-
-      if geminstaller_version > SUPPORTED_GEMINSTALLER_VERSION then
-        raise RuntimeError, "#{geminstaller_version} is not a valid geminstaller_version.  You must specify a valid geminstaller_version at the beginning of the config file.  For example, 'geminstaller_version: #{SUPPORTED_GEMINSTALLER_VERSION}.  This is to ensure compatibility of config files with future releases."
-      end
     end
   end
 end

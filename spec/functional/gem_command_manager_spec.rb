@@ -12,7 +12,7 @@ require File.expand_path("#{dir}/../../lib/geminstaller/ruby_gem")
 context "a GemCommandManager instance" do
   setup do
     # provide an easy flag to skip this test, since it will fail if rubyforge is down or there is no network connectivity
-    @skip_test = false
+    @skip_test = true
     p "WARNING: test is disabled..." if @skip_test
     sample_gem_name = "ruby-doom"
 #    sample_gem_name = "mocha"

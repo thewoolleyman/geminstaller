@@ -1,4 +1,3 @@
-geminstaller_version: 1.0
 defaults:
   install_options: -y
 gems:
