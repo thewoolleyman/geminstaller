@@ -10,12 +10,12 @@ context "a GemCommandManager instance" do
     # provide an easy flag to skip this test, since it will fail if rubyforge is down or there is no network connectivity
     @skip_test = false
     p "WARNING: test is disabled..." if @skip_test
-#    sample_gem_name = "ruby-doom"
-    sample_gem_name = "flexmock"
+#    sample_gem_name = "flexmock"
+    sample_gem_name = "ruby-doom"
 #    source_param = ["--source", "http://gems.rubyforge.org"]
     source_param = ["--source", "http://127.0.0.1:8808"]
-#    version = "0.8"
-    version = "0.4.0"
+    version = "0.8"
+#    version = "0.4.0"
     @sample_gem = GemInstaller::RubyGem.new(sample_gem_name, :version => version, :install_options => source_param)
     @nonexistent_version_sample_gem = GemInstaller::RubyGem.new(sample_gem_name, :version => "0.0.37", :install_options => source_param)
     @unspecified_version_sample_gem = GemInstaller::RubyGem.new(sample_gem_name,:install_options => source_param)
