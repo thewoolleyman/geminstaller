@@ -1,6 +1,8 @@
-* decide how to deal with sudo problem.  probably initially just tell people to add user and gem command to sudoers file with no password
+* add command-line parsing support
+* add api support (simple to invoke from ruby)
 * take alternate file location as parameter
 * take --trace parameter to show full stack trace
+* decide how to deal with sudo problem.  probably initially just tell people to add user and gem command to sudoers file with no password
 * write basic rdoc instructions
 * test and write docs about how to hook into rails
 * Test rest of rakefile tasks - docs, rcov, site publish
