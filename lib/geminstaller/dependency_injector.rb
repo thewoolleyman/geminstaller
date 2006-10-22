@@ -1,7 +1,6 @@
 module GemInstaller
   class DependencyInjector
     attr_writer :config_file_path
-    attr_writer :config_file_path
 
     def registry
       @registry ||= create_registry
@@ -21,7 +20,8 @@ module GemInstaller
         # register all services with the builder b
         b.file_reader { GemInstaller::FileReader.new }
         b.yaml_loader { GemInstaller::YamlLoader.new }
-        
+        b.output_proxy { GemInstaller::OutputProxy.new }
+
         b.config_builder do
           config_builder = GemInstaller::ConfigBuilder.new
           config_builder.config_file_path = config_file_path
@@ -53,10 +53,10 @@ module GemInstaller
         end
 
         b.app do
-
           app = GemInstaller::Application.new
           app.config_builder = b.config_builder
           app.gem_command_manager = b.gem_command_manager
+          app.output_proxy = b.output_proxy
           app
         end
       end
