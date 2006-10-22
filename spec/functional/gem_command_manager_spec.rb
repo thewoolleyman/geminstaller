@@ -1,22 +1,21 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../spec_helper")
 
+# TOOD: make the local gem server startup automatic, or at least a cleaner warning
 # NOTE: this test is dependent upon
 # * RubyGems being installed
 # * write permissions (or sudo) to gem install dir
-# * rubyforge.org being up and accessible
-# If rubyforge.org is down or inaccessible, you can point the --source option to a local server running gem_server
 context "a GemCommandManager instance" do
   setup do
     # provide an easy flag to skip this test, since it will fail if rubyforge is down or there is no network connectivity
-    @skip_test = true
+    @skip_test = false
     p "WARNING: test is disabled..." if @skip_test
-    sample_gem_name = "ruby-doom"
-#    sample_gem_name = "mocha"
-    source_param = ["--source", "http://gems.rubyforge.org"]
-#    source_param = ["--source", "http://someserver:8808"]
-    version = "0.8"
-#    version = "0.1.2"
+#    sample_gem_name = "ruby-doom"
+    sample_gem_name = "flexmock"
+#    source_param = ["--source", "http://gems.rubyforge.org"]
+    source_param = ["--source", "http://127.0.0.1:8808"]
+#    version = "0.8"
+    version = "0.4.0"
     @sample_gem = GemInstaller::RubyGem.new(sample_gem_name, :version => version, :install_options => source_param)
     @nonexistent_version_sample_gem = GemInstaller::RubyGem.new(sample_gem_name, :version => "0.0.37", :install_options => source_param)
     @unspecified_version_sample_gem = GemInstaller::RubyGem.new(sample_gem_name,:install_options => source_param)
@@ -27,6 +26,8 @@ context "a GemCommandManager instance" do
       @gem_command_manager.uninstall_gem(@sample_gem)
     end
     @gem_command_manager.is_gem_installed(@sample_gem).should_equal(false)
+    
+    p "Warning: If this test fails, you need to make a copy of your .../ruby/gems/1.8 directory to another dir, and run 'gem_server --dir=<otherdir>'.  Or, set @skip_test in this test."
   end
 
   specify "should be able to install, uninstall, and check for existence of specific versions of a gem" do

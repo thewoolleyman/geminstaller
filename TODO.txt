@@ -5,3 +5,4 @@
 * publish site
 * upload gem 
 * create basic website
+* fix functional test - automate local gem server startup
