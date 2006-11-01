@@ -12,9 +12,11 @@ require 'rubygems/installer'
 # third party libs
 require 'needle'
 require 'yaml'
+require 'optparse'
 
 # internal files
 require File.expand_path("#{dir}/application")
+require File.expand_path("#{dir}/arg_parser")
 require File.expand_path("#{dir}/config")
 require File.expand_path("#{dir}/dependency_injector")
 require File.expand_path("#{dir}/gem_command_manager")
