@@ -12,7 +12,7 @@ module GemInstaller
         opts.separator "Specific options:"
 
         opts.on_tail("-h", "--help", "Show this message") do
-          @output = opts
+          @output = opts.to_s
         end
 
         # TODO: automatically read current version
@@ -24,10 +24,7 @@ module GemInstaller
       begin
         opts.parse!(args)
       rescue(OptionParser::InvalidOption)
-        @output << opts.banner
-        opts.summarize.each do |line| 
-          @output << "#{line}\n"
-        end
+        @output << opts.to_s
         return @options
       end
       

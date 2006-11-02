@@ -1,27 +1,37 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../spec_helper")
 
-context "an ArgParser instance with bad args but no trace flag" do
+context "an ArgParser instance with bad args" do
   setup do
-    @arg_parser = GemInstaller::ArgParser.new
+    common_setup
     @args = ["--badarg"]
   end
 
   specify "should provide usage in output but no stacktrace" do
-    opts = @arg_parser.parse(@args)
-    output = @arg_parser.output
-    output.should_match(/Usage: .*/)
+    verify_usage_output
   end
 
 end
 
-context "an ArgParser instance with bad args and trace flag" do
+context "an ArgParser instance with help flag" do
   setup do
-    @args = [] 
-  end
-  specify "should show an error but no stacktrace" do
+    common_setup
+    @args = ["-h"] 
   end
 
+  specify "should provide usage in output" do
+    verify_usage_output
+  end
+end
+
+def common_setup
+  @arg_parser = GemInstaller::ArgParser.new
+end
+
+def verify_usage_output
+  opts = @arg_parser.parse(@args)
+  output = @arg_parser.output
+  output.should_match(/Usage: geminstaller.*/)
 end
 
 
