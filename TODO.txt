@@ -10,3 +10,4 @@
 * upload gem 
 * create basic website
 * fix functional test - automate local gem server startup
+* add feature to automatically warn if there is a more recent version of the gem available.
