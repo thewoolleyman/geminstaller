@@ -24,6 +24,18 @@ context "an ArgParser instance with help flag" do
   end
 end
 
+context "an ArgParser instance with config option" do
+  setup do
+    common_setup
+    @args = ["--config=c:\geminstaller.yml"] 
+  end
+
+  specify "should provide usage in output" do
+    opts = @arg_parser.parse(@args)
+    config_path = opts[:config_path]
+  end
+end
+
 def common_setup
   @arg_parser = GemInstaller::ArgParser.new
 end

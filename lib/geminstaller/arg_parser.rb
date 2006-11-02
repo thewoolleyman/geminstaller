@@ -1,15 +1,18 @@
 module GemInstaller
   class ArgParser
     attr_reader :output
-    @options = {}
     
     def parse(args)
+      @options = {}
       @output = ""
       opts = OptionParser.new do |opts|
         opts.banner = "Usage: geminstaller [options]"
 
         opts.separator ""
-        opts.separator "Specific options:"
+
+        opts.on("-cCONFIGPATH", "--config=CONFIGPATH", String, "Path to GemInstaller config file") do |config_path|
+          @options[:config_path] = config_path
+        end
 
         opts.on_tail("-h", "--help", "Show this message") do
           @output = opts.to_s
