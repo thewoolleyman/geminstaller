@@ -30,7 +30,7 @@ context "an ArgParser instance with config option" do
     @args = ["--config=c:\geminstaller.yml"] 
   end
 
-  specify "should provide usage in output" do
+  specify "should correctly parse config path from options" do
     opts = @arg_parser.parse(@args)
     config_path = opts[:config_path]
   end
