@@ -30,7 +30,9 @@ module GemInstaller
         @output << opts.to_s
         return @options
       end
-      
+
+      # nil out @output if there was no output
+      @output = nil if @output == ""
       return @options
       
     end

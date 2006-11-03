@@ -21,6 +21,7 @@ module GemInstaller
         b.file_reader { GemInstaller::FileReader.new }
         b.yaml_loader { GemInstaller::YamlLoader.new }
         b.output_proxy { GemInstaller::OutputProxy.new }
+        b.arg_parser { GemInstaller::ArgParser.new }
 
         b.config_builder do
           config_builder = GemInstaller::ConfigBuilder.new
@@ -57,6 +58,7 @@ module GemInstaller
           app.config_builder = b.config_builder
           app.gem_command_manager = b.gem_command_manager
           app.output_proxy = b.output_proxy
+          app.arg_parser = b.arg_parser
           app
         end
       end
