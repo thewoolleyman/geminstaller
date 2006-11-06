@@ -1,4 +1,5 @@
-require 'geminstaller/requires'
+dir = File.dirname(__FILE__)
+require File.expand_path("#{dir}/geminstaller/requires.rb")
 
 module GemInstaller
 

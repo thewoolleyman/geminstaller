@@ -1,3 +1,6 @@
+* fix error on install - uninitialized constant Gem::Validator
+* show message if gem is already installed
+* -v option should show full stacktrace on errors
 * add command-line parsing support
 * add api support (simple to invoke from ruby)
 * take alternate file location as parameter
