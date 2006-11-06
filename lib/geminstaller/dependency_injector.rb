@@ -59,6 +59,7 @@ module GemInstaller
           app.gem_command_manager = b.gem_command_manager
           app.output_proxy = b.output_proxy
           app.arg_parser = b.arg_parser
+          app.args = ARGV
           app
         end
       end

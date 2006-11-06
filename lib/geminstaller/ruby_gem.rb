@@ -7,7 +7,11 @@ module GemInstaller
 
     def initialize(name, opts={})
       @name = name
-      @version = opts[:version] ||= default_version
+      #TODO: the following logic could probably be more concise, but I'm not sure right now
+      @version = default_version
+      if opts[:version] != "" && opts[:version] != nil 
+        @version = opts[:version] 
+      end
       @install_options = opts[:install_options] ||= []
     end
 

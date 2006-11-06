@@ -27,12 +27,27 @@ end
 context "an ArgParser instance with config option" do
   setup do
     common_setup
-    @args = ["--config=c:\geminstaller.yml"] 
+    @config_path = "c:\geminstaller.yml"
+    @args = ["--config=#{@config_path}"]
   end
 
   specify "should correctly parse config path from options" do
     opts = @arg_parser.parse(@args)
     config_path = opts[:config_path]
+    config_path.should_equal(@config_path)
+  end
+end
+
+context "an ArgParser instance with verbose option" do
+  setup do
+    common_setup
+    @args = ["--verbose"]
+  end
+
+  specify "should return verbose flag as true in options hash" do
+    opts = @arg_parser.parse(@args)
+    verbose = opts[:verbose]
+    verbose.should_equal(true)
   end
 end
 

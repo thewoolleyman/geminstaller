@@ -29,12 +29,30 @@ context "an application instance invoked with no args" do
 
   specify "should print any exception message to stderr then exit gracefully" do
     setup_mock_output_proxy
-    @mock_output_proxy.should_receive(:syserr).with("RuntimeError")
+    @mock_output_proxy.should_receive(:syserr).once().with("RuntimeError")
+    @mock_output_proxy.should_receive(:syserr).once().with("\n")
     @mock_config_builder.should_receive(:build_config).and_raise(RuntimeError)
     return_code = @application.run
     return_code.should_equal(1)
   end
+end
 
+context "an application instance invoked with no args and verbose option" do
+  setup do
+    setup_common
+    @mock_arg_parser.should_receive(:parse).and_return([:verbose => true])
+    @mock_arg_parser.should_receive(:output).and_return(nil)
+  end
+
+  specify "should print any exception message AND stacktrace if verbose options is specified" do
+    setup_mock_output_proxy
+    @mock_output_proxy.should_receive(:syserr).once().with("RuntimeError")
+    @mock_output_proxy.should_receive(:syserr).once().with("\n")
+    @mock_output_proxy.should_receive(:syserr).once() # TODO: how to specify Error/stacktrace exception?
+    @mock_config_builder.should_receive(:build_config).and_raise(RuntimeError)
+    return_code = @application.run
+    return_code.should_equal(1)
+  end
 end
 
 context "an application instance invoked with invalid args or help option" do
@@ -46,12 +64,32 @@ context "an application instance invoked with invalid args or help option" do
     setup_mock_output_proxy
     arg_parser_output = "arg parser output"
     @mock_output_proxy.should_receive(:syserr).with(arg_parser_output)
-    @mock_arg_parser.should_receive(:parse).and_return([])
+    @mock_output_proxy.should_receive(:syserr).once().with("\n")
+    @mock_arg_parser.should_receive(:parse).and_return({})
     @mock_arg_parser.should_receive(:output).and_return(arg_parser_output)
     return_code = @application.run
     return_code.should_equal(1)
   end
+end
 
+context "an application instance invoked with alternate config file location" do
+  setup do
+    setup_common
+  end
+
+  specify "should use the alternate config file location" do
+    config_path = 'config_path'
+    @mock_arg_parser.should_receive(:parse).and_return({:config_path => config_path})
+    @mock_arg_parser.should_receive(:output)
+    @mock_config_builder.should_receive(:config_file_path=).with(config_path).and_return {@stub_config_local}
+    @mock_config_builder.should_receive(:build_config).and_return {@stub_config_local}
+    @application.gem_command_manager = @mock_gem_command_manager
+    gems = [@stub_gem]
+    @stub_config.should_receive(:gems).and_return([gems])
+    @mock_gem_command_manager.should_receive(:is_gem_installed).once.with(@stub_gem).and_return(false)
+    @mock_gem_command_manager.should_receive(:install_gem).once.with(@stub_gem)
+    @application.run
+  end
 end
 
 def setup_common

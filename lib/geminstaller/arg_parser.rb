@@ -4,6 +4,7 @@ module GemInstaller
     
     def parse(args)
       @options = {}
+      @options[:verbose] = false
       @output = ""
       opts = OptionParser.new do |opts|
         opts.banner = "Usage: geminstaller [options]"
@@ -12,6 +13,10 @@ module GemInstaller
 
         opts.on("-cCONFIGPATH", "--config=CONFIGPATH", String, "Path to GemInstaller config file") do |config_path|
           @options[:config_path] = config_path
+        end
+
+        opts.on("-v", "--verbose", "Show verbose output") do
+          @options[:verbose] = true
         end
 
         opts.on_tail("-h", "--help", "Show this message") do
