@@ -1,5 +1,6 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../lib/geminstaller/requires.rb")
+require File.expand_path("#{dir}/spec_utils.rb")
 require 'spec'
 
 args = ARGV.dup

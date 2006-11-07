@@ -6,17 +6,14 @@ require File.expand_path("#{dir}/../spec_helper")
 # * RubyGems being installed
 # * write permissions (or sudo) to gem install dir
 context "a GemCommandManager instance" do
+  include GemInstaller::SpecUtils
   setup do
-    # provide an easy flag to skip this test, since it will fail if rubyforge is down or there is no network connectivity
-    @skip_test = false
+    # provide an easy flag to skip this test, since it will fail if there is no local gem server available
+    @skip_test = skip_gem_server_functional_tests?
     p "WARNING: test is disabled..." if @skip_test
-#    sample_gem_name = "flexmock"
-    sample_gem_name = "ruby-doom"
-#    source_param = ["--source", "http://gems.rubyforge.org"]
-    source_param = ["--source", "http://127.0.0.1:8808"]
-    version = "0.8"
-#    version = "0.4.0"
-    @sample_gem = GemInstaller::RubyGem.new(sample_gem_name, :version => version, :install_options => source_param)
+    #    source_param = ["--source", "http://gems.rubyforge.org"]
+    source_param = ["--source", local_gem_server_url]
+    @sample_gem = GemInstaller::RubyGem.new(sample_gem_name, :version => sample_gem_version, :install_options => source_param)
     @nonexistent_version_sample_gem = GemInstaller::RubyGem.new(sample_gem_name, :version => "0.0.37", :install_options => source_param)
     @unspecified_version_sample_gem = GemInstaller::RubyGem.new(sample_gem_name,:install_options => source_param)
     @gem_command_manager = GemInstaller::DependencyInjector.new.registry.gem_command_manager
@@ -27,7 +24,7 @@ context "a GemCommandManager instance" do
     end
     @gem_command_manager.is_gem_installed(@sample_gem).should_equal(false)
     
-    p "Warning: If this test fails, you need to make a copy of your .../ruby/gems/1.8 directory to another dir, and run 'gem_server --dir=<otherdir>'.  Or, set @skip_test in this test."
+    p local_gem_server_required_warning
   end
 
   specify "should be able to install, uninstall, and check for existence of specific versions of a gem" do

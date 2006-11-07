@@ -25,8 +25,8 @@ module GemInstaller
         end
       rescue Exception => e
         message = e.message
+        message += "\n"
         @output_proxy.syserr(message)
-        @output_proxy.syserr("\n")
         @output_proxy.syserr(e) if @verbose
         return 1
       end

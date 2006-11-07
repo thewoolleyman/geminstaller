@@ -16,8 +16,12 @@ module GemInstaller
   class Runner
     # Run the +geminstaller+ application.
     def run
-      application = GemInstaller::DependencyInjector.new.registry.app
+      application = create_registry.app
       application.run
+    end
+    
+    def create_registry
+      GemInstaller::DependencyInjector.new.registry
     end
   end
 end

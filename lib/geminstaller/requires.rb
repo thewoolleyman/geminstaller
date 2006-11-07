@@ -15,6 +15,7 @@ require 'yaml'
 require 'optparse'
 
 # internal files
+require File.expand_path("#{dir}/../geminstaller")
 require File.expand_path("#{dir}/application")
 require File.expand_path("#{dir}/arg_parser")
 require File.expand_path("#{dir}/config")
