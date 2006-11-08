@@ -22,7 +22,7 @@ context "a GemCommandManager instance" do
     if (@gem_command_manager.is_gem_installed(@sample_gem)) then
       @gem_command_manager.uninstall_gem(@sample_gem)
     end
-    @gem_command_manager.is_gem_installed(@sample_gem).should_equal(false)
+    @gem_command_manager.is_gem_installed(@sample_gem).should==(false)
     
     p local_gem_server_required_warning
   end
@@ -31,22 +31,22 @@ context "a GemCommandManager instance" do
     return if @skip_test
     @gem_command_manager.install_gem(@sample_gem)
 
-    @gem_command_manager.is_gem_installed(@sample_gem).should_equal(true)
-    @gem_command_manager.is_gem_installed(@nonexistent_version_sample_gem).should_equal(false)
+    @gem_command_manager.is_gem_installed(@sample_gem).should==(true)
+    @gem_command_manager.is_gem_installed(@nonexistent_version_sample_gem).should==(false)
 
     # uninstall it again after we are done
     @gem_command_manager.uninstall_gem(@sample_gem)
-    @gem_command_manager.is_gem_installed(@sample_gem).should_equal(false)
+    @gem_command_manager.is_gem_installed(@sample_gem).should==(false)
   end
   
   specify "should be able to install, uninstall, and check for existence of unspecified version of a gem" do
     return if @skip_test
     @gem_command_manager.install_gem(@unspecified_version_sample_gem)
 
-    @gem_command_manager.is_gem_installed(@unspecified_version_sample_gem).should_equal(true)
+    @gem_command_manager.is_gem_installed(@unspecified_version_sample_gem).should==(true)
 
     # uninstall it again after we are done
     @gem_command_manager.uninstall_gem(@unspecified_version_sample_gem)
-    @gem_command_manager.is_gem_installed(@unspecified_version_sample_gem).should_equal(false)
+    @gem_command_manager.is_gem_installed(@unspecified_version_sample_gem).should==(false)
   end
 end

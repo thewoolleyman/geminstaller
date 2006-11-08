@@ -1,6 +1,20 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../spec_helper")
 
+context "an ArgParser instance with no args" do
+  setup do
+    common_setup
+    @args = []
+  end
+
+  specify "should return only verbose with default of false" do
+    opts = @arg_parser.parse(@args)
+    verbose = opts[:verbose]
+    verbose.should==(false)
+  end
+
+end
+
 context "an ArgParser instance with bad args" do
   setup do
     common_setup
@@ -34,7 +48,7 @@ context "an ArgParser instance with config option" do
   specify "should correctly parse config path from options" do
     opts = @arg_parser.parse(@args)
     config_path = opts[:config_path]
-    config_path.should_equal(@config_path)
+    config_path.should==(@config_path)
   end
 end
 
@@ -47,7 +61,7 @@ context "an ArgParser instance with verbose option" do
   specify "should return verbose flag as true in options hash" do
     opts = @arg_parser.parse(@args)
     verbose = opts[:verbose]
-    verbose.should_equal(true)
+    verbose.should==(true)
   end
 end
 

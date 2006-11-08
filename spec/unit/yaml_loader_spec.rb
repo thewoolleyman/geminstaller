@@ -6,6 +6,6 @@ context "YamlLoader instance" do
     yaml_text = 'key: value'
     yaml_loader = GemInstaller::YamlLoader.new
     yaml = yaml_loader.load(yaml_text)
-    'value'.should_equal(yaml['key'])
+    'value'.should==(yaml['key'])
   end
 end

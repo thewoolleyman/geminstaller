@@ -1,4 +1,5 @@
 * fix error on install - uninitialized constant Gem::Validator
+* Use custom exception for application output messages
 * show message if gem is already installed
 * -v option should show full stacktrace on errors
 * add command-line parsing support

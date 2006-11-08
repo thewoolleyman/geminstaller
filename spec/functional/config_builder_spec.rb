@@ -11,6 +11,6 @@ context "a config builder" do
     dependency_injector.config_file_path = test_config_file_path
     config_builder = dependency_injector.registry.config_builder
     config = config_builder.build_config
-    config.gems[0].name.should_equal("testgem1")
+    config.gems[0].name.should==("testgem1")
   end
 end

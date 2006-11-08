@@ -22,7 +22,7 @@ context "The geminstaller command line application" do
   specify "should print usage if given --help arg" do
     args = ["--help"]
     @application.args = args
-    @mock_output_proxy.should_receive(:syserr).with(/<Usage.*/)
+    @mock_output_proxy.should_receive(:syserr).with(/Usage.*/)
     @application.run
   end
 end

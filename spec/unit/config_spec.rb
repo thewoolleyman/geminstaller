@@ -16,9 +16,9 @@ context "config YAML containing a single gem" do
 
   specify "should be parsed into a corresponding gem object" do
     gem = @config.gems[0]
-    gem.name.should_equal('mygem')
-    gem.version.should_equal('1.1')
-    gem.install_options.should_equal(["-y"])
+    gem.name.should==('mygem')
+    gem.version.should==('1.1')
+    gem.install_options.should==(["-y"])
   end
 end
 
@@ -40,14 +40,14 @@ context "config YAML containing two gems with the same name but different versio
 
   specify "should be parsed into a corresponding gem objects" do
     gem = @config.gems[0]
-    gem.name.should_equal('mygem')
-    gem.version.should_equal('1.1')
-    gem.install_options.should_equal(["-y"])
+    gem.name.should==('mygem')
+    gem.version.should==('1.1')
+    gem.install_options.should==(["-y"])
 
     gem = @config.gems[1]
-    gem.name.should_equal('mygem')
-    gem.version.should_equal('1.2')
-    gem.install_options.should_equal(["-y"])
+    gem.name.should==('mygem')
+    gem.version.should==('1.2')
+    gem.install_options.should==(["-y"])
   end
 end
 
@@ -66,9 +66,9 @@ context "config YAML containing default install_options" do
 
   specify "should propogate default install_options into gem object" do
     gem = @config.gems[0]
-    gem.name.should_equal('mygem')
-    gem.version.should_equal('1.1')
-    gem.install_options.should_equal(["-y"])
+    gem.name.should==('mygem')
+    gem.version.should==('1.1')
+    gem.install_options.should==(["-y"])
   end
 end
 
@@ -86,9 +86,9 @@ context "config YAML containing neither default install_options nor gem-specific
 
   specify "should have no install_options set on gem object" do
     gem = @config.gems[0]
-    gem.name.should_equal('mygem')
-    gem.version.should_equal('1.1')
-    gem.install_options.should_equal([])
+    gem.name.should==('mygem')
+    gem.version.should==('1.1')
+    gem.install_options.should==([])
   end
 end
 

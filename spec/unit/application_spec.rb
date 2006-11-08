@@ -4,7 +4,7 @@ require File.expand_path("#{dir}/../spec_helper")
 context "an application instance invoked with no args" do
   setup do
     setup_common
-    @mock_arg_parser.should_receive(:parse).and_return([])
+    @mock_arg_parser.should_receive(:parse).and_return {{}}
     @mock_arg_parser.should_receive(:output).and_return(nil)
   end
 
@@ -12,7 +12,7 @@ context "an application instance invoked with no args" do
     @mock_config_builder.should_receive(:build_config).and_return {@stub_config_local}
     @application.gem_command_manager = @mock_gem_command_manager
     gems = [@stub_gem]
-    @stub_config.should_receive(:gems).and_return([gems])
+    @stub_config.should_receive(:gems).and_return(gems)
     @mock_gem_command_manager.should_receive(:is_gem_installed).once.with(@stub_gem).and_return(false)
     @mock_gem_command_manager.should_receive(:install_gem).once.with(@stub_gem)
     @application.run
@@ -22,7 +22,7 @@ context "an application instance invoked with no args" do
     @mock_config_builder.should_receive(:build_config).and_return {@stub_config_local}
     @application.gem_command_manager = @mock_gem_command_manager
     gems = [@stub_gem]
-    @stub_config.should_receive(:gems).and_return([gems])
+    @stub_config.should_receive(:gems).and_return(gems)
     @mock_gem_command_manager.should_receive(:is_gem_installed).once.with(@stub_gem).and_return(true)
     @application.run
   end
@@ -32,14 +32,14 @@ context "an application instance invoked with no args" do
     @mock_output_proxy.should_receive(:syserr).once().with("RuntimeError\n")
     @mock_config_builder.should_receive(:build_config).and_raise(RuntimeError)
     return_code = @application.run
-    return_code.should_equal(1)
+    return_code.should==(1)
   end
 end
 
 context "an application instance invoked with no args and verbose option" do
   setup do
     setup_common
-    @mock_arg_parser.should_receive(:parse).and_return([:verbose => true])
+    @mock_arg_parser.should_receive(:parse).and_return {{:verbose => true}}
     @mock_arg_parser.should_receive(:output).and_return(nil)
   end
 
@@ -49,7 +49,7 @@ context "an application instance invoked with no args and verbose option" do
     @mock_output_proxy.should_receive(:syserr).once() # TODO: how to specify Error/stacktrace exception?
     @mock_config_builder.should_receive(:build_config).and_raise(RuntimeError)
     return_code = @application.run
-    return_code.should_equal(1)
+    return_code.should==(1)
   end
 end
 
@@ -65,7 +65,7 @@ context "an application instance invoked with invalid args or help option" do
     @mock_arg_parser.should_receive(:parse).and_return({})
     @mock_arg_parser.should_receive(:output).and_return(arg_parser_output)
     return_code = @application.run
-    return_code.should_equal(1)
+    return_code.should==(1)
   end
 end
 
@@ -82,7 +82,7 @@ context "an application instance invoked with alternate config file location" do
     @mock_config_builder.should_receive(:build_config).and_return {@stub_config_local}
     @application.gem_command_manager = @mock_gem_command_manager
     gems = [@stub_gem]
-    @stub_config.should_receive(:gems).and_return([gems])
+    @stub_config.should_receive(:gems).and_return(gems)
     @mock_gem_command_manager.should_receive(:is_gem_installed).once.with(@stub_gem).and_return(false)
     @mock_gem_command_manager.should_receive(:install_gem).once.with(@stub_gem)
     @application.run

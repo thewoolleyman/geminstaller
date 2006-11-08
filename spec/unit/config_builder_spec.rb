@@ -22,6 +22,6 @@ context "A config builder with mock dependencies" do
     @mock_yaml_loader.should_receive(:load).with(@stub_file_contents).and_return(@yaml_text)
 
     config = @config_builder.build_config
-    config.gems[0].name.should_equal(@mygem)
+    config.gems[0].name.should==(@mygem)
   end
 end

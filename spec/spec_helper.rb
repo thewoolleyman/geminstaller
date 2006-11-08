@@ -9,6 +9,7 @@ unless args.include?("-f") || args.include?("--format")
   args << "specdoc"
 end
 args << "--diff"
+args << "unified"
 args << $0
 $context_runner  = ::Spec::Runner::OptionParser.create_context_runner(args, false, STDERR, STDOUT)
 
