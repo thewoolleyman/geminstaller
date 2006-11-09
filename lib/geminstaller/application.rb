@@ -8,7 +8,7 @@ module GemInstaller
         opts = arg_parser.parse(@args)
         arg_parser_output = arg_parser.output
         if (arg_parser_output && arg_parser_output != '')
-          raise RuntimeError.new(arg_parser_output)
+          raise GemInstaller::GemInstallerError.new(arg_parser_output)
         end
         if (opts)
           config_file_path = opts[:config_path]

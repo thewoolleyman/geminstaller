@@ -29,8 +29,8 @@ context "an application instance invoked with no args" do
 
   specify "should print any exception message to stderr then exit gracefully" do
     setup_mock_output_proxy
-    @mock_output_proxy.should_receive(:syserr).once().with("RuntimeError\n")
-    @mock_config_builder.should_receive(:build_config).and_raise(RuntimeError)
+    @mock_output_proxy.should_receive(:syserr).once().with("GemInstaller::GemInstallerError\n")
+    @mock_config_builder.should_receive(:build_config).and_raise(GemInstaller::GemInstallerError)
     return_code = @application.run
     return_code.should==(1)
   end
@@ -45,9 +45,9 @@ context "an application instance invoked with no args and verbose option" do
 
   specify "should print any exception message AND stacktrace if verbose options is specified" do
     setup_mock_output_proxy
-    @mock_output_proxy.should_receive(:syserr).once().with("RuntimeError\n")
+    @mock_output_proxy.should_receive(:syserr).once().with("GemInstaller::GemInstallerError\n")
     @mock_output_proxy.should_receive(:syserr).once() # TODO: how to specify Error/stacktrace exception?
-    @mock_config_builder.should_receive(:build_config).and_raise(RuntimeError)
+    @mock_config_builder.should_receive(:build_config).and_raise(GemInstaller::GemInstallerError)
     return_code = @application.run
     return_code.should==(1)
   end
