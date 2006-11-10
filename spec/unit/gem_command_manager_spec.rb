@@ -29,9 +29,26 @@ context "a GemCommandManager instance injected with mock dependencies" do
     @gem_command_manager.install_gem(@sample_gem)
   end
   
-  specify "should not install a gem which is already installed" do
+  specify "should raise error if attempting to install a gem which is already installed" do
     @mock_gem_source_index_proxy.should_receive(:refresh!).once
-    @mock_gem_source_index_proxy.should_receive(:search).once.with(/#{@sample_gem.name}$/,@sample_gem.version).and_return([@sample_gem])
-    @gem_command_manager.install_gem(@sample_gem)
+    error_message = "error message"
+    already_installed_error = GemInstaller::GemInstallerError.new(error_message)
+    @mock_gem_source_index_proxy.should_receive(:search).once.with(/#{@sample_gem.name}$/,@sample_gem.version).and_raise(already_installed_error)
+    begin
+      @gem_command_manager.install_gem(@sample_gem)
+    rescue GemInstaller::GemInstallerError => e
+      e.message.should_equal(error_message)
+    end
+  end
+
+  specify "should raise error if attempting to install a gem which is already installed (CURRENT RSPEC and_raise API)" do
+    @mock_gem_source_index_proxy.should_receive(:refresh!).once
+    error_message = "error message"
+    @mock_gem_source_index_proxy.should_receive(:search).once.with(/#{@sample_gem.name}$/,@sample_gem.version).and_raise(GemInstaller::GemInstallerError)
+    begin
+      @gem_command_manager.install_gem(@sample_gem)
+    rescue GemInstaller::GemInstallerError => e
+      e.class.should_equal(GemInstaller::GemInstallerError)
+    end
   end
 end
