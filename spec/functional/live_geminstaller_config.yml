@@ -1,0 +1,7 @@
+defaults:
+  install_options: -y
+gems:
+  # TODO: should pull name and version of file from spec_utils
+  - name: ruby-doom
+    version: 0.8
+    install_options: -y -t --source=http://localhost:8808/
