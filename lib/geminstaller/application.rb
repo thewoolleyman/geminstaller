@@ -5,16 +5,7 @@ module GemInstaller
 
     def run
       begin
-        opts = arg_parser.parse(@args)
-        arg_parser_output = arg_parser.output
-        if (arg_parser_output && arg_parser_output != '')
-          raise GemInstaller::GemInstallerError.new(arg_parser_output)
-        end
-        if (opts)
-          config_file_path = opts[:config_path]
-          @config_builder.config_file_path = config_file_path if config_file_path
-          @verbose = opts[:verbose]
-        end
+        handle_args
         config = @config_builder.build_config
         gems = config.gems
         gems.each do |gem|
@@ -31,6 +22,19 @@ module GemInstaller
         return 1
       end
       return 0
+    end
+    
+    def handle_args
+      opts = @arg_parser.parse(@args)
+      arg_parser_output = arg_parser.output
+      if (arg_parser_output && arg_parser_output != '')
+        raise GemInstaller::GemInstallerError.new(arg_parser_output)
+      end
+      if (opts)
+        config_file_path = opts[:config_path]
+        @config_builder.config_file_path = config_file_path if config_file_path
+        @verbose = opts[:verbose]
+      end
     end
   end
 end
