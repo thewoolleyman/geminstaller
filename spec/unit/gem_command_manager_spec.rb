@@ -7,6 +7,8 @@ context "a GemCommandManager instance injected with mock dependencies" do
     source_param = ["--source", "http://gemhost"]
     version = "1.0"
     @sample_gem = GemInstaller::RubyGem.new(sample_gem_name, :version => version, :install_options => source_param)
+    @sample_gem_specification = Gem::Specification.new
+    @sample_gem_specification.name = sample_gem_name
 
     @mock_gem_runner_proxy = mock("Mock GemRunnerProxy")
     @mock_gem_source_index_proxy = mock("Mock GemSourceIndexProxy")
@@ -29,26 +31,11 @@ context "a GemCommandManager instance injected with mock dependencies" do
     @gem_command_manager.install_gem(@sample_gem)
   end
   
-  specify "should raise error if attempting to install a gem which is already installed" do
+  specify "should not attempt to install a gem which is already installed" do
     @mock_gem_source_index_proxy.should_receive(:refresh!).once
     error_message = "error message"
-    already_installed_error = GemInstaller::GemInstallerError.new(error_message)
-    @mock_gem_source_index_proxy.should_receive(:search).once.with(/#{@sample_gem.name}$/,@sample_gem.version).and_raise(already_installed_error)
-    begin
-      @gem_command_manager.install_gem(@sample_gem)
-    rescue GemInstaller::GemInstallerError => e
-      e.message.should_equal(error_message)
-    end
+    @mock_gem_source_index_proxy.should_receive(:search).once.with(/#{@sample_gem.name}$/,@sample_gem.version).and_return([@sample_gem_specification])
+    @gem_command_manager.install_gem(@sample_gem)
   end
 
-  specify "should raise error if attempting to install a gem which is already installed (CURRENT RSPEC and_raise API)" do
-    @mock_gem_source_index_proxy.should_receive(:refresh!).once
-    error_message = "error message"
-    @mock_gem_source_index_proxy.should_receive(:search).once.with(/#{@sample_gem.name}$/,@sample_gem.version).and_raise(GemInstaller::GemInstallerError)
-    begin
-      @gem_command_manager.install_gem(@sample_gem)
-    rescue GemInstaller::GemInstallerError => e
-      e.class.should_equal(GemInstaller::GemInstallerError)
-    end
-  end
 end
