@@ -11,6 +11,10 @@ module GemInstaller
 
         opts.separator ""
 
+        opts.on("-i", "--info", "Show informational output, such as whether a gem is already installed.") do
+          @options[:info] = true
+        end
+
         opts.on("-cCONFIGPATH", "--config=CONFIGPATH", String, "Path to GemInstaller config file") do |config_path|
           @options[:config_path] = config_path
         end

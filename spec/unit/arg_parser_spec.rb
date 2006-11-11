@@ -60,8 +60,19 @@ context "an ArgParser instance with verbose option" do
 
   specify "should return verbose flag as true in options hash" do
     opts = @arg_parser.parse(@args)
-    verbose = opts[:verbose]
-    verbose.should==(true)
+    verbose = opts[:verbose].should==(true)
+  end
+end
+
+context "an ArgParser instance with info option" do
+  setup do
+    common_setup
+    @args = ["--info"]
+  end
+
+  specify "should return info flag as true in options hash" do
+    opts = @arg_parser.parse(@args)
+    opts[:info].should==(true)
   end
 end
 
