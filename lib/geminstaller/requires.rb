@@ -8,6 +8,7 @@ require 'rubygems/cmd_manager'
 require 'rubygems/gem_runner'
 require 'rubygems/remote_installer'
 require 'rubygems/installer'
+require 'rubygems/validator'
 
 # third party libs
 require 'needle'

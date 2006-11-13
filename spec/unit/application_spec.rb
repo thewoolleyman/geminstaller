@@ -36,6 +36,24 @@ context "an application instance invoked with no args" do
   end
 end
 
+context "an application instance invoked with no args and info option" do
+  setup do
+    setup_common
+    @mock_arg_parser.should_receive(:parse).and_return {{:info => true}}
+    @mock_arg_parser.should_receive(:output).and_return(nil)
+  end
+
+  specify "should show info message for a gem which is already installed if info flag is specified" do
+    @mock_config_builder.should_receive(:build_config).and_return {@stub_config_local}
+    @application.gem_command_manager = @mock_gem_command_manager
+    gems = [@stub_gem]
+    @stub_config.should_receive(:gems).and_return(gems)
+    @mock_gem_command_manager.should_receive(:is_gem_installed).once.with(@stub_gem).and_return(true)
+    @mock_output_proxy.should_receive(:sysout).once().with(/Gem .*, version .*/)
+    @application.run
+  end
+end
+
 context "an application instance invoked with no args and verbose option" do
   setup do
     setup_common

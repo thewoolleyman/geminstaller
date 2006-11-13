@@ -5,6 +5,7 @@ module GemInstaller
     def parse(args)
       @options = {}
       @options[:verbose] = false
+      @options[:info] = false
       @output = ""
       opts = OptionParser.new do |opts|
         opts.banner = "Usage: geminstaller [options]"

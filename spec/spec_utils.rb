@@ -20,5 +20,11 @@ module GemInstaller::SpecUtils
     false
   end
   
+  def source_param
+    ["--source", local_gem_server_url]
+  end
   
+  def sample_gem(install_options=source_param)
+    GemInstaller::RubyGem.new(sample_gem_name, :version => sample_gem_version, :install_options => install_options)
+  end
 end

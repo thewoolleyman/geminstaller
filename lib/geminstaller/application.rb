@@ -8,8 +8,13 @@ module GemInstaller
         handle_args
         config = @config_builder.build_config
         gems = config.gems
+        p 1
+        p gems.inspect
         gems.each do |gem|
           gem_is_installed = @gem_command_manager.is_gem_installed(gem)
+          if gem_is_installed && @info
+            @output_proxy.sysout("Gem #{gem.name}, version #{gem.version} is already installed.\n")
+          end
           unless gem_is_installed
             @gem_command_manager.install_gem(gem)
           end
@@ -34,6 +39,7 @@ module GemInstaller
         config_file_path = opts[:config_path]
         @config_builder.config_file_path = config_file_path if config_file_path
         @verbose = opts[:verbose]
+        @info = opts[:info]
       end
     end
   end

@@ -17,12 +17,24 @@ context "The geminstaller command line application" do
     @registry = GemInstaller::Runner.new.create_registry
     @application = @registry.app
     @application.output_proxy = @mock_output_proxy
+    
+    @gem_command_manager = @registry.gem_command_manager
+    @sample_gem = sample_gem
+    @gem_command_manager.uninstall_gem(@sample_gem)
   end
 
-  specify "should print usage if given --help arg" do
+  specify "should print usage if --help arg is specified" do
     args = ["--help"]
     @application.args = args
     @mock_output_proxy.should_receive(:syserr).with(/Usage.*/)
+    @application.run
+  end
+
+  specify "should print message if gem is already installed and --info arg is specified" do
+    @gem_command_manager.install_gem(@sample_gem)
+    args = ["--info","--config=#{dir}/live_geminstaller_config.yml"]
+    @application.args = args
+    @mock_output_proxy.should_receive(:sysout).with(/Gem .* is already installed/)
     @application.run
   end
 end

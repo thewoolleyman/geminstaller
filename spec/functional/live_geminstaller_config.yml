@@ -2,6 +2,7 @@ defaults:
   install_options: -y
 gems:
   # TODO: should pull name and version of file from spec_utils
+  # Until then, manually keep this in sync with spec_utils.rb
   - name: ruby-doom
     version: 0.8
-    install_options: -y -t --source=http://localhost:8808/
+    install_options: -y -t --backtrace --source=http://localhost:8808
