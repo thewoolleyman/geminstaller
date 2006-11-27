@@ -28,10 +28,9 @@ module GemInstaller
           @output = opts.to_s
         end
 
-        # TODO: automatically read current version
-        #opts.on_tail("-v", "--version", "Show version") do
-        #  @output = GemInstaller::Version.join('.')
-        #end
+        opts.on_tail("--version", "Show version") do
+          @output = GemInstaller::version
+        end
       end
 
       begin

@@ -4,7 +4,6 @@ require File.expand_path("#{dir}/../spec_helper")
 context "config YAML containing a single gem" do
   setup do
     @yaml_text = <<-STRING_END
-      geminstaller_version: 1.0
       gems:
         - name: mygem
           version: 1.1
@@ -25,7 +24,6 @@ end
 context "config YAML containing two gems with the same name but different versions" do
   setup do
     @yaml_text = <<-STRING_END
-      geminstaller_version: 1.0
       gems:
         - name: mygem
           version: 1.1
@@ -75,7 +73,6 @@ end
 context "config YAML containing neither default install_options nor gem-specific install options" do
   setup do
     @yaml_text = <<-STRING_END
-      geminstaller_version: 1.0
       gems:
         - name: mygem
           version: 1.1

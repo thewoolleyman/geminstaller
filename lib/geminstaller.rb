@@ -3,19 +3,19 @@ require File.expand_path("#{dir}/geminstaller/requires.rb")
 
 module GemInstaller
 
-  class << self
-    def runner
+  def self.runner
       @application ||= GemInstaller::Runner.new
-    end
+  end
+  
+  def self.run
+    runner.run
+  end
+  
+  def self.version
+    "0.0.1"
   end
 
-  ######################################################################
-  # GemInstaller entry point.  When invoking +geminstaller+ from the
-  # command line, a GemInstaller::Runner object is created and run.
-  #
   class Runner
-    VERSION = "0.0.1"
-    # Run the +geminstaller+ application.
     def run
       application = create_registry.app
       application.run

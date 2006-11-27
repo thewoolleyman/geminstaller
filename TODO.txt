@@ -1,9 +1,11 @@
 * Finish setting up Hoe
+* Add --version option
 * Rename GemInstaller::Runner to GemInstaller::GemInstaller
 * Define procedure to invoke programatically via rails and non-rails
 * Document simple example (command line, rails, non-rails) in README.txt
 * handle unsupported gem install options - for example, -t (test) gives uninitialized constant Gem::Validator
 * Add support for multiple config files (last ones win)
+* Run embedded gem_server for tests at nonstandard (not 8808) port
 * Fix errors when using relative or ~/ dir in --config path
 * add option to specify --backtrace on all gem commands
 * show message if gem is already installed

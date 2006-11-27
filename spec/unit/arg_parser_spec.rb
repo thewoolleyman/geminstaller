@@ -60,7 +60,20 @@ context "an ArgParser instance with verbose option" do
 
   specify "should return verbose flag as true in options hash" do
     opts = @arg_parser.parse(@args)
-    verbose = opts[:verbose].should==(true)
+    opts[:verbose].should==(true)
+  end
+end
+
+context "an ArgParser instance with version option" do
+  setup do
+    common_setup
+    @args = ["--version"]
+  end
+
+  specify "should return version" do
+    opts = @arg_parser.parse(@args)
+    output = @arg_parser.output
+    output.should==("#{GemInstaller.version}")
   end
 end
 

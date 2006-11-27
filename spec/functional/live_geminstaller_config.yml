@@ -1,4 +1,3 @@
-
 defaults:
   install_options: -y
 gems:
@@ -6,4 +5,4 @@ gems:
   # Until then, manually keep this in sync with spec_utils.rb
   - name: stubgem
     version: 1.0.0
-    install_options: -y -t --backtrace --source=http://localhost:8808
+    install_options: -y --backtrace --source=http://localhost:8808
