@@ -5,7 +5,7 @@ context "a config builder" do
   setup do
   end
 
-  specify "should successfully assemble an application object" do
+  specify "should successfully assemble a config object" do
     dependency_injector = GemInstaller::DependencyInjector.new
     test_config_file_path = File.expand_path("#{dir}/test_geminstaller_config.yml")
     dependency_injector.config_file_path = test_config_file_path
