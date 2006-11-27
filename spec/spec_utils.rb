@@ -1,15 +1,14 @@
 module GemInstaller::SpecUtils
-
-  def local_gem_server_required_warning
-    "Warning: If this test fails with an error like 'connection refused', you need to make a copy of your .../ruby/gems/1.8 directory to another dir, and run 'gem_server --dir=<otherdir>'.  Or, set skip_gem_server_functional_tests? to true in spec_utils."  
+  def self.local_gem_server_required_warning
+    "Warning: If any tests failed with an IO permissions error, you need to ensure that the current user can install a gem"  
   end
   
   def sample_gem_name
-    sample_gem_name = "ruby-doom"
+    sample_gem_name = "stubgem"
   end
 
   def sample_gem_version
-    sample_gem_version = "0.8"
+    sample_gem_version = "1.0.0"
   end
 
   def local_gem_server_url
@@ -20,11 +19,67 @@ module GemInstaller::SpecUtils
     false
   end
   
-  def source_param
+  def install_options_for_testing
     ["--source", local_gem_server_url]
   end
   
-  def sample_gem(install_options=source_param)
+  def sample_gem(install_options=install_options_for_testing)
     GemInstaller::RubyGem.new(sample_gem_name, :version => sample_gem_version, :install_options => install_options)
+  end
+  
+  class EmbeddedGemServer
+    @@gem_server_pid = nil
+    def self.start
+      return if @@gem_server_pid
+      embedded_gem_dir = File.dirname(__FILE__) + "/gems"
+      gem_server_process = IO.popen("gem_server --dir=#{embedded_gem_dir}")
+      @@gem_server_pid = gem_server_process.pid
+      print "Started embedded gem server at #{embedded_gem_dir}, pid = #{@@gem_server_pid}\n"
+      trap("INT") { Process.kill(9,@@gem_server_pid); exit! }
+      # TODO: avoid sleep by detecting when gem_server port comes up
+      sleep 3
+    end
+    
+    def self.stop
+      stopped = false
+      if @@gem_server_pid
+        print "Killing embedded gem server at pid = #{@@gem_server_pid}\n"
+        Process.kill(9,@@gem_server_pid)
+        stopped = true 
+      end
+      return stopped
+    end
+  end
+  
+  class TestGemDir
+    @@dir = File.dirname(__FILE__) + "/test_gem_dir"
+
+    def self.init_test_gem_dir
+      #TODO: This doesn't work.  Find an easy, cross-platform way to recursively delete a dir tree
+#      files = []
+#      Find.find("#{@@dir}") do |f|
+#        files << f
+#      end
+#      files.each do |f|
+#        p "Deleting #{f.inspect}" if File.file?(f) 
+#        File.delete(f) if File.file?(f) 
+#      end
+#      files = []
+#      Find.find("#{@@dir}") do |f|
+#        files << f
+#      end
+#      p files
+#      files.each do |f|
+#        next if f == @@dir
+#        p @@dir
+#        p "Deleting #{f.inspect}" if File.directory?(f) 
+#        File.delete(f) if File.directory?(f) 
+#      end
+      Dir.mkdir(@@dir) unless File.exist?(@@dir)
+    end
+    
+    def self.dir
+      @@dir
+    end
   end
 end

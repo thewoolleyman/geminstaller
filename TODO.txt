@@ -3,8 +3,6 @@
 * Define procedure to invoke programatically via rails and non-rails
 * Document simple example (command line, rails, non-rails) in README.txt
 * handle unsupported gem install options - for example, -t (test) gives uninitialized constant Gem::Validator
-* encapsulate tests by putting dummy gem dir in project, and running gem_server automatically
-* Print warning if ruby and/or RubyGems does not seem to be install (test cross-platform)
 * Add support for multiple config files (last ones win)
 * Fix errors when using relative or ~/ dir in --config path
 * add option to specify --backtrace on all gem commands
@@ -20,3 +18,4 @@
 * create basic website
 * fix functional test - automate local gem server startup
 * add feature to automatically warn if there is a more recent version of the gem available.
+* Have tests install to temp dir instead of real gem repo

@@ -14,6 +14,7 @@ require 'rubygems/validator'
 require 'needle'
 require 'yaml'
 require 'optparse'
+require 'erb'
 
 # internal files
 require File.expand_path("#{dir}/../geminstaller")

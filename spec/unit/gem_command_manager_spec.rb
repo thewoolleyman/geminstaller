@@ -4,9 +4,9 @@ require File.expand_path("#{dir}/../spec_helper")
 context "a GemCommandManager instance injected with mock dependencies" do
   setup do
     sample_gem_name = "sample-gem"
-    source_param = ["--source", "http://gemhost"]
+    install_options = ["--source", "http://gemhost"]
     version = "1.0"
-    @sample_gem = GemInstaller::RubyGem.new(sample_gem_name, :version => version, :install_options => source_param)
+    @sample_gem = GemInstaller::RubyGem.new(sample_gem_name, :version => version, :install_options => install_options)
     @sample_gem_specification = Gem::Specification.new
     @sample_gem_specification.name = sample_gem_name
 

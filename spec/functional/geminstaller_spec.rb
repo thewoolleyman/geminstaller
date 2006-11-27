@@ -11,7 +11,7 @@ context "The geminstaller command line application" do
     # provide an easy flag to skip this test, since it will fail if there is no local gem server available
     @skip_test = skip_gem_server_functional_tests?
     p "WARNING: test is disabled..." if @skip_test    
-    p local_gem_server_required_warning
+    GemInstaller::SpecUtils::EmbeddedGemServer.start
     
     @mock_output_proxy = mock("Mock Output Proxy")
     @registry = GemInstaller::Runner.new.create_registry
@@ -37,4 +37,5 @@ context "The geminstaller command line application" do
     @mock_output_proxy.should_receive(:sysout).with(/Gem .* is already installed/)
     @application.run
   end
+  
 end

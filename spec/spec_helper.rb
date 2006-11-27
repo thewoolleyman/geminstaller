@@ -1,6 +1,7 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../lib/geminstaller/requires.rb")
 require 'spec'
+require 'find' 
 require File.expand_path("#{dir}/rspec_extensions.rb")
 require File.expand_path("#{dir}/spec_utils.rb")
 
@@ -16,7 +17,10 @@ $context_runner  = ::Spec::Runner::OptionParser.create_context_runner(args, fals
 
 def run_context_runner_if_necessary(has_run)
   return if has_run
-  exit context_runner.run(true)
+  retval = context_runner.run(false)
+  server_was_stopped = GemInstaller::SpecUtils::EmbeddedGemServer.stop
+  p GemInstaller::SpecUtils.local_gem_server_required_warning if retval != 0 && server_was_stopped
+  exit retval
 end
 
 at_exit do

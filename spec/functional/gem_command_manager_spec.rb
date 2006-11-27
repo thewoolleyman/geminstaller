@@ -11,22 +11,21 @@ context "a GemCommandManager instance" do
     # provide an easy flag to skip this test, since it will fail if there is no local gem server available
     @skip_test = skip_gem_server_functional_tests?
     p "WARNING: test is disabled..." if @skip_test
-    extra_install_options = source_param
+    extra_install_options = install_options_for_testing
     extra_install_options << "-y" << "--backtrace"
-    p extra_install_options.inspect
     @sample_gem_with_extra_install_options = GemInstaller::RubyGem.new(sample_gem_name, :version => sample_gem_version, :install_options => extra_install_options)
     @sample_gem = sample_gem
-    @nonexistent_version_sample_gem = GemInstaller::RubyGem.new(sample_gem_name, :version => "0.0.37", :install_options => source_param)
-    @unspecified_version_sample_gem = GemInstaller::RubyGem.new(sample_gem_name,:install_options => source_param)
+    @nonexistent_version_sample_gem = GemInstaller::RubyGem.new(sample_gem_name, :version => "0.0.37", :install_options => install_options_for_testing)
+    @unspecified_version_sample_gem = GemInstaller::RubyGem.new(sample_gem_name,:install_options => install_options_for_testing)
     @gem_command_manager = GemInstaller::DependencyInjector.new.registry.gem_command_manager
+
+    GemInstaller::SpecUtils::EmbeddedGemServer.start
 
     # setup to make sure gem is not installed before test
     if (@gem_command_manager.is_gem_installed(@sample_gem)) then
       @gem_command_manager.uninstall_gem(@sample_gem)
     end
     @gem_command_manager.is_gem_installed(@sample_gem).should==(false)
-    
-    p local_gem_server_required_warning
   end
 
   specify "should be able to install, uninstall, and check for existence of specific versions of a gem" do

@@ -1,7 +1,8 @@
+<% gem_one_name = "testgem1" %> 
 defaults:
   install_options: -y
 gems:
-  - name: testgem1
+  - name: <%= gem_one_name %>
     version: v1.1
   - name: testgem2
     version: v1.2

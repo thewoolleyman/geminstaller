@@ -9,7 +9,8 @@ module GemInstaller
     
     def build_config
       file_contents = @file_reader.read(@config_file_path)
-      yaml = @yaml_loader.load(file_contents)
+      file_contents_erb = ERB.new(%{#{file_contents}})
+      yaml = @yaml_loader.load(file_contents_erb.result)
       config = GemInstaller::Config.new(yaml)
       config
     end
