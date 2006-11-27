@@ -12,9 +12,26 @@ Automatically installs RubyGems required by your project.
 
 == SYNOPSYS:
 
-GemInstaller is a tool to automatically install RubyGems.  To specify which Gems should automatically be installed, edit "geminstaller.yml", and run "geminstaller".
+GemInstaller is a tool to automatically install RubyGems.  To use it, edit "geminstaller.yml", and run "geminstaller" from the same directory.
 
-TODO: Add simple example
+Here's an example geminstaller.yml:
+
+defaults:
+  install_options: -y
+gems:
+  - name: some-gem
+    version: 0.1
+    install_options: -y --backtrace --source=http://gems.myreliableserver.com:8808
+  - name: another-gem
+    version: 0.2
+
+You can also embed GemInstaller in another application, such as a Rails app.  Create geminstaller.yml in the RAILS_ROOT, and invoke GemInstaller programatically on app startup in your environment.rb:
+
+RAILS_ROOT/config/environment.rb:
+...
+require "geminstaller"
+GemInstaller.run
+...
 
 == REQUIREMENTS:
 
