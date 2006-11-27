@@ -1,17 +1,20 @@
+* Finish setting up Hoe
+* Rename GemInstaller::Runner to GemInstaller::GemInstaller
+* Define procedure to invoke programatically via rails and non-rails
+* Document simple example (command line, rails, non-rails) in README.txt
 * handle unsupported gem install options - for example, -t (test) gives uninitialized constant Gem::Validator
+* encapsulate tests by putting dummy gem dir in project, and running gem_server automatically
+* Print warning if ruby and/or RubyGems does not seem to be install (test cross-platform)
+* Add support for multiple config files (last ones win)
 * Fix errors when using relative or ~/ dir in --config path
 * add option to specify --backtrace on all gem commands
 * show message if gem is already installed
 * Show warning if there is a more recent gem available (and the default?) in the repository
 * -v option should show full stacktrace on errors
-* add command-line parsing support
 * add api support (simple to invoke from ruby)
-* take alternate file location as parameter
 * take --trace parameter to show full stack trace
 * decide how to deal with sudo problem.  probably initially just tell people to add user and gem command to sudoers file with no password
 * write basic rdoc instructions
-* test and write docs about how to hook into rails
-* Test rest of rakefile tasks - docs, rcov, site publish
 * publish site
 * upload gem 
 * create basic website

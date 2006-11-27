@@ -14,6 +14,7 @@ module GemInstaller
   # command line, a GemInstaller::Runner object is created and run.
   #
   class Runner
+    VERSION = "0.0.1"
     # Run the +geminstaller+ application.
     def run
       application = create_registry.app

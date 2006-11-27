@@ -1,0 +1,7 @@
+History.txt
+Manifest.txt
+README.txt
+Rakefile
+bin/geminstaller
+lib/geminstaller.rb
+test/test_suite.rb

@@ -1,6 +1,5 @@
 module GemInstaller
   class Config
-    SUPPORTED_GEMINSTALLER_VERSION = 1.0
     def initialize(yaml)
       @yaml = yaml
     end
