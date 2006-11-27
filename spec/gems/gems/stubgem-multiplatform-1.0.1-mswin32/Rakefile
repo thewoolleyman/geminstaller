@@ -1,0 +1,16 @@
+# -*- ruby -*-
+
+require 'rubygems'
+require 'hoe'
+require './lib/stubgem_multiplatform.rb'
+
+Hoe.new('stubgem-multiplatform', StubgemMultiplatform::VERSION) do |p|
+  p.rubyforge_name = 'stubgem-multiplatform'
+  p.summary = p.paragraphs_of('README.txt', 1).first.split(/\n/)[2]
+  p.description = p.paragraphs_of('README.txt', 2..5).join("\n\n")
+  p.url = p.paragraphs_of('README.txt', 0).first.split(/\n/)[1..-1]
+  p.changes = p.paragraphs_of('History.txt', 0..1).join("\n\n")
+  p.spec_extras={"platform",Gem::Platform::WIN32}
+end
+
+# vim: syntax=Ruby
