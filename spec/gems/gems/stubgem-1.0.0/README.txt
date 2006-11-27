@@ -7,11 +7,11 @@ Stub gem for testing geminstaller
 
 == FEATURES/PROBLEMS:
   
-* This stub gem is embedded in the geminstaller project to allow testing without relying on the actual gem installion dirs. 
+* This stub gem is embedded in the geminstaller project to allow testing without manually starting a local gem server. 
 
 == SYNOPSYS:
 
-  Allows geminstaller tests to install/uninstall gems without impacting local gem repository.
+  Allows geminstaller tests to install/uninstall gems without running a local gem server or depending on real gems..
 
 == REQUIREMENTS:
 
