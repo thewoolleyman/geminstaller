@@ -1,5 +1,4 @@
-* Finish setting up Hoe
-* Add --version option
+* Give nice error message if gem server is unavailable (check socket)
 * Rename GemInstaller::Runner to GemInstaller::GemInstaller
 * Define procedure to invoke programatically via rails and non-rails
 * Document simple example (command line, rails, non-rails) in README.txt
@@ -8,7 +7,6 @@
 * Run embedded gem_server for tests at nonstandard (not 8808) port
 * Fix errors when using relative or ~/ dir in --config path
 * add option to specify --backtrace on all gem commands
-* show message if gem is already installed
 * Show warning if there is a more recent gem available (and the default?) in the repository
 * -v option should show full stacktrace on errors
 * add api support (simple to invoke from ruby)
