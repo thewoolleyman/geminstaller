@@ -1,0 +1,7 @@
+History.txt
+Manifest.txt
+README.txt
+Rakefile
+bin/stubgem
+lib/stubgem.rb
+test/test_stubgem.rb
