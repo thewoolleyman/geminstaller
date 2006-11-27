@@ -21,4 +21,4 @@
 * upload gem 
 * create basic website
 * add feature to automatically warn if there is a more recent version of the gem available.
-* Have tests install to temp dir instead of real gem repo
+* Have tests install to temp dir instead of real gem repo (use FileUtils.rm_rf, see rubygems doc_manager for example)
