@@ -11,6 +11,14 @@ module GemInstaller::SpecUtils
     sample_gem_version = "1.0.0"
   end
 
+  def sample_multiplatform_gem_name
+    sample_gem_name = "stubgem-multiplatform"
+  end
+
+  def sample_multiplatform_gem_version
+    sample_gem_version = "1.0.1"
+  end
+
   def local_gem_server_url
     "http://127.0.0.1:8808"
   end
@@ -25,6 +33,10 @@ module GemInstaller::SpecUtils
   
   def sample_gem(install_options=install_options_for_testing)
     GemInstaller::RubyGem.new(sample_gem_name, :version => sample_gem_version, :install_options => install_options)
+  end
+  
+  def sample_multiplatform_gem(install_options=install_options_for_testing)
+    GemInstaller::RubyGem.new(sample_multiplatform_gem_name, :version => sample_multiplatform_gem_version, :install_options => install_options)
   end
   
   class EmbeddedGemServer

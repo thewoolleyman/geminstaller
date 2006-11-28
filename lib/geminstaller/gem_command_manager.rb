@@ -5,7 +5,7 @@ module GemInstaller
 
     def is_gem_installed(gem)
       @gem_source_index_proxy.refresh!
-      gems = @gem_source_index_proxy.search(/#{gem.name}$/,gem.version)
+      gems = @gem_source_index_proxy.search(/^#{gem.name}$/,gem.version)
       gems.each do |gem|
         return true if gem.name == gem.name
       end

@@ -15,17 +15,20 @@ context "a GemCommandManager instance" do
     extra_install_options << "-y" << "--backtrace"
     @sample_gem_with_extra_install_options = GemInstaller::RubyGem.new(sample_gem_name, :version => sample_gem_version, :install_options => extra_install_options)
     @sample_gem = sample_gem
+    @sample_multiplatform_gem = sample_multiplatform_gem
     @nonexistent_version_sample_gem = GemInstaller::RubyGem.new(sample_gem_name, :version => "0.0.37", :install_options => install_options_for_testing)
     @unspecified_version_sample_gem = GemInstaller::RubyGem.new(sample_gem_name,:install_options => install_options_for_testing)
     @gem_command_manager = GemInstaller::DependencyInjector.new.registry.gem_command_manager
 
     GemInstaller::SpecUtils::EmbeddedGemServer.start
 
-    # setup to make sure gem is not installed before test
-    if (@gem_command_manager.is_gem_installed(@sample_gem)) then
-      @gem_command_manager.uninstall_gem(@sample_gem)
+    # setup to make sure gems are not installed before test
+    [@sample_gem, @sample_multiplatform_gem].each do |gem|
+      if (@gem_command_manager.is_gem_installed(gem)) then
+        @gem_command_manager.uninstall_gem(gem)
+      end
+      @gem_command_manager.is_gem_installed(gem).should==(false)
     end
-    @gem_command_manager.is_gem_installed(@sample_gem).should==(false)
   end
 
   specify "should be able to install, uninstall, and check for existence of specific versions of a gem" do
@@ -40,15 +43,20 @@ context "a GemCommandManager instance" do
     @gem_command_manager.is_gem_installed(@sample_gem).should==(false)
   end
   
-  specify "should be able to install, uninstall, and check for existence of unspecified version of a gem" do
+  specify "should be able to install and uninstall similarly named, ambiguous-version gems without a prompt (using exact name matching)" do
     return if @skip_test
-    @gem_command_manager.install_gem(@unspecified_version_sample_gem)
-
-    @gem_command_manager.is_gem_installed(@unspecified_version_sample_gem).should==(true)
+    @sample_gem.version = GemInstaller::RubyGem.default_version
+    @sample_multiplatform_gem.version = GemInstaller::RubyGem.default_version
+    [@sample_gem, @sample_multiplatform_gem].each do |gem|
+      @gem_command_manager.install_gem(gem)
+      @gem_command_manager.is_gem_installed(gem).should==(true)
+    end
 
     # uninstall it again after we are done
-    @gem_command_manager.uninstall_gem(@unspecified_version_sample_gem)
-    @gem_command_manager.is_gem_installed(@unspecified_version_sample_gem).should==(false)
+    [@sample_gem, @sample_multiplatform_gem].each do |gem|
+      @gem_command_manager.uninstall_gem(gem)
+      @gem_command_manager.is_gem_installed(gem).should==(false)
+    end
   end
   
 end
