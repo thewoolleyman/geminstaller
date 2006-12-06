@@ -1,3 +1,4 @@
+* clean out all old warnings about having to start local gem server
 * Look into using RubyGems built in dependency support rather than home-grown solution
 * Handle gems with "CURRENT" platform
 * Make GemInstaller.run take a parameter to not fail if there is any error
