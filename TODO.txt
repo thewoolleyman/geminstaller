@@ -1,6 +1,7 @@
 * Make SourceIndex.search use exact regex match, not wildcard.
 * Look into using RubyGems built in dependency support rather than home-grown solution
 * Handle gems with multiplatform menu, like mongrel or fjson
+* Handle gems with "CURRENT" platform
 * Make GemInstaller.run take a parameter to not fail if there is any error
 * Give nice error message if gem server is unavailable (check socket)
 * Make tests run under RadRails debugger
