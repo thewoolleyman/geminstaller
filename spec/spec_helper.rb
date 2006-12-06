@@ -13,7 +13,8 @@ end
 args << "--diff"
 args << "unified"
 args << $0
-$context_runner  = ::Spec::Runner::OptionParser.create_context_runner(args, false, STDERR, STDOUT)
+option_parser = ::Spec::Runner::OptionParser.new
+$context_runner  = option_parser.create_context_runner(args, STDERR, STDOUT, false)
 
 def run_context_runner_if_necessary(has_run)
   return if has_run
