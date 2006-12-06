@@ -3,6 +3,7 @@
 * Handle gems with multiplatform menu, like mongrel or fjson
 * Make GemInstaller.run take a parameter to not fail if there is any error
 * Give nice error message if gem server is unavailable (check socket)
+* Make tests run under RadRails debugger
 * Rename GemInstaller::Runner to GemInstaller::GemInstaller
 * Define procedure to invoke programatically via rails and non-rails
 * Document simple example (command line, rails, non-rails) in README.txt
