@@ -2,6 +2,7 @@ module GemInstaller
   class RubyGem
     attr_accessor :name
     attr_accessor :version
+    attr_accessor :platform
     attr_accessor :install_options
 
 
@@ -11,6 +12,10 @@ module GemInstaller
       @version = GemInstaller::RubyGem.default_version
       if opts[:version] != "" && opts[:version] != nil 
         @version = opts[:version] 
+      end
+      @platform = 'ruby'
+      if opts[:platform] != "" && opts[:platform] != nil 
+        @platform = opts[:platform]
       end
       @install_options = opts[:install_options] ||= []
     end

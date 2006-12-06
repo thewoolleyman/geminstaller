@@ -39,6 +39,12 @@ module GemInstaller
           gem_source_index_proxy
         end
 
+        b.gem_specifier do
+          gem_specifier = GemInstaller::GemSpecifier.new
+          gem_specifier.gem_source_index_proxy = b.gem_source_index_proxy
+          gem_specifier
+        end
+
         b.gem_runner { Gem::GemRunner.new }
         b.gem_runner_proxy do
           gem_runner_proxy = GemInstaller::GemRunnerProxy.new
@@ -57,6 +63,7 @@ module GemInstaller
           app = GemInstaller::Application.new
           app.config_builder = b.config_builder
           app.gem_command_manager = b.gem_command_manager
+          app.gem_specifier = b.gem_specifier
           app.output_proxy = b.output_proxy
           app.arg_parser = b.arg_parser
           app.args = ARGV

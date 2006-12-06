@@ -36,7 +36,7 @@ module GemInstaller::SpecUtils
   end
   
   def sample_multiplatform_gem(install_options=install_options_for_testing)
-    GemInstaller::RubyGem.new(sample_multiplatform_gem_name, :version => sample_multiplatform_gem_version, :install_options => install_options)
+    GemInstaller::RubyGem.new(sample_multiplatform_gem_name, :version => sample_multiplatform_gem_version, :platform => 'mswin32', :install_options => install_options)
   end
   
   class EmbeddedGemServer

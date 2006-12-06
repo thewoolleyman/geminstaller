@@ -16,6 +16,9 @@ require 'yaml'
 require 'optparse'
 require 'erb'
 
+# third party lib extensions
+require File.expand_path("#{dir}/rubygems_extensions")
+
 # internal files
 require File.expand_path("#{dir}/../geminstaller")
 require File.expand_path("#{dir}/application")
@@ -25,7 +28,9 @@ require File.expand_path("#{dir}/dependency_injector")
 require File.expand_path("#{dir}/gem_command_manager")
 require File.expand_path("#{dir}/gem_runner_proxy")
 require File.expand_path("#{dir}/gem_source_index_proxy")
+require File.expand_path("#{dir}/gem_specifier")
 require File.expand_path("#{dir}/geminstaller_error")
+require File.expand_path("#{dir}/noninteractive_chooser")
 require File.expand_path("#{dir}/file_reader")
 require File.expand_path("#{dir}/output_proxy")
 require File.expand_path("#{dir}/yaml_loader")

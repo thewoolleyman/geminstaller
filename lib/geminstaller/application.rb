@@ -1,7 +1,7 @@
 module GemInstaller
   class Application
     # we have accessors instead of just writers so that we can ensure it is assembled correctly in the dependency injector test
-    attr_accessor :config_builder, :gem_command_manager, :output_proxy, :arg_parser, :args
+    attr_accessor :config_builder, :gem_command_manager, :gem_specifier, :output_proxy, :arg_parser, :args
 
     def run
       begin
@@ -9,6 +9,7 @@ module GemInstaller
         config = @config_builder.build_config
         gems = config.gems
         gems.each do |gem|
+          @gem_specifier.specify!(gem)
           gem_is_installed = @gem_command_manager.is_gem_installed(gem)
           if gem_is_installed && @info
             @output_proxy.sysout("Gem #{gem.name}, version #{gem.version} is already installed.\n")
