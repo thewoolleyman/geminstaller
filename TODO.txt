@@ -1,6 +1,4 @@
-* Make SourceIndex.search use exact regex match, not wildcard.
 * Look into using RubyGems built in dependency support rather than home-grown solution
-* Handle gems with multiplatform menu, like mongrel or fjson
 * Handle gems with "CURRENT" platform
 * Make GemInstaller.run take a parameter to not fail if there is any error
 * Give nice error message if gem server is unavailable (check socket)
@@ -8,10 +6,11 @@
 * Rename GemInstaller::Runner to GemInstaller::GemInstaller
 * Define procedure to invoke programatically via rails and non-rails
 * Document simple example (command line, rails, non-rails) in README.txt
-* handle unsupported gem install options - for example, -t (test) gives uninitialized constant Gem::Validator
+* handle unsupported gem install options - for example, -t gives uninitialized constant Gem::Validator
 * Add support for multiple config files (last ones win)
 * update info in stubgem (not sow defaults)
 * Run embedded gem_server for tests at nonstandard (not 8808) port
+* Make SourceIndex.search use alternate method that does exact regex match, to avoid passing the exact regex ourselves.
 * Fix errors when using relative or ~/ dir in --config path
 * add option to specify --backtrace on all gem commands
 * Show warning if there is a more recent gem available (and the default?) in the repository
