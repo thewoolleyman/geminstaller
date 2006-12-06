@@ -8,9 +8,6 @@ require File.expand_path("#{dir}/../spec_helper")
 context "The geminstaller command line application" do
   include GemInstaller::SpecUtils
   setup do
-    # provide an easy flag to skip this test, since it will fail if there is no local gem server available
-    @skip_test = skip_gem_server_functional_tests?
-    p "WARNING: test is disabled..." if @skip_test    
     GemInstaller::SpecUtils::EmbeddedGemServer.start
     
     @mock_output_proxy = mock("Mock Output Proxy")
@@ -24,7 +21,7 @@ context "The geminstaller command line application" do
   end
 
   specify "should print usage if --help arg is specified" do
-    args = ["--help"]
+    args = ["--help","--config=#{dir}/live_geminstaller_config.yml"]
     @application.args = args
     @mock_output_proxy.should_receive(:syserr).with(/Usage.*/)
     @application.run
@@ -38,4 +35,34 @@ context "The geminstaller command line application" do
     @application.run
   end
   
+end
+
+class MockStderr
+  attr_reader :err
+  def write
+  end
+  
+  def print(err)
+    @err = err
+  end
+end
+
+context "The geminstaller command line application created via GemInstaller.run method" do
+  include GemInstaller::SpecUtils
+  setup do
+    GemInstaller::SpecUtils::EmbeddedGemServer.start
+    @original_stderr = $stderr
+    @mock_stderr = MockStderr.new
+    $stderr = @mock_stderr
+  end
+
+  specify "should run successfully" do
+    GemInstaller.run
+    @mock_stderr.err.should_match(/Error:.*/)
+  end
+  
+  teardown do
+    $stderr = @original_stderr
+  end
+
 end

@@ -4,7 +4,7 @@ require File.expand_path("#{dir}/geminstaller/requires.rb")
 module GemInstaller
 
   def self.runner
-      @application ||= GemInstaller::Runner.new
+    GemInstaller::Runner.new
   end
   
   def self.run
