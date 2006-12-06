@@ -39,7 +39,7 @@ end
 
 class MockStderr
   attr_reader :err
-  def write
+  def write(out)
   end
   
   def print(err)
