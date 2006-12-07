@@ -1,5 +1,5 @@
 * clean out all old warnings about having to start local gem server
-* Add additional dependencies and versions in Hoe
+* Add additional dependencies and versions in Hoe, add dependency on Hoe, RubyForge
 * fix all Zentest warnings
 * Rename RubyGem class to RubyGemAction, add install vs. uninstall actions in config (install is default)
 * Look into using RubyGems built in dependency support rather than home-grown solution
