@@ -1,7 +1,6 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../spec_helper")
 
-# TOOD: make the local gem server startup automatic, or at least a cleaner warning
 # NOTE: this test is dependent upon
 # * RubyGems being installed
 # * write permissions (or sudo) to gem install dir

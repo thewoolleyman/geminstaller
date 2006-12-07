@@ -1,8 +1,4 @@
 module GemInstaller::SpecUtils
-  def self.local_gem_server_required_warning
-    "Warning: If any tests failed with an IO permissions error, you need to ensure that the current user can install a gem"  
-  end
-  
   def sample_gem_name
     sample_gem_name = "stubgem"
   end
@@ -21,10 +17,6 @@ module GemInstaller::SpecUtils
 
   def local_gem_server_url
     "http://127.0.0.1:8808"
-  end
-  
-  def skip_gem_server_functional_tests?
-    false
   end
   
   def install_options_for_testing
@@ -64,9 +56,9 @@ module GemInstaller::SpecUtils
   end
   
   class TestGemDir
-    @@dir = File.dirname(__FILE__) + "/test_gem_dir"
-
-    def self.init_test_gem_dir
+#    @@dir = File.dirname(__FILE__) + "/test_gem_dir"
+#
+#    def self.init_test_gem_dir
       #TODO: This doesn't work.  Find an easy, cross-platform way to recursively delete a dir tree
 #      files = []
 #      Find.find("#{@@dir}") do |f|
@@ -87,11 +79,11 @@ module GemInstaller::SpecUtils
 #        p "Deleting #{f.inspect}" if File.directory?(f) 
 #        File.delete(f) if File.directory?(f) 
 #      end
-      Dir.mkdir(@@dir) unless File.exist?(@@dir)
-    end
-    
-    def self.dir
-      @@dir
-    end
+#      Dir.mkdir(@@dir) unless File.exist?(@@dir)
+#    end
+#    
+#    def self.dir
+#      @@dir
+#    end
   end
 end

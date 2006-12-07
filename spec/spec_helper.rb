@@ -20,7 +20,7 @@ def run_context_runner_if_necessary(has_run)
   return if has_run
   retval = context_runner.run(false)
   server_was_stopped = GemInstaller::SpecUtils::EmbeddedGemServer.stop
-  p GemInstaller::SpecUtils.local_gem_server_required_warning if retval != 0 && server_was_stopped
+  puts "Warning: If any tests failed with an IO permissions error, you need to ensure that the current user can install a gem" if retval != 0
   exit retval
 end
 
