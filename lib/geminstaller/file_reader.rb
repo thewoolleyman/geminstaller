@@ -8,16 +8,24 @@ module GemInstaller
 
       file = nil
       begin
-        file = File.open(file_path)
+        file = do_open(file_path)
       rescue
         raise GemInstaller::GemInstallerError.new("Error: Unable open file #{file_path}.  Please ensure this file can be opened.\n")
       end
 
       begin
-        file.read
+        do_read(file)
       rescue
         raise GemInstaller::GemInstallerError.new("Error: Unable read file #{file_path}.  Please ensure this file can be read.\n")
       end
+    end
+    
+    def do_open(file_path)
+      File.open(file_path)
+    end
+    
+    def do_read(file)
+      file.read
     end
   end
 end
