@@ -1,10 +1,4 @@
 module GemInstaller
-  class NoninteractiveChooserFactory
-    def create
-      GemInstaller::NoninteractiveChooser.new
-    end
-  end
-  
   class GemCommandManager
     attr_writer :gem_source_index_proxy
     attr_writer :gem_runner_proxy
