@@ -21,6 +21,7 @@ context "a GemCommandManager instance" do
     # setup to make sure gems are not installed before test
     [@sample_gem, @sample_multiplatform_gem].each do |gem|
       if (@gem_command_manager.is_gem_installed(gem)) then
+        @gem_command_manager.setup_noninteractive_chooser(:uninstall_list_type, gem)
         @gem_command_manager.uninstall_gem(gem)
       end
       @gem_command_manager.is_gem_installed(gem).should==(false)

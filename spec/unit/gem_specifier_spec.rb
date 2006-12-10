@@ -1,7 +1,7 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../spec_helper")
 
-context "a GemSpecifier instance" do
+context "a GemSpecifier instance with mock dependencies" do
   include GemInstaller::SpecUtils
   setup do
     @gem_specifier = GemInstaller::GemSpecifier.new
@@ -10,75 +10,74 @@ context "a GemSpecifier instance" do
     
     @sample_gem = sample_gem
     
-    spec1 = Gem::Specification.new do |s|
+    @spec_stubgem_100_ruby = Gem::Specification.new do |s|
       s.name = 'stubgem'
       s.version = "1.0.0"
       s.platform = Gem::Platform::RUBY
     end
-    spec2 = Gem::Specification.new do |s|
+    @spec_stubgem_multiplatform_101_win32 = Gem::Specification.new do |s|
       s.name = 'stubgem-multiplatform'
       s.version = "1.0.1"
       s.platform = Gem::Platform::WIN32
     end
-    spec3 = Gem::Specification.new do |s|
+    @spec_stubgem_multiplatform_101_ruby = Gem::Specification.new do |s|
       s.name = 'stubgem-multiplatform'
       s.version = "1.0.1"
       s.platform = Gem::Platform::RUBY
     end
-    spec4 = Gem::Specification.new do |s|
+    @spec_stubgem_multiplatform_100_win32 = Gem::Specification.new do |s|
       s.name = 'stubgem-multiplatform'
       s.version = "1.0.0"
       s.platform = Gem::Platform::WIN32
     end
-    spec5 = Gem::Specification.new do |s|
-      s.name = 'stubgem-multiplatform'
-      s.version = "1.0.1"
-      s.platform = Gem::Platform::RUBY
-    end
-    @specs = [spec1, spec2, spec3, spec4, spec5]
-    
+    @stubgem_specs = [
+      @spec_stubgem_100_ruby]
+    @stubgem_multiplatform_specs = [
+      @spec_stubgem_multiplatform_101_win32, 
+      @spec_stubgem_multiplatform_101_ruby, 
+      @spec_stubgem_multiplatform_100_win32]
     @mock_gem_source_index_proxy.should_receive(:refresh!).once
-    @mock_gem_source_index_proxy.should_receive(:search).once.and_return(@specs)
-
   end
 
-  specify "should properly specify with an unspecified platform" do
+  specify "should properly specify default platform if platform is unspecified" do
+    @specs = @stubgem_specs
     @sample_gem.platform = nil
-    @gem_specifier.specify!(@sample_gem)
+    should_specify(@spec_stubgem_100_ruby.name, @spec_stubgem_100_ruby.version, GemInstaller::GemSpecifier.default_platform)
   end
 
   specify "should properly specify with a binary platform" do
+    @specs = @stubgem_multiplatform_specs
+    @sample_gem = sample_multiplatform_gem
     @sample_gem.name = "stubgem-multiplatform"
     @sample_gem.platform = "mswin32"
-    @gem_specifier.specify!(@sample_gem)
+    should_specify()
   end
 
   specify "should properly specify with a ruby platform even though binary platforms exist" do
+    @specs = @stubgem_multiplatform_specs
+    @sample_gem = sample_multiplatform_gem
     @sample_gem.name = "stubgem-multiplatform"
     @sample_gem.platform = "ruby"
-    @gem_specifier.specify!(@sample_gem)
-  end
-
-  # TODO: non-exact versions should be tested with a real SourceIndex object, not a mock
-#  specify "should properly specify with a non-exact version" do
-#    @sample_gem.name = "stubgem-multiplatform"
-#    @sample_gem.version = "> 0.0.0"
-#    @sample_gem.platform = "ruby"
-#    @gem_specifier.specify!(@sample_gem)
-#  end
-
-  specify "should throw an exception if there is no match" do
-    @sample_gem.name = "stubgem-nomatch"
-    @gem_specifier.specify!(@sample_gem)
+    should_specify()
   end
 
   specify "should throw an exception if there is more than one match" do
-    spec = Gem::Specification.new do |s|
-      s.name = 'stubgem'
-      s.version = "1.0.0"
-      s.platform = Gem::Platform::RUBY
-    end
+    @specs = @stubgem_specs
+    spec = @spec_stubgem_100_ruby.clone
     @specs << spec
+    
+    #pp @specs.last
+    lambda { should_specify() }.should_raise GemInstaller::GemInstallerError
+  end
+  
+  def should_specify(name = @sample_gem.name, version = @sample_gem.version, platform = @sample_gem.platform)
+    @mock_gem_source_index_proxy.should_receive(:search).once.and_return(@specs)
     @gem_specifier.specify!(@sample_gem)
+
+    platform = GemInstaller::GemSpecifier.default_platform if platform == nil
+
+    @sample_gem.name.should==(name)
+    @sample_gem.version.to_s.should==(version.to_s)
+    @sample_gem.platform.to_s.should==(platform.to_s)
   end
 end

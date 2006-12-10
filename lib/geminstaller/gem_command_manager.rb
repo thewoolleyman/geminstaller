@@ -16,19 +16,19 @@ module GemInstaller
 
     def uninstall_gem(gem)
       return if !is_gem_installed(gem)
-      setup_noninteractive_chooser(gem)
+      setup_noninteractive_chooser(:uninstall_list_type, gem)
       run_gem_command('uninstall',gem)
     end
 
     def install_gem(gem)
       return if is_gem_installed(gem)
-      setup_noninteractive_chooser(gem)
+      setup_noninteractive_chooser(:install_list_type, gem)
       run_gem_command('install',gem)
     end
 
-    private
-    def setup_noninteractive_chooser(gem)
+    def setup_noninteractive_chooser(list_type, gem)
       @noninteractive_chooser ||= NoninteractiveChooser.new
+      @noninteractive_chooser.list_type = list_type
       @noninteractive_chooser.gem_source_index_proxy = @gem_source_index_proxy
       @noninteractive_chooser.specify_exact_gem_spec(gem.name, gem.version, gem.platform)
       Gem::StreamUI.noninteractive_chooser = @noninteractive_chooser

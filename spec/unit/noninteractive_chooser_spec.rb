@@ -4,6 +4,7 @@ require File.expand_path("#{dir}/../spec_helper")
 context "a NoninteractiveChooser instance which is passed an install-formatted list of both non-binary and binary gems" do
   setup do
     @noninteractive_chooser = GemInstaller::NoninteractiveChooser.new
+    @noninteractive_chooser.list_type=(:install_list_type)
     @list = [
       "stubgem 1.0.0 (ruby)",
       "stubgem-multiplatform 1.0.1 (mswin32)",
@@ -32,13 +33,14 @@ end
 context "a NoninteractiveChooser instance which is passed an uninstall-formatted list of both non-binary and binary gems" do
   setup do
     @noninteractive_chooser = GemInstaller::NoninteractiveChooser.new
+    @noninteractive_chooser.list_type=(:uninstall_list_type)
     @list = [
-      "stubgem-1.0.0 (ruby)",
-      "stubgem-multiplatform-1.0.1 (mswin32)",
-      "stubgem-multiplatform-1.0.1 (ruby)",
-      "stubgem-multiplatform-1.0.0 (mswin32)",
-      "stubgem-multiplatform-1.0.0 (ruby)",
-      "Cancel installation"
+      "stubgem-1.0.0",
+      "stubgem-multiplatform-1.0.1-mswin32",
+      "stubgem-multiplatform-1.0.1",
+      "stubgem-multiplatform-1.0.0-mswin32",
+      "stubgem-multiplatform-1.0.0",
+      "All versions"
       ]
   end
 

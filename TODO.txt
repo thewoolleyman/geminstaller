@@ -1,7 +1,10 @@
+* Figure out how to make SourceIndex go against embedded gem_server, then fix TODOs in functional/gem_specifier_spec.
+* Remove hoe as a dependency for stubgems
 * clean out all old warnings about having to start local gem server
 * Add additional dependencies and versions in Hoe, add dependency on Hoe, RubyForge
 * fix all Zentest warnings
 * Rename RubyGem class to RubyGemAction, add install vs. uninstall actions in config (install is default)
+* Automate process for creating a stubgem
 * Look into using RubyGems built in dependency support rather than home-grown solution
 * Handle gems with "CURRENT" platform
 * Make GemInstaller.run take a parameter to not fail if there is any error
