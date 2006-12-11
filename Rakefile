@@ -19,6 +19,8 @@ desc "Run all metrics"
 task :metrics do
   rm_rf "coverage"
   sh "rcov test/test_all.rb"
+  Rake::Task[:audit].invoke
 end
+
 
 # vim: syntax=Ruby
