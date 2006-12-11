@@ -2,6 +2,7 @@ dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../lib/geminstaller/requires.rb")
 require 'spec'
 require 'find' 
+require 'stringio'
 require File.expand_path("#{dir}/rspec_extensions.rb")
 require File.expand_path("#{dir}/spec_utils.rb")
 
