@@ -14,9 +14,13 @@ module GemInstaller::SpecUtils
   def sample_multiplatform_gem_version
     sample_gem_version = "1.0.1"
   end
+  
+  def local_gem_server_port
+    8808
+  end
 
   def local_gem_server_url
-    "http://127.0.0.1:8808"
+    "http://127.0.0.1:#{local_gem_server_port}"
   end
   
   def install_options_for_testing
