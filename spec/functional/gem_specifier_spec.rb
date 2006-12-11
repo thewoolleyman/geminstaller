@@ -41,21 +41,4 @@ context "a GemSpecifier instance with a real Gem::SourceIndex dependency" do
     @sample_gem.platform = "ruby"
     @gem_specifier.specify!(@sample_gem)
   end
-
-#  specify "should throw an exception if there is no match" do
-#    @sample_gem.name = "stubgem-nomatch"
-#    expected_error = GemInstaller::GemInstallerError.new
-#    lambda { @gem_specifier.specify!(@sample_gem) }.should_raise GemInstaller::GemInstallerError
-#  end
-  
-#  def should_specify(name = @sample_gem.name, version = @sample_gem.version, platform = @sample_gem.platform)
-#    @gem_specifier.specify!(@sample_gem)
-#
-#    platform = GemInstaller::GemSpecifier.default_platform if platform == nil
-#
-#    @sample_gem.name.should ==(name)
-#    @sample_gem.version.to_s.should ==(version.to_s)
-#    @sample_gem.platform.to_s.should ==(platform.to_s)
-#  end
-  
 end

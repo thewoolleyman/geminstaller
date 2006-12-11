@@ -35,6 +35,20 @@ module GemInstaller::SpecUtils
     GemInstaller::RubyGem.new(sample_multiplatform_gem_name, :version => sample_multiplatform_gem_version, :platform => 'mswin32', :install_options => install_options)
   end
   
+  def proc_should_raise_with_message(message_regex, &block)
+    error = nil
+    p GemInstaller::GemInstallerError
+    lambda {
+      begin
+        block.call
+      rescue GemInstaller::GemInstallerError => error
+        raise error
+      end
+      }.should_raise GemInstaller::GemInstallerError
+      error.message.should_match(message_regex)
+  end
+  
+  
   class EmbeddedGemServer
     @@gem_server_pid = nil
     def self.start

@@ -63,20 +63,20 @@ context "a GemSpecifier instance with mock dependencies" do
 
   specify "should throw an exception if there are no matches" do
     @specs = []
-    should_raise(/Error: No gems matched.*/) { should_specify() }
+    proc_should_raise_with_message(/Error: No gems matched.*/) { should_specify() }
   end
   
   specify "should throw an exception if there is more than one match" do
     @specs = @stubgem_specs
     spec = @spec_stubgem_100_ruby.clone
     @specs << spec
-    should_raise(/Error: More than one gem matched.*/) { should_specify() }
+    proc_should_raise_with_message(/Error: More than one gem matched.*/) { should_specify() }
   end
   
   specify "should throw an exception if there is not an exact name match" do
     @specs = @stubgem_specs
     @spec_stubgem_100_ruby.name = 'invalid_name'
-    should_raise(/Error: Gem name did not have an exact match.*/) { should_specify() }
+    proc_should_raise_with_message(/Error: Gem name did not have an exact match.*/) { should_specify() }
   end
   
   def should_specify(name = @sample_gem.name, version = @sample_gem.version, platform = @sample_gem.platform)
@@ -88,17 +88,5 @@ context "a GemSpecifier instance with mock dependencies" do
     @sample_gem.name.should==(name)
     @sample_gem.version.to_s.should==(version.to_s)
     @sample_gem.platform.to_s.should==(platform.to_s)
-  end
-  
-  def should_raise(message_regex, &block)
-    error = nil
-    lambda {
-      begin
-        block.call
-      rescue GemInstaller::GemInstallerError => error
-        raise error
-      end
-      }.should_raise GemInstaller::GemInstallerError
-      error.message.should_match(message_regex)
-  end
+  end  
 end
