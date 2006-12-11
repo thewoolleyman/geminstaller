@@ -17,10 +17,13 @@ end
 
 desc "Run all metrics"
 task :metrics do
-  rm_rf "coverage"
-  sh "rcov test/test_all.rb"
+  Rake::Task[:coverage].invoke
   Rake::Task[:audit].invoke
 end
 
+task :coverage do
+  rm_rf "coverage"
+  sh "rcov test/test_all.rb"
+end
 
 # vim: syntax=Ruby
