@@ -40,7 +40,6 @@ context "a GemCommandManager instance" do
   end
   
   specify "should be able to install and uninstall similarly named gems without a prompt (using exact name matching)" do
-    return if @skip_test
     [@sample_gem, @sample_multiplatform_gem].each do |gem|
       @gem_command_manager.install_gem(gem)
       @gem_command_manager.is_gem_installed(gem).should==(true)

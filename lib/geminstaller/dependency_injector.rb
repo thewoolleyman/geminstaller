@@ -5,6 +5,10 @@ module GemInstaller
     def registry
       @registry ||= create_registry
     end
+    
+    def default_config_file_path
+      'geminstaller.yml'
+    end
 
     private
 
@@ -12,7 +16,6 @@ module GemInstaller
       # define properties
       # Note: we have to define a local variable for config_file_path, Needle can't reference the instance variable
       config_file_path = @config_file_path
-      default_config_file_path = 'geminstaller.yml'
       config_file_path ||= default_config_file_path
 
       # define the service registry
