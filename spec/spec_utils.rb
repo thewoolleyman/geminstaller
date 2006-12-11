@@ -34,14 +34,18 @@ module GemInstaller::SpecUtils
   class EmbeddedGemServer
     @@gem_server_pid = nil
     def self.start
+      Gem.clear_paths
       return if @@gem_server_pid
-      embedded_gem_dir = File.dirname(__FILE__) + "/gems"
       gem_server_process = IO.popen("gem_server --dir=#{embedded_gem_dir}")
       @@gem_server_pid = gem_server_process.pid
       print "Started embedded gem server at #{embedded_gem_dir}, pid = #{@@gem_server_pid}\n"
       trap("INT") { Process.kill(9,@@gem_server_pid); exit! }
       # TODO: avoid sleep by detecting when gem_server port comes up
       sleep 3
+    end
+    
+    def self.embedded_gem_dir
+      File.dirname(__FILE__) + "/gems"
     end
     
     def self.stop
