@@ -30,9 +30,6 @@ module GemInstaller
         if gem.name != spec.name
           raise GemInstaller::GemInstallerError.new("Error: Gem name did not have an exact match, #{gem.name} should not have matched #{spec.name}.\n")
         end
-        if gem.platform != spec.platform
-          raise GemInstaller::GemInstallerError.new("Error: Gem platform did not have an exact match, #{gem.platform} should not have matched #{spec.platform}.\n")
-        end
         if last_version == spec.version 
           raise GemInstaller::GemInstallerError.new("Error: More than one gem matched, name=#{gem.name}, version=#{spec.version}, platform=#{gem.platform}.\n")
         end
