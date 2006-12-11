@@ -1,12 +1,16 @@
+* Add support for multiple config files (last ones win)
+* Handle gems with "CURRENT" platform
+* get 100% code coverage
+* remove depencency on needle (roll our own DependencyInjector)
 * Rename local_gem_server to embedded_gem_server
 * Remove hoe as a dependency for stubgems
+* rake test fails on linux (problems starting embedded gem server)
 * clean out all old warnings about having to start local gem server
 * Add additional dependencies and versions in Hoe, add dependency on Hoe, RubyForge
 * fix all Zentest warnings
 * Rename RubyGem class to RubyGemAction, add install vs. uninstall actions in config (install is default)
 * Automate process for creating a stubgem
 * Look into using RubyGems built in dependency support rather than home-grown solution
-* Handle gems with "CURRENT" platform
 * Make GemInstaller.run take a parameter to not fail if there is any error
 * Give nice error message if gem server is unavailable (check socket)
 * Make tests run under RadRails debugger
@@ -14,7 +18,6 @@
 * Define procedure to invoke programatically via rails and non-rails
 * Document simple example (command line, rails, non-rails) in README.txt
 * handle unsupported gem install options - for example, -t gives uninitialized constant Gem::Validator
-* Add support for multiple config files (last ones win)
 * update info in stubgem (not sow defaults)
 * Run embedded gem_server for tests at nonstandard (not 8808) port
 * Make SourceIndex.search use alternate method that does exact regex match, to avoid passing the exact regex ourselves.
