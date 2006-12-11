@@ -1,3 +1,4 @@
+* Rename local_gem_server to embedded_gem_server
 * Remove hoe as a dependency for stubgems
 * clean out all old warnings about having to start local gem server
 * Add additional dependencies and versions in Hoe, add dependency on Hoe, RubyForge
