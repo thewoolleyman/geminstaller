@@ -3,20 +3,20 @@ module GemInstaller
     def read(file_path)
       file_contents = nil
       if !File.exist?(file_path) then
-        raise GemInstaller::GemInstallerError.new("Error: File #{file_path} does not exist at #{file_path}.  Please ensure this file exists\n")
+        raise GemInstaller::GemInstallerError.new("Error: File #{file_path} does not exist at #{file_path}.  Please ensure that this file exists.\n")
       end
 
       file = nil
       begin
         file = do_open(file_path)
       rescue
-        raise GemInstaller::GemInstallerError.new("Error: Unable open file #{file_path}.  Please ensure this file can be opened.\n")
+        raise GemInstaller::GemInstallerError.new("Error: Unable open file #{file_path}.  Please ensure that this file can be opened.\n")
       end
 
       begin
         do_read(file)
       rescue
-        raise GemInstaller::GemInstallerError.new("Error: Unable read file #{file_path}.  Please ensure this file can be read.\n")
+        raise GemInstaller::GemInstallerError.new("Error: Unable read file #{file_path}.  Please ensure that this file can be read.\n")
       end
     end
     
