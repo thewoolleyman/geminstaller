@@ -3,6 +3,7 @@
 * get 100% code coverage
 * remove depencency on needle (roll our own DependencyInjector)
 * Rename local_gem_server to embedded_gem_server
+* remove cruft from test output
 * Remove hoe as a dependency for stubgems
 * rake test fails on linux (problems starting embedded gem server)
 * clean out all old warnings about having to start local gem server
