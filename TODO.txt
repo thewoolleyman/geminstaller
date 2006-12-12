@@ -1,3 +1,4 @@
+* Fix bug in GemSpecifier - should use remote 'gem list', not SourceIndex
 * Add support for multiple config files (last ones win)
 * Handle gems with "CURRENT" platform
 * get 100% code coverage
