@@ -13,6 +13,7 @@ Hoe.new('geminstaller', GemInstaller.version) do |p|
   p.changes = p.paragraphs_of('History.txt', 0..1).join("\n\n")
   p.extra_deps << ["needle", ">= 1.3.0"]
   p.clean_globs << 'coverage'
+  p.clean_globs << 'doc'
 end
 
 desc "Run all metrics"
