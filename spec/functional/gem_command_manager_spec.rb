@@ -40,13 +40,31 @@ context "a GemCommandManager instance" do
   end
   
   specify "should be able to install and uninstall similarly named gems without a prompt (using exact name matching)" do
-    [@sample_gem, @sample_multiplatform_gem].each do |gem|
+    gems = [@sample_gem, @sample_multiplatform_gem]
+    gems.each do |gem|
       @gem_command_manager.install_gem(gem)
       @gem_command_manager.is_gem_installed(gem).should==(true)
     end
 
     # uninstall it again after we are done
-    [@sample_gem, @sample_multiplatform_gem].each do |gem|
+    gems.each do |gem|
+      @gem_command_manager.uninstall_gem(gem)
+      @gem_command_manager.is_gem_installed(gem).should==(false)
+    end
+  end
+  
+  specify "should be able to install two gems with the same version but different platforms" do
+    @sample_multiplatform_gem_for_another_platform = sample_multiplatform_gem
+    @sample_multiplatform_gem_for_another_platform.platform = 'ruby'
+    @gem_command_manager.uninstall_gem(@sample_multiplatform_gem_for_another_platform)
+    gems = [@sample_multiplatform_gem, @sample_multiplatform_gem_for_another_platform]
+    gems.each do |gem|
+      @gem_command_manager.install_gem(gem)
+      @gem_command_manager.is_gem_installed(gem).should==(true)
+    end
+
+    # uninstall it again after we are done
+    gems.each do |gem|
       @gem_command_manager.uninstall_gem(gem)
       @gem_command_manager.is_gem_installed(gem).should==(false)
     end
