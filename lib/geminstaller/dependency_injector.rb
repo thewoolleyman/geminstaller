@@ -19,61 +19,49 @@ module GemInstaller
       config_file_paths ||= default_config_file_path
 
       # define the service registry
-      @registry = Needle::Registry.define! do |b|
-        # register all services with the builder b
-        b.file_reader { GemInstaller::FileReader.new }
-        b.yaml_loader { GemInstaller::YamlLoader.new }
-        b.output_proxy { GemInstaller::OutputProxy.new }
-        b.arg_parser { GemInstaller::ArgParser.new }
-
-        b.config_builder do
-          config_builder = GemInstaller::ConfigBuilder.new
-          config_builder.config_file_paths = config_file_paths
-          config_builder.file_reader = b.file_reader
-          config_builder.yaml_loader = b.yaml_loader
-          config_builder
-        end
-
-        # rubygems classes
-        b.gem_source_index { Gem::SourceIndex.new }
-        b.gem_source_index_proxy do
-          gem_source_index_proxy = GemInstaller::GemSourceIndexProxy.new
-          gem_source_index_proxy.gem_source_index = b.gem_source_index
-          gem_source_index_proxy
-        end
-
-        b.gem_specifier do
-          gem_specifier = GemInstaller::GemSpecifier.new
-          gem_specifier.gem_source_index_proxy = b.gem_source_index_proxy
-          gem_specifier
-        end
-
-        b.gem_runner { Gem::GemRunner.new }
-        b.gem_runner_proxy do
-          gem_runner_proxy = GemInstaller::GemRunnerProxy.new
-          gem_runner_proxy.gem_runner = b.gem_runner
-          gem_runner_proxy
-        end
-
-        b.gem_command_manager do
-          gem_command_manager = GemInstaller::GemCommandManager.new
-          gem_command_manager.gem_source_index_proxy = b.gem_source_index_proxy
-          gem_command_manager.gem_runner_proxy = b.gem_runner_proxy
-          gem_command_manager
-        end
-
-        b.app do
-          app = GemInstaller::Application.new
-          app.config_builder = b.config_builder
-          app.gem_command_manager = b.gem_command_manager
-          app.gem_specifier = b.gem_specifier
-          app.output_proxy = b.output_proxy
-          app.arg_parser = b.arg_parser
-          app.args = ARGV
-          app
-        end
-      end
-      @registry
+      @registry = GemInstaller::Registry.new(config_file_paths)
     end # create_registry
   end
+  
+  class Registry
+    attr_accessor :file_reader, :yaml_loader, :output_proxy, :config_builder, :gem_source_index
+    attr_accessor :gem_specifier, :gem_runner, :gem_command_manager, :app
+
+    def initialize(config_file_paths)
+      @file_reader = GemInstaller::FileReader.new
+      @yaml_loader = GemInstaller::YamlLoader.new
+      @output_proxy = GemInstaller::OutputProxy.new
+      @arg_parser = GemInstaller::ArgParser.new
+  
+      @config_builder = GemInstaller::ConfigBuilder.new
+      @config_builder.config_file_paths = config_file_paths
+      @config_builder.file_reader = @file_reader
+      @config_builder.yaml_loader = @yaml_loader
+  
+      # rubygems classes
+      @gem_source_index = Gem::SourceIndex.new
+      @gem_source_index_proxy = GemInstaller::GemSourceIndexProxy.new
+      @gem_source_index_proxy.gem_source_index = @gem_source_index
+  
+      @gem_specifier = GemInstaller::GemSpecifier.new
+      @gem_specifier.gem_source_index_proxy = @gem_source_index_proxy
+  
+      @gem_runner = Gem::GemRunner.new
+      @gem_runner_proxy = GemInstaller::GemRunnerProxy.new
+      @gem_runner_proxy.gem_runner = @gem_runner
+  
+      @gem_command_manager = GemInstaller::GemCommandManager.new
+      @gem_command_manager.gem_source_index_proxy = @gem_source_index_proxy
+      @gem_command_manager.gem_runner_proxy = @gem_runner_proxy
+      @gem_command_manager
+  
+      @app = GemInstaller::Application.new
+      @app.config_builder = @config_builder
+      @app.gem_command_manager = @gem_command_manager
+      @app.gem_specifier = @gem_specifier
+      @app.output_proxy = @output_proxy
+      @app.arg_parser = @arg_parser
+      @app.args = ARGV
+    end #initialize
+  end # Registry class
 end
