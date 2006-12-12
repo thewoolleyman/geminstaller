@@ -7,8 +7,8 @@ context "a config builder" do
 
   specify "should successfully assemble a config object" do
     dependency_injector = GemInstaller::DependencyInjector.new
-    test_config_file_path = File.expand_path("#{dir}/test_geminstaller_config.yml")
-    dependency_injector.config_file_path = test_config_file_path
+    test_config_file_paths = File.expand_path("#{dir}/test_geminstaller_config.yml")
+    dependency_injector.config_file_paths = test_config_file_paths
     config_builder = dependency_injector.registry.config_builder
     config = config_builder.build_config
     config.gems[0].name.should==("testgem1")

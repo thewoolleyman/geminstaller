@@ -1,6 +1,6 @@
 module GemInstaller
   class DependencyInjector
-    attr_writer :config_file_path
+    attr_writer :config_file_paths
 
     def registry
       @registry ||= create_registry
@@ -15,8 +15,8 @@ module GemInstaller
     def create_registry
       # define properties
       # Note: we have to define a local variable for config_file_path, Needle can't reference the instance variable
-      config_file_path = @config_file_path
-      config_file_path ||= default_config_file_path
+      config_file_paths = @config_file_paths
+      config_file_paths ||= default_config_file_path
 
       # define the service registry
       @registry = Needle::Registry.define! do |b|
@@ -28,7 +28,7 @@ module GemInstaller
 
         b.config_builder do
           config_builder = GemInstaller::ConfigBuilder.new
-          config_builder.config_file_path = config_file_path
+          config_builder.config_file_paths = config_file_paths
           config_builder.file_reader = b.file_reader
           config_builder.yaml_loader = b.yaml_loader
           config_builder

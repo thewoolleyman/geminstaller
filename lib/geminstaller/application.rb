@@ -35,8 +35,8 @@ module GemInstaller
         raise GemInstaller::GemInstallerError.new(arg_parser_output)
       end
       if (opts)
-        config_file_path = opts[:config_path]
-        @config_builder.config_file_path = config_file_path if config_file_path
+        config_file_paths = opts[:config_paths]
+        @config_builder.config_file_paths = config_file_paths if config_file_paths
         @verbose = opts[:verbose]
         @info = opts[:info]
       end

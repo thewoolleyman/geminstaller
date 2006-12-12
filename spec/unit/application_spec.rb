@@ -93,10 +93,10 @@ context "an application instance invoked with alternate config file location" do
   end
 
   specify "should use the alternate config file location" do
-    config_path = 'config_path'
-    @mock_arg_parser.should_receive(:parse).and_return({:config_path => config_path})
+    config_paths = 'config_paths'
+    @mock_arg_parser.should_receive(:parse).and_return({:config_paths => config_paths})
     @mock_arg_parser.should_receive(:output)
-    @mock_config_builder.should_receive(:config_file_path=).with(config_path).and_return {@stub_config_local}
+    @mock_config_builder.should_receive(:config_file_paths=).with(config_paths).and_return {@stub_config_local}
     @mock_config_builder.should_receive(:build_config).and_return {@stub_config_local}
     @application.gem_command_manager = @mock_gem_command_manager
     gems = [@stub_gem]

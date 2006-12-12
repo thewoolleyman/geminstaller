@@ -16,8 +16,8 @@ module GemInstaller
           @options[:info] = true
         end
 
-        opts.on("-cCONFIGPATH", "--config=CONFIGPATH", String, "Path to GemInstaller config file") do |config_path|
-          @options[:config_path] = config_path
+        opts.on("-cCONFIGPATHS", "--config=CONFIGPATHS", String, "Comma-delimited path(s) to GemInstaller config file(s)") do |config_paths|
+          @options[:config_paths] = config_paths
         end
 
         opts.on("-v", "--verbose", "Show verbose output") do

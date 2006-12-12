@@ -40,6 +40,11 @@ class MockStderr
   attr_reader :err
   def write(out)
   end
+  
+  def print(err)
+    @err = err
+  end
+  
 end
 
 context "The geminstaller command line application created via GemInstaller.run method" do
@@ -54,6 +59,10 @@ context "The geminstaller command line application created via GemInstaller.run 
   specify "should run successfully" do
     GemInstaller.run
     @mock_stderr.err.should_match(/Error:.*/)
+  end
+  
+  specify "should have code coverage for it's mock" do
+    @mock_stderr.print("")
   end
   
   teardown do

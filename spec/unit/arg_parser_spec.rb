@@ -38,17 +38,17 @@ context "an ArgParser instance with help flag" do
   end
 end
 
-context "an ArgParser instance with config option" do
+context "an ArgParser instance with configs option" do
   setup do
     common_setup
-    @config_path = "c:\geminstaller.yml"
-    @args = ["--config=#{@config_path}"]
+    @config_paths = "c:\geminstaller.yml"
+    @args = ["--config=#{@config_paths}"]
   end
 
   specify "should correctly parse config path from options" do
     opts = @arg_parser.parse(@args)
-    config_path = opts[:config_path]
-    config_path.should==(@config_path)
+    config_paths = opts[:config_paths]
+    config_paths.should==(@config_paths)
   end
 end
 
