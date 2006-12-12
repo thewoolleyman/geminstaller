@@ -25,4 +25,19 @@ context "A ruby gem data object" do
     gem.name.should==('mygem')
     gem.install_options.should==('-y')
   end
+
+  specify "should be comparable on name, version, and platform" do
+    gems = []
+    gems << GemInstaller::RubyGem.new('3', :version => '2', :platform => '2', :install_options => '4')
+    gems << GemInstaller::RubyGem.new('3', :version => '2', :platform => '1', :install_options => '3')
+    gems << GemInstaller::RubyGem.new('3', :version => '1', :platform => '3', :install_options => '2')
+    gems << GemInstaller::RubyGem.new('2', :version => '1', :platform => '3', :install_options => '1')
+    gems << GemInstaller::RubyGem.new('1', :version => '1', :platform => '3', :install_options => '0')
+    gems.sort!
+    gems[0].install_options.should==('0')
+    gems[1].install_options.should==('1')
+    gems[2].install_options.should==('2')
+    gems[3].install_options.should==('3')
+    gems[4].install_options.should==('4')
+  end
 end

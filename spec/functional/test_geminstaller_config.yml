@@ -6,4 +6,4 @@ gems:
     version: v1.1
   - name: testgem2
     version: v1.2
-    install_options: -y -t
+    install_options: --include-dependencies

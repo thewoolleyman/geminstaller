@@ -26,6 +26,7 @@ module GemInstaller
         gem = GemInstaller::RubyGem.new(name, :version => version, :install_options => install_options_array)
         gems << gem
       end
+      gems.sort!
       return gems
     end
 
