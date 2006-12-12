@@ -52,8 +52,8 @@ module GemInstaller::SpecUtils
   class EmbeddedGemServer
     @@gem_server_pid = nil
     def self.start
-      Gem.clear_paths
       return if @@gem_server_pid
+      Gem.clear_paths
       gem_server_process = IO.popen("gem_server --dir=#{embedded_gem_dir}")
       @@gem_server_pid = gem_server_process.pid
       print "Started embedded gem server at #{embedded_gem_dir}, pid = #{@@gem_server_pid}\n"
