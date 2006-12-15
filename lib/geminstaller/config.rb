@@ -20,9 +20,7 @@ module GemInstaller
         end
         install_options_array = []
         # if there was an install options string specified, default or gem-specific, parse it to an array
-        if !install_options_string.empty? then
-          install_options_array = install_options_string.split(" ")
-        end
+        install_options_array = install_options_string.split(" ") unless install_options_string.empty?
         gem = GemInstaller::RubyGem.new(name, :version => version, :install_options => install_options_array)
         gems << gem
       end

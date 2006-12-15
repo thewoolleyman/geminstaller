@@ -38,6 +38,14 @@ context "a GemCommandManager instance" do
     @gem_command_manager.uninstall_gem(@sample_gem)
     @gem_command_manager.is_gem_installed(@sample_gem).should==(false)
   end
+
+# TODO: Make this test pass  
+#  specify "should be able to list remote gems" do
+#    list_options = "--source=#{local_gem_server_url}"
+#    @sample_gem.name = 'tubgem-multi'
+#    list = @gem_command_manager.list_remote_gem(@sample_gem,list_options)
+#    list.should_equal("")
+#  end
   
   specify "should be able to install and uninstall similarly named gems without a prompt (using exact name matching)" do
     gems = [@sample_gem, @sample_multiplatform_gem]
@@ -69,5 +77,5 @@ context "a GemCommandManager instance" do
       @gem_command_manager.is_gem_installed(gem).should==(false)
     end
   end
-  
+
 end

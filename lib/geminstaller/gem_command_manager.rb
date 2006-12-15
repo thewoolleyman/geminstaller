@@ -4,6 +4,12 @@ module GemInstaller
     attr_writer :gem_runner_proxy
     attr_writer :noninteractive_chooser
     
+    def list_remote_gem(gem, list_options)
+      run_args = ["list",gem.name,"--remote"]
+      run_args += list_options.split(" ")
+      @gem_runner_proxy.run(run_args)
+    end
+
     def is_gem_installed(gem)
       @gem_source_index_proxy.refresh!
       gem_name_regexp = /^#{Regexp.escape(gem.name)}$/

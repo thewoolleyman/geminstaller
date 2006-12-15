@@ -1,4 +1,6 @@
 module GemInstaller::SpecUtils
+  SUPPRESS_RUBYGEMS_OUTPUT = false
+  
   def sample_gem_name
     sample_gem_name = "stubgem"
   end
