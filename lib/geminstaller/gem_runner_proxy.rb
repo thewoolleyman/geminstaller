@@ -4,7 +4,6 @@ module GemInstaller
 
     def run(args)
       @gem_runner.run(args)
-      sleep 3
     end
   end
 end
