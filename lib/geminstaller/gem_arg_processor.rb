@@ -14,9 +14,8 @@ module GemInstaller
     # take an array of args, and strip all args that are not common gem command args
     def strip_non_common_gem_args(args)
       # I can't figure out a way to elegantly do this, so I hardcoded the options.  Here's how you print them
-      # require 'pp'
       # Gem::Command.common_options.each do |option|
-      #  pp option[0]
+      #  p option[0]
       # end
 
       common_args = [] 
@@ -26,12 +25,17 @@ module GemInstaller
         arg = args[i]
         if GEM_COMMON_OPTIONS_WITHOUT_ARG.include?(arg)
           common_args << arg
+        else
+          GEM_COMMON_OPTIONS_WITH_ARG.each do |option|
+            if arg.include?(option)
+              common_args << arg
+              unless arg.include?('=')
+                i += 1
+                common_args << args[i]
+              end
+            end
+          end
         end
-        if GEM_COMMON_OPTIONS_WITH_ARG.include?(arg)
-          common_args << arg
-          i += 1
-          common_args << args[i]
-         end
         i += 1
       end
       common_args
