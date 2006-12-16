@@ -23,10 +23,10 @@ context "a NoninteractiveChooser instance which is passed an install-formatted l
     should_choose(2, "stubgem-multiplatform", "1.0.1", "ruby")
   end
 
-  specify "should return nil if there is no match" do
-    should_choose(nil, "stubgem-nomatch", "1.0.0", "ruby")
-    should_choose(nil, "stubgem-multiplatform", "1.0.1", "nomatch")
-    should_choose(nil, "stubgem-multiplatform", "9", "mswin32")
+  specify "should raise error if there is no match" do
+    should_raise_error("stubgem-nomatch", "1.0.0", "ruby")
+    should_raise_error("stubgem-multiplatform", "1.0.1", "nomatch")
+    should_raise_error("stubgem-multiplatform", "9", "mswin32")
   end
 end
 
@@ -52,10 +52,10 @@ context "a NoninteractiveChooser instance which is passed an uninstall-formatted
     should_choose(2, "stubgem-multiplatform", "1.0.1", "ruby")
   end
 
-  specify "should return nil if there is no match" do
-    should_choose(nil, "stubgem-nomatch", "1.0.0", "ruby")
-    should_choose(nil, "stubgem-multiplatform", "1.0.1", "nomatch")
-    should_choose(nil, "stubgem-multiplatform", "9", "mswin32")
+  specify "should raise error if there is no match" do
+    should_raise_error("stubgem-nomatch", "1.0.0", "ruby")
+    should_raise_error("stubgem-multiplatform", "1.0.1", "nomatch")
+    should_raise_error("stubgem-multiplatform", "9", "mswin32")
   end
 end
 
@@ -63,5 +63,10 @@ def should_choose(expected_choice, name, version, platform)
   @noninteractive_chooser.specify_exact_gem_spec(name, version, platform)
   string, index = @noninteractive_chooser.choose(@list)
   index.should==(expected_choice)
+end
+
+def should_raise_error(name, version, platform)
+  @noninteractive_chooser.specify_exact_gem_spec(name, version, platform)
+  lambda{ @noninteractive_chooser.choose(@list) }.should_raise(GemInstaller::GemInstallerError)
 end
 

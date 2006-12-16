@@ -27,7 +27,16 @@ module GemInstaller
           return item, index
         end
       end
-      return nil, nil
+      # if we didn't find a match, raise a descriptive error
+      action = @list_type == :install_list_type ? 'install' : 'uninstall'
+      platform = @required_platform ? " (#{@required_platform})" : ''
+      error_message = "Error: Unable to install gem: '#{@required_name} #{@required_version}#{platform}'.  Available gems are:\n"
+      list.each do |item|
+        # skip last 'cancel' list entry, it's not a real gem
+        next if item == list.last
+        error_message += "  " + item + "\n"
+      end
+      raise GemInstaller::GemInstallerError.new(error_message)
     end
   end
 end
