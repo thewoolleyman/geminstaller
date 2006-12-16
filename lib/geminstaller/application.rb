@@ -1,7 +1,7 @@
 module GemInstaller
   class Application
     # we have accessors instead of just writers so that we can ensure it is assembled correctly in the dependency injector test
-    attr_accessor :config_builder, :gem_command_manager, :gem_specifier, :output_proxy, :arg_parser, :args
+    attr_accessor :config_builder, :gem_command_manager, :gem_specifier, :gem_list_checker, :output_proxy, :arg_parser, :args
 
     def run
       begin
