@@ -14,6 +14,7 @@ module GemInstaller
 
     def create_registry
       # define properties
+      # TODO: no longer using needle, is this still necessary?
       # Note: we have to define a local variable for config_file_path, Needle can't reference the instance variable
       config_file_paths = @config_file_paths
       config_file_paths ||= default_config_file_path
