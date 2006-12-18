@@ -26,7 +26,7 @@ module GemInstaller
   
   class Registry
     attr_accessor :file_reader, :yaml_loader, :output_proxy, :config_builder, :gem_source_index
-    attr_accessor :gem_specifier, :gem_runner, :gem_command_manager, :gem_list_checker, :app
+    attr_accessor :gem_runner, :gem_command_manager, :gem_list_checker, :app
 
     def initialize(config_file_paths)
       @file_reader = GemInstaller::FileReader.new
@@ -45,9 +45,6 @@ module GemInstaller
       @gem_source_index_proxy = GemInstaller::GemSourceIndexProxy.new
       @gem_source_index_proxy.gem_source_index = @gem_source_index
   
-      @gem_specifier = GemInstaller::GemSpecifier.new
-      @gem_specifier.gem_source_index_proxy = @gem_source_index_proxy
-  
       @gem_runner = Gem::GemRunner.new
       @gem_runner_proxy = GemInstaller::GemRunnerProxy.new
       @gem_runner_proxy.gem_runner = @gem_runner
@@ -63,7 +60,6 @@ module GemInstaller
       @app = GemInstaller::Application.new
       @app.config_builder = @config_builder
       @app.gem_command_manager = @gem_command_manager
-      @app.gem_specifier = @gem_specifier
       @app.gem_list_checker = @gem_list_checker
       @app.output_proxy = @output_proxy
       @app.arg_parser = @arg_parser

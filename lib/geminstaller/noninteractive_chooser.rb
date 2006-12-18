@@ -18,7 +18,7 @@ module GemInstaller
         required_list_item += Regexp.escape(" (#{@required_platform})")
       end
       # uninstall list types have the gem full_name, which is the platform for each gem appended after a dash, but only if it is not ruby
-      if (@list_type == :uninstall_list_type && @required_platform && @required_platform.to_s != GemInstaller::GemSpecifier.default_platform)
+      if (@list_type == :uninstall_list_type && @required_platform && @required_platform.to_s != GemInstaller::RubyGem.default_platform)
         required_list_item += Regexp.escape("-#{@required_platform}")
       end
       required_list_item_regex = /^#{required_list_item}$/

@@ -16,8 +16,7 @@ context "The geminstaller command line application" do
     
     @gem_command_manager = @registry.gem_command_manager
     @sample_gem = sample_gem
-# TODO: had to temporarily comment this until GemSpecifier remote bug is fixed
-#    @gem_command_manager.uninstall_gem(@sample_gem)
+    @gem_command_manager.uninstall_gem(@sample_gem) if @gem_command_manager.is_gem_installed(@sample_gem)
   end
 
   specify "should print usage if --help arg is specified" do
@@ -27,14 +26,12 @@ context "The geminstaller command line application" do
     @application.run
   end
 
-# TODO: this test is broken - need to fix logic error in GemSpecifier so it searches remotely, not locally
-#  specify "should install gem if it is not already installed" do
-#    args = ["--info","--config=#{dir}/live_geminstaller_config.yml"]
-#    @application.args = args
-#    @mock_output_proxy.should_receive(:sysout).with(/Some message/)
-#    @application.run
-#    @gem_command_manager.is_gem_installed(@sample_gem).should==(false)
-#  end
+ specify "should install gem if it is not already installed" do
+   args = ["--config=#{dir}/live_geminstaller_config.yml"]
+   @application.args = args
+   @application.run
+   @gem_command_manager.is_gem_installed(@sample_gem).should==(true)
+ end
   
   specify "should print message if gem is already installed and --info arg is specified" do
     @gem_command_manager.install_gem(@sample_gem)
@@ -66,14 +63,14 @@ context "The geminstaller command line application created via GemInstaller.run 
     $stderr = @mock_stderr
   end
 
-  specify "should run successfully" do
-    GemInstaller.run
-    @mock_stderr.err.should_match(/Error:.*/)
-  end
+ specify "should run successfully" do
+   GemInstaller.run
+   @mock_stderr.err.should_match(/Error:.*/)
+ end
   
-  specify "should have code coverage for it's mock even though stderr is only used if the spec fails" do
-    @mock_stderr.print("")
-  end
+ specify "should have code coverage for it's mock even though stderr is only used if the spec fails" do
+   @mock_stderr.print("")
+ end
   
   teardown do
     $stderr = @original_stderr

@@ -9,8 +9,8 @@ module Gem
     end
     
     def say(statement="")
-      unless defined? @@say_capture_buffer
-        @outs.puts statement unless GemInstaller::SpecUtils::SUPPRESS_RUBYGEMS_OUTPUT
+      unless defined? @@say_capture_buffer and !@@say_capture_buffer.nil?
+        @outs.puts statement
         return
       end
       @@say_capture_buffer << statement

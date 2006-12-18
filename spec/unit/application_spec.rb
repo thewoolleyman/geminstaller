@@ -13,8 +13,8 @@ context "an application instance invoked with no args" do
     @application.gem_command_manager = @mock_gem_command_manager
     gems = [@stub_gem]
     @stub_config.should_receive(:gems).and_return(gems)
-    @mock_gem_specifier.should_receive(:specify!).once.with(@stub_gem)
     @mock_gem_command_manager.should_receive(:is_gem_installed).once.with(@stub_gem).and_return(false)
+    @mock_gem_list_checker.should_receive(:verify_and_specify_remote_gem!).once.with(@stub_gem)
     @mock_gem_command_manager.should_receive(:install_gem).once.with(@stub_gem)
     @application.run
   end
@@ -24,7 +24,6 @@ context "an application instance invoked with no args" do
     @application.gem_command_manager = @mock_gem_command_manager
     gems = [@stub_gem]
     @stub_config.should_receive(:gems).and_return(gems)
-    @mock_gem_specifier.should_receive(:specify!).once.with(@stub_gem)
     @mock_gem_command_manager.should_receive(:is_gem_installed).once.with(@stub_gem).and_return(true)
     @application.run
   end
@@ -49,7 +48,6 @@ context "an application instance invoked with no args and info option" do
     @application.gem_command_manager = @mock_gem_command_manager
     gems = [@stub_gem]
     @stub_config.should_receive(:gems).and_return(gems)
-    @mock_gem_specifier.should_receive(:specify!).once.with(@stub_gem)
     @mock_gem_command_manager.should_receive(:is_gem_installed).once.with(@stub_gem).and_return(true)
     @mock_output_proxy.should_receive(:sysout).once().with(/Gem .*, version .*/)
     @application.run
@@ -101,8 +99,8 @@ context "an application instance invoked with alternate config file location" do
     @application.gem_command_manager = @mock_gem_command_manager
     gems = [@stub_gem]
     @stub_config.should_receive(:gems).and_return(gems)
-    @mock_gem_specifier.should_receive(:specify!).once.with(@stub_gem)
     @mock_gem_command_manager.should_receive(:is_gem_installed).once.with(@stub_gem).and_return(false)
+    @mock_gem_list_checker.should_receive(:verify_and_specify_remote_gem!).once.with(@stub_gem)
     @mock_gem_command_manager.should_receive(:install_gem).once.with(@stub_gem)
     @application.run
   end
@@ -114,7 +112,7 @@ def setup_common
   @stub_config = mock("Mock Config")
   @mock_gem_command_manager = mock("Mock GemCommandManager")
   @mock_output_proxy = mock("Mock Output Proxy")
-  @mock_gem_specifier = mock("Mock GemSpecifier")
+  @mock_gem_list_checker = mock("Mock GemListChecker")
   @stub_gem = GemInstaller::RubyGem.new("gemname", :version => "1.0")
 
   @stub_config_local = @stub_config
@@ -122,7 +120,7 @@ def setup_common
   @application = GemInstaller::Application.new
   @application.arg_parser = @mock_arg_parser
   @application.config_builder = @mock_config_builder
-  @application.gem_specifier = @mock_gem_specifier
+  @application.gem_list_checker = @mock_gem_list_checker
   @application.output_proxy = @mock_output_proxy
 end
 

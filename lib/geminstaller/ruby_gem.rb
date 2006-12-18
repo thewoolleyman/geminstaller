@@ -23,6 +23,10 @@ module GemInstaller
     def self.default_version
       '> 0.0.0'
     end
+    
+    def self.default_platform
+      Gem::Platform::RUBY
+    end    
 
     def <=>(other)
       compare = @name <=> other.name

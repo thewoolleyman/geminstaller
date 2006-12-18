@@ -14,6 +14,10 @@ context "the extensions to RubyGems" do
     @rubygems_extensions.choose_from_list("question", ["item 1"])
   end
 
+  specify "should have code coverage for case where say_capture_buffer is not set" do
+    @rubygems_extensions.say("")
+  end
+
   specify "should allow 'say' output to be captured" do
     say_capture_buffer = []
     Gem::StreamUI.say_capture_buffer = say_capture_buffer
