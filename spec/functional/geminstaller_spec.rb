@@ -63,14 +63,14 @@ context "The geminstaller command line application created via GemInstaller.run 
     $stderr = @mock_stderr
   end
 
- specify "should run successfully" do
-   GemInstaller.run
-   @mock_stderr.err.should_match(/Error:.*/)
- end
-  
- specify "should have code coverage for it's mock even though stderr is only used if the spec fails" do
-   @mock_stderr.print("")
- end
+  specify "should run successfully" do
+    GemInstaller.run
+    @mock_stderr.err.should_match(/Error:.*/)
+  end
+
+  specify "should have code coverage for it's mock even though stderr is only used if the spec fails" do
+    @mock_stderr.print("")
+  end
   
   teardown do
     $stderr = @original_stderr
