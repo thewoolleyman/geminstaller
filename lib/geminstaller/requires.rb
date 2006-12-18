@@ -11,7 +11,6 @@ require 'rubygems/installer'
 require 'rubygems/validator'
 
 # third party libs
-require 'needle'
 require 'yaml'
 require 'optparse'
 require 'erb'
