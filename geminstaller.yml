@@ -2,4 +2,4 @@
 defaults:
   install_options: --install-dependencies
 gems:
-  - name: hoe
+  - name: ruby-doom
