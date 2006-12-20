@@ -35,5 +35,6 @@ require File.expand_path("#{dir}/geminstaller_error")
 require File.expand_path("#{dir}/noninteractive_chooser")
 require File.expand_path("#{dir}/output_proxy")
 require File.expand_path("#{dir}/ruby_gem")
+require File.expand_path("#{dir}/version_specifier")
 require File.expand_path("#{dir}/yaml_loader")
 
