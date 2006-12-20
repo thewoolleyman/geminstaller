@@ -3,3 +3,4 @@ defaults:
   install_options: --install-dependencies
 gems:
   - name: ruby-doom
+    install_options: --source=http://localhost:8808
