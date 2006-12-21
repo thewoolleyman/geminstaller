@@ -22,6 +22,7 @@ context "an application instance invoked with no args" do
   specify "should not install a gem which is already installed" do
     @mock_config_builder.should_receive(:build_config).and_return {@stub_config_local}
     @application.gem_command_manager = @mock_gem_command_manager
+    @stub_gem.check_for_upgrade = false
     gems = [@stub_gem]
     @stub_config.should_receive(:gems).and_return(gems)
     @mock_gem_command_manager.should_receive(:is_gem_installed).once.with(@stub_gem).and_return(true)
@@ -46,6 +47,7 @@ context "an application instance invoked with no args and info option" do
   specify "should show info message for a gem which is already installed if info flag is specified" do
     @mock_config_builder.should_receive(:build_config).and_return {@stub_config_local}
     @application.gem_command_manager = @mock_gem_command_manager
+    @stub_gem.check_for_upgrade = false
     gems = [@stub_gem]
     @stub_config.should_receive(:gems).and_return(gems)
     @mock_gem_command_manager.should_receive(:is_gem_installed).once.with(@stub_gem).and_return(true)

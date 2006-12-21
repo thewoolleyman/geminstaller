@@ -15,6 +15,7 @@ context "a VersionSpecifier instance" do
   specify "should specify ambiguous version requirements when requirments are a comma-delimited string" do    
     should_specify("> 0", '1, 0', '1')
     should_specify("= 1", '2, 1, 0', '1')
+    should_specify("> 0.3.13.2", '0.3.13.4, 0.3.13.3, 0.3.13.2, 0.3.13.1', '0.3.13.4')
     should_specify("> 1.2.3", '2.0, 1.2.4, 1.2.4, 0.3', '2.0')
   end
   

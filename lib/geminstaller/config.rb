@@ -21,7 +21,17 @@ module GemInstaller
         install_options_array = []
         # if there was an install options string specified, default or gem-specific, parse it to an array
         install_options_array = install_options_string.split(" ") unless install_options_string.empty?
-        gem = GemInstaller::RubyGem.new(name, :version => version, :install_options => install_options_array)
+
+        check_for_upgrade = gem_def['check_for_upgrade']
+        if check_for_upgrade.nil? && defined? @default_check_for_upgrade then
+          check_for_upgrade = @default_check_for_upgrade
+        end
+
+        gem = GemInstaller::RubyGem.new(
+          name, 
+          :version => version, 
+          :install_options => install_options_array, 
+          :check_for_upgrade => check_for_upgrade)
         gems << gem
       end
       gems.sort!
@@ -34,6 +44,7 @@ module GemInstaller
       defaults = @yaml["defaults"]
       return if defaults.nil?
       @default_install_options_string = defaults['install_options']
+      @default_check_for_upgrade = defaults['check_for_upgrade']
     end
   end
 end

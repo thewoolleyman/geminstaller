@@ -9,12 +9,17 @@ module GemInstaller
         config = @config_builder.build_config
         gems = config.gems
         gems.each do |gem|
+          already_specified = false
+          if gem.check_for_upgrade
+            @gem_list_checker.verify_and_specify_remote_gem!(gem)
+            already_specified = true
+          end
           gem_is_installed = @gem_command_manager.is_gem_installed(gem)
           if gem_is_installed && @info
             @output_proxy.sysout("Gem #{gem.name}, version #{gem.version} is already installed.\n")
           end
           unless gem_is_installed
-            @gem_list_checker.verify_and_specify_remote_gem!(gem)
+            @gem_list_checker.verify_and_specify_remote_gem!(gem) unless already_specified
             @output_proxy.sysout("Installing gem #{gem.name}, version #{gem.version}.\n") if @info
             @gem_command_manager.install_gem(gem)
           end

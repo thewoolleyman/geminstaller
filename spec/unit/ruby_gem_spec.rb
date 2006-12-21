@@ -5,12 +5,13 @@ context "A ruby gem data object" do
   setup do
   end
 
-  specify "may be instantiated with a name, a version, a platform, and install options" do
+  specify "may be instantiated with a name, a version, a platform, install options, and check_for_upgrade flag" do
     gem = GemInstaller::RubyGem.new('mygem', :version => 'v1.1', :platform => "ruby", :install_options => '-y')
     gem.name.should==('mygem')
     gem.version.should==('v1.1')
     gem.platform.should==('ruby')
     gem.install_options.should==('-y')
+    gem.check_for_upgrade.should==(true)
   end
 
   specify "should default the platform to ruby if it is not specified" do
