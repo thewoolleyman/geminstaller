@@ -37,7 +37,8 @@ context "a GemListChecker instance" do
     @sample_gem.name = "stubgem-multiplatform"
     @sample_gem.version = "> 0.0.0"
     @sample_gem.platform = "ruby"
-    should_not_raise_error    
+    should_not_raise_error
+    @sample_gem.version.should=="1.0.1"
   end
   
   specify "should raise error from verify_and_specify_remote_gem! if there is no match found" do

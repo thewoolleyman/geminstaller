@@ -34,6 +34,7 @@ module GemInstaller
       @output_proxy = GemInstaller::OutputProxy.new
       @arg_parser = GemInstaller::ArgParser.new
       @gem_arg_processor = GemInstaller::GemArgProcessor.new
+      @version_specifier = GemInstaller::VersionSpecifier.new
   
       @config_builder = GemInstaller::ConfigBuilder.new
       @config_builder.config_file_paths = config_file_paths
@@ -56,6 +57,7 @@ module GemInstaller
       @gem_list_checker = GemInstaller::GemListChecker.new
       @gem_list_checker.gem_command_manager = @gem_command_manager
       @gem_list_checker.gem_arg_processor = @gem_arg_processor
+      @gem_list_checker.version_specifier = @version_specifier
   
       @app = GemInstaller::Application.new
       @app.config_builder = @config_builder

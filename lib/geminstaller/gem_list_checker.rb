@@ -1,6 +1,6 @@
 module GemInstaller
   class GemListChecker
-    attr_writer :gem_command_manager, :gem_arg_processor
+    attr_writer :gem_command_manager, :gem_arg_processor, :version_specifier
     
     def find_remote_matching_gem(gem)
       regexp_escaped_gem_name = Regexp.escape(gem.name)
@@ -32,15 +32,20 @@ module GemInstaller
     end
     
     def verify_and_specify_remote_gem!(gem)
-      remote_match = find_remote_matching_gem(gem)
+      remote_match_line = find_remote_matching_gem(gem)
       # TODO: this seems like it is a hack, but we must have a non-ambiguous version on the gem in order for 
       # noninteractive_chooser to be able to parse the gem list for multi-platform gems.  This will not be necessary
-      # if a future RubyGems release allows specification of the platform, because then we won't need noninteractive_chooser
-      #version_requirement = Version::Requirement.new(version_requirement)
+      # if a future RubyGems release allows specification/searching of the platform, because then we won't need noninteractive_chooser
       
-      # TODO: parse out array of versions
-      # TODO: add call to still-nonexistent VersionSpecifier
-      # blah blah specify version requirement
+      version_list = parse_out_version_list(remote_match_line)
+      specified_version = @version_specifier.specify(gem.version, version_list)
+      gem.version = specified_version
+    end
+    
+    def parse_out_version_list(line)
+      # return everything between first set of parenthesis
+      version_list = line.split(/[()]/)[1]
+      version_list
     end
         
   end
