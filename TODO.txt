@@ -8,6 +8,7 @@
 * Rename local_gem_server to embedded_gem_server
 * remove cruft from test output
 * Remove hoe as a dependency for stubgems
+* Use a logger, hook it into --info/verbose option
 * add more output for --info option.  Should also be able to check info flag from classes other than Application
 * rename is_gem_installed to is_gem_installed?
 * rake test fails on linux (problems starting embedded gem server)
