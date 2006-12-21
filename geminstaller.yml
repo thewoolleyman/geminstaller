@@ -1,6 +1,5 @@
 # GemInstaller config file which specifies the actual build and test dependencies for GemInstaller itself.
 defaults:
-  install_options: --install-dependencies
+  install_options: --include-dependencies
 gems:
   - name: ruby-doom
-    install_options: --source=http://localhost:8808
