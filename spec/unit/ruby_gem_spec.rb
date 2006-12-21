@@ -27,6 +27,11 @@ context "A ruby gem data object" do
     gem.install_options.should==('-y')
   end
 
+  specify "may be instantiated with only a name, and install options (unspecified version)" do
+    gem = GemInstaller::RubyGem.new('mygem', :version => '> 0.1.2.3')
+    gem.version.should==('> 0.1.2.3')
+  end
+
   specify "should be comparable on name, version, and platform" do
     gems = []
     gems << GemInstaller::RubyGem.new('3', :version => '2', :platform => '2', :install_options => '4')

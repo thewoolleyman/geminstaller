@@ -6,7 +6,7 @@ context "config YAML containing a single gem" do
     @yaml_text = <<-STRING_END
       gems:
         - name: mygem
-          version: 1.1
+          version: '> 0.1.2.3'
           install_options: -y
           check_for_upgrade: false
     STRING_END
@@ -17,7 +17,7 @@ context "config YAML containing a single gem" do
   specify "should be parsed into a corresponding gem object" do
     gem = @config.gems[0]
     gem.name.should==('mygem')
-    gem.version.should==('1.1')
+    gem.version.should==('> 0.1.2.3')
     gem.install_options.should==(["-y"])
     gem.check_for_upgrade.should==(false)
   end
