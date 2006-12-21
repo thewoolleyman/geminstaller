@@ -1,5 +1,12 @@
-* Application should not do any remote operations (or anything, really) if the version and platform are non-ambiguous and already installed.
+* Add additional dependencies and versions in Hoe, add dependency on Hoe, RubyForge
 * Add support for multiple config files (last ones win)
+* decide how to deal with sudo problem.  probably initially just tell people to add user and gem command to sudoers file with no password
+* rake test fails on linux (problems starting embedded gem server)
+* write basic rdoc instructions
+* publish site
+* upload gem 
+* create basic website
+* Application should not do any remote operations (or anything, really) if the version and platform are non-ambiguous and already installed.
 * Handle gems with "CURRENT" platform
 * get 100% code coverage
 * ensure --debug install option works as expected
@@ -9,9 +16,7 @@
 * Use a logger, hook it into --info/verbose option
 * add more output for --info option.  Should also be able to check info flag from classes other than Application
 * rename is_gem_installed to is_gem_installed?
-* rake test fails on linux (problems starting embedded gem server)
 * clean out all old warnings about having to start local gem server
-* Add additional dependencies and versions in Hoe, add dependency on Hoe, RubyForge
 * fix all Zentest warnings
 * Rename RubyGem class to RubyGemAction, add install vs. uninstall actions in config (install is default)
 * Automate process for creating a stubgem
@@ -30,13 +35,8 @@
 * add option to specify --backtrace on all gem commands
 * Show warning if there is a more recent gem available (and the default?) in the repository
 * -v option should show full stacktrace on errors
-* add api support (simple to invoke from ruby)
+* add api support (should be simple to invoke from ruby)
 * take --trace parameter to show full stack trace
-* decide how to deal with sudo problem.  probably initially just tell people to add user and gem command to sudoers file with no password
-* write basic rdoc instructions
-* publish site
-* upload gem 
-* create basic website
-* add feature to automatically warn if there is a more recent version of the gem available.
+* add feature to automatically warn if there is a more recent version of the gem available and check_for_upgrade == false.
 * Have tests install to temp dir instead of real gem repo (use FileUtils.rm_rf and Gem.use_paths, see rubygems doc_manager for example)
 * auto-generate dependency file
