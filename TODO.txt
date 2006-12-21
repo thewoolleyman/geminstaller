@@ -3,7 +3,6 @@
 * Handle gems with "CURRENT" platform
 * get 100% code coverage
 * ensure --debug install option works as expected
-* remove depencency on needle (roll our own DependencyInjector)
 * Rename local_gem_server to embedded_gem_server
 * remove cruft from test output
 * Remove hoe as a dependency for stubgems
