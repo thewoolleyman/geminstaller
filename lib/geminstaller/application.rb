@@ -15,6 +15,7 @@ module GemInstaller
           end
           unless gem_is_installed
             @gem_list_checker.verify_and_specify_remote_gem!(gem)
+            @output_proxy.sysout("Installing gem #{gem.name}, version #{gem.version}.\n") if @info
             @gem_command_manager.install_gem(gem)
           end
         end
