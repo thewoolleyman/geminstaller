@@ -1,5 +1,6 @@
 defaults:
   install_options: -y --local
+  check_for_upgrade: false  
 gems:
   - name: testgem1
     version: v2.0
@@ -8,3 +9,4 @@ gems:
     install_options: --backtrace    
   - name: testgem3
     version: v3.0
+    check_for_upgrade: true

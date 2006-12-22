@@ -4,6 +4,7 @@ defaults:
 gems:
   - name: <%= gem_one_name %>
     version: v1.1
+    check_for_upgrade: false
   - name: testgem2
     version: v1.2
     install_options: --include-dependencies
