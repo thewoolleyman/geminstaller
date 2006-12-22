@@ -1,3 +1,4 @@
+* non-specific versions in config yml (such as > 0.1.2) must be specified in quotes (such as '> 0.1.2') or else they are not correctly parsed by yaml (just returns '0.1.2' instead of '> 0.1.2').  Should give some warning instead of just failing
 * Add additional dependencies and versions in Hoe, add dependency on Hoe, RubyForge
 * Add support for multiple config files (last ones win)
 * decide how to deal with sudo problem.  probably initially just tell people to add user and gem command to sudoers file with no password
