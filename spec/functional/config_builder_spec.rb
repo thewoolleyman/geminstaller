@@ -3,28 +3,22 @@ require File.expand_path("#{dir}/../spec_helper")
 
 context "a config builder with a single config file path" do
   setup do
+    @test_config_file_paths = File.expand_path("#{dir}/test_geminstaller_config.yml")
+    config_builder_spec_common_setup
   end
 
   specify "should successfully assemble a config object" do
-    test_config_file_paths = File.expand_path("#{dir}/test_geminstaller_config.yml")
-    dependency_injector = GemInstaller::DependencyInjector.new
-    dependency_injector.config_file_paths = test_config_file_paths
-    config_builder = dependency_injector.registry.config_builder
-    config = config_builder.build_config
-    config.gems[0].name.should==("testgem1")
-    config.gems[1].check_for_upgrade.should==(true)
+    @config.gems[0].name.should==("testgem1")
+    @config.gems[1].check_for_upgrade.should==(true)
   end
 end
 
 context "a config builder with multiple config file paths" do
   setup do
-    test_config_file_paths = 
+    @test_config_file_paths = 
       File.expand_path("#{dir}/test_geminstaller_config.yml") + "," + 
       File.expand_path("#{dir}/test_geminstaller_config_2.yml")
-    dependency_injector = GemInstaller::DependencyInjector.new
-    dependency_injector.config_file_paths = test_config_file_paths
-    config_builder = dependency_injector.registry.config_builder
-    @config = config_builder.build_config
+    config_builder_spec_common_setup
   end
   
   specify "should successfully assemble a config object" do
@@ -54,5 +48,23 @@ context "a config builder with multiple config file paths" do
     @config.gems[3].version.should==("v3.0")
     @config.gems[3].check_for_upgrade.should==(true)
   end
+end
 
+context "a config builder with multiple config file paths and no default entries in the override file" do
+  setup do
+    @test_config_file_paths = 
+      File.expand_path("#{dir}/test_geminstaller_config.yml") + "," + 
+      File.expand_path("#{dir}/test_geminstaller_config_3.yml")
+    config_builder_spec_common_setup
+  end
+  
+  specify "should successfully assemble a config object" do
+  end
+end
+
+def config_builder_spec_common_setup
+  dependency_injector = GemInstaller::DependencyInjector.new
+  dependency_injector.config_file_paths = @test_config_file_paths
+  config_builder = dependency_injector.registry.config_builder
+  @config = config_builder.build_config
 end
