@@ -8,4 +8,5 @@ gems:
     version: 0.8
   - name: x10-cm17a
     version: '> 1.0.0'
+    platform: <%= RUBY_PLATFORM == 'i386-mswin32' ? 'i386-mswin32' : 'ruby'%>
     

@@ -17,18 +17,19 @@
 test_gems = ['rutils', 'x10-cm17a', 'ruby-doom']
 
 p "Run this as sudo or ensure you have permissions to install gems"
-p "This will uninstall and reinstall the latest versions of the following gems.  If you don't want that, to happen, kill it now (oops it's too late, you should have read the instructions first!)"
+p "This will uninstall and reinstall the latest versions of the following gems.  If you don't want that to happen, kill it now (oops it's too late, you should have read the instructions first!)"
 p test_gems
+gem_cmd = RUBY_PLATFORM == 'i386-mswin32' ? 'gem.bat' : 'gem'
 test_gems.each do |gem|
   p "Uninstalling all versions of #{gem}.  This will give an error if it's not already installed."
-  system("gem uninstall -a #{gem}")
+  IO.popen("#{gem_cmd} uninstall -a #{gem}") {|process| process.readlines.each {|line| print line}}
 end
-geminstaller_cmd = "ruby lib/dev_runner.rb --info --verbose --config=./smoketest-geminstaller.yml,./smoketest-geminstaller-override.yml"
+geminstaller_cmd = "ruby #{File.join('lib','dev_runner.rb')} --info --verbose --config=smoketest-geminstaller.yml,smoketest-geminstaller-override.yml"
 p "Running geminstaller: #{geminstaller_cmd}"
 p "Please be patient, it may take a bit, or may not work at all if rubyforge or your network connection is down, or if there's a bug in geminstaller :)"
-system(geminstaller_cmd)
+IO.popen(geminstaller_cmd) {|process| process.readlines.each {|line| print line}}
 p "Geminstaller command complete.  Now we'll run gem list to visually check that the gems were installed"
 test_gems.each do |gem|
   p "Running gem list for #{gem}, verify that it contains the expected version(s)"
-  system("gem list #{gem}")
+  IO.popen("#{gem_cmd} list #{gem}") {|process| process.readlines.each {|line| print line}}
 end
