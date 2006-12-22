@@ -35,6 +35,10 @@ context "a config builder with multiple config file paths" do
     @config.gems[1].version.should==("v2.0")
   end
 
+  specify "should take defaults from previous files if they are not overridden" do
+    @config.gems[0].install_options.should==(['-y'])
+  end
+
   specify "should allow subsequent files to override defaults" do
     @config.gems[2].name.should==("testgem2")
     @config.gems[2].check_for_upgrade.should==(false)
