@@ -21,9 +21,9 @@ p "This will uninstall and reinstall the latest versions of the following gems. 
 p test_gems
 test_gems.each do |gem|
   p "Uninstalling all versions of #{gem}.  This will give an error if it's not already installed."
-  system("sudo gem uninstall -a #{gem}")
+  system("gem uninstall -a #{gem}")
 end
-geminstaller_cmd = "sudo ruby lib/dev_runner.rb --info --verbose --config=./smoketest-geminstaller.yml,./smoketest-geminstaller-override.yml"
+geminstaller_cmd = "ruby lib/dev_runner.rb --info --verbose --config=./smoketest-geminstaller.yml,./smoketest-geminstaller-override.yml"
 p "Running geminstaller: #{geminstaller_cmd}"
 p "Please be patient, it may take a bit, or may not work at all if rubyforge or your network connection is down, or if there's a bug in geminstaller :)"
 system(geminstaller_cmd)
