@@ -11,9 +11,9 @@ require 'rubygems/installer'
 require 'rubygems/validator'
 
 # third party libs
-require 'yaml'
-require 'optparse'
 require 'erb'
+require 'optparse'
+require 'yaml'
 
 # third party lib extensions
 require File.expand_path("#{dir}/rubygems_extensions")

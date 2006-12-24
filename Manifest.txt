@@ -10,6 +10,7 @@ bin/geminstaller
 geminstaller.iml
 geminstaller.ipr
 geminstaller.iws
+geminstaller.kpf
 geminstaller.tmproj
 geminstaller.yml
 lib/dev_runner.rb
@@ -31,6 +32,7 @@ lib/geminstaller/output_proxy.rb
 lib/geminstaller/requires.rb
 lib/geminstaller/ruby_gem.rb
 lib/geminstaller/rubygems_extensions.rb
+lib/geminstaller/version_specifier.rb
 lib/geminstaller/yaml_loader.rb
 spec/functional/config_builder_spec.rb
 spec/functional/dependency_injector_spec.rb
@@ -38,9 +40,12 @@ spec/functional/gem_command_manager_spec.rb
 spec/functional/gem_list_checker_spec.rb
 spec/functional/geminstaller_spec.rb
 spec/functional/live_geminstaller_config.yml
+spec/functional/live_geminstaller_config_2.yml
 spec/functional/output_proxy_spec.rb
 spec/functional/test_geminstaller_config.yml
 spec/functional/test_geminstaller_config_2.yml
+spec/functional/test_geminstaller_config_3.yml
+spec/functional/version_specifier_spec.rb
 spec/gems/.DS_Store
 spec/gems/cache/stubgem-1.0.0.gem
 spec/gems/cache/stubgem-multiplatform-1.0.0.gem
@@ -114,7 +119,9 @@ spec/gems/specifications/stubgem-1.0.0.gemspec
 spec/gems/specifications/stubgem-multiplatform-1.0.0.gemspec
 spec/gems/specifications/stubgem-multiplatform-1.0.1-mswin32.gemspec
 spec/gems/specifications/stubgem-multiplatform-1.0.1.gemspec
-spec/rspec_extensions.rb
+spec/smoketest/smoketest-geminstaller-override.yml
+spec/smoketest/smoketest-geminstaller.yml
+spec/smoketest/smoketest.rb
 spec/spec_helper.rb
 spec/spec_utils.rb
 spec/unit/application_spec.rb
@@ -123,6 +130,7 @@ spec/unit/config_spec.rb
 spec/unit/file_reader_spec.rb
 spec/unit/gem_arg_processor_spec.rb
 spec/unit/gem_command_manager_spec.rb
+spec/unit/gem_list_checker_spec.rb
 spec/unit/noninteractive_chooser_spec.rb
 spec/unit/ruby_gem_spec.rb
 spec/unit/rubygems_extensions_spec.rb
