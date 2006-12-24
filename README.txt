@@ -73,9 +73,12 @@ Thats is for the docs for now.  More to come later.  Please report any bugs/feed
 Runtime:
 * nothing, other than rubygems itself
 
-Testing:
-* rspec >= 0.7.5 and its dependency diff-lcs >= 1.1.2.  Run geminstaller in the geminstaller root to auto-install these.
-
+Building/Testing (Run geminstaller in the geminstaller root to auto-install these):
+* rake >= 0.7.1
+* hoe >= 1.1.6
+* rspec >= 0.7.5
+* diff-lcs >= 1.1.2
+* rcov >= 0.7.0.1
 
 == INSTALL:
 
