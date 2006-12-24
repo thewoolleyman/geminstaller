@@ -7,6 +7,7 @@ context "config YAML containing a single gem" do
       gems:
         - name: mygem
           version: '> 0.1.2.3'
+          platform: ruby
           install_options: -y
           check_for_upgrade: false
     STRING_END
@@ -18,6 +19,7 @@ context "config YAML containing a single gem" do
     gem = @config.gems[0]
     gem.name.should==('mygem')
     gem.version.should==('> 0.1.2.3')
+    gem.platform.should==('ruby')
     gem.install_options.should==(["-y"])
     gem.check_for_upgrade.should==(false)
   end

@@ -11,6 +11,7 @@ module GemInstaller
       gem_defs.each do |gem_def|
         name = gem_def['name']
         version = gem_def['version'].to_s
+        platform = gem_def['platform'].to_s
         # get install_options for specific gem, if specified
         install_options_string = gem_def['install_options'].to_s
         # if no install_options were specified for specific gem, and default install_options were specified...
@@ -30,6 +31,7 @@ module GemInstaller
         gem = GemInstaller::RubyGem.new(
           name, 
           :version => version, 
+          :platform => platform, 
           :install_options => install_options_array, 
           :check_for_upgrade => check_for_upgrade)
         gems << gem

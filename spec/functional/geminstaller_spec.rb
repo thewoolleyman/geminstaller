@@ -25,13 +25,13 @@ context "The geminstaller command line application" do
     @mock_output_proxy.should_receive(:syserr).with(/Usage.*/)
     @application.run
   end
-
- specify "should install gem if it is not already installed" do
-   args = ["--config=#{dir}/live_geminstaller_config.yml"]
-   @application.args = args
-   @application.run
-   @gem_command_manager.is_gem_installed(@sample_gem).should==(true)
- end
+  
+  specify "should install gem if it is not already installed" do
+    args = ["--config=#{dir}/live_geminstaller_config.yml"]
+    @application.args = args
+    @application.run
+    @gem_command_manager.is_gem_installed(@sample_gem).should==(true)
+  end
   
   specify "should print message if gem is already installed and --info arg is specified" do
     @gem_command_manager.install_gem(@sample_gem)
@@ -39,6 +39,16 @@ context "The geminstaller command line application" do
     @application.args = args
     @mock_output_proxy.should_receive(:sysout).with(/Gem .* is already installed/)
     @application.run
+  end
+  
+  specify "should install a platform-specific binary gem" do
+    @sample_multiplatform_gem = sample_multiplatform_gem
+    @gem_command_manager.uninstall_gem(@sample_multiplatform_gem) if @gem_command_manager.is_gem_installed(@sample_multiplatform_gem)
+    args = ["--info","--config=#{dir}/live_geminstaller_config_2.yml"]
+    @application.args = args
+    @mock_output_proxy.should_receive(:sysout).with(/Installing gem stubgem-multiplatform.*/)
+    @application.run
+    @gem_command_manager.is_gem_installed(@sample_multiplatform_gem).should==(true)
   end
   
 end
