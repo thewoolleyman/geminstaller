@@ -17,7 +17,7 @@
 use_sudo = true
 test_gems = ['ruby-doom', 'rutils', 'x10-cm17a']
 
-print "This will uninstall and reinstall the latest versions of the following gems.  If you don't want that to happen, kill it now (oops it's too late, you should have read the instructions first!)\n"
+print "This will uninstall the following gems and reinstall them with geminstaller.  If you don't want that to happen, kill it now (oops it's too late, you should have read the comments first!)\n"
 test_gems.each {|gem| print "  " + gem + "\n"}
 
 is_windows = RUBY_PLATFORM == 'i386-mswin32' ? true : false
@@ -38,11 +38,12 @@ test_gems.each do |gem|
 end
 
 print "\n\n"
-path_to_app = File.join(File.dirname(__FILE__),'..','..','lib','dev_runner.rb')
-geminstaller_cmd = "#{sudo} ruby #{path_to_app} --info --verbose --config=smoketest-geminstaller.yml,smoketest-geminstaller-override.yml"
+dir = File.dirname(__FILE__)
+path_to_app = File.join(dir,'..','..','lib','dev_runner.rb')
+geminstaller_cmd = "#{sudo} ruby #{path_to_app} --info --verbose --config=#{File.join(dir,'smoketest-geminstaller.yml')},#{File.join(dir,'smoketest-geminstaller-override.yml')}"
 print "Running geminstaller: #{geminstaller_cmd}\n"
 print "This should print a message for each of the gems which are installed.\n"
-print "Please be patient, it may take a bit, or may not work at all if rubyforge or your network connection is down, or if there's a bug in geminstaller :)\n\n"
+print "Please be patient, it may take a bit, or may not work at all if rubyforge or your network connection is down, or you don't have proper permissions, or if there's a bug in geminstaller :)\n\n"
 IO.popen(geminstaller_cmd) {|process| process.readlines.each {|line| print line}}
 print "\n\n"
 
