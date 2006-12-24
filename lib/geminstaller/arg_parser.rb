@@ -6,6 +6,7 @@ module GemInstaller
       @options = {}
       @options[:verbose] = false
       @options[:info] = false
+      @options[:sudo] = false
       @output = ""
       opts = OptionParser.new do |opts|
         opts.banner = "Usage: geminstaller [options]"
@@ -22,6 +23,10 @@ module GemInstaller
 
         opts.on("-v", "--verbose", "Show verbose output") do
           @options[:verbose] = true
+        end
+
+        opts.on("-s", "--sudo", "Perform all gem operations under sudo (as root).  Will only work on supported systems") do
+          @options[:sudo] = true
         end
 
         opts.on_tail("-h", "--help", "Show this message") do

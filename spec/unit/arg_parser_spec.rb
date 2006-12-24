@@ -97,6 +97,18 @@ context "an ArgParser instance with info option" do
   end
 end
 
+context "an ArgParser instance with sudo option" do
+  setup do
+    common_setup
+    @args = ["--sudo"]
+  end
+
+  specify "should return sudo flag as true in options hash" do
+    opts = @arg_parser.parse(@args)
+    opts[:sudo].should==(true)
+  end
+end
+
 def common_setup
   @arg_parser = GemInstaller::ArgParser.new
 end
