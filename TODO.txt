@@ -1,11 +1,12 @@
 * non-specific versions in config yml (such as > 0.1.2) must be specified in quotes (such as '> 0.1.2') or else they are not correctly parsed by yaml (just returns '0.1.2' instead of '> 0.1.2').  Should give some warning instead of just failing
 * Add additional dependencies and versions in Hoe, add dependency on Hoe, RubyForge
-* Add support for multiple config files (last ones win)
 * decide how to deal with sudo problem.  probably initially just tell people to add user and gem command to sudoers file with no password
 * rake test fails on linux (problems starting embedded gem server)
 * write basic rdoc instructions
 * publish site
 * upload gem 
+* Define procedure to invoke programatically via rails and non-rails
+* Document simple example (command line, rails, non-rails) in README.txt
 * create basic website
 * Application should not do any remote operations (or anything, really) if the version and platform are non-ambiguous and already installed.
 * Handle gems with "CURRENT" platform
@@ -17,7 +18,6 @@
 * Use a logger, hook it into --info/verbose option
 * add more output for --info option.  Should also be able to check info flag from classes other than Application
 * rename is_gem_installed to is_gem_installed?
-* clean out all old warnings about having to start local gem server
 * fix all Zentest warnings
 * Rename RubyGem class to RubyGemAction, add install vs. uninstall actions in config (install is default)
 * Automate process for creating a stubgem
@@ -26,8 +26,6 @@
 * Give nice error message if gem server is unavailable (check socket)
 * Make tests run under RadRails debugger
 * Rename GemInstaller::Runner to GemInstaller::GemInstaller
-* Define procedure to invoke programatically via rails and non-rails
-* Document simple example (command line, rails, non-rails) in README.txt
 * handle unsupported gem install options - for example, -t gives uninitialized constant Gem::Validator
 * update info in stubgem (not sow defaults)
 * Run embedded gem_server for tests at nonstandard (not 8808) port
