@@ -30,7 +30,7 @@ GemInstaller can also be embedded in another application, such as a Rails app.  
 RAILS_ROOT/config/environment.rb:
 	...
 	require "geminstaller"
-	args = ['--info']
+	args = ['--info','--config=config/geminstaller.yml']
 	GemInstaller.run(args)
 	...
 
