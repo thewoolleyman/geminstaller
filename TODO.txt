@@ -28,7 +28,6 @@
 * Rename GemInstaller::Runner to GemInstaller::GemInstaller
 * handle unsupported gem install options - for example, -t gives uninitialized constant Gem::Validator
 * update info in stubgem (not sow defaults)
-* Run embedded gem_server for tests at nonstandard (not 8808) port
 * Make SourceIndex.search use alternate method that does exact regex match, to avoid passing the exact regex ourselves.
 * Fix errors when using relative or ~/ dir in --config path
 * add option to specify --backtrace on all gem commands

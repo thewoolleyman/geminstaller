@@ -2,4 +2,4 @@ gems:
   - name: stubgem-multiplatform
     version: 1.0.1
     platform: mswin32
-    install_options: -y --backtrace --source=http://localhost:8808
+    install_options: -y --backtrace --source=http://localhost:9909

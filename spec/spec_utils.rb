@@ -18,7 +18,7 @@ module GemInstaller::SpecUtils
   end
   
   def local_gem_server_port
-    8808
+    9909
   end
 
   def local_gem_server_url
@@ -56,7 +56,7 @@ module GemInstaller::SpecUtils
     def self.start
       return if @@gem_server_pid
       Gem.clear_paths
-      gem_server_process = IO.popen("gem_server --dir=#{embedded_gem_dir}")
+      gem_server_process = IO.popen("gem_server --dir=#{embedded_gem_dir} --port=9909")
       @@gem_server_pid = gem_server_process.pid
       print "Started embedded gem server at #{embedded_gem_dir}, pid = #{@@gem_server_pid}\n"
       trap("INT") { Process.kill(9,@@gem_server_pid); exit! }

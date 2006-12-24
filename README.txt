@@ -21,7 +21,7 @@ defaults:
 gems:
   - name: some-gem
     version: 0.1
-    install_options: -y --backtrace --source=http://gems.myreliableserver.com:8808
+    install_options: -y --backtrace --source=http://gems.myreliableserver.com:9909
   - name: another-gem
     version: 0.2
 
