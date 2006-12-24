@@ -1,6 +1,6 @@
 module GemInstaller
   class ArgParser
-    attr_reader :output
+    attr_reader :output, :options
     
     def parse(args)
       @options = {}

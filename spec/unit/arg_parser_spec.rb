@@ -87,6 +87,14 @@ context "an ArgParser instance with info option" do
     opts = @arg_parser.parse(@args)
     opts[:info].should==(true)
   end
+  
+  specify "should expose options as a property after parsing" do
+    options = @arg_parser.options
+    options.should==(nil)
+    @arg_parser.parse(@args)
+    options = @arg_parser.options
+    options[:info].should==(true)
+  end
 end
 
 def common_setup
