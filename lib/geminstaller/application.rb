@@ -2,6 +2,10 @@ module GemInstaller
   class Application
     # we have accessors instead of just writers so that we can ensure it is assembled correctly in the dependency injector test
     attr_accessor :config_builder, :gem_command_manager, :gem_list_checker, :output_proxy, :arg_parser, :args
+    
+    def self.default_args
+      ARGV
+    end
 
     def run
       begin
@@ -35,6 +39,7 @@ module GemInstaller
     end
     
     def handle_args
+      @args ||= GemInstaller::Application.default_args
       opts = @arg_parser.parse(@args)
       arg_parser_output = arg_parser.output
       if (arg_parser_output && arg_parser_output != '')

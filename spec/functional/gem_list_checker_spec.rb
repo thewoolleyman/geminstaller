@@ -10,7 +10,7 @@ context "a GemListChecker instance" do
     embedded_gem_dir = GemInstaller::SpecUtils::EmbeddedGemServer.embedded_gem_dir
     Gem.use_paths(embedded_gem_dir)
   
-    @registry = GemInstaller::Runner.new.create_registry
+    @registry = GemInstaller.create_registry
     @gem_list_checker = @registry.gem_list_checker
     @sample_gem = sample_gem
   end

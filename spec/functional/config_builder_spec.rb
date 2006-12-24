@@ -11,6 +11,10 @@ context "a config builder with a single config file path" do
     @config.gems[0].name.should==("testgem1")
     @config.gems[1].check_for_upgrade.should==(true)
   end
+
+  specify "should have code coverage for default config file path" do
+    GemInstaller::ConfigBuilder.default_config_file_path.should==('geminstaller.yml')
+  end
 end
 
 context "a config builder with multiple config file paths" do
@@ -64,7 +68,7 @@ end
 
 def config_builder_spec_common_setup
   dependency_injector = GemInstaller::DependencyInjector.new
-  dependency_injector.config_file_paths = @test_config_file_paths
   config_builder = dependency_injector.registry.config_builder
+  config_builder.config_file_paths = @test_config_file_paths
   @config = config_builder.build_config
 end

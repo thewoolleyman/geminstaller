@@ -33,7 +33,6 @@
 * add option to specify --backtrace on all gem commands
 * Show warning if there is a more recent gem available (and the default?) in the repository
 * -v option should show full stacktrace on errors
-* add api support (should be simple to invoke from ruby)
 * take --trace parameter to show full stack trace
 * add feature to automatically warn if there is a more recent version of the gem available and check_for_upgrade == false.
 * Have tests install to temp dir instead of real gem repo (use FileUtils.rm_rf and Gem.use_paths, see rubygems doc_manager for example)

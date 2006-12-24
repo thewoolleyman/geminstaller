@@ -1,34 +1,20 @@
 module GemInstaller
   class DependencyInjector
-    attr_writer :config_file_paths
-
     def registry
       @registry ||= create_registry
     end
     
-    def default_config_file_path
-      'geminstaller.yml'
-    end
-
-    private
-
     def create_registry
-      # define properties
-      # TODO: no longer using needle, is this still necessary?
-      # Note: we have to define a local variable for config_file_path, Needle can't reference the instance variable
-      config_file_paths = @config_file_paths
-      config_file_paths ||= default_config_file_path
-
       # define the service registry
-      @registry = GemInstaller::Registry.new(config_file_paths)
-    end # create_registry
+      @registry = GemInstaller::Registry.new
+    end
   end
   
   class Registry
     attr_accessor :file_reader, :yaml_loader, :output_proxy, :config_builder, :gem_source_index
     attr_accessor :gem_runner, :gem_command_manager, :gem_list_checker, :app
 
-    def initialize(config_file_paths)
+    def initialize
       @file_reader = GemInstaller::FileReader.new
       @yaml_loader = GemInstaller::YamlLoader.new
       @output_proxy = GemInstaller::OutputProxy.new
@@ -37,7 +23,6 @@ module GemInstaller
       @version_specifier = GemInstaller::VersionSpecifier.new
   
       @config_builder = GemInstaller::ConfigBuilder.new
-      @config_builder.config_file_paths = config_file_paths
       @config_builder.file_reader = @file_reader
       @config_builder.yaml_loader = @yaml_loader
   
@@ -65,7 +50,6 @@ module GemInstaller
       @app.gem_list_checker = @gem_list_checker
       @app.output_proxy = @output_proxy
       @app.arg_parser = @arg_parser
-      @app.args = ARGV
-    end #initialize
-  end # Registry class
+    end
+  end
 end

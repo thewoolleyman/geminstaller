@@ -7,7 +7,12 @@ module GemInstaller
     attr_writer :yaml_loader
     attr_writer :config_file_paths
     
+    def self.default_config_file_path
+      'geminstaller.yml'
+    end
+
     def build_config
+      @config_file_paths ||= GemInstaller::ConfigBuilder.default_config_file_path
       paths = @config_file_paths.split(",")
       merged_defaults = {}
       merged_gems = {}
