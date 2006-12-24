@@ -8,6 +8,7 @@
 * Define procedure to invoke programatically via rails and non-rails
 * Document simple example (command line, rails, non-rails) in README.txt
 * create basic website
+* Clean up spec_helper, find out simplest way to invoke rspec via test_unit, and still provide proper return codes/output
 * Application should not do any remote operations (or anything, really) if the version and platform are non-ambiguous and already installed.
 * Handle gems with "CURRENT" platform
 * get 100% code coverage
