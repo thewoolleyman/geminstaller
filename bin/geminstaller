@@ -13,7 +13,11 @@ end
 
 # recursively call script with sudo, if --sudo option is specified
 if (ARGV.include?("-s") or ARGV.include?("--sudo"))
-  # TODO: this sudo support seems like a hack, but I don't have a better idea right now.  Feel free to comment or improve it...
+  # TODO: this sudo support seems like a hack, but I don't have a better idea right now.  Ideally, we would
+  # invoke rubygems from the command line inside geminstaller.  However, we can't do that becase rubygems
+  # currently doesn't provide a way to specify platform from the command line - it always pops up the list
+  # for multi-platform gems, and we have to use the rubygems_extensions hacks to manage that.
+  # Feel free to comment or improve it, this seems to work for now...
   args = ARGV.dup
   args.reject! {|arg| arg == "-s" || arg == "--sudo"}
   dir = File.dirname(__FILE__)
