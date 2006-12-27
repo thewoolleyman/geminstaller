@@ -15,7 +15,7 @@ module GemInstaller
         # get install_options for specific gem, if specified
         install_options_string = gem_def['install_options'].to_s
         # if no install_options were specified for specific gem, and default install_options were specified...
-        if install_options_string.empty? && @default_install_options_string then
+        if install_options_string.empty? && defined? @default_install_options_string then
           # then use the default install_options
           install_options_string = @default_install_options_string
         end

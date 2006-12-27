@@ -39,6 +39,7 @@ module GemInstaller
     end
     
     def handle_args
+      @verbose = false
       raise GemInstaller::GemInstallerError.new("Args must be passed as an array.") unless @args.respond_to? :shift
       @args ||= GemInstaller::Application.default_args
       opts = @arg_parser.parse(@args)
