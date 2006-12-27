@@ -25,13 +25,17 @@ def run_context_runner_if_necessary(has_run)
   exit retval
 end
 
-at_exit do
-  has_run = !context_runner.instance_eval {@reporter}.instance_eval {@start_time}.nil?
-  result = $!
+def raise_if_result_not_system_exit(result)
   if result && !result.is_a?(SystemExit) then
     p result
     raise result
   end
+end
+
+at_exit do
+  has_run = !context_runner.instance_eval {@reporter}.instance_eval {@start_time}.nil?
+  result = $!
+  raise_if_result_not_system_exit(result)
   return if result && !result.success?
   run_context_runner_if_necessary(has_run)
 end
