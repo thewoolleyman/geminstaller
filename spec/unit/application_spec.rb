@@ -124,6 +124,7 @@ def setup_common
   @application.config_builder = @mock_config_builder
   @application.gem_list_checker = @mock_gem_list_checker
   @application.output_proxy = @mock_output_proxy
+  @application.args = []
 end
 
 

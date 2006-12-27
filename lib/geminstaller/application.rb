@@ -39,11 +39,16 @@ module GemInstaller
     end
     
     def handle_args
+      raise GemInstaller::GemInstallerError.new("Args must be passed as an array.") unless @args.respond_to? :shift
       @args ||= GemInstaller::Application.default_args
       opts = @arg_parser.parse(@args)
       arg_parser_output = arg_parser.output
       if (arg_parser_output && arg_parser_output != '')
         raise GemInstaller::GemInstallerError.new(arg_parser_output)
+      end
+      if (opts[:sudo])
+        err_msg = "The sudo option is not (yet) supported when invoking GemInstaller programatically.  It is only supported when using the command line 'geminstaller' executable."
+        raise GemInstaller::GemInstallerError.new(err_msg)
       end
       if (opts)
         config_file_paths = opts[:config_paths]

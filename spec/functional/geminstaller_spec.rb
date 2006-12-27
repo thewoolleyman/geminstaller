@@ -39,6 +39,12 @@ context "The geminstaller command line application" do
     @application.run
   end
   
+  specify "should print error if --sudo option is specified (it's only supported if geminstaller is invoked via bin/geminstaller, which strips out the option)" do
+    @application.args = geminstaller_spec_test_args << '--sudo'
+    @mock_output_proxy.should_receive(:syserr).with(/The sudo option is not .* supported/)
+    @application.run
+  end
+  
   specify "should install a platform-specific binary gem" do
     @sample_multiplatform_gem = sample_multiplatform_gem
     @gem_command_manager.uninstall_gem(@sample_multiplatform_gem) if @gem_command_manager.is_gem_installed(@sample_multiplatform_gem)
@@ -64,5 +70,5 @@ end
 
 def geminstaller_spec_test_args
   dir = File.dirname(__FILE__)
-  ["--info","--config=#{dir}/live_geminstaller_config.yml"]
+  ["--info","--verbose","--config=#{dir}/live_geminstaller_config.yml"]
 end
