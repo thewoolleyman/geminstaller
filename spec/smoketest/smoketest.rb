@@ -27,11 +27,8 @@ gem_cmd = is_windows ? 'gem.bat' : 'gem'
 sudo = ''
 if use_sudo
   sudo = 'sudo '
-  print "Enter your sudo password, or cancel and set the 'use_sudo' variable to false if you don't want to use sudo:\n"
-  sudo_password = gets
-  sudo_init = IO.popen("sudo pwd","w+")
-  sudo_init.puts(sudo_password)
-  sudo_init.close_write
+  print "Enter your sudo password (if required), or cancel and set the 'use_sudo' variable to false if you don't want to use sudo:\n"
+  sudo_init = IO.popen("sudo pwd")
   sudo_init.gets
 end
 test_gems.each do |gem|
