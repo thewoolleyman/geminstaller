@@ -1,7 +1,21 @@
+#!/usr/bin/env ruby
+
 begin
   require 'geminstaller'
 rescue LoadError
   require 'rubygems'
   require 'geminstaller'
 end
-GemInstaller.run
+
+# recursively call script with sudo, if --sudo option is specified
+if (ARGV.include?("-s") or ARGV.include?("--sudo"))
+  # TODO: this sudo support seems like a hack, but I don't have a better idea right now.  Feel free to comment or improve it...
+  args = ARGV.dup
+  args.reject! {|arg| arg == "-s" || arg == "--sudo"}
+  dir = File.dirname(__FILE__)
+  geminstaller_executable = File.join(File.expand_path(dir), 'geminstaller')
+  cmd = "sudo ruby #{geminstaller_executable} #{args.join(' ')}"
+  system(cmd)
+else
+  GemInstaller.run
+end

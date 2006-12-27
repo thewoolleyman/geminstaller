@@ -5,7 +5,7 @@ module GemInstaller
   def self.run(args = nil)
     application = create_application(args)
     application.run
-  end
+  end 
   
   def self.version
     "0.0.1"
