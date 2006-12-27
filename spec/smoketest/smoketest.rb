@@ -21,9 +21,10 @@ print "This will uninstall the following gems and reinstall them with geminstall
 test_gems.each {|gem| print "  " + gem + "\n"}
 
 is_windows = RUBY_PLATFORM == 'i386-mswin32' ? true : false
+use_sudo = false if is_windows 
 gem_cmd = is_windows ? 'gem.bat' : 'gem'
 sudo = ''
-if !is_windows and use_sudo
+if use_sudo
   sudo = 'sudo '
   print "Enter your sudo password, or cancel and set the 'use_sudo' variable to false if you don't want to use sudo:\n"
   sudo_password = gets
@@ -42,7 +43,7 @@ dir = File.dirname(__FILE__)
 path_to_app = File.join(dir,'..','..','bin','geminstaller')
 sudo_flag = ''
 sudo_flag = '--sudo' if use_sudo
-geminstaller_cmd = "ruby #{path_to_app} --sudo --info --verbose --config=#{File.join(dir,'smoketest-geminstaller.yml')},#{File.join(dir,'smoketest-geminstaller-override.yml')}"
+geminstaller_cmd = "ruby #{path_to_app} #{sudo_flag} --info --verbose --config=#{File.join(dir,'smoketest-geminstaller.yml')},#{File.join(dir,'smoketest-geminstaller-override.yml')}"
 print "Running geminstaller: #{geminstaller_cmd}\n"
 print "This should print a message for each of the gems which are installed.\n"
 print "Please be patient, it may take a bit, or may not work at all if rubyforge or your network connection is down, or you don't have proper permissions, or if there's a bug in geminstaller :)\n\n"

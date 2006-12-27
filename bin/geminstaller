@@ -4,7 +4,11 @@ begin
   require 'geminstaller'
 rescue LoadError
   require 'rubygems'
-  require 'geminstaller'
+  begin
+    require 'geminstaller'
+  rescue LoadError
+    require 'lib/geminstaller'
+  end
 end
 
 # recursively call script with sudo, if --sudo option is specified

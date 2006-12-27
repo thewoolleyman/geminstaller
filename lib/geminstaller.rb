@@ -2,7 +2,7 @@ dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/geminstaller/requires.rb")
 
 module GemInstaller
-  def self.run(args = nil)
+  def self.run(args = [])
     application = create_application(args)
     application.run
   end 
@@ -11,7 +11,7 @@ module GemInstaller
     "0.0.1"
   end
 
-  def self.create_application(args = nil)
+  def self.create_application(args = [])
     registry = create_registry
     app = registry.app
     app.args = args
