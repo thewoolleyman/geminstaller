@@ -17,7 +17,8 @@
 use_sudo = true
 test_gems = ['ruby-doom', 'rutils', 'x10-cm17a']
 
-print "This will uninstall the following gems and reinstall them with geminstaller.  If you don't want that to happen, kill it now (oops it's too late, you should have read the comments first!)\n"
+print "Important Note: Before running this, you should make sure you don't have the geminstaller gem installed locally.  Otherwise, you could run the installed version rather than the version in your working copy.\n\n"
+print "This will uninstall the following gems and reinstall them with geminstaller.  If you don't want that to happen, kill it now (oops it's too late, you should have read the comments first!)\n\n"
 test_gems.each {|gem| print "  " + gem + "\n"}
 
 is_windows = RUBY_PLATFORM == 'i386-mswin32' ? true : false
@@ -53,5 +54,6 @@ print "\n\n"
 print "Geminstaller command complete.  Now we'll run gem list to visually check that the gems listed above were actually installed locally.\n"
 test_gems.each do |gem|
   print "\nRunning gem list for #{gem}, verify that it contains the expected version(s)"
+  # TODO: we could make this into a real test and avoid visual inspection by parsing and checking the output, then failing if we don't get the expected output. 
   IO.popen("#{sudo} #{gem_cmd} list #{gem}") {|process| process.readlines.each {|line| print line}}
 end
