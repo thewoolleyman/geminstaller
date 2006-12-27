@@ -1,0 +1,780 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Komodo Project File - DO NOT EDIT -->
+<project id="10F9BC756EBL9d68a410x264" name="geminstaller" kpf_version="2">
+<preference-set id="">
+  <string id="import_dirname">/Users/woolley/workspace/geminstaller</string>
+</preference-set>
+<file url=".project" id="10F9BC7A264L3a04cd070x264" name=".project">
+</file>
+<file url="COPYING" id="10F9BC7A264L13f526500x264" name="COPYING">
+</file>
+<file url="geminstaller.iml" id="10F9BC7A264L38db42930x264" name="geminstaller.iml">
+</file>
+<file url="geminstaller.ipr" id="10F9BC7A264L2cce44c10x264" name="geminstaller.ipr">
+</file>
+<file url="geminstaller.iws" id="10F9BC7A264L53dbd4f60x264" name="geminstaller.iws">
+</file>
+<ProjectRef url="geminstaller.kpf" id="10F9BC7A264L60f8a6b90x264" name="geminstaller.kpf">
+</ProjectRef>
+<file url="geminstaller.tmproj" id="10F9BC7A264L472318a40x264" name="geminstaller.tmproj">
+</file>
+<file url="geminstaller.yml" id="10F9BC7A264L3981b3080x264" name="geminstaller.yml">
+</file>
+<file url="History.txt" id="10F9BC7A264L1cdeda9b0x264" name="History.txt">
+</file>
+<file url="LICENSE" id="10F9BC7A264L15e7a8ec0x264" name="LICENSE">
+</file>
+<file url="Manifest.txt" id="10F9BC7A264L1c00f87e0x264" name="Manifest.txt">
+</file>
+<file url="Rakefile" id="10F9BC7A264L2700fed00x264" name="Rakefile">
+</file>
+<file url="README.txt" id="10F9BC7A264L11229fc0x264" name="README.txt">
+</file>
+<file url="start_local_gem_server.sh" id="10F9BC7A265L46e52bff0x264" name="start_local_gem_server.sh">
+</file>
+<file url="TODO.txt" id="10F9BC7A265L58b1f8af0x264" name="TODO.txt">
+</file>
+<folder url="bin" id="10F9BC7A274L78eb42ff0x264" name="bin">
+<file url="bin/geminstaller" id="10F9BC7A265Lc71a2b30x264" name="geminstaller">
+</file>
+</folder>
+<folder url="lib" id="10F9BC7A275L7b8911d60x264" name="lib">
+<file url="lib/dev_runner.rb" id="10F9BC7A265L644752f0x264" name="dev_runner.rb">
+</file>
+<file url="lib/geminstaller.rb" id="10F9BC7A265L5d4879c0x264" name="geminstaller.rb">
+</file>
+<folder url="lib/geminstaller" id="10F9BC7A276L3500c2000x264" name="geminstaller">
+<file url="lib/geminstaller/application.rb" id="10F9BC7A265L73be32c90x264" name="application.rb">
+</file>
+<file url="lib/geminstaller/arg_parser.rb" id="10F9BC7A265L1d17c3ba0x264" name="arg_parser.rb">
+</file>
+<file url="lib/geminstaller/config.rb" id="10F9BC7A265L58ad61df0x264" name="config.rb">
+</file>
+<file url="lib/geminstaller/config_builder.rb" id="10F9BC7A265L516ef8300x264" name="config_builder.rb">
+</file>
+<file url="lib/geminstaller/dependency_injector.rb" id="10F9BC7A265L2541a5c80x264" name="dependency_injector.rb">
+</file>
+<file url="lib/geminstaller/file_reader.rb" id="10F9BC7A265L66c534030x264" name="file_reader.rb">
+</file>
+<file url="lib/geminstaller/gem_arg_processor.rb" id="10F9BC7A265L24c5a1890x264" name="gem_arg_processor.rb">
+</file>
+<file url="lib/geminstaller/gem_command_manager.rb" id="10F9BC7A265L3918b2e40x264" name="gem_command_manager.rb">
+</file>
+<file url="lib/geminstaller/gem_list_checker.rb" id="10F9BC7A266L16ac0e7c0x264" name="gem_list_checker.rb">
+</file>
+<file url="lib/geminstaller/gem_runner_proxy.rb" id="10F9BC7A266L72dfeca50x264" name="gem_runner_proxy.rb">
+</file>
+<file url="lib/geminstaller/gem_source_index_proxy.rb" id="10F9BC7A266L4aa8649c0x264" name="gem_source_index_proxy.rb">
+</file>
+<file url="lib/geminstaller/geminstaller_error.rb" id="10F9BC7A266L47d0ac4c0x264" name="geminstaller_error.rb">
+</file>
+<file url="lib/geminstaller/noninteractive_chooser.rb" id="10F9BC7A266L3f6c19400x264" name="noninteractive_chooser.rb">
+</file>
+<file url="lib/geminstaller/output_proxy.rb" id="10F9BC7A266L3de5844b0x264" name="output_proxy.rb">
+</file>
+<file url="lib/geminstaller/requires.rb" id="10F9BC7A266La71e80d0x264" name="requires.rb">
+</file>
+<file url="lib/geminstaller/ruby_gem.rb" id="10F9BC7A266L146ac8280x264" name="ruby_gem.rb">
+</file>
+<file url="lib/geminstaller/rubygems_extensions.rb" id="10F9BC7A266L1c6926d40x264" name="rubygems_extensions.rb">
+</file>
+<file url="lib/geminstaller/version_specifier.rb" id="10F9BC7A266L18654a1d0x264" name="version_specifier.rb">
+</file>
+<file url="lib/geminstaller/yaml_loader.rb" id="10F9BC7A266L13f4fa2a0x264" name="yaml_loader.rb">
+</file>
+</folder>
+</folder>
+<folder url="pkg" id="10F9BC7A278L7a3ec39c0x264" name="pkg">
+<file url="pkg/geminstaller-0.0.1.gem" id="10F9BC7A266L11f2e5d90x264" name="geminstaller-0.0.1.gem">
+</file>
+<file url="pkg/geminstaller-0.0.1.tgz" id="10F9BC7A266L2c3cc90a0x264" name="geminstaller-0.0.1.tgz">
+</file>
+<folder url="pkg/geminstaller-0.0.1" id="10F9BC7A279L6fe0bfff0x264" name="geminstaller-0.0.1">
+<file url="pkg/geminstaller-0.0.1/.project" id="10F9BC7A266L33ae47b00x264" name=".project">
+</file>
+<file url="pkg/geminstaller-0.0.1/COPYING" id="10F9BC7A266L2f55260b0x264" name="COPYING">
+</file>
+<file url="pkg/geminstaller-0.0.1/geminstaller.iml" id="10F9BC7A266L4e90e45e0x264" name="geminstaller.iml">
+</file>
+<file url="pkg/geminstaller-0.0.1/geminstaller.ipr" id="10F9BC7A266L5c86d15f0x264" name="geminstaller.ipr">
+</file>
+<file url="pkg/geminstaller-0.0.1/geminstaller.iws" id="10F9BC7A266Lf62ebb70x264" name="geminstaller.iws">
+</file>
+<file url="pkg/geminstaller-0.0.1/geminstaller.tmproj" id="10F9BC7A266L57cc1d30x264" name="geminstaller.tmproj">
+</file>
+<file url="pkg/geminstaller-0.0.1/geminstaller.yml" id="10F9BC7A266L691190120x264" name="geminstaller.yml">
+</file>
+<file url="pkg/geminstaller-0.0.1/History.txt" id="10F9BC7A266L4d0423f80x264" name="History.txt">
+</file>
+<file url="pkg/geminstaller-0.0.1/LICENSE" id="10F9BC7A266L72e12b560x264" name="LICENSE">
+</file>
+<file url="pkg/geminstaller-0.0.1/Manifest.txt" id="10F9BC7A266L15e6d0050x264" name="Manifest.txt">
+</file>
+<file url="pkg/geminstaller-0.0.1/Rakefile" id="10F9BC7A266L1ffc52470x264" name="Rakefile">
+</file>
+<file url="pkg/geminstaller-0.0.1/README.txt" id="10F9BC7A266L109e759d0x264" name="README.txt">
+</file>
+<file url="pkg/geminstaller-0.0.1/start_local_gem_server.sh" id="10F9BC7A266L1e7d39280x264" name="start_local_gem_server.sh">
+</file>
+<file url="pkg/geminstaller-0.0.1/TODO.txt" id="10F9BC7A267L17cb69080x264" name="TODO.txt">
+</file>
+<folder url="pkg/geminstaller-0.0.1/bin" id="10F9BC7A27CL7e00765b0x264" name="bin">
+<file url="pkg/geminstaller-0.0.1/bin/geminstaller" id="10F9BC7A267L2ee111c90x264" name="geminstaller">
+</file>
+</folder>
+<folder url="pkg/geminstaller-0.0.1/lib" id="10F9BC7A27DL550253320x264" name="lib">
+<file url="pkg/geminstaller-0.0.1/lib/dev_runner.rb" id="10F9BC7A267L1f2e15360x264" name="dev_runner.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/lib/geminstaller.rb" id="10F9BC7A267L16ca291c0x264" name="geminstaller.rb">
+</file>
+<folder url="pkg/geminstaller-0.0.1/lib/geminstaller" id="10F9BC7A27FL3bcb71500x264" name="geminstaller">
+<file url="pkg/geminstaller-0.0.1/lib/geminstaller/application.rb" id="10F9BC7A267L1f298e8e0x264" name="application.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/lib/geminstaller/arg_parser.rb" id="10F9BC7A267L3cb26b550x264" name="arg_parser.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/lib/geminstaller/config.rb" id="10F9BC7A267L532ab9620x264" name="config.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/lib/geminstaller/config_builder.rb" id="10F9BC7A267L7d955400x264" name="config_builder.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/lib/geminstaller/dependency_injector.rb" id="10F9BC7A267L43b8c1b00x264" name="dependency_injector.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/lib/geminstaller/file_reader.rb" id="10F9BC7A267L77cb9f2f0x264" name="file_reader.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/lib/geminstaller/gem_arg_processor.rb" id="10F9BC7A267L363983070x264" name="gem_arg_processor.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/lib/geminstaller/gem_command_manager.rb" id="10F9BC7A267L243e44f90x264" name="gem_command_manager.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/lib/geminstaller/gem_list_checker.rb" id="10F9BC7A267L59151e780x264" name="gem_list_checker.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/lib/geminstaller/gem_runner_proxy.rb" id="10F9BC7A267L3545d85f0x264" name="gem_runner_proxy.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/lib/geminstaller/gem_source_index_proxy.rb" id="10F9BC7A267L53f1c7190x264" name="gem_source_index_proxy.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/lib/geminstaller/geminstaller_error.rb" id="10F9BC7A267L624a7d540x264" name="geminstaller_error.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/lib/geminstaller/noninteractive_chooser.rb" id="10F9BC7A267L423081750x264" name="noninteractive_chooser.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/lib/geminstaller/output_proxy.rb" id="10F9BC7A267L1c68e9290x264" name="output_proxy.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/lib/geminstaller/requires.rb" id="10F9BC7A267L606d30430x264" name="requires.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/lib/geminstaller/ruby_gem.rb" id="10F9BC7A267L7eda166f0x264" name="ruby_gem.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/lib/geminstaller/rubygems_extensions.rb" id="10F9BC7A267L3c2399f0x264" name="rubygems_extensions.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/lib/geminstaller/yaml_loader.rb" id="10F9BC7A267L4f8a6d510x264" name="yaml_loader.rb">
+</file>
+</folder>
+</folder>
+<folder url="pkg/geminstaller-0.0.1/spec" id="10F9BC7A282L8a223740x264" name="spec">
+<file url="pkg/geminstaller-0.0.1/spec/rspec_extensions.rb" id="10F9BC7A267L1538af800x264" name="rspec_extensions.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/spec_helper.rb" id="10F9BC7A267L5004f1360x264" name="spec_helper.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/spec_utils.rb" id="10F9BC7A268L45fec9db0x264" name="spec_utils.rb">
+</file>
+<folder url="pkg/geminstaller-0.0.1/spec/functional" id="10F9BC7A284L463c84c60x264" name="functional">
+<file url="pkg/geminstaller-0.0.1/spec/functional/config_builder_spec.rb" id="10F9BC7A268Lee6e0f60x264" name="config_builder_spec.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/functional/dependency_injector_spec.rb" id="10F9BC7A268L5d23cacb0x264" name="dependency_injector_spec.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/functional/gem_command_manager_spec.rb" id="10F9BC7A268L3a6d2eb80x264" name="gem_command_manager_spec.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/functional/gem_list_checker_spec.rb" id="10F9BC7A268L6d45caab0x264" name="gem_list_checker_spec.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/functional/geminstaller_spec.rb" id="10F9BC7A268L6bedf3900x264" name="geminstaller_spec.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/functional/live_geminstaller_config.yml" id="10F9BC7A268L6ac045380x264" name="live_geminstaller_config.yml">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/functional/output_proxy_spec.rb" id="10F9BC7A268L2814dd130x264" name="output_proxy_spec.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/functional/test_geminstaller_config.yml" id="10F9BC7A268L1fd1a1c90x264" name="test_geminstaller_config.yml">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/functional/test_geminstaller_config_2.yml" id="10F9BC7A268L1363d8b0x264" name="test_geminstaller_config_2.yml">
+</file>
+</folder>
+<folder url="pkg/geminstaller-0.0.1/spec/gems" id="10F9BC7A287L13d6aecf0x264" name="gems">
+<file url="pkg/geminstaller-0.0.1/spec/gems/.DS_Store" id="10F9BC7A268L4b258b8f0x264" name=".DS_Store">
+</file>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/cache" id="10F9BC7A289L2fd518880x264" name="cache">
+<file url="pkg/geminstaller-0.0.1/spec/gems/cache/stubgem-1.0.0.gem" id="10F9BC7A268L25053410x264" name="stubgem-1.0.0.gem">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/cache/stubgem-multiplatform-1.0.0.gem" id="10F9BC7A268Lb3f8d460x264" name="stubgem-multiplatform-1.0.0.gem">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/cache/stubgem-multiplatform-1.0.1-mswin32.gem" id="10F9BC7A268L199c45c0x264" name="stubgem-multiplatform-1.0.1-mswin32.gem">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/cache/stubgem-multiplatform-1.0.1.gem" id="10F9BC7A268L11b8aec70x264" name="stubgem-multiplatform-1.0.1.gem">
+</file>
+</folder>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/doc" id="10F9BC7A28BL52618f290x264" name="doc">
+<folder url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-1.0.0" id="10F9BC7A28BL7ab0db70x264" name="stubgem-1.0.0">
+<folder url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-1.0.0/rdoc" id="10F9BC7A28CL7fc7a46b0x264" name="rdoc">
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-1.0.0/rdoc/created.rid" id="10F9BC7A268L759959e20x264" name="created.rid">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-1.0.0/rdoc/fr_class_index.html" id="10F9BC7A268L5a00890c0x264" name="fr_class_index.html">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-1.0.0/rdoc/fr_file_index.html" id="10F9BC7A268L4c7d53e70x264" name="fr_file_index.html">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-1.0.0/rdoc/fr_method_index.html" id="10F9BC7A268L383e88250x264" name="fr_method_index.html">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-1.0.0/rdoc/index.html" id="10F9BC7A268L1a6f72740x264" name="index.html">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-1.0.0/rdoc/rdoc-style.css" id="10F9BC7A268L56a99d4a0x264" name="rdoc-style.css">
+</file>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-1.0.0/rdoc/classes" id="10F9BC7A28FL4b6d58920x264" name="classes">
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-1.0.0/rdoc/classes/Stubgem.html" id="10F9BC7A268L5e2b8ba0x264" name="Stubgem.html">
+</file>
+</folder>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-1.0.0/rdoc/files" id="10F9BC7A292L6ae17d200x264" name="files">
+<folder url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-1.0.0/rdoc/files/lib" id="10F9BC7A293L5d2ec7e30x264" name="lib">
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-1.0.0/rdoc/files/lib/stubgem_rb.html" id="10F9BC7A268L4c5e476a0x264" name="stubgem_rb.html">
+</file>
+</folder>
+</folder>
+</folder>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-1.0.0/ri" id="10F9BC7A296L6c449ff90x264" name="ri">
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-1.0.0/ri/created.rid" id="10F9BC7A268L10a4fde40x264" name="created.rid">
+</file>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-1.0.0/ri/Stubgem" id="10F9BC7A299L3bf4118c0x264" name="Stubgem">
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-1.0.0/ri/Stubgem/cdesc-Stubgem.yaml" id="10F9BC7A269L7a9734db0x264" name="cdesc-Stubgem.yaml">
+</file>
+</folder>
+</folder>
+</folder>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.0" id="10F9BC7A29BL3452e7540x264" name="stubgem-multiplatform-1.0.0">
+<folder url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.0/rdoc" id="10F9BC7A29CL5b54b0b0x264" name="rdoc">
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.0/rdoc/created.rid" id="10F9BC7A269L4324f6be0x264" name="created.rid">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.0/rdoc/fr_class_index.html" id="10F9BC7A269L2d6c68ce0x264" name="fr_class_index.html">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.0/rdoc/fr_file_index.html" id="10F9BC7A269L6149a0140x264" name="fr_file_index.html">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.0/rdoc/fr_method_index.html" id="10F9BC7A269L39ba7c3a0x264" name="fr_method_index.html">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.0/rdoc/index.html" id="10F9BC7A269L75dc61350x264" name="index.html">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.0/rdoc/rdoc-style.css" id="10F9BC7A269L4f4e03b40x264" name="rdoc-style.css">
+</file>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.0/rdoc/classes" id="10F9BC7A29FL6f9e30b30x264" name="classes">
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.0/rdoc/classes/StubgemMultiplatform.html" id="10F9BC7A269L521e92ff0x264" name="StubgemMultiplatform.html">
+</file>
+</folder>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.0/rdoc/files" id="10F9BC7A2A2L41a463110x264" name="files">
+<folder url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.0/rdoc/files/lib" id="10F9BC7A2A3Lb4d656e0x264" name="lib">
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.0/rdoc/files/lib/stubgem_multiplatform_rb.html" id="10F9BC7A269L6bb9de880x264" name="stubgem_multiplatform_rb.html">
+</file>
+</folder>
+</folder>
+</folder>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.0/ri" id="10F9BC7A2A5L52b8302e0x264" name="ri">
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.0/ri/created.rid" id="10F9BC7A269L1718ec740x264" name="created.rid">
+</file>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.0/ri/StubgemMultiplatform" id="10F9BC7A2A8L6b5f47b10x264" name="StubgemMultiplatform">
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.0/ri/StubgemMultiplatform/cdesc-StubgemMultiplatform.yaml" id="10F9BC7A269L2a48f1f80x264" name="cdesc-StubgemMultiplatform.yaml">
+</file>
+</folder>
+</folder>
+</folder>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1" id="10F9BC7A2ABL619cc4b20x264" name="stubgem-multiplatform-1.0.1">
+<folder url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1/rdoc" id="10F9BC7A2ABL1527ec240x264" name="rdoc">
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1/rdoc/created.rid" id="10F9BC7A269L5a376e9a0x264" name="created.rid">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1/rdoc/fr_class_index.html" id="10F9BC7A269L18318fe90x264" name="fr_class_index.html">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1/rdoc/fr_file_index.html" id="10F9BC7A269L57db7010x264" name="fr_file_index.html">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1/rdoc/fr_method_index.html" id="10F9BC7A269L233a36e00x264" name="fr_method_index.html">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1/rdoc/index.html" id="10F9BC7A269L3350f35f0x264" name="index.html">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1/rdoc/rdoc-style.css" id="10F9BC7A269L46e03bb10x264" name="rdoc-style.css">
+</file>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1/rdoc/classes" id="10F9BC7A2AFL60fc45480x264" name="classes">
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1/rdoc/classes/StubgemMultiplatform.html" id="10F9BC7A269L7581a5420x264" name="StubgemMultiplatform.html">
+</file>
+</folder>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1/rdoc/files" id="10F9BC7A2B2L2f180b5a0x264" name="files">
+<folder url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1/rdoc/files/lib" id="10F9BC7A2B2L7069f0ec0x264" name="lib">
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1/rdoc/files/lib/stubgem_multiplatform_rb.html" id="10F9BC7A269L51a61f7c0x264" name="stubgem_multiplatform_rb.html">
+</file>
+</folder>
+</folder>
+</folder>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1/ri" id="10F9BC7A2B5L319134b60x264" name="ri">
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1/ri/created.rid" id="10F9BC7A269L51121e3f0x264" name="created.rid">
+</file>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1/ri/StubgemMultiplatform" id="10F9BC7A2B8L19877f5c0x264" name="StubgemMultiplatform">
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1/ri/StubgemMultiplatform/cdesc-StubgemMultiplatform.yaml" id="10F9BC7A269L1e34e7d40x264" name="cdesc-StubgemMultiplatform.yaml">
+</file>
+</folder>
+</folder>
+</folder>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32" id="10F9BC7A2BAL44f2aa1a0x264" name="stubgem-multiplatform-1.0.1-mswin32">
+<folder url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/rdoc" id="10F9BC7A2BBL7ebc1f250x264" name="rdoc">
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/rdoc/created.rid" id="10F9BC7A269L380ac5520x264" name="created.rid">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/rdoc/fr_class_index.html" id="10F9BC7A269L7e28e0bb0x264" name="fr_class_index.html">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/rdoc/fr_file_index.html" id="10F9BC7A26AL2c6417c40x264" name="fr_file_index.html">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/rdoc/fr_method_index.html" id="10F9BC7A26AL364bdf5b0x264" name="fr_method_index.html">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/rdoc/index.html" id="10F9BC7A26AL715d35920x264" name="index.html">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/rdoc/rdoc-style.css" id="10F9BC7A26AL640fca580x264" name="rdoc-style.css">
+</file>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/rdoc/classes" id="10F9BC7A2BEL73b89d70x264" name="classes">
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/rdoc/classes/StubgemMultiplatform.html" id="10F9BC7A26AL3ab06d7d0x264" name="StubgemMultiplatform.html">
+</file>
+</folder>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/rdoc/files" id="10F9BC7A2C1L680b24750x264" name="files">
+<folder url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/rdoc/files/lib" id="10F9BC7A2C2L2af66bba0x264" name="lib">
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/rdoc/files/lib/stubgem_multiplatform_rb.html" id="10F9BC7A26ALd17a7a90x264" name="stubgem_multiplatform_rb.html">
+</file>
+</folder>
+</folder>
+</folder>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/ri" id="10F9BC7A2C5L630f06650x264" name="ri">
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/ri/created.rid" id="10F9BC7A26AL202a7cbe0x264" name="created.rid">
+</file>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/ri/StubgemMultiplatform" id="10F9BC7A2C8L7a946a470x264" name="StubgemMultiplatform">
+<file url="pkg/geminstaller-0.0.1/spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/ri/StubgemMultiplatform/cdesc-StubgemMultiplatform.yaml" id="10F9BC7A26AL4dae15f10x264" name="cdesc-StubgemMultiplatform.yaml">
+</file>
+</folder>
+</folder>
+</folder>
+</folder>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/gems" id="10F9BC7A2CAL1e1b0d070x264" name="gems">
+<folder url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-1.0.0" id="10F9BC7A2CAL5754b6390x264" name="stubgem-1.0.0">
+<file url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-1.0.0/History.txt" id="10F9BC7A26AL1e4c0a000x264" name="History.txt">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-1.0.0/Manifest.txt" id="10F9BC7A26AL33316b460x264" name="Manifest.txt">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-1.0.0/Rakefile" id="10F9BC7A26AL3b9461ed0x264" name="Rakefile">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-1.0.0/README.txt" id="10F9BC7A26AL365f40cd0x264" name="README.txt">
+</file>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-1.0.0/lib" id="10F9BC7A2CDL67669a070x264" name="lib">
+<file url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-1.0.0/lib/stubgem.rb" id="10F9BC7A26AL31386bf00x264" name="stubgem.rb">
+</file>
+</folder>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-1.0.0/test" id="10F9BC7A2D0L53be80bb0x264" name="test">
+<file url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-1.0.0/test/test_stubgem.rb" id="10F9BC7A26AL1fd5b50f0x264" name="test_stubgem.rb">
+</file>
+</folder>
+</folder>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-multiplatform-1.0.0" id="10F9BC7A2D2L50fbb98a0x264" name="stubgem-multiplatform-1.0.0">
+<file url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-multiplatform-1.0.0/History.txt" id="10F9BC7A26AL37591b010x264" name="History.txt">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-multiplatform-1.0.0/Manifest.txt" id="10F9BC7A26AL188210670x264" name="Manifest.txt">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-multiplatform-1.0.0/Rakefile" id="10F9BC7A26AL15addf210x264" name="Rakefile">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-multiplatform-1.0.0/README.txt" id="10F9BC7A26AL7d3e1050x264" name="README.txt">
+</file>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-multiplatform-1.0.0/lib" id="10F9BC7A2D5L158a3df80x264" name="lib">
+<file url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-multiplatform-1.0.0/lib/stubgem_multiplatform.rb" id="10F9BC7A26AL254d3b5c0x264" name="stubgem_multiplatform.rb">
+</file>
+</folder>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-multiplatform-1.0.0/test" id="10F9BC7A2D8L198948a10x264" name="test">
+<file url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-multiplatform-1.0.0/test/test_stubgem_multiplatform.rb" id="10F9BC7A26AL14312f8d0x264" name="test_stubgem_multiplatform.rb">
+</file>
+</folder>
+</folder>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-multiplatform-1.0.1" id="10F9BC7A2DAL352b7e260x264" name="stubgem-multiplatform-1.0.1">
+<file url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-multiplatform-1.0.1/History.txt" id="10F9BC7A26AL242238a50x264" name="History.txt">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-multiplatform-1.0.1/Manifest.txt" id="10F9BC7A26BL720a67600x264" name="Manifest.txt">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-multiplatform-1.0.1/Rakefile" id="10F9BC7A26BL2fb1b0b00x264" name="Rakefile">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-multiplatform-1.0.1/README.txt" id="10F9BC7A26BL332b656d0x264" name="README.txt">
+</file>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-multiplatform-1.0.1/lib" id="10F9BC7A2DDL7bd19a210x264" name="lib">
+<file url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-multiplatform-1.0.1/lib/stubgem_multiplatform.rb" id="10F9BC7A26BL275a92760x264" name="stubgem_multiplatform.rb">
+</file>
+</folder>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-multiplatform-1.0.1/test" id="10F9BC7A2E0L334f93720x264" name="test">
+<file url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-multiplatform-1.0.1/test/test_stubgem_multiplatform.rb" id="10F9BC7A26BL54acf2f60x264" name="test_stubgem_multiplatform.rb">
+</file>
+</folder>
+</folder>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-multiplatform-1.0.1-mswin32" id="10F9BC7A2E2L5813fcde0x264" name="stubgem-multiplatform-1.0.1-mswin32">
+<file url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-multiplatform-1.0.1-mswin32/History.txt" id="10F9BC7A26BL343785470x264" name="History.txt">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-multiplatform-1.0.1-mswin32/Manifest.txt" id="10F9BC7A26BL6fb85b220x264" name="Manifest.txt">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-multiplatform-1.0.1-mswin32/Rakefile" id="10F9BC7A26BLfb8da100x264" name="Rakefile">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-multiplatform-1.0.1-mswin32/README.txt" id="10F9BC7A26BL28b975310x264" name="README.txt">
+</file>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-multiplatform-1.0.1-mswin32/lib" id="10F9BC7A2E5L2d723bd80x264" name="lib">
+<file url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-multiplatform-1.0.1-mswin32/lib/stubgem_multiplatform.rb" id="10F9BC7A26BL532f93640x264" name="stubgem_multiplatform.rb">
+</file>
+</folder>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-multiplatform-1.0.1-mswin32/test" id="10F9BC7A2E7L128d1c1d0x264" name="test">
+<file url="pkg/geminstaller-0.0.1/spec/gems/gems/stubgem-multiplatform-1.0.1-mswin32/test/test_stubgem_multiplatform.rb" id="10F9BC7A26BL32cf33750x264" name="test_stubgem_multiplatform.rb">
+</file>
+</folder>
+</folder>
+</folder>
+<folder url="pkg/geminstaller-0.0.1/spec/gems/specifications" id="10F9BC7A2E9L67af4300x264" name="specifications">
+<file url="pkg/geminstaller-0.0.1/spec/gems/specifications/stubgem-1.0.0.gemspec" id="10F9BC7A26BL37d7faf10x264" name="stubgem-1.0.0.gemspec">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/specifications/stubgem-multiplatform-1.0.0.gemspec" id="10F9BC7A26BL7acff10e0x264" name="stubgem-multiplatform-1.0.0.gemspec">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/specifications/stubgem-multiplatform-1.0.1-mswin32.gemspec" id="10F9BC7A26BL5bde91a00x264" name="stubgem-multiplatform-1.0.1-mswin32.gemspec">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/gems/specifications/stubgem-multiplatform-1.0.1.gemspec" id="10F9BC7A26BL3ecf69500x264" name="stubgem-multiplatform-1.0.1.gemspec">
+</file>
+</folder>
+</folder>
+<folder url="pkg/geminstaller-0.0.1/spec/unit" id="10F9BC7A2EBL55cd35e30x264" name="unit">
+<file url="pkg/geminstaller-0.0.1/spec/unit/application_spec.rb" id="10F9BC7A26BL6a5fd1090x264" name="application_spec.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/unit/arg_parser_spec.rb" id="10F9BC7A26BL3bb4bd300x264" name="arg_parser_spec.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/unit/config_spec.rb" id="10F9BC7A26BL1d35315b0x264" name="config_spec.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/unit/file_reader_spec.rb" id="10F9BC7A26BL29dd9abb0x264" name="file_reader_spec.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/unit/gem_arg_processor_spec.rb" id="10F9BC7A26BL5bb679860x264" name="gem_arg_processor_spec.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/unit/gem_command_manager_spec.rb" id="10F9BC7A26BL792bb1f80x264" name="gem_command_manager_spec.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/unit/noninteractive_chooser_spec.rb" id="10F9BC7A26BLd270db30x264" name="noninteractive_chooser_spec.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/unit/ruby_gem_spec.rb" id="10F9BC7A26BL4f61487b0x264" name="ruby_gem_spec.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/unit/rubygems_extensions_spec.rb" id="10F9BC7A26BL4ae047230x264" name="rubygems_extensions_spec.rb">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/unit/testfile.txt" id="10F9BC7A26CL1924b1f80x264" name="testfile.txt">
+</file>
+<file url="pkg/geminstaller-0.0.1/spec/unit/yaml_loader_spec.rb" id="10F9BC7A26CL4ade95420x264" name="yaml_loader_spec.rb">
+</file>
+</folder>
+</folder>
+<folder url="pkg/geminstaller-0.0.1/test" id="10F9BC7A2EEL6351ed910x264" name="test">
+<file url="pkg/geminstaller-0.0.1/test/test_all.rb" id="10F9BC7A26CL45d6091f0x264" name="test_all.rb">
+</file>
+</folder>
+</folder>
+</folder>
+<folder url="spec" id="10F9BC7A2EEL1d95fbeb0x264" name="spec">
+<file url="spec/rspec_extensions.rb" id="10F9BC7A26CL2970dc8b0x264" name="rspec_extensions.rb">
+</file>
+<file url="spec/spec_helper.rb" id="10F9BC7A26CL39943480x264" name="spec_helper.rb">
+</file>
+<file url="spec/spec_utils.rb" id="10F9BC7A26CL4e2cf850x264" name="spec_utils.rb">
+</file>
+<folder url="spec/functional" id="10F9BC7A2F0L7c04f2700x264" name="functional">
+<file url="spec/functional/config_builder_spec.rb" id="10F9BC7A26CL290e77f10x264" name="config_builder_spec.rb">
+</file>
+<file url="spec/functional/dependency_injector_spec.rb" id="10F9BC7A26CL618c57da0x264" name="dependency_injector_spec.rb">
+</file>
+<file url="spec/functional/gem_command_manager_spec.rb" id="10F9BC7A26CL5cc345b90x264" name="gem_command_manager_spec.rb">
+</file>
+<file url="spec/functional/gem_list_checker_spec.rb" id="10F9BC7A26CL748f1ddc0x264" name="gem_list_checker_spec.rb">
+</file>
+<file url="spec/functional/geminstaller_spec.rb" id="10F9BC7A26CL49cce150x264" name="geminstaller_spec.rb">
+</file>
+<file url="spec/functional/live_geminstaller_config.yml" id="10F9BC7A26CL1c5afebb0x264" name="live_geminstaller_config.yml">
+</file>
+<file url="spec/functional/output_proxy_spec.rb" id="10F9BC7A26CL351180990x264" name="output_proxy_spec.rb">
+</file>
+<file url="spec/functional/test_geminstaller_config.yml" id="10F9BC7A26CL18315ec10x264" name="test_geminstaller_config.yml">
+</file>
+<file url="spec/functional/test_geminstaller_config_2.yml" id="10F9BC7A26CL7274ab720x264" name="test_geminstaller_config_2.yml">
+</file>
+<file url="spec/functional/version_specifier_spec.rb" id="10F9BC7A26CL79ba87230x264" name="version_specifier_spec.rb">
+<preference-set id="">
+  <string id="lastInvocation">default</string>
+<preference-set id="Invocations">
+<preference-set id="default">
+  <string id="postparams"></string>
+  <string id="getparams"></string>
+  <boolean id="use-console">0</boolean>
+  <string id="filename">/Users/woolley/workspace/geminstaller/spec/functional/version_specifier_spec.rb</string>
+  <string id="executable-params"></string>
+  <boolean id="show-dialog">1</boolean>
+  <string id="request-method">GET</string>
+  <string id="params"></string>
+  <string id="mpostparams"></string>
+  <string id="posttype">application/x-www-form-urlencoded</string>
+  <string id="documentRoot"></string>
+  <string id="cookieparams"></string>
+  <string id="userEnvironment"></string>
+  <boolean id="sim-cgi">0</boolean>
+  <string id="cwd"></string>
+  <string id="userCGIEnvironment"></string>
+</preference-set>
+</preference-set>
+</preference-set>
+</file>
+</folder>
+<folder url="spec/gems" id="10F9BC7A2F1L4383de3f0x264" name="gems">
+<file url="spec/gems/.DS_Store" id="10F9BC7A26CL64fd5c530x264" name=".DS_Store">
+</file>
+<folder url="spec/gems/cache" id="10F9BC7A2F3L73a97a7b0x264" name="cache">
+<file url="spec/gems/cache/stubgem-1.0.0.gem" id="10F9BC7A26CL40df33550x264" name="stubgem-1.0.0.gem">
+</file>
+<file url="spec/gems/cache/stubgem-multiplatform-1.0.0.gem" id="10F9BC7A26CLa67df1a0x264" name="stubgem-multiplatform-1.0.0.gem">
+</file>
+<file url="spec/gems/cache/stubgem-multiplatform-1.0.1-mswin32.gem" id="10F9BC7A26CL1a30690e0x264" name="stubgem-multiplatform-1.0.1-mswin32.gem">
+</file>
+<file url="spec/gems/cache/stubgem-multiplatform-1.0.1.gem" id="10F9BC7A26CL4eb8bcfc0x264" name="stubgem-multiplatform-1.0.1.gem">
+</file>
+</folder>
+<folder url="spec/gems/doc" id="10F9BC7A2F4L40e427980x264" name="doc">
+<folder url="spec/gems/doc/stubgem-1.0.0" id="10F9BC7A2F5L3a9e08f60x264" name="stubgem-1.0.0">
+<folder url="spec/gems/doc/stubgem-1.0.0/rdoc" id="10F9BC7A2F5L4140ee150x264" name="rdoc">
+<file url="spec/gems/doc/stubgem-1.0.0/rdoc/created.rid" id="10F9BC7A26CL6f30d0c00x264" name="created.rid">
+</file>
+<file url="spec/gems/doc/stubgem-1.0.0/rdoc/fr_class_index.html" id="10F9BC7A26CL290ad11d0x264" name="fr_class_index.html">
+</file>
+<file url="spec/gems/doc/stubgem-1.0.0/rdoc/fr_file_index.html" id="10F9BC7A26CLe8cf2f70x264" name="fr_file_index.html">
+</file>
+<file url="spec/gems/doc/stubgem-1.0.0/rdoc/fr_method_index.html" id="10F9BC7A26DL364d68440x264" name="fr_method_index.html">
+</file>
+<file url="spec/gems/doc/stubgem-1.0.0/rdoc/index.html" id="10F9BC7A26DL29e66fde0x264" name="index.html">
+</file>
+<file url="spec/gems/doc/stubgem-1.0.0/rdoc/rdoc-style.css" id="10F9BC7A26DL2a9c21540x264" name="rdoc-style.css">
+</file>
+<folder url="spec/gems/doc/stubgem-1.0.0/rdoc/classes" id="10F9BC7A2F8L7843cafb0x264" name="classes">
+<file url="spec/gems/doc/stubgem-1.0.0/rdoc/classes/Stubgem.html" id="10F9BC7A26DLc6bb96f0x264" name="Stubgem.html">
+</file>
+</folder>
+<folder url="spec/gems/doc/stubgem-1.0.0/rdoc/files" id="10F9BC7A2FBL28b9b0ed0x264" name="files">
+<folder url="spec/gems/doc/stubgem-1.0.0/rdoc/files/lib" id="10F9BC7A2FBLc0002fc0x264" name="lib">
+<file url="spec/gems/doc/stubgem-1.0.0/rdoc/files/lib/stubgem_rb.html" id="10F9BC7A26DL43d599b20x264" name="stubgem_rb.html">
+</file>
+</folder>
+</folder>
+</folder>
+<folder url="spec/gems/doc/stubgem-1.0.0/ri" id="10F9BC7A2FDL49f953d30x264" name="ri">
+<file url="spec/gems/doc/stubgem-1.0.0/ri/created.rid" id="10F9BC7A26DL5f2f5c9d0x264" name="created.rid">
+</file>
+<folder url="spec/gems/doc/stubgem-1.0.0/ri/Stubgem" id="10F9BC7A2FFL4d01c4e00x264" name="Stubgem">
+<file url="spec/gems/doc/stubgem-1.0.0/ri/Stubgem/cdesc-Stubgem.yaml" id="10F9BC7A26DL3ca4bf340x264" name="cdesc-Stubgem.yaml">
+</file>
+</folder>
+</folder>
+</folder>
+<folder url="spec/gems/doc/stubgem-multiplatform-1.0.0" id="10F9BC7A301L2f0c12cd0x264" name="stubgem-multiplatform-1.0.0">
+<folder url="spec/gems/doc/stubgem-multiplatform-1.0.0/rdoc" id="10F9BC7A302L44243d1e0x264" name="rdoc">
+<file url="spec/gems/doc/stubgem-multiplatform-1.0.0/rdoc/created.rid" id="10F9BC7A26DL5b1dd0f60x264" name="created.rid">
+</file>
+<file url="spec/gems/doc/stubgem-multiplatform-1.0.0/rdoc/fr_class_index.html" id="10F9BC7A26DL6ec749e30x264" name="fr_class_index.html">
+</file>
+<file url="spec/gems/doc/stubgem-multiplatform-1.0.0/rdoc/fr_file_index.html" id="10F9BC7A26DL1e8f24110x264" name="fr_file_index.html">
+</file>
+<file url="spec/gems/doc/stubgem-multiplatform-1.0.0/rdoc/fr_method_index.html" id="10F9BC7A26DL31bfb7040x264" name="fr_method_index.html">
+</file>
+<file url="spec/gems/doc/stubgem-multiplatform-1.0.0/rdoc/index.html" id="10F9BC7A26DL2a21258a0x264" name="index.html">
+</file>
+<file url="spec/gems/doc/stubgem-multiplatform-1.0.0/rdoc/rdoc-style.css" id="10F9BC7A26DL409193d90x264" name="rdoc-style.css">
+</file>
+<folder url="spec/gems/doc/stubgem-multiplatform-1.0.0/rdoc/classes" id="10F9BC7A305L77c7665c0x264" name="classes">
+<file url="spec/gems/doc/stubgem-multiplatform-1.0.0/rdoc/classes/StubgemMultiplatform.html" id="10F9BC7A26DL70e86eea0x264" name="StubgemMultiplatform.html">
+</file>
+</folder>
+<folder url="spec/gems/doc/stubgem-multiplatform-1.0.0/rdoc/files" id="10F9BC7A307L64dcac280x264" name="files">
+<folder url="spec/gems/doc/stubgem-multiplatform-1.0.0/rdoc/files/lib" id="10F9BC7A307L4de680140x264" name="lib">
+<file url="spec/gems/doc/stubgem-multiplatform-1.0.0/rdoc/files/lib/stubgem_multiplatform_rb.html" id="10F9BC7A26DL350b91490x264" name="stubgem_multiplatform_rb.html">
+</file>
+</folder>
+</folder>
+</folder>
+<folder url="spec/gems/doc/stubgem-multiplatform-1.0.0/ri" id="10F9BC7A309L3533c13e0x264" name="ri">
+<file url="spec/gems/doc/stubgem-multiplatform-1.0.0/ri/created.rid" id="10F9BC7A26DL5b489f610x264" name="created.rid">
+</file>
+<folder url="spec/gems/doc/stubgem-multiplatform-1.0.0/ri/StubgemMultiplatform" id="10F9BC7A30CL63317be0x264" name="StubgemMultiplatform">
+<file url="spec/gems/doc/stubgem-multiplatform-1.0.0/ri/StubgemMultiplatform/cdesc-StubgemMultiplatform.yaml" id="10F9BC7A26DL2bce94ce0x264" name="cdesc-StubgemMultiplatform.yaml">
+</file>
+</folder>
+</folder>
+</folder>
+<folder url="spec/gems/doc/stubgem-multiplatform-1.0.1" id="10F9BC7A30DL2f324e770x264" name="stubgem-multiplatform-1.0.1">
+<folder url="spec/gems/doc/stubgem-multiplatform-1.0.1/rdoc" id="10F9BC7A30EL3a868d4a0x264" name="rdoc">
+<file url="spec/gems/doc/stubgem-multiplatform-1.0.1/rdoc/created.rid" id="10F9BC7A26DL4c8d991c0x264" name="created.rid">
+</file>
+<file url="spec/gems/doc/stubgem-multiplatform-1.0.1/rdoc/fr_class_index.html" id="10F9BC7A26DL2b4b31350x264" name="fr_class_index.html">
+</file>
+<file url="spec/gems/doc/stubgem-multiplatform-1.0.1/rdoc/fr_file_index.html" id="10F9BC7A26DL4e4ab9050x264" name="fr_file_index.html">
+</file>
+<file url="spec/gems/doc/stubgem-multiplatform-1.0.1/rdoc/fr_method_index.html" id="10F9BC7A26EL1256ecaa0x264" name="fr_method_index.html">
+</file>
+<file url="spec/gems/doc/stubgem-multiplatform-1.0.1/rdoc/index.html" id="10F9BC7A26ELd4cb4380x264" name="index.html">
+</file>
+<file url="spec/gems/doc/stubgem-multiplatform-1.0.1/rdoc/rdoc-style.css" id="10F9BC7A26EL4cd1562f0x264" name="rdoc-style.css">
+</file>
+<folder url="spec/gems/doc/stubgem-multiplatform-1.0.1/rdoc/classes" id="10F9BC7A310L5cb4ab6f0x264" name="classes">
+<file url="spec/gems/doc/stubgem-multiplatform-1.0.1/rdoc/classes/StubgemMultiplatform.html" id="10F9BC7A26EL1eabcbaf0x264" name="StubgemMultiplatform.html">
+</file>
+</folder>
+<folder url="spec/gems/doc/stubgem-multiplatform-1.0.1/rdoc/files" id="10F9BC7A313L7d7b475d0x264" name="files">
+<folder url="spec/gems/doc/stubgem-multiplatform-1.0.1/rdoc/files/lib" id="10F9BC7A314L3ead1ed40x264" name="lib">
+<file url="spec/gems/doc/stubgem-multiplatform-1.0.1/rdoc/files/lib/stubgem_multiplatform_rb.html" id="10F9BC7A26EL26988ce40x264" name="stubgem_multiplatform_rb.html">
+</file>
+</folder>
+</folder>
+</folder>
+<folder url="spec/gems/doc/stubgem-multiplatform-1.0.1/ri" id="10F9BC7A315L74977eb40x264" name="ri">
+<file url="spec/gems/doc/stubgem-multiplatform-1.0.1/ri/created.rid" id="10F9BC7A26EL6711154f0x264" name="created.rid">
+</file>
+<folder url="spec/gems/doc/stubgem-multiplatform-1.0.1/ri/StubgemMultiplatform" id="10F9BC7A318L66de35450x264" name="StubgemMultiplatform">
+<file url="spec/gems/doc/stubgem-multiplatform-1.0.1/ri/StubgemMultiplatform/cdesc-StubgemMultiplatform.yaml" id="10F9BC7A26EL7cf31a770x264" name="cdesc-StubgemMultiplatform.yaml">
+</file>
+</folder>
+</folder>
+</folder>
+<folder url="spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32" id="10F9BC7A319L5f53edc70x264" name="stubgem-multiplatform-1.0.1-mswin32">
+<folder url="spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/rdoc" id="10F9BC7A31AL777f3bae0x264" name="rdoc">
+<file url="spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/rdoc/created.rid" id="10F9BC7A26EL49138f060x264" name="created.rid">
+</file>
+<file url="spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/rdoc/fr_class_index.html" id="10F9BC7A26EL496f34c70x264" name="fr_class_index.html">
+</file>
+<file url="spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/rdoc/fr_file_index.html" id="10F9BC7A26EL59aed730x264" name="fr_file_index.html">
+</file>
+<file url="spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/rdoc/fr_method_index.html" id="10F9BC7A26EL6e1d96710x264" name="fr_method_index.html">
+</file>
+<file url="spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/rdoc/index.html" id="10F9BC7A26EL39921aa60x264" name="index.html">
+</file>
+<file url="spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/rdoc/rdoc-style.css" id="10F9BC7A26EL2ff518750x264" name="rdoc-style.css">
+</file>
+<folder url="spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/rdoc/classes" id="10F9BC7A31DL484434fa0x264" name="classes">
+<file url="spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/rdoc/classes/StubgemMultiplatform.html" id="10F9BC7A26EL5b65c6180x264" name="StubgemMultiplatform.html">
+</file>
+</folder>
+<folder url="spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/rdoc/files" id="10F9BC7A31FL121976420x264" name="files">
+<folder url="spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/rdoc/files/lib" id="10F9BC7A31FL41de5fc40x264" name="lib">
+<file url="spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/rdoc/files/lib/stubgem_multiplatform_rb.html" id="10F9BC7A26EL5d3a66de0x264" name="stubgem_multiplatform_rb.html">
+</file>
+</folder>
+</folder>
+</folder>
+<folder url="spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/ri" id="10F9BC7A321L4e7be2940x264" name="ri">
+<file url="spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/ri/created.rid" id="10F9BC7A26EL777997f70x264" name="created.rid">
+</file>
+<folder url="spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/ri/StubgemMultiplatform" id="10F9BC7A324L3e03140e0x264" name="StubgemMultiplatform">
+<file url="spec/gems/doc/stubgem-multiplatform-1.0.1-mswin32/ri/StubgemMultiplatform/cdesc-StubgemMultiplatform.yaml" id="10F9BC7A26EL5782b1e50x264" name="cdesc-StubgemMultiplatform.yaml">
+</file>
+</folder>
+</folder>
+</folder>
+</folder>
+<folder url="spec/gems/gems" id="10F9BC7A325L6a45c770x264" name="gems">
+<folder url="spec/gems/gems/stubgem-1.0.0" id="10F9BC7A325L6ef4aef50x264" name="stubgem-1.0.0">
+<file url="spec/gems/gems/stubgem-1.0.0/History.txt" id="10F9BC7A26EL3552c7ee0x264" name="History.txt">
+</file>
+<file url="spec/gems/gems/stubgem-1.0.0/Manifest.txt" id="10F9BC7A26EL3d903d3d0x264" name="Manifest.txt">
+</file>
+<file url="spec/gems/gems/stubgem-1.0.0/Rakefile" id="10F9BC7A26FL7e06e4270x264" name="Rakefile">
+</file>
+<file url="spec/gems/gems/stubgem-1.0.0/README.txt" id="10F9BC7A26FL172dd3f50x264" name="README.txt">
+</file>
+<folder url="spec/gems/gems/stubgem-1.0.0/lib" id="10F9BC7A328L56a3d27e0x264" name="lib">
+<file url="spec/gems/gems/stubgem-1.0.0/lib/stubgem.rb" id="10F9BC7A26FL1123ca0a0x264" name="stubgem.rb">
+</file>
+</folder>
+<folder url="spec/gems/gems/stubgem-1.0.0/test" id="10F9BC7A329L1a50785a0x264" name="test">
+<file url="spec/gems/gems/stubgem-1.0.0/test/test_stubgem.rb" id="10F9BC7A26FLe6fa30d0x264" name="test_stubgem.rb">
+</file>
+</folder>
+</folder>
+<folder url="spec/gems/gems/stubgem-multiplatform-1.0.0" id="10F9BC7A32BL5e290cd40x264" name="stubgem-multiplatform-1.0.0">
+<file url="spec/gems/gems/stubgem-multiplatform-1.0.0/History.txt" id="10F9BC7A26FL4e4c7a8c0x264" name="History.txt">
+</file>
+<file url="spec/gems/gems/stubgem-multiplatform-1.0.0/Manifest.txt" id="10F9BC7A26FL534a6e40x264" name="Manifest.txt">
+</file>
+<file url="spec/gems/gems/stubgem-multiplatform-1.0.0/Rakefile" id="10F9BC7A26FL2f93deba0x264" name="Rakefile">
+</file>
+<file url="spec/gems/gems/stubgem-multiplatform-1.0.0/README.txt" id="10F9BC7A26FL2b2e607a0x264" name="README.txt">
+</file>
+<folder url="spec/gems/gems/stubgem-multiplatform-1.0.0/lib" id="10F9BC7A32DL64b3d11f0x264" name="lib">
+<file url="spec/gems/gems/stubgem-multiplatform-1.0.0/lib/stubgem_multiplatform.rb" id="10F9BC7A26FL2bf09e9c0x264" name="stubgem_multiplatform.rb">
+</file>
+</folder>
+<folder url="spec/gems/gems/stubgem-multiplatform-1.0.0/test" id="10F9BC7A32FL1f82dd9c0x264" name="test">
+<file url="spec/gems/gems/stubgem-multiplatform-1.0.0/test/test_stubgem_multiplatform.rb" id="10F9BC7A26FL49e363cd0x264" name="test_stubgem_multiplatform.rb">
+</file>
+</folder>
+</folder>
+<folder url="spec/gems/gems/stubgem-multiplatform-1.0.1" id="10F9BC7A331L285b8f8f0x264" name="stubgem-multiplatform-1.0.1">
+<file url="spec/gems/gems/stubgem-multiplatform-1.0.1/History.txt" id="10F9BC7A26FL3f683ad80x264" name="History.txt">
+</file>
+<file url="spec/gems/gems/stubgem-multiplatform-1.0.1/Manifest.txt" id="10F9BC7A26FL9102b8a0x264" name="Manifest.txt">
+</file>
+<file url="spec/gems/gems/stubgem-multiplatform-1.0.1/Rakefile" id="10F9BC7A26FL2824b06f0x264" name="Rakefile">
+</file>
+<file url="spec/gems/gems/stubgem-multiplatform-1.0.1/README.txt" id="10F9BC7A26FL668f199c0x264" name="README.txt">
+</file>
+<folder url="spec/gems/gems/stubgem-multiplatform-1.0.1/lib" id="10F9BC7A333L6cb4d060x264" name="lib">
+<file url="spec/gems/gems/stubgem-multiplatform-1.0.1/lib/stubgem_multiplatform.rb" id="10F9BC7A26FL47436def0x264" name="stubgem_multiplatform.rb">
+</file>
+</folder>
+<folder url="spec/gems/gems/stubgem-multiplatform-1.0.1/test" id="10F9BC7A335L5c8a9f40x264" name="test">
+<file url="spec/gems/gems/stubgem-multiplatform-1.0.1/test/test_stubgem_multiplatform.rb" id="10F9BC7A26FL7544e4780x264" name="test_stubgem_multiplatform.rb">
+</file>
+</folder>
+</folder>
+<folder url="spec/gems/gems/stubgem-multiplatform-1.0.1-mswin32" id="10F9BC7A337L58d0a2eb0x264" name="stubgem-multiplatform-1.0.1-mswin32">
+<file url="spec/gems/gems/stubgem-multiplatform-1.0.1-mswin32/History.txt" id="10F9BC7A26FL24a0ebe70x264" name="History.txt">
+</file>
+<file url="spec/gems/gems/stubgem-multiplatform-1.0.1-mswin32/Manifest.txt" id="10F9BC7A270L352bdb790x264" name="Manifest.txt">
+</file>
+<file url="spec/gems/gems/stubgem-multiplatform-1.0.1-mswin32/Rakefile" id="10F9BC7A270L14daaea20x264" name="Rakefile">
+</file>
+<file url="spec/gems/gems/stubgem-multiplatform-1.0.1-mswin32/README.txt" id="10F9BC7A270L5a0273ff0x264" name="README.txt">
+</file>
+<folder url="spec/gems/gems/stubgem-multiplatform-1.0.1-mswin32/lib" id="10F9BC7A339Lbda88a90x264" name="lib">
+<file url="spec/gems/gems/stubgem-multiplatform-1.0.1-mswin32/lib/stubgem_multiplatform.rb" id="10F9BC7A270L76242cfd0x264" name="stubgem_multiplatform.rb">
+</file>
+</folder>
+<folder url="spec/gems/gems/stubgem-multiplatform-1.0.1-mswin32/test" id="10F9BC7A33BLacca660x264" name="test">
+<file url="spec/gems/gems/stubgem-multiplatform-1.0.1-mswin32/test/test_stubgem_multiplatform.rb" id="10F9BC7A270L6bd22ec30x264" name="test_stubgem_multiplatform.rb">
+</file>
+</folder>
+</folder>
+</folder>
+<folder url="spec/gems/specifications" id="10F9BC7A33CL3a5ac4cb0x264" name="specifications">
+<file url="spec/gems/specifications/stubgem-1.0.0.gemspec" id="10F9BC7A270L374024150x264" name="stubgem-1.0.0.gemspec">
+</file>
+<file url="spec/gems/specifications/stubgem-multiplatform-1.0.0.gemspec" id="10F9BC7A270L7cfe1cf80x264" name="stubgem-multiplatform-1.0.0.gemspec">
+</file>
+<file url="spec/gems/specifications/stubgem-multiplatform-1.0.1-mswin32.gemspec" id="10F9BC7A270L69f614890x264" name="stubgem-multiplatform-1.0.1-mswin32.gemspec">
+</file>
+<file url="spec/gems/specifications/stubgem-multiplatform-1.0.1.gemspec" id="10F9BC7A270L5f1e0ca00x264" name="stubgem-multiplatform-1.0.1.gemspec">
+</file>
+</folder>
+</folder>
+<folder url="spec/unit" id="10F9BC7A33EL4656d5790x264" name="unit">
+<file url="spec/unit/application_spec.rb" id="10F9BC7A270L27f73eab0x264" name="application_spec.rb">
+</file>
+<file url="spec/unit/arg_parser_spec.rb" id="10F9BC7A270L1213e4870x264" name="arg_parser_spec.rb">
+</file>
+<file url="spec/unit/config_spec.rb" id="10F9BC7A270L1cb429bf0x264" name="config_spec.rb">
+</file>
+<file url="spec/unit/file_reader_spec.rb" id="10F9BC7A270L70105d4f0x264" name="file_reader_spec.rb">
+</file>
+<file url="spec/unit/gem_arg_processor_spec.rb" id="10F9BC7A270L3d3527900x264" name="gem_arg_processor_spec.rb">
+</file>
+<file url="spec/unit/gem_command_manager_spec.rb" id="10F9BC7A270L615d56700x264" name="gem_command_manager_spec.rb">
+</file>
+<file url="spec/unit/noninteractive_chooser_spec.rb" id="10F9BC7A270L7270daef0x264" name="noninteractive_chooser_spec.rb">
+</file>
+<file url="spec/unit/ruby_gem_spec.rb" id="10F9BC7A270L46e7cd160x264" name="ruby_gem_spec.rb">
+</file>
+<file url="spec/unit/rubygems_extensions_spec.rb" id="10F9BC7A270L2d1d5fdb0x264" name="rubygems_extensions_spec.rb">
+</file>
+<file url="spec/unit/testfile.txt" id="10F9BC7A270L75a1f4670x264" name="testfile.txt">
+</file>
+<file url="spec/unit/yaml_loader_spec.rb" id="10F9BC7A270L47a538150x264" name="yaml_loader_spec.rb">
+</file>
+</folder>
+</folder>
+<folder url="test" id="10F9BC7A33FL38fe85720x264" name="test">
+<file url="test/test_all.rb" id="10F9BC7A271L583ce2750x264" name="test_all.rb">
+</file>
+</folder>
+</project>
