@@ -1,5 +1,6 @@
 module GemInstaller
   class GemCommandLineProxy
+    GEM_ERROR_REGEXP = /^ERROR.*/
     def run(args)
       args_string = args.join(" ")
       output = `gem #{args_string} 2>&1`
@@ -8,7 +9,7 @@ module GemInstaller
       # return value is always zero on windows (from gem.bat), so we have to resort to parsing the output
       error_in_output = false
       lines.each do |line|
-        if line.match(/^ERROR.*/)
+        if line.match(GemInstaller::GemCommandLineProxy::GEM_ERROR_REGEXP)
           error_in_output = true
           break
         end
