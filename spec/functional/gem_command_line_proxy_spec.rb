@@ -39,4 +39,12 @@ context "a gem command line proxy" do
     expected_error_message = "Error: gem command failed.*?ERROR:  Invalid option: --invalid-option.  See 'gem --help'.*"
     exception.message.should_match(/#{expected_error_message}/m)
   end
+
+  # This causes ruby to hang while waiting for input  
+  # specify "should handle stdin" do
+  #   args = ['install','stubgem-multiplatform','--version','1.0.1','-y','--backtrace']
+  #   args += install_options_for_testing
+  #   output = @gem_command_line_proxy.run(args)
+  #   output.should_be_an_instance_of(Array)
+  # end
 end
