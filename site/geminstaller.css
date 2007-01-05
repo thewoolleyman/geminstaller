@@ -1,0 +1,32 @@
+body, p, ol, ul, td {
+  font-family: arial, verdana, helvetica, sans-serif;
+  font-weight: normal;
+  color: #333333;
+  background-color: lightgrey;
+  font-size: 11px;
+}
+
+.center {
+  text-align: center;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.header {
+  font-size: 30px;
+  margin-bottom: 10px  
+}
+
+.intro {
+  font-size: 14px;
+  margin-bottom: 10px
+}
+
+.menuitem {
+  font-size: 40px;
+  margin-bottom: 5px
+}
+
+
