@@ -32,7 +32,10 @@ module GemInstaller
         message = e.message
         message += "\n"
         @output_proxy.syserr(message)
-        @output_proxy.syserr(e) if @verbose
+        if @verbose
+          backtrace_as_string = e.backtrace.join("\n")
+          @output_proxy.syserr(backtrace_as_string)
+        end
         return 1
       end
       return 0

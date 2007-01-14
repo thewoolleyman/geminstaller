@@ -30,7 +30,7 @@ context "an application instance invoked with no args" do
   end
 
   specify "should print any exception message to stderr then exit gracefully" do
-    @mock_output_proxy.should_receive(:syserr).once().with("GemInstaller::GemInstallerError\n")
+    @mock_output_proxy.should_receive(:syserr).once().with(/GemInstaller::GemInstallerError.*/)
     @mock_config_builder.should_receive(:build_config).and_raise(GemInstaller::GemInstallerError)
     return_code = @application.run
     return_code.should==(1)
@@ -64,7 +64,7 @@ context "an application instance invoked with no args and verbose option" do
   end
 
   specify "should print any exception message AND stacktrace if verbose options is specified" do
-    @mock_output_proxy.should_receive(:syserr).once().with("GemInstaller::GemInstallerError\n")
+    @mock_output_proxy.should_receive(:syserr).once().with(/GemInstaller::GemInstallerError/)
     @mock_output_proxy.should_receive(:syserr).once() # TODO: how to specify Error/stacktrace exception?
     @mock_config_builder.should_receive(:build_config).and_raise(GemInstaller::GemInstallerError)
     return_code = @application.run
@@ -79,7 +79,7 @@ context "an application instance invoked with invalid args or help option" do
 
   specify "should print any arg parser output to stderr then exit gracefully" do
     arg_parser_output = "arg parser output"
-    @mock_output_proxy.should_receive(:syserr).with(arg_parser_output + "\n")
+    @mock_output_proxy.should_receive(:syserr).with(/arg parser output/)
     @mock_arg_parser.should_receive(:parse).and_return({})
     @mock_arg_parser.should_receive(:output).and_return(arg_parser_output)
     return_code = @application.run
