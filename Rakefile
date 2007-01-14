@@ -26,4 +26,8 @@ task :coverage do
   sh "rcov test/test_all.rb"
 end
 
+task :update_manifest do
+  system('rake check_manifest | patch -p0 Manifest.txt')
+end
+
 # vim: syntax=Ruby
