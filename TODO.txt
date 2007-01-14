@@ -1,4 +1,5 @@
-* Deal with sudo problem.  Works, but only on command line.  Fix this, then add docs about using sudo to README.txt.
+* Deal with sudo problem.  Works, but only on command line.
+* Add docs about using sudo to README.txt.
 * Embedded gem_server process doesn't get killed on windows during tests
 * Embedded gem_server ports aren't handled correctly on linux during tests - port conflict on startup, open ports die off slowly after tests finish
 * non-specific versions in config yml (such as > 0.1.2) must be specified in quotes (such as '> 0.1.2') or else they are not correctly parsed by yaml (just returns '0.1.2' instead of '> 0.1.2').  Should give some warning instead of just failing
