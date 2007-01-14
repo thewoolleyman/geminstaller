@@ -13,6 +13,8 @@ module GemInstaller
           return available_version.to_s
         end
       end
+      error_msg = "The specified version requirement '#{version_requirement}' is not met by any of the available versions: #{available_versions.join(', ')}."
+      raise GemInstaller::GemInstallerError.new(error_msg)
     end
   end
 end

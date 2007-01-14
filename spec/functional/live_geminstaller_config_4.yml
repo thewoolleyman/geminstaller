@@ -1,0 +1,4 @@
+gems:
+  - name: stubgem
+    version: '> 1.0.0'
+    install_options: -y --backtrace --source=http://localhost:9909

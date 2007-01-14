@@ -61,6 +61,13 @@ context "The geminstaller command line application" do
     @gem_command_manager.is_gem_installed(@sample_gem).should==(true)
   end
   
+  specify "should show error if a version specification is not met" do
+    @application.args = ["--info","--config=#{dir}/live_geminstaller_config_4.yml"]
+    @mock_output_proxy.should_receive(:syserr).with(/The specified version requirement '> 1.0.0' is not met by any of the available versions: 1.0.0./)
+    @application.run
+    @gem_command_manager.is_gem_installed(@sample_gem).should==(false)
+  end
+  
 end
 
 context "The geminstaller command line application created via GemInstaller.run method" do

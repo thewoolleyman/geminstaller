@@ -19,6 +19,10 @@ context "a VersionSpecifier instance" do
     should_specify("> 1.2.3", '2.0, 1.2.4, 1.2.4, 0.3', '2.0')
   end
   
+  specify "should throw an error if no matching versions are found" do    
+    lambda { @version_specifier.specify("> 2", '2, 1') }.should_raise(GemInstaller::GemInstallerError)
+  end
+  
   def should_specify(version_requirement, available_versions, expected_specified_version)
     specified_version = @version_specifier.specify(version_requirement, available_versions)
     specified_version.should==(expected_specified_version)
