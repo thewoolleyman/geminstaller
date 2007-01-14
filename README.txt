@@ -83,7 +83,7 @@ smoketest-geminstaller.yml:
 	    version: '> 0.1.5'
 	    platform: ruby
 
-smoketest-geminstaller-override.yml
+smoketest-geminstaller-override.yml:
 	defaults:
 	gems:
 	  - name: rutils
@@ -107,9 +107,11 @@ A transparent solution to this problem is planned as an enhancement to a future 
 
 TODO: fill out examples here:
 
-==== Option 1 - Make everything owned by the local user that runs geminstaller
+==== Option 1 - Use the --sudo option on the geminstaller executable
 
-==== Option 2 - Use the --sudo option on the geminstaller executable
+Example:
+
+==== Option 2 - Make everything owned by the local user that runs geminstaller
 
 ==== Option 3 - Run sudo yourself
 
