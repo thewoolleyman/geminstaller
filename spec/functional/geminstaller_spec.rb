@@ -18,7 +18,7 @@ context "The geminstaller command line application" do
     @sample_gem = sample_gem
     @gem_command_manager.uninstall_gem(@sample_gem) if @gem_command_manager.is_gem_installed(@sample_gem)
   end
-
+  
   specify "should print usage if --help arg is specified" do
     @application.args = ["--help"]
     @mock_output_proxy.should_receive(:syserr).with(/Usage.*/)
@@ -52,6 +52,13 @@ context "The geminstaller command line application" do
     @mock_output_proxy.should_receive(:sysout).with(/Installing gem stubgem-multiplatform.*/)
     @application.run
     @gem_command_manager.is_gem_installed(@sample_multiplatform_gem).should==(true)
+  end
+  
+  specify "should install correctly even if install_options is not specified" do
+    @application.args = ["--info","--config=#{dir}/live_geminstaller_config_3.yml"]
+    @mock_output_proxy.should_receive(:sysout).with(/Installing gem stubgem.*/)
+    @application.run
+    @gem_command_manager.is_gem_installed(@sample_gem).should==(true)
   end
   
 end

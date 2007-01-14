@@ -25,6 +25,25 @@ context "config YAML containing a single gem" do
   end
 end
 
+context "config YAML with only name and version specified" do
+  setup do
+    @yaml_text = <<-STRING_END
+    # COMMENT 
+    gems:
+      - name: mygem
+        version: '0.1.2.3'
+    STRING_END
+    @yaml = YAML.load(@yaml_text)
+    @config = GemInstaller::Config.new(@yaml)
+  end
+
+  specify "should not raise error on nil platform, install_options, or check_for_upgrade" do
+    gem = @config.gems[0]
+    gem.name.should==('mygem')
+    gem.version.should==('0.1.2.3')
+  end
+end
+
 context "config YAML containing two gems with the same name but different versions" do
   setup do
     @yaml_text = <<-STRING_END
@@ -96,4 +115,3 @@ context "config YAML containing neither default install_options nor gem-specific
     gem.check_for_upgrade.should==(true)
   end
 end
-
