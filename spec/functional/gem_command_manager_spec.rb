@@ -75,4 +75,16 @@ context "a GemCommandManager instance" do
     end
   end
 
+  specify "should be able to install and uninstall a gem with the 'current' platform" do
+    gem = @sample_gem
+    gem.platform = 'current'
+    @gem_command_manager.is_gem_installed(gem).should==(false)
+    @gem_command_manager.install_gem(gem)
+    @gem_command_manager.is_gem_installed(gem).should==(true)
+  
+    # uninstall it again after we are done
+    @gem_command_manager.uninstall_gem(gem)
+    @gem_command_manager.is_gem_installed(gem).should==(false)
+  end
+  
 end

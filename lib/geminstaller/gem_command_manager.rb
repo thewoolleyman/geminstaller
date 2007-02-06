@@ -18,7 +18,10 @@ module GemInstaller
       gem_name_regexp = /^#{Regexp.escape(gem.name)}$/
       found_gems = @gem_source_index_proxy.search(gem_name_regexp,gem.version)
       found_gems.each do |found_gem|
-        return true if found_gem.name == gem.name && found_gem.platform == gem.platform
+        platform_matches = true if
+          (gem.platform == Gem::Platform::CURRENT && found_gem.platform = RUBY_PLATFORM) or
+          found_gem.platform == gem.platform
+        return true if found_gem.name == gem.name && platform_matches
       end
       return false
     end

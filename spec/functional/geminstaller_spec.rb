@@ -34,6 +34,14 @@ context "The geminstaller command line application" do
     @gem_command_manager.is_gem_installed(@sample_gem).should==(true)
   end
   
+  specify "should handle 'current' as a valid platform" do
+    @application.args = geminstaller_spec_test_args
+    @sample_gem.platform = 'current'
+    @mock_output_proxy.should_receive(:sysout).with(/Installing gem stubgem.*/)
+    @application.run
+    @gem_command_manager.is_gem_installed(@sample_gem).should==(true)
+  end
+  
   specify "should print message if gem is already installed and --info arg is specified" do
     @gem_command_manager.install_gem(@sample_gem)
     @application.args = geminstaller_spec_test_args
