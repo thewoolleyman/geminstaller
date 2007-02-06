@@ -108,11 +108,7 @@ module GemInstaller::SpecUtils
       stopped = false
       if @@gem_server_pid
         print "Killing embedded gem server at pid = #{@@gem_server_pid}\n"
-        begin
-          Process.kill(9,@@gem_server_pid)
-        rescue
-          puts "Warning: The embedded gem_server process may not have been stopped.  You may need to kill it manually..."          
-        end
+        Process.kill(9,@@gem_server_pid)
         stopped = true
       end
       return stopped
