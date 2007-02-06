@@ -77,41 +77,24 @@ module GemInstaller::SpecUtils
         rescue
           puts "Warning: The embedded gem_server process may not have been stopped.  You may need to kill it manually..."          
         end
-        stopped = true 
+        stopped = true
       end
       return stopped
     end
   end
   
   class TestGemDir
-#    @@dir = File.dirname(__FILE__) + "/test_gem_dir"
-#
-#    def self.init_test_gem_dir
-      #TODO: This doesn't work.  Find an easy, cross-platform way to recursively delete a dir tree
-#      files = []
-#      Find.find("#{@@dir}") do |f|
-#        files << f
-#      end
-#      files.each do |f|
-#        p "Deleting #{f.inspect}" if File.file?(f) 
-#        File.delete(f) if File.file?(f) 
-#      end
-#      files = []
-#      Find.find("#{@@dir}") do |f|
-#        files << f
-#      end
-#      p files
-#      files.each do |f|
-#        next if f == @@dir
-#        p @@dir
-#        p "Deleting #{f.inspect}" if File.directory?(f) 
-#        File.delete(f) if File.directory?(f) 
-#      end
-#      Dir.mkdir(@@dir) unless File.exist?(@@dir)
-#    end
-#    
-#    def self.dir
-#      @@dir
-#    end
+    include FileUtils
+    @@dir_name = "test_gems_dir.tmp"
+    @@dir = File.dirname(__FILE__) + "/#{@@dir_name}"
+    
+    def self.init_test_gem_dir
+      FileUtils.rm_rf(@@dir)
+      FileUtils.mkdir(@@dir)
+    end
+
+    def self.dir
+      @@dir
+    end
   end
 end

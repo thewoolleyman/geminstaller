@@ -14,6 +14,7 @@ require 'rubygems/validator'
 require 'erb'
 require 'optparse'
 require 'yaml'
+require 'fileutils'
 
 # third party lib extensions
 require File.expand_path("#{dir}/rubygems_extensions")
