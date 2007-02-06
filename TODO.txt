@@ -1,5 +1,5 @@
 * Handle multiplatform gem which has a dependency on another multiplatform gem which has a dependency on...
-* Deal with sudo problem.  Works, but only on command line.
+* Check for write access, and exit with warning to use sudo if there is no write access.
 * Add docs about using sudo to README.txt.
 * Embedded gem_server process doesn't get killed on windows during tests
 * Embedded gem_server ports aren't handled correctly on linux during tests - port conflict on startup, open ports die off slowly after tests finish
