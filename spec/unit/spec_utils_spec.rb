@@ -43,8 +43,5 @@ context "spec_utils_spec: the TestGemHome class" do
     # ...and after another reset, it should be back to the original default
     GemInstaller::SpecUtils::TestGemHome.reset
     Gem.dir.should==("#{Gem.default_dir}")
-    
-    
-    
   end
 end
