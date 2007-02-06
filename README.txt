@@ -122,12 +122,21 @@ $ su -
 
 ==== Option 3 - Make everything owned by the local user that runs geminstaller
 
+(replace <local user> with your username)
 $ cd /usr/local/lib/ruby # or wherever you have ruby installed
-$ sudo chown -R <localuser> .
+$ sudo chown -R <local user> .
 
 ==== Tips on configuring sudo
 
-TODO: fill out example sudoers entry here
+Sudo can be configured to not ask for a password for certain commands.  This will be useful if you want to run geminstaller against a root-owned gem repository without being prompted (such as a Rails app being deployed via Capistrano).
+
+You should consult the man or info pages on sudoers and visudo for more info (man sudoers, info sudoers).  *** Make sure you understand the security implications of this approach ***.  
+
+Here's an example of how sudoers might be configured to allow the local user to run the 'gem', 'ruby', and 'geminstaller' commands via sudo without being prompted for a password.  Replace <local user> with your username, and replace '/usr/local/bin/' with the appropriate path if it is different on your system:
+
+$ sudo visudo
+add this line:
+<local user> ALL = NOPASSWD: /usr/local/bin/geminstaller, /usr/local/bin/ruby, /usr/local/bin/gem
 
 === Feedback:
 
