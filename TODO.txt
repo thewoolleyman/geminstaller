@@ -1,7 +1,6 @@
 * Handle multiplatform gem which has a dependency on another multiplatform gem which has a dependency on...
 * Check for write access, and exit with warning to use sudo if there is no write access.
 * Add docs about using sudo to README.txt.
-* Handle gems with "CURRENT" platform
 * Make sure specifications with '~' are handled correctly
 * non-specific versions in config yml (such as > 0.1.2) must be specified in quotes (such as '> 0.1.2') or else they are not correctly parsed by yaml (just returns '0.1.2' instead of '> 0.1.2').  Should give some warning instead of just failing
 * Add spec file name to all contexts (or see if rspec can do it automatically)
