@@ -1,4 +1,4 @@
 gems:
-  - name: stubgem
+  - name: <%= GemInstaller::SpecUtils.sample_gem_name %>
     version: '> 1.0.0'
-    install_options: -y --backtrace --source=http://localhost:9909
+    install_options: <%= GemInstaller::SpecUtils.install_options_for_testing.join(' ') %>

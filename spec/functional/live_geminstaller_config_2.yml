@@ -1,5 +1,5 @@
 gems:
-  - name: stubgem-multiplatform
-    version: 1.0.1
+  - name: <%= GemInstaller::SpecUtils.sample_multiplatform_gem_name %>
+    version: <%= GemInstaller::SpecUtils.sample_multiplatform_gem_version %>
     platform: mswin32
-    install_options: -y --backtrace --source=http://localhost:9909
+    install_options: <%= GemInstaller::SpecUtils.install_options_for_testing.join(' ') %>

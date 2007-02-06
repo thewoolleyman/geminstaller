@@ -1,5 +1,3 @@
 gems:
-  # TODO: should pull name and version of file from spec_utils
-  # Until then, manually keep this in sync with spec_utils.rb
-  - name: stubgem
-    version: 1.0.0
+  - name: <%= GemInstaller::SpecUtils.sample_gem_name %>
+    version: <%= GemInstaller::SpecUtils::sample_gem_version %>
