@@ -1,3 +1,4 @@
+* Handle multiplatform gem which has a dependency on another multiplatform gem which has a dependency on...
 * Deal with sudo problem.  Works, but only on command line.
 * Add docs about using sudo to README.txt.
 * Embedded gem_server process doesn't get killed on windows during tests
