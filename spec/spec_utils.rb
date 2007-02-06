@@ -29,16 +29,16 @@ module GemInstaller::SpecUtils
     "1.0.1"
   end
   
-  def self.local_gem_server_port
+  def self.embedded_gem_server_port
     9909
   end
 
-  def self.local_gem_server_url
-    "http://127.0.0.1:#{local_gem_server_port}"
+  def self.embedded_gem_server_url
+    "http://127.0.0.1:#{embedded_gem_server_port}"
   end
   
   def self.install_options_for_testing
-    ['--backtrace','--source', local_gem_server_url, '--config-file', GemInstaller::SpecUtils.test_rubygems_config_file]
+    ['--backtrace','--source', embedded_gem_server_url, '--config-file', GemInstaller::SpecUtils.test_rubygems_config_file]
   end
   
   def sample_gem_name
@@ -57,8 +57,8 @@ module GemInstaller::SpecUtils
     GemInstaller::SpecUtils.sample_multiplatform_gem_version    
   end
   
-  def local_gem_server_url
-    GemInstaller::SpecUtils.local_gem_server_url
+  def embedded_gem_server_url
+    GemInstaller::SpecUtils.embedded_gem_server_url
   end
   
   def install_options_for_testing

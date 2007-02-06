@@ -33,7 +33,7 @@ context "a GemCommandManager instance" do
   end
 
   specify "should be able to list remote gems" do
-    list_options = ["--source=#{local_gem_server_url}"]
+    list_options = ["--source=#{embedded_gem_server_url}"]
     @sample_gem.name = 'stubgem-multiplatform'
     list = @gem_command_manager.list_remote_gem(@sample_gem,list_options)
     expected_list = ["",
