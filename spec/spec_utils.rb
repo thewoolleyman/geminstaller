@@ -13,32 +13,56 @@ module GemInstaller::SpecUtils
     File.dirname(__FILE__) + "/#{file_name}"
   end
   
-  def sample_gem_name
+  def self.sample_gem_name
     sample_gem_name = "stubgem"
   end
 
-  def sample_gem_version
-    sample_gem_version = "1.0.0"
+  def self.sample_gem_version
+    "1.0.0"
   end
 
-  def sample_multiplatform_gem_name
-    sample_gem_name = "stubgem-multiplatform"
+  def self.sample_multiplatform_gem_name
+    "stubgem-multiplatform"
   end
 
-  def sample_multiplatform_gem_version
-    sample_gem_version = "1.0.1"
+  def self.sample_multiplatform_gem_version
+    "1.0.1"
   end
   
-  def local_gem_server_port
+  def self.local_gem_server_port
     9909
   end
 
-  def local_gem_server_url
+  def self.local_gem_server_url
     "http://127.0.0.1:#{local_gem_server_port}"
   end
   
+  def self.install_options_for_testing
+    ['--backtrace','--source', local_gem_server_url, '--config-file', GemInstaller::SpecUtils.test_rubygems_config_file]
+  end
+  
+  def sample_gem_name
+    GemInstaller::SpecUtils.sample_gem_name
+  end
+
+  def sample_gem_version
+    GemInstaller::SpecUtils.sample_gem_version    
+  end
+
+  def sample_multiplatform_gem_name
+    GemInstaller::SpecUtils.sample_multiplatform_gem_name    
+  end
+
+  def sample_multiplatform_gem_version
+    GemInstaller::SpecUtils.sample_multiplatform_gem_version    
+  end
+  
+  def local_gem_server_url
+    GemInstaller::SpecUtils.local_gem_server_url
+  end
+  
   def install_options_for_testing
-    ['--source', local_gem_server_url, '--config-file', GemInstaller::SpecUtils.test_rubygems_config_file]
+    GemInstaller::SpecUtils.install_options_for_testing
   end
   
   def sample_gem(install_options=install_options_for_testing)
@@ -99,7 +123,7 @@ module GemInstaller::SpecUtils
     include FileUtils
     
     def self.init_dir
-      FileUtils.rm_rf(dir)
+      rm_dir
       FileUtils.mkdir(dir)
     end
 
@@ -119,6 +143,10 @@ module GemInstaller::SpecUtils
       # Gem.use_paths(dir)
     end
     
+    def self.rm_dir
+      FileUtils.rm_rf(dir) if File.exist?(dir)
+    end
+    
     def self.rm_config
       FileUtils.rm(config_file) if File.exist?(config_file)
     end
@@ -134,6 +162,7 @@ module GemInstaller::SpecUtils
     def self.reset
       Gem.clear_paths
       rm_config
+      rm_dir
     end
   end
 end

@@ -1,12 +1,10 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../spec_helper")
 
-# NOTE: this test is dependent upon
-# * RubyGems being installed
-# * write permissions (or sudo) to gem install dir
 context "The geminstaller command line application" do
   include GemInstaller::SpecUtils
   setup do
+    GemInstaller::SpecUtils::TestGemHome.use
     GemInstaller::SpecUtils::EmbeddedGemServer.start
     
     @mock_output_proxy = mock("Mock Output Proxy")
@@ -19,6 +17,10 @@ context "The geminstaller command line application" do
     @gem_command_manager.uninstall_gem(@sample_gem) if @gem_command_manager.is_gem_installed(@sample_gem)
   end
   
+  teardown do
+    GemInstaller::SpecUtils::TestGemHome.reset
+  end
+
   specify "should print usage if --help arg is specified" do
     @application.args = ["--help"]
     @mock_output_proxy.should_receive(:syserr).with(/Usage.*/)
@@ -73,7 +75,12 @@ end
 context "The geminstaller command line application created via GemInstaller.run method" do
   include GemInstaller::SpecUtils
   setup do
+    GemInstaller::SpecUtils::TestGemHome.use
     GemInstaller::SpecUtils::EmbeddedGemServer.start
+  end
+
+  teardown do
+    GemInstaller::SpecUtils::TestGemHome.reset
   end
 
   specify "should run successfully" do

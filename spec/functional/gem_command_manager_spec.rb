@@ -1,9 +1,6 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../spec_helper")
 
-# NOTE: this test is dependent upon
-# * RubyGems being installed
-# * write permissions (or sudo) to gem install dir
 context "a GemCommandManager instance" do
   include GemInstaller::SpecUtils
   setup do

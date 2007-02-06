@@ -1,8 +1,6 @@
 defaults:
   install_options: -y
 gems:
-  # TODO: should pull name and version of file from spec_utils
-  # Until then, manually keep this in sync with spec_utils.rb
-  - name: stubgem
-    version: 1.0.0
-    install_options: -y --backtrace --source=http://localhost:9909
+  - name: <%= GemInstaller::SpecUtils.sample_gem_name %>
+    version: <%= GemInstaller::SpecUtils::sample_gem_version %>
+    install_options: <%= GemInstaller::SpecUtils.install_options_for_testing.join(' ') %>
