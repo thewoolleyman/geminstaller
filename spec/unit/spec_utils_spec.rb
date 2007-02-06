@@ -25,6 +25,5 @@ context "spec_utils_spec: the TestGemDir class" do
     # dummy dir should no longer exist
     entries = Dir.entries("#{test_gem_dir}")
     entries.should_not_include('dummydir')
-    
   end
 end
