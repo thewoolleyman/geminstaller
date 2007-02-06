@@ -148,7 +148,8 @@ That's all the docs for now.  More to come later.  Please report any bugs/feedba
 Runtime:
 * nothing, other than an installtion of RubyGems itself
 
-Building/Testing (Run the geminstaller executable in the geminstaller root to auto-install these):
+Building/Testing:
+After installing the geminstaller gem (via 'gem install geminstaller'), change to the root of the geminstaller source tree, and run 'geminstaller' to auto-install these:
 * rake >= 0.7.1
 * hoe >= 1.1.6
 * rspec >= 0.7.5
