@@ -96,5 +96,14 @@ module GemInstaller::SpecUtils
     def self.dir
       @@dir
     end
+    
+    def self.use
+      init
+      Gem.use_paths(@@dir)
+    end
+
+    def self.reset
+      Gem.clear_paths
+    end
   end
 end
