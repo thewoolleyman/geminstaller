@@ -83,12 +83,12 @@ module GemInstaller::SpecUtils
     end
   end
   
-  class TestGemDir
+  class TestGemHome
     include FileUtils
-    @@dir_name = "test_gems_dir.tmp"
+    @@dir_name = "test_gem_home.tmp"
     @@dir = File.dirname(__FILE__) + "/#{@@dir_name}"
     
-    def self.init_test_gem_dir
+    def self.init
       FileUtils.rm_rf(@@dir)
       FileUtils.mkdir(@@dir)
     end
