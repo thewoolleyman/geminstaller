@@ -103,17 +103,31 @@ On many unix-like systems (Mac, Linux, etc.), the root user will own the local i
 
 There are several different solutions this problem.  The solutions that are available are also determined by the way you use geminstaller (whether you call it from the executable, or use the GemInstaller classes directly from Ruby).
 
-A transparent solution to this problem is planned as an enhancement to a future release of GemInstaller.  For now, however, you will need to pick one of the following approaches:
+A transparent solution to this problem is planned as an enhancement to a future release of GemInstaller.  For now, however, you will need to pick one of the following approaches below.  If you use sudo, you should also read the tops on configuring sudo.
 
-TODO: fill out examples here:
+==== Option 1 - Use the -s  or --sudo option on the geminstaller executable
 
-==== Option 1 - Use the --sudo option on the geminstaller executable
+Examples:
+$ geminstaller -s
+$ geminstaller --sudo
 
-Example:
+==== Option 2 - Run sudo or log in as root yourself
 
-==== Option 2 - Make everything owned by the local user that runs geminstaller
+Example of using sudo:
+$ sudo geminstaller
 
-==== Option 3 - Run sudo yourself
+Example of running geminstaller as root
+$ su - 
+# geminstaller
+
+==== Option 3 - Make everything owned by the local user that runs geminstaller
+
+$ cd /usr/local/lib/ruby # or wherever you have ruby installed
+$ sudo chown -R <localuser> .
+
+==== Tips on configuring sudo
+
+TODO: fill out example sudoers entry here
 
 === Feedback:
 
