@@ -15,6 +15,7 @@ require 'erb'
 require 'optparse'
 require 'yaml'
 require 'fileutils'
+require 'tempfile'
 
 # third party lib extensions
 require File.expand_path("#{dir}/rubygems_extensions")

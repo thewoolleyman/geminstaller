@@ -1,6 +1,18 @@
 module GemInstaller::SpecUtils
   SUPPRESS_RUBYGEMS_OUTPUT = false
   
+  def self.test_gem_home
+    # TODO: This dir name is duplicated in test_rubygems_config_file.  We would have to 
+    # dynamically generate that file to remove the duplication
+    dir_name = "test_gem_home.tmp"
+    File.dirname(__FILE__) + "/#{dir_name}"
+  end
+  
+  def self.test_rubygems_config_file
+    file_name = "test_gem.rc"
+    File.dirname(__FILE__) + "/#{file_name}"
+  end
+  
   def sample_gem_name
     sample_gem_name = "stubgem"
   end
@@ -26,7 +38,7 @@ module GemInstaller::SpecUtils
   end
   
   def install_options_for_testing
-    ["--source", local_gem_server_url]
+    ['--source', local_gem_server_url, '--config-file', GemInstaller::SpecUtils.test_rubygems_config_file]
   end
   
   def sample_gem(install_options=install_options_for_testing)
@@ -85,25 +97,43 @@ module GemInstaller::SpecUtils
   
   class TestGemHome
     include FileUtils
-    @@dir_name = "test_gem_home.tmp"
-    @@dir = File.dirname(__FILE__) + "/#{@@dir_name}"
     
-    def self.init
-      FileUtils.rm_rf(@@dir)
-      FileUtils.mkdir(@@dir)
+    def self.init_dir
+      FileUtils.rm_rf(dir)
+      FileUtils.mkdir(dir)
     end
 
     def self.dir
-      @@dir
+      GemInstaller::SpecUtils.test_gem_home
+    end
+    
+    def self.config_file
+      GemInstaller::SpecUtils.test_rubygems_config_file
     end
     
     def self.use
-      init
-      Gem.use_paths(@@dir)
+      init_dir
+      rm_config
+      create_config
+      # TODO: is the use_paths even necessary if you set the config file???
+      # Gem.use_paths(dir)
+    end
+    
+    def self.rm_config
+      FileUtils.rm(config_file) if File.exist?(config_file)
+    end
+    
+    def self.create_config
+      file = File.open(config_file, "w") do |f| 
+        f << "gempath:\n"
+        f << "  - #{Gem.default_dir}\n"
+        f << "gemhome: #{dir}\n"
+      end 
     end
 
     def self.reset
       Gem.clear_paths
+      rm_config
     end
   end
 end

@@ -7,6 +7,7 @@ require File.expand_path("#{dir}/../spec_helper")
 context "a GemCommandManager instance" do
   include GemInstaller::SpecUtils
   setup do
+    GemInstaller::SpecUtils::TestGemHome.use
     extra_install_options = install_options_for_testing
     extra_install_options << "-y" << "--backtrace"
     @sample_gem_with_extra_install_options = GemInstaller::RubyGem.new(sample_gem_name, :version => sample_gem_version, :install_options => extra_install_options)
@@ -26,6 +27,10 @@ context "a GemCommandManager instance" do
       end
       @gem_command_manager.is_gem_installed(gem).should==(false)
     end
+  end
+  
+  teardown do
+    GemInstaller::SpecUtils::TestGemHome.reset
   end
 
   specify "should be able to install, uninstall, and check for existence of specific versions of a gem" do

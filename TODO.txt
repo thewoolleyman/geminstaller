@@ -1,5 +1,4 @@
 * Handle multiplatform gem which has a dependency on another multiplatform gem which has a dependency on...
-* Have tests install to temp dir instead of real gem repo (use FileUtils.rm_rf and Gem.use_paths, see rubygems doc_manager for example)
 * Check for write access, and exit with warning to use sudo if there is no write access.
 * Add docs about using sudo to README.txt.
 * Handle gems with "CURRENT" platform
