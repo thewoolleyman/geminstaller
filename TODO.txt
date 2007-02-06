@@ -1,6 +1,10 @@
 * Handle multiplatform gem which has a dependency on another multiplatform gem which has a dependency on...
+* Have tests install to temp dir instead of real gem repo (use FileUtils.rm_rf and Gem.use_paths, see rubygems doc_manager for example)
 * Check for write access, and exit with warning to use sudo if there is no write access.
 * Add docs about using sudo to README.txt.
+* Handle gems with "CURRENT" platform
+* Make sure specifications with '~' are handled correctly
+* Make GemInstaller.run take a parameter to not fail if there is any error
 * Embedded gem_server process doesn't get killed on windows during tests
 * Embedded gem_server ports aren't handled correctly on linux during tests - port conflict on startup, open ports die off slowly after tests finish
 * non-specific versions in config yml (such as > 0.1.2) must be specified in quotes (such as '> 0.1.2') or else they are not correctly parsed by yaml (just returns '0.1.2' instead of '> 0.1.2').  Should give some warning instead of just failing
@@ -14,7 +18,6 @@
 * create basic website
 * Clean up spec_helper, find out simplest way to invoke rspec via test_unit, and still provide proper return codes/output
 * Application should not do any remote operations (or anything, really) if the version and platform are non-ambiguous and already installed.
-* Handle gems with "CURRENT" platform
 * get 100% code coverage
 * ensure --debug install option works as expected
 * Rename local_gem_server to embedded_gem_server
@@ -27,7 +30,6 @@
 * Rename RubyGem class to RubyGemAction, add install vs. uninstall actions in config (install is default)
 * Automate process for creating a stubgem
 * Look into using RubyGems built in dependency support rather than home-grown solution
-* Make GemInstaller.run take a parameter to not fail if there is any error
 * Give nice error message if gem server is unavailable (check socket)
 * Make tests run under RadRails debugger
 * Rename GemInstaller::Runner to GemInstaller::GemInstaller
@@ -36,9 +38,7 @@
 * Make SourceIndex.search use alternate method that does exact regex match, to avoid passing the exact regex ourselves.
 * Fix errors when using relative or ~/ dir in --config path
 * add option to specify --backtrace on all gem commands
-* Show warning if there is a more recent gem available (and the default?) in the repository
-* -v option should show full stacktrace on errors
-* take --trace parameter to show full stack trace
+* Add support, syntax, and options for uninstalling gems - completely, or down to highest specified version.
+* Review and clarify meanings of --info, --verbose, and --trace (logging vs. stacktraces vs. ???)
 * add feature to automatically warn if there is a more recent version of the gem available and check_for_upgrade == false.
-* Have tests install to temp dir instead of real gem repo (use FileUtils.rm_rf and Gem.use_paths, see rubygems doc_manager for example)
-* auto-generate dependency file
+* auto-generate geminstaller.yml files (possibly by parsing source)
