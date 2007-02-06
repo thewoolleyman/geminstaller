@@ -1,1 +1,1 @@
-gem_server --dir=/srv/samplegems --port=9909
+gem_server --dir=./spec/gems --port=9909
