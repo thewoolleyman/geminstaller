@@ -64,6 +64,18 @@ context "an ArgParser instance with verbose option" do
   end
 end
 
+context "an ArgParser instance with quiet option" do
+  setup do
+    common_setup
+    @args = ["--quiet"]
+  end
+
+  specify "should return quiet flag as true in options hash" do
+    opts = @arg_parser.parse(@args)
+    opts[:quiet].should==(true)
+  end
+end
+
 context "an ArgParser instance with version option" do
   setup do
     common_setup

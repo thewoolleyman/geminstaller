@@ -5,6 +5,7 @@ module GemInstaller
     def parse(args)
       @options = {}
       @options[:verbose] = false
+      @options[:quiet] = false
       @options[:info] = false
       @options[:sudo] = false
       @output = ""
@@ -21,11 +22,15 @@ module GemInstaller
           @options[:config_paths] = config_paths
         end
 
-        opts.on("-v", "--verbose", "Show verbose output") do
+        opts.on("-q", "--quiet", "Suppress all output except severe errors or exceptions") do
+          @options[:quiet] = true
+        end
+
+        opts.on("-v", "--verbose", "Show verbose output (such as exceptions from rubygems)") do
           @options[:verbose] = true
         end
 
-        opts.on("-s", "--sudo", "Perform all gem operations under sudo (as root).  Will only work on supported systems") do
+        opts.on("-s", "--sudo", "Perform all gem operations under sudo (as root).  Will only work on correctly configured, supported systems.  See docs for more info") do
           @options[:sudo] = true
         end
 
