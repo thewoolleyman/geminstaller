@@ -12,7 +12,15 @@ Automatically installs Ruby Gems.
 
 == SYNOPSYS:
 
-GemInstaller is a tool to automatically install Ruby Gems.  To use it, edit "geminstaller.yml", and run "geminstaller" from the same directory.
+GemInstaller is a tool to automatically install Ruby Gems.  
+
+=== Download:
+
+Downloads are available at http://rubyforge.org/frs/?group_id=1902
+
+=== Basic Usage:
+
+To use GemInstaller, edit "geminstaller.yml", and run "geminstaller" from the same directory.
 
 === Simple Example:
 
@@ -140,13 +148,20 @@ add this line:
 
 === Feedback:
 
-That's all the docs for now.  More to come later.  Please report any bugs/feedback on the GemInstaller rubyforge page:  
-	http://geminstaller.rubyforge.org
+==== Bug/Feature Tracker
+* http://rubyforge.org/tracker/?group_id=1902
+
+==== Mailing Lists
+* http://rubyforge.org/mail/?group_id=1902
+
+==== RubyForge Page
+* http://rubyforge.org/projects/geminstaller/
+
 
 == REQUIREMENTS:
 
 Runtime:
-* nothing, other than an installtion of RubyGems itself
+* None. There are no dependencies required to run GemInstaller, other than an installation of RubyGems itself
 
 Building/Testing:
 After installing the geminstaller gem (via 'gem install geminstaller'), change to the root of the geminstaller source tree, and run 'geminstaller' to auto-install these:
