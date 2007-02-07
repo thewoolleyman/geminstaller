@@ -1,3 +1,4 @@
+* Give some initial stdout to indicate it is running, print out each gem as it is installed.  Maybe invert --info to --quiet
 * Handle multiplatform gem which has a dependency on another multiplatform gem which has a dependency on...
 * Check for write access, and exit with warning to use sudo if there is no write access.
 * Add docs about using sudo to README.txt.
