@@ -1,4 +1,5 @@
 * --config does not work on windows with c:\path\to\yml
+* update smoketest.  Fails if gem is not installed.  Use --sudo option instead of manually doing sudo.
 * Remove hoe as dependency in runtime gem.  Smoketest fails on windows if hoe is not installed.
 * Give some initial stdout to indicate it is running, print out each gem as it is installed.  Maybe invert --info to --quiet
 * Handle multiplatform gem which has a dependency on another multiplatform gem which has a dependency on...
