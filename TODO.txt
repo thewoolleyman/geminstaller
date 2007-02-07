@@ -1,10 +1,11 @@
+* --config does not work on windows with c:\path\to\yml
 * Remove hoe as dependency in runtime gem
-* why don't update_manifest and coverage tasks show up in rake -T?
 * Give some initial stdout to indicate it is running, print out each gem as it is installed.  Maybe invert --info to --quiet
 * Handle multiplatform gem which has a dependency on another multiplatform gem which has a dependency on...
 * Check for write access, and exit with warning to use sudo if there is no write access.
 * Add docs about using sudo to README.txt.
 * non-specific versions in config yml (such as > 0.1.2) must be specified in quotes (such as '> 0.1.2') or else they are not correctly parsed by yaml (just returns '0.1.2' instead of '> 0.1.2').  Should give some warning instead of just failing
+* why don't update_manifest and coverage tasks show up in rake -T?
 * Add spec file name to all contexts (or see if rspec can do it automatically)
 * Make GemInstaller.run take a parameter to not fail if there is any error
 * Embedded gem_server process doesn't get killed on windows during tests
