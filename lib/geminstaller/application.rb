@@ -12,6 +12,7 @@ module GemInstaller
         handle_args
         config = @config_builder.build_config
         gems = config.gems
+        print_startup_message(gems) unless @quiet
         gems.each do |gem|
           already_specified = false
           if gem.check_for_upgrade
@@ -42,6 +43,7 @@ module GemInstaller
     end
     
     def handle_args
+      @quiet = false
       @verbose = false
       raise GemInstaller::GemInstallerError.new("Args must be passed as an array.") unless @args.respond_to? :shift
       @args = GemInstaller::Application.default_args if @args == []
@@ -51,15 +53,26 @@ module GemInstaller
         raise GemInstaller::GemInstallerError.new(arg_parser_output)
       end
       if (opts[:sudo])
-        err_msg = "The sudo option is not (yet) supported when invoking GemInstaller programatically.  It is only supported when using the command line 'geminstaller' executable."
+        err_msg = "The sudo option is not (yet) supported when invoking GemInstaller programatically.  It is only supported when using the command line 'geminstaller' executable.  See the docs for more info."
         raise GemInstaller::GemInstallerError.new(err_msg)
       end
       if (opts)
         config_file_paths = opts[:config_paths]
         @config_builder.config_file_paths = config_file_paths if config_file_paths
+        @quiet = opts[:quiet]
         @verbose = opts[:verbose]
         @info = opts[:info]
       end
+    end
+    
+    def print_startup_message(gems)
+      message = "GemInstaller is verifying gem installation: "
+      gems.each_with_index do |gem, index|
+        gem_info = "#{gem.name} (#{gem.version})"
+        message += gem_info 
+        message += ", " if index + 1 < gems.size
+      end
+      @output_proxy.sysout(message + "\n")
     end
   end
 end
