@@ -12,3 +12,5 @@ gems:
     version: '>= 0.7.5'
   - name: rcov
     version: '>= 0.7.0.1'
+    platform: <%= RUBY_PLATFORM == 'i386-mswin32' ? 'mswin32' : 'ruby'%>
+    
