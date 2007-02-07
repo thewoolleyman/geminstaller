@@ -16,14 +16,14 @@ context "an application instance invoked with no args" do
     @mock_gem_command_manager.should_receive(:is_gem_installed).once.with(@stub_gem).and_return(false)
     @mock_gem_list_checker.should_receive(:verify_and_specify_remote_gem!).once.with(@stub_gem)
     @mock_gem_command_manager.should_receive(:install_gem).once.with(@stub_gem)
-    @mock_output_proxy.should_receive(:sysout).once().with(/GemInstaller is verifying gem installation: gemname \(1.0\)/)
+    @mock_output_proxy.should_receive(:sysout).once().with(/GemInstaller is verifying gem installation: gemname 1.0/)
     @application.run
   end
 
   specify "should install multiple gems which are specified in the config and print startup message" do
     @mock_config_builder.should_receive(:build_config).and_return {@stub_config_local}
     @application.gem_command_manager = @mock_gem_command_manager
-    @stub_gem2 = GemInstaller::RubyGem.new("gemname2", :version => "2.0")
+    @stub_gem2 = GemInstaller::RubyGem.new("gemname2")
     gems = [@stub_gem, @stub_gem2]
     @stub_config.should_receive(:gems).and_return(gems)
     @mock_gem_command_manager.should_receive(:is_gem_installed).once.with(@stub_gem).and_return(false)
@@ -32,7 +32,7 @@ context "an application instance invoked with no args" do
     @mock_gem_list_checker.should_receive(:verify_and_specify_remote_gem!).once.with(@stub_gem2)
     @mock_gem_command_manager.should_receive(:install_gem).once.with(@stub_gem)
     @mock_gem_command_manager.should_receive(:install_gem).once.with(@stub_gem2)
-    @mock_output_proxy.should_receive(:sysout).once().with(/GemInstaller is verifying gem installation: gemname \(1.0\), gemname2 \(2.0\)/)
+    @mock_output_proxy.should_receive(:sysout).once().with(/GemInstaller is verifying gem installation: gemname 1.0, gemname2 > 0.0.0/)
     @application.run
   end
 end

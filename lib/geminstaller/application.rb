@@ -68,7 +68,7 @@ module GemInstaller
     def print_startup_message(gems)
       message = "GemInstaller is verifying gem installation: "
       gems.each_with_index do |gem, index|
-        gem_info = "#{gem.name} (#{gem.version})"
+        gem_info = "#{gem.name} #{gem.version}"
         message += gem_info 
         message += ", " if index + 1 < gems.size
       end
