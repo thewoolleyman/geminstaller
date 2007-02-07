@@ -10,7 +10,6 @@ bin/geminstaller
 geminstaller.iml
 geminstaller.ipr
 geminstaller.kpf
-geminstaller.tmproj
 geminstaller.yml
 lib/dev_runner.rb
 lib/geminstaller.rb
