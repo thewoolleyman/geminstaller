@@ -1,3 +1,6 @@
+* Rails integration doesn't work under mongrel (e.g, actionmailer gem not recognized after install, only after mongrel restart)
+* Remove hoe as dependency in runtime gem
+* why don't update_manifest and coverage tasks show up in rake -T?
 * Give some initial stdout to indicate it is running, print out each gem as it is installed.  Maybe invert --info to --quiet
 * Handle multiplatform gem which has a dependency on another multiplatform gem which has a dependency on...
 * Check for write access, and exit with warning to use sudo if there is no write access.

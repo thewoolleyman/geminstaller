@@ -11,6 +11,15 @@ unless defined?(RAILS_ROOT)
   RAILS_ROOT = root_path
 end
 
+# this is the Rails GemInstaller setup if you DON'T require root access to install gems
+require "rubygems"
+require "geminstaller"
+args = ["--info","--config=#{RAILS_ROOT}/config/geminstaller.yml"]
+GemInstaller.run(args)
+
+# this is the Rails GemInstaller setup if you DO require root access to install gems
+#system "geminstaller --sudo --info --config=#{RAILS_ROOT}/config/geminstaller.yml"
+
 unless defined?(Rails::Initializer)
   if File.directory?("#{RAILS_ROOT}/vendor/rails")
     require "#{RAILS_ROOT}/vendor/rails/railties/lib/initializer"

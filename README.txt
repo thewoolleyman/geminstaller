@@ -41,23 +41,37 @@ GemInstaller can also be embedded in another application, such as a Rails app.  
 
 IMPORTANT NOTE: The approach you use will mainly be determined by whether you run on unix and need root/sudo access to install gems and/or gem executables.  If this is the case, you will probably have to use the second approach below, of invoking the geminstaller executable, rather than calling the geminstaller class directly.  See the section below on dealing with sudo for more details.
 
-Create geminstaller.yml in the RAILS_ROOT/config directory, and invoke GemInstaller programatically on app startup in your environment.rb:
+Create geminstaller.yml in the RAILS_ROOT/config directory, and invoke GemInstaller on app startup in your boot.rb.  It should be placed right after the block which defines the RAILS_ROOT constant, as shown below ("..." indicates omitted lines):
 
 ==== Invoking the GemInstaller class:
 
-RAILS_ROOT/config/environment.rb:
+RAILS_ROOT/config/boot.rb:
 	...
+	unless defined?(RAILS_ROOT)
+	...
+	end
+
+    # this is the Rails GemInstaller setup if you DON'T require root access to install gems
+	require "rubygems"
 	require "geminstaller"
-	args = ['--info','--config=config/geminstaller.yml']
+	args = ["--info","--config=#{RAILS_ROOT}/config/geminstaller.yml"]
 	GemInstaller.run(args)
+
+	unless defined?(Rails::Initializer)
 	...
 
 ==== Invoking the GemInstaller executable:
 
-RAILS_ROOT/config/environment.rb:
+RAILS_ROOT/config/boot.rb:
 	...
-	require "geminstaller"
-	TODO: finish this.
+	unless defined?(RAILS_ROOT)
+	...
+	end
+
+    # this is the Rails GemInstaller setup if you DO require root access to install gems
+	system "geminstaller --sudo --info --config=#{RAILS_ROOT}/config/geminstaller.yml"
+
+	unless defined?(Rails::Initializer)
 	...
 
 

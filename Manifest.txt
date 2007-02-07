@@ -9,6 +9,7 @@ TODO.txt
 bin/geminstaller
 geminstaller.iml
 geminstaller.ipr
+geminstaller.iws
 geminstaller.kpf
 geminstaller.tmproj
 geminstaller.yml
@@ -44,6 +45,8 @@ spec/functional/gem_list_checker_spec.rb
 spec/functional/geminstaller_spec.rb
 spec/functional/live_geminstaller_config.yml
 spec/functional/live_geminstaller_config_2.yml
+spec/functional/live_geminstaller_config_3.yml
+spec/functional/live_geminstaller_config_4.yml
 spec/functional/output_proxy_spec.rb
 spec/functional/test_geminstaller_config.yml
 spec/functional/test_geminstaller_config_2.yml
@@ -132,10 +135,10 @@ spec/sample_rails_app/config/environment.rb
 spec/sample_rails_app/config/environments/development.rb
 spec/sample_rails_app/config/environments/production.rb
 spec/sample_rails_app/config/environments/test.rb
+spec/sample_rails_app/config/geminstaller.yml
 spec/sample_rails_app/config/routes.rb
 spec/sample_rails_app/db/schema.rb
 spec/sample_rails_app/doc/README_FOR_APP
-spec/sample_rails_app/geminstaller.yml
 spec/sample_rails_app/log/development.log
 spec/sample_rails_app/log/production.log
 spec/sample_rails_app/log/server.log
@@ -184,6 +187,7 @@ spec/unit/noninteractive_chooser_spec.rb
 spec/unit/ruby_gem_spec.rb
 spec/unit/rubygems_extensions_spec.rb
 spec/unit/spec_helper_spec.rb
+spec/unit/spec_utils_spec.rb
 spec/unit/testfile.txt
 spec/unit/yaml_loader_spec.rb
 start_local_gem_server.sh
