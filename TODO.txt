@@ -1,4 +1,3 @@
-* Rails integration doesn't work under mongrel (e.g, actionmailer gem not recognized after install, only after mongrel restart)
 * Remove hoe as dependency in runtime gem
 * why don't update_manifest and coverage tasks show up in rake -T?
 * Give some initial stdout to indicate it is running, print out each gem as it is installed.  Maybe invert --info to --quiet
@@ -10,6 +9,7 @@
 * Make GemInstaller.run take a parameter to not fail if there is any error
 * Embedded gem_server process doesn't get killed on windows during tests
 * Embedded gem_server ports aren't handled correctly on linux during tests - port conflict on startup, open ports die off slowly after tests finish
+* Rails integration doesn't work under mongrel when invoked via executable (e.g, actionmailer gem not recognized after install, only after mongrel restart).  Does't occur under webrick, or if geminstaller is invoked programatically via class.
 * Do a port check before starting embedded gem server, give option to kill process or at least exit with a descriptive warning.
 * Add additional dependencies and versions in Hoe, add dependency on Hoe, RubyForge
 * rake test fails on linux (problems starting embedded gem server)
@@ -25,6 +25,7 @@
 * remove cruft from test output
 * Remove hoe as a dependency for stubgems
 * Use a logger, hook it into --info/verbose option
+* boot.rb parsed twice under webrick?
 * add more output for --info option.  Should also be able to check info flag from classes other than Application
 * rename is_gem_installed to is_gem_installed?
 * fix all Zentest warnings
