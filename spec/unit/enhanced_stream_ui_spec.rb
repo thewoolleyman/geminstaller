@@ -11,7 +11,7 @@ context "An EnhancedStreamUI instance" do
     @enhanced_stream_ui = GemInstaller::EnhancedStreamUI.new
   end
 
-  specify "can queue input stream" do
+  specify "can queue input stream and listen to output stream" do
     input = ['input1','input2']
     @enhanced_stream_ui.queue_input(input)
     question = 'question'
@@ -20,5 +20,17 @@ context "An EnhancedStreamUI instance" do
     @enhanced_stream_ui.register_outs_listener([mock_outs_listener])
     @enhanced_stream_ui.ask('question').should==(input[0])
     @enhanced_stream_ui.ask('question').should==(input[1])
+  end
+
+  specify "will throw error if there is no queued input" do
+    lambda{ @enhanced_stream_ui.ask('question') }.should_raise(GemInstaller::GemInstallerError)
+  end
+
+  specify "can listen to error stream" do
+    statement = 'statement'
+    mock_errs_listener = mock('mock_errs_listener')
+    mock_errs_listener.should_receive(:notify).once.with('ERROR:  ' + statement)
+    @enhanced_stream_ui.register_errs_listener([mock_errs_listener])
+    @enhanced_stream_ui.alert_error(statement)
   end
 end

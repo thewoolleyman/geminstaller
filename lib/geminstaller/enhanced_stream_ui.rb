@@ -62,7 +62,7 @@ module GemInstaller
     
     def gets
       input = @queue.shift
-      raise GemInstaller::Exception("GemInstaller Internal Error: No input queued for EnhancedStreamUI.") if input.nil?
+      raise GemInstaller::GemInstallerError.new("GemInstaller Internal Error: No input queued for EnhancedStreamUI.") if input.nil?
       input
     end
   end
