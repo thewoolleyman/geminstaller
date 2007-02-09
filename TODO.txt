@@ -1,3 +1,4 @@
+* Dependencies are not checked if gem is already installed (e.g. uninstall activerecord and start rails app)
 * --config does not work on windows with c:\path\to\yml
 * update smoketest.  Fails if gem is not installed.  Use --sudo option instead of manually doing sudo.
 * Remove hoe as dependency in runtime gem.  Smoketest fails on windows if hoe is not installed.
