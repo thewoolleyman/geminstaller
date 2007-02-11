@@ -7,6 +7,7 @@ class MockStderr
   end
   
   def print(err)
+    p "!!!!!!!!!!!!!! err= #{err}"
     @err = err
   end
 end
@@ -17,6 +18,7 @@ class MockStdout
   end
   
   def print(out)
+    p "!!!!!!!!!!!!!! out= #{out}"
     @out = out
   end
 end
@@ -40,6 +42,17 @@ context "The output proxy" do
     @output_proxy.syserr(syserr)
     @mock_stdout.out.should==(sysout)
     @mock_stderr.err.should==(syserr)
+  end
+  
+  specify "should allow default output stream to be set for output method" do
+    sysout = "out!"
+    syserr = "err!"
+    @output_proxy.default_stream = :stdout
+    @output_proxy.output(sysout)
+    @mock_stdout.out.should==(sysout)
+    @output_proxy.default_stream = :stderr
+    @output_proxy.output(syserr)
+    @mock_stderr.err.should==(syserr)    
   end
   
   teardown do

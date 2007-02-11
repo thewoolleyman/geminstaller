@@ -57,6 +57,7 @@ module GemInstaller
     end
     
     def queue_input(input)
+      input = [input] unless input.is_a?(Array)
       @queue += input
     end
     

@@ -12,14 +12,17 @@ context "An EnhancedStreamUI instance" do
   end
 
   specify "can queue input stream and listen to output stream" do
-    input = ['input1','input2']
-    @enhanced_stream_ui.queue_input(input)
+    input1 = 'input1'
+    input2 = 'input2'
+    # can pass either a string or an array
+    @enhanced_stream_ui.queue_input([input1])
+    @enhanced_stream_ui.queue_input(input2)
     question = 'question'
     mock_outs_listener = mock('mock_outs_listener')
     mock_outs_listener.should_receive(:notify).twice.with(question + "  ")
     @enhanced_stream_ui.register_outs_listener([mock_outs_listener])
-    @enhanced_stream_ui.ask('question').should==(input[0])
-    @enhanced_stream_ui.ask('question').should==(input[1])
+    @enhanced_stream_ui.ask('question').should==(input1)
+    @enhanced_stream_ui.ask('question').should==(input2)
   end
 
   specify "will throw error if there is no queued input" do
