@@ -17,7 +17,7 @@ module GemInstaller
     app.args = args
     app
   end
-  
+
   def self.create_registry
     dependency_injector = GemInstaller::DependencyInjector.new
     registry = dependency_injector.registry

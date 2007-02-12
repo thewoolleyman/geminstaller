@@ -1,9 +1,12 @@
 module GemInstaller
   class ArgParser
-    attr_reader :output, :options
+    attr_reader :output
+    attr_writer :options
     
-    def parse(args)
-      @options = {}
+    def parse(args = [])
+      raise GemInstaller::GemInstallerError.new("Args must be passed as an array.") unless args.nil? or args.respond_to? :shift
+      args = ARGV if args.nil? || args == []
+
       @options[:verbose] = false
       @options[:quiet] = false
       @options[:info] = false
@@ -48,6 +51,10 @@ module GemInstaller
       rescue(OptionParser::InvalidOption)
         @output << opts.to_s
         return @options
+      end
+      
+      if (@options[:sudo])
+        @output = "The sudo option is not (yet) supported when invoking GemInstaller programatically.  It is only supported when using the command line 'geminstaller' executable.  See the docs for more info."
       end
 
       # nil out @output if there was no output

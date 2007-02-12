@@ -4,7 +4,7 @@ require File.expand_path("#{dir}/../spec_helper")
 context "an application instance invoked with no args" do
   setup do
     setup_common
-    @mock_arg_parser.should_receive(:parse).and_return {{}}
+    @mock_arg_parser.should_receive(:parse).with(nil)
     @mock_arg_parser.should_receive(:output).and_return(nil)
   end
 
@@ -40,7 +40,9 @@ end
 context "an application instance invoked with no args and info, quiet options" do
   setup do
     setup_common
-    @mock_arg_parser.should_receive(:parse).and_return {{:info => true, :quiet => true}}
+    @mock_arg_parser.should_receive(:parse).with(nil)
+    @options[:info] = true
+    @options[:quiet] = true
     @mock_arg_parser.should_receive(:output).and_return(nil)
   end
 
@@ -59,7 +61,8 @@ end
 context "an application instance invoked with no args and quiet option" do
   setup do
     setup_common
-    @mock_arg_parser.should_receive(:parse).and_return {{:quiet => true}}
+    @mock_arg_parser.should_receive(:parse).with(nil)
+    @options[:quiet] = true
     @mock_arg_parser.should_receive(:output).and_return(nil)
   end
 
@@ -94,7 +97,8 @@ end
 context "an application instance invoked with no args and verbose option" do
   setup do
     setup_common
-    @mock_arg_parser.should_receive(:parse).and_return {{:verbose => true}}
+    @mock_arg_parser.should_receive(:parse).with(nil)
+    @options[:verbose] = true
     @mock_arg_parser.should_receive(:output).and_return(nil)
   end
 
@@ -115,7 +119,7 @@ context "an application instance invoked with invalid args or help option" do
   specify "should print any arg parser output to stderr then exit gracefully" do
     arg_parser_output = "arg parser output"
     @mock_output_proxy.should_receive(:syserr).with(/arg parser output/)
-    @mock_arg_parser.should_receive(:parse).and_return({})
+    @mock_arg_parser.should_receive(:parse).with(nil)
     @mock_arg_parser.should_receive(:output).and_return(arg_parser_output)
     return_code = @application.run
     return_code.should==(1)
@@ -130,7 +134,8 @@ context "an application instance invoked with alternate config file location" do
 
   specify "should use the alternate config file location" do
     config_paths = 'config_paths'
-    @mock_arg_parser.should_receive(:parse).and_return({:config_paths => config_paths})
+    @mock_arg_parser.should_receive(:parse).with(nil)
+    @options[:config_paths] = config_paths
     @mock_arg_parser.should_receive(:output)
     @mock_config_builder.should_receive(:config_file_paths=).with(config_paths).and_return {@stub_config_local}
     @mock_config_builder.should_receive(:build_config).and_return {@stub_config_local}
@@ -155,12 +160,13 @@ def setup_common
 
   @stub_config_local = @stub_config
 
+  @options = {}
   @application = GemInstaller::Application.new
+  @application.options = @options
   @application.arg_parser = @mock_arg_parser
   @application.config_builder = @mock_config_builder
   @application.gem_list_checker = @mock_gem_list_checker
   @application.output_proxy = @mock_output_proxy
-  @application.args = []
 end
 
 
