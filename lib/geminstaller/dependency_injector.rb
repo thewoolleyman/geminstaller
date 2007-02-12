@@ -34,9 +34,9 @@ module GemInstaller
       @gem_source_index_proxy = GemInstaller::GemSourceIndexProxy.new
       @gem_source_index_proxy.gem_source_index = @gem_source_index
   
-      @gem_runner = Gem::GemRunner.new
+      @gem_runner_class = Gem::GemRunner
       @gem_runner_proxy = GemInstaller::GemRunnerProxy.new
-      @gem_runner_proxy.gem_runner = @gem_runner
+      @gem_runner_proxy.gem_runner_class = @gem_runner_class
   
       @gem_command_manager = GemInstaller::GemCommandManager.new
       @gem_command_manager.gem_source_index_proxy = @gem_source_index_proxy
