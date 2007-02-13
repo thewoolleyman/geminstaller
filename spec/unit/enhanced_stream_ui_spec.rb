@@ -36,4 +36,14 @@ context "An EnhancedStreamUI instance" do
     @enhanced_stream_ui.register_errs_listener([mock_errs_listener])
     @enhanced_stream_ui.alert_error(statement)
   end
+  
+  specify "will raise exceptions on terminate_interaction! (instead of exiting)" do
+    lambda{ @enhanced_stream_ui.terminate_interaction!('status') }.should_raise(GemInstaller::GemInstallerError)
+  end
+
+  specify "will raise RubyGemsExit on terminate_interaction (instead of exiting)" do
+    lambda{ @enhanced_stream_ui.terminate_interaction('status') }.should_raise(GemInstaller::RubyGemsExit)
+  end
+
+  
 end

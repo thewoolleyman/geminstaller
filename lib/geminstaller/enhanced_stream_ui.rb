@@ -1,11 +1,17 @@
 module GemInstaller
   class EnhancedStreamUI < Gem::StreamUI
+    attr_writer :noninteractive_chooser
+    
     def initialize()
       @ins = InputQueue.new
       @outs = OutputObserver.new
       @errs = OutputObserver.new
     end
     
+    def choose_from_list(question, list)
+      @noninteractive_chooser.choose(question, list)
+    end
+
     def register_outs_listener(listener)
       @outs.register(listener)
     end
@@ -25,6 +31,15 @@ module GemInstaller
     def queue_input(input)
       @ins.queue_input(input)
     end
+
+    def terminate_interaction!(status=-1)
+      raise GemInstaller::GemInstallerError.new("RubyGems exited abnormally.  Status: " + status + "\n")
+    end
+    
+    def terminate_interaction(status=0)
+      raise GemInstaller::RubyGemsExit.new(status)
+    end
+
   end
   
   class OutputObserver
@@ -33,6 +48,7 @@ module GemInstaller
     end
 
     def register(listener)
+      listener = [listener] unless listener.is_a?(Array)
       @listeners += listener
     end
     

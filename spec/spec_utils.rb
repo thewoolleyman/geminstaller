@@ -25,6 +25,10 @@ module GemInstaller::SpecUtils
     "stubgem-multiplatform"
   end
 
+  def self.sample_multiplatform_gem_version_low
+    "1.0.0"
+  end
+  
   def self.sample_multiplatform_gem_version
     "1.0.1"
   end
@@ -53,6 +57,10 @@ module GemInstaller::SpecUtils
     GemInstaller::SpecUtils.sample_multiplatform_gem_name    
   end
 
+  def sample_multiplatform_gem_version_low
+    GemInstaller::SpecUtils.sample_multiplatform_gem_version_low
+  end
+  
   def sample_multiplatform_gem_version
     GemInstaller::SpecUtils.sample_multiplatform_gem_version    
   end
@@ -149,9 +157,9 @@ module GemInstaller::SpecUtils
     
     def self.create_config
       file = File.open(config_file, "w") do |f| 
+        f << "gemhome: #{dir}\n"
         f << "gempath:\n"
         f << "  - #{Gem.default_dir}\n"
-        f << "gemhome: #{dir}\n"
       end 
     end
 

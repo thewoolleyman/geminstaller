@@ -4,7 +4,7 @@ require File.expand_path("#{dir}/../spec_helper")
 context "a NoninteractiveChooser instance which is passed an install-formatted list of both non-binary and binary gems" do
   setup do
     @noninteractive_chooser = GemInstaller::NoninteractiveChooser.new
-    @noninteractive_chooser.list_type=(:install_list_type)
+    @question = "Select which gem to install for your platform (i686-darwin8.7.1)"
     @list = [
       "stubgem 1.0.0 (ruby)",
       "stubgem-multiplatform 1.0.1 (mswin32)",
@@ -33,7 +33,7 @@ end
 context "a NoninteractiveChooser instance which is passed an uninstall-formatted list of both non-binary and binary gems" do
   setup do
     @noninteractive_chooser = GemInstaller::NoninteractiveChooser.new
-    @noninteractive_chooser.list_type=(:uninstall_list_type)
+    @question = "Select RubyGem to uninstall"
     @list = [
       "stubgem-1.0.0",
       "stubgem-multiplatform-1.0.1-mswin32",
@@ -61,12 +61,12 @@ end
 
 def should_choose(expected_choice, name, version, platform)
   @noninteractive_chooser.specify_exact_gem_spec(name, version, platform)
-  string, index = @noninteractive_chooser.choose(@list)
+  string, index = @noninteractive_chooser.choose(@question, @list)
   index.should==(expected_choice)
 end
 
 def should_raise_error(name, version, platform)
   @noninteractive_chooser.specify_exact_gem_spec(name, version, platform)
-  lambda{ @noninteractive_chooser.choose(@list) }.should_raise(GemInstaller::GemInstallerError)
+  lambda{ @noninteractive_chooser.choose(@question, @list) }.should_raise(GemInstaller::GemInstallerError)
 end
 

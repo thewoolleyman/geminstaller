@@ -32,8 +32,6 @@ context "a GemCommandManager instance injected with mock dependencies" do
     @mock_gem_source_index_proxy.should_receive(:refresh!).once
     @mock_gem_source_index_proxy.should_receive(:search).once.with(/^#{@escaped_sample_gem_name}$/,@sample_gem.version).and_return([])
     @mock_gem_runner_proxy.should_receive(:run).once.with(:anything)
-    @mock_noninteractive_chooser.should_receive(:list_type=)
-    @mock_noninteractive_chooser.should_receive(:gem_source_index_proxy=)
     @mock_noninteractive_chooser.should_receive(:specify_exact_gem_spec)
     @gem_command_manager.install_gem(@sample_gem)
   end

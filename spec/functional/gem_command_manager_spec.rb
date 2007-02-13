@@ -12,11 +12,12 @@ context "a GemCommandManager instance" do
     @sample_multiplatform_gem = sample_multiplatform_gem
     @nonexistent_version_sample_gem = GemInstaller::RubyGem.new(sample_gem_name, :version => "0.0.37", :install_options => install_options_for_testing)
     @unspecified_version_sample_gem = GemInstaller::RubyGem.new(sample_gem_name,:install_options => install_options_for_testing)
-    @gem_command_manager = GemInstaller::DependencyInjector.new.registry.gem_command_manager
+    @registry = GemInstaller::create_registry
+    @gem_command_manager = @registry.gem_command_manager
 
     GemInstaller::SpecUtils::EmbeddedGemServer.start
   end
-  
+
   teardown do
     GemInstaller::SpecUtils::TestGemHome.reset
   end

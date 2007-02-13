@@ -8,9 +8,7 @@ module GemInstaller
       run_args = ["list",gem.name,"--remote"]
       run_args += list_options
       say_capture_buffer = []
-      Gem::StreamUI.say_capture_buffer = say_capture_buffer
       @gem_runner_proxy.run(run_args)
-      say_capture_buffer
     end
 
     def is_gem_installed(gem)
@@ -39,11 +37,7 @@ module GemInstaller
     end
 
     def setup_noninteractive_chooser(list_type, gem)
-      @noninteractive_chooser ||= NoninteractiveChooser.new
-      @noninteractive_chooser.list_type = list_type
-      @noninteractive_chooser.gem_source_index_proxy = @gem_source_index_proxy
       @noninteractive_chooser.specify_exact_gem_spec(gem.name, gem.version, gem.platform)
-      Gem::StreamUI.noninteractive_chooser = @noninteractive_chooser
     end
     
     def run_gem_command(gem_command,gem)
