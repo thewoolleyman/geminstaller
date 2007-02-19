@@ -1,3 +1,4 @@
+* diff-lcs gem was not installed for geminstaller project (linux)
 * Dependencies are not checked if gem is already installed (e.g. uninstall activerecord and start rails app)
 * --config does not work on windows with c:\path\to\yml
 * update smoketest.  Fails if gem is not installed.  Use --sudo option instead of manually doing sudo.
