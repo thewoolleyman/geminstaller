@@ -18,6 +18,7 @@ lib/geminstaller/arg_parser.rb
 lib/geminstaller/config.rb
 lib/geminstaller/config_builder.rb
 lib/geminstaller/dependency_injector.rb
+lib/geminstaller/enhanced_stream_ui.rb
 lib/geminstaller/file_reader.rb
 lib/geminstaller/gem_arg_processor.rb
 lib/geminstaller/gem_command_line_proxy.rb
@@ -27,9 +28,11 @@ lib/geminstaller/gem_runner_proxy.rb
 lib/geminstaller/gem_source_index_proxy.rb
 lib/geminstaller/geminstaller_error.rb
 lib/geminstaller/noninteractive_chooser.rb
+lib/geminstaller/output_listener.rb
 lib/geminstaller/output_proxy.rb
 lib/geminstaller/requires.rb
 lib/geminstaller/ruby_gem.rb
+lib/geminstaller/rubygems_exit.rb
 lib/geminstaller/rubygems_extensions.rb
 lib/geminstaller/version_specifier.rb
 lib/geminstaller/yaml_loader.rb
@@ -40,6 +43,7 @@ spec/functional/dependency_injector_spec.rb
 spec/functional/gem_command_line_proxy_spec.rb
 spec/functional/gem_command_manager_spec.rb
 spec/functional/gem_list_checker_spec.rb
+spec/functional/gem_runner_proxy_spec.rb
 spec/functional/geminstaller_spec.rb
 spec/functional/live_geminstaller_config.yml
 spec/functional/live_geminstaller_config_2.yml
@@ -177,13 +181,14 @@ spec/spec_utils.rb
 spec/unit/application_spec.rb
 spec/unit/arg_parser_spec.rb
 spec/unit/config_spec.rb
+spec/unit/enhanced_stream_ui_spec.rb
 spec/unit/file_reader_spec.rb
 spec/unit/gem_arg_processor_spec.rb
 spec/unit/gem_command_manager_spec.rb
 spec/unit/gem_list_checker_spec.rb
 spec/unit/noninteractive_chooser_spec.rb
+spec/unit/output_listener_spec.rb
 spec/unit/ruby_gem_spec.rb
-spec/unit/rubygems_extensions_spec.rb
 spec/unit/spec_helper_spec.rb
 spec/unit/spec_utils_spec.rb
 spec/unit/testfile.txt
