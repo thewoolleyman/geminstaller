@@ -37,12 +37,16 @@ context "An EnhancedStreamUI instance" do
     @enhanced_stream_ui.alert_error(statement)
   end
   
-  specify "will raise exceptions on terminate_interaction! (instead of exiting)" do
-    lambda{ @enhanced_stream_ui.terminate_interaction!('status') }.should_raise(GemInstaller::GemInstallerError)
+  specify "will raise exception on terminate_interaction! (instead of exiting)" do
+    lambda{ @enhanced_stream_ui.terminate_interaction!(0) }.should_raise(GemInstaller::GemInstallerError)
   end
 
-  specify "will raise RubyGemsExit on terminate_interaction (instead of exiting)" do
-    lambda{ @enhanced_stream_ui.terminate_interaction('status') }.should_raise(GemInstaller::RubyGemsExit)
+  specify "will raise RubyGemsExit on terminate_interaction and status == 0 (instead of exiting)" do
+    lambda{ @enhanced_stream_ui.terminate_interaction(0) }.should_raise(GemInstaller::RubyGemsExit)
+  end
+
+  specify "will raise exception on terminate_interaction and status != 0 (instead of exiting)" do
+    lambda{ @enhanced_stream_ui.terminate_interaction(1) }.should_raise(GemInstaller::GemInstallerError)
   end
 
   

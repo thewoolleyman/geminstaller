@@ -33,11 +33,17 @@ module GemInstaller
     end
 
     def terminate_interaction!(status=-1)
-      raise GemInstaller::GemInstallerError.new("RubyGems exited abnormally.  Status: " + status + "\n")
+      raise_error(status)
     end
     
     def terminate_interaction(status=0)
+      raise_error(status) unless status == 0
       raise GemInstaller::RubyGemsExit.new(status)
+    end
+    
+    protected
+    def raise_error(status)
+      raise GemInstaller::GemInstallerError.new("RubyGems exited abnormally.  Status: #{status}\n")
     end
 
   end
