@@ -20,6 +20,11 @@ context "a GemListChecker instance" do
     should_not_raise_error    
   end
 
+  specify "should properly specify highest version if version is unspecified" do
+    @sample_gem.version = GemInstaller::RubyGem.default_version
+    should_not_raise_error    
+  end
+
   specify "should properly specify with a binary platform" do
     @sample_gem.name = "stubgem-multiplatform"
     @sample_gem.version = "1.0.1"
