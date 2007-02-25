@@ -18,10 +18,6 @@ context "a GemCommandManager instance" do
     GemInstaller::SpecUtils::EmbeddedGemServer.start
   end
 
-  teardown do
-    GemInstaller::SpecUtils::TestGemHome.reset
-  end
-
   specify "should be able to install, uninstall, and check for existence of specific versions of a gem" do
     @gem_command_manager.install_gem(@sample_gem_with_extra_install_options)
   
@@ -75,7 +71,7 @@ context "a GemCommandManager instance" do
       @gem_command_manager.is_gem_installed(gem).should==(false)
     end
   end
-
+  
   specify "should be able to install and uninstall a gem with the 'current' platform" do
     gem = @sample_gem
     gem.platform = 'current'

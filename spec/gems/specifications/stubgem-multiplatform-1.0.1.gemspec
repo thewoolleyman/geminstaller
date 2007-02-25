@@ -11,5 +11,4 @@ Gem::Specification.new do |s|
   s.authors = ["Chad Woolley"]
   s.files = ["History.txt", "Manifest.txt", "README.txt", "Rakefile", "lib/stubgem_multiplatform.rb", "test/test_stubgem_multiplatform.rb"]
   s.test_files = ["test/test_stubgem_multiplatform.rb"]
-  s.add_dependency(%q<hoe>, [">= 1.1.4"])
 end

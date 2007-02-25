@@ -8,6 +8,10 @@ module GemInstaller::SpecUtils
     File.dirname(__FILE__) + "/#{dir_name}"
   end
   
+  def self.rubygems_dist_dir
+    File.dirname(__FILE__) + "/rubygems_dist/rubygems-0.9.2"
+  end
+  
   def self.test_rubygems_config_file
     file_name = "test_gem.rc"
     File.dirname(__FILE__) + "/#{file_name}"
@@ -123,12 +127,17 @@ module GemInstaller::SpecUtils
     end
   end
   
+  require File.expand_path("#{File.dirname(__FILE__)}/rubygems_installer")
+  
   class TestGemHome
     include FileUtils
+    @@initialized = false
     
     def self.init_dir
-      rm_dir
-      FileUtils.mkdir(dir)
+      @rubygems_installer = GemInstaller::RubyGemsInstaller.new
+      @rubygems_installer.install_dir = dir
+      @rubygems_installer.rubygems_dist_dir = GemInstaller::SpecUtils.rubygems_dist_dir
+      @rubygems_installer.install
     end
 
     def self.dir
@@ -140,11 +149,15 @@ module GemInstaller::SpecUtils
     end
     
     def self.use
+      return if @@initialized
       init_dir
       rm_config
       create_config
+      GemInstaller::SpecUtils::EmbeddedGemServer.start
+      `gem update --source #{GemInstaller::SpecUtils.embedded_gem_server_url} --config-file #{config_file}`
       # TODO: is the use_paths even necessary if you set the config file???
       # Gem.use_paths(dir)
+      @@initialized = true
     end
     
     def self.rm_dir
@@ -159,7 +172,7 @@ module GemInstaller::SpecUtils
       file = File.open(config_file, "w") do |f| 
         f << "gemhome: #{dir}\n"
         f << "gempath:\n"
-        f << "  - #{Gem.default_dir}\n"
+        f << "  - #{dir}\n"
       end 
     end
 
@@ -167,6 +180,7 @@ module GemInstaller::SpecUtils
       Gem.clear_paths
       rm_config
       rm_dir
+      @@initialized = false
     end
   end
 end

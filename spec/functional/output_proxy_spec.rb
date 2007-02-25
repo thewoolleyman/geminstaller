@@ -7,7 +7,6 @@ class MockStderr
   end
   
   def print(err)
-    p "!!!!!!!!!!!!!! err= #{err}"
     @err = err
   end
 end
@@ -18,7 +17,6 @@ class MockStdout
   end
   
   def print(out)
-    p "!!!!!!!!!!!!!! out= #{out}"
     @out = out
   end
 end

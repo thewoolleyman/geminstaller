@@ -6,8 +6,8 @@ context "rubygems_installer_spec: the RubyGemsInstaller class" do
   include GemInstaller::SpecUtils
 
   setup do
-    @install_dir = dir + "/../rubygems_test_dir"
-    @rubygems_dist_dir = dir + "/../rubygems_dist/rubygems-0.9.2"
+    @install_dir = GemInstaller::SpecUtils.test_gem_home
+    @rubygems_dist_dir = GemInstaller::SpecUtils.rubygems_dist_dir
     @rubygems_installer = GemInstaller::RubyGemsInstaller.new
     FileUtils.rm_rf(@install_dir) if File.exist?(@install_dir)
     @rubygems_installer.install_dir = @install_dir

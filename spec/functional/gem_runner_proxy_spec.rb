@@ -12,10 +12,6 @@ context "a GemRunnerProxy instance" do
     GemInstaller::SpecUtils::EmbeddedGemServer.start
   end
 
-  teardown do
-    GemInstaller::SpecUtils::TestGemHome.reset
-  end
-
   specify "should return output of gem command" do
     gem_runner_args = ["list", "#{sample_multiplatform_gem_name}", "--remote"]
     gem_runner_args += install_options_for_testing

@@ -16,10 +16,6 @@ context "The geminstaller command line application" do
     @sample_gem = sample_gem
     @gem_command_manager.uninstall_gem(@sample_gem) if @gem_command_manager.is_gem_installed(@sample_gem)
   end
-  
-  teardown do
-    GemInstaller::SpecUtils::TestGemHome.reset
-  end
 
   specify "should print usage if --help arg is specified" do
     @application.args = ["--help"]

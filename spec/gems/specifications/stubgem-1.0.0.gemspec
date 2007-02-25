@@ -10,6 +10,4 @@ Gem::Specification.new do |s|
   s.has_rdoc = true
   s.authors = ["Chad Woolley"]
   s.files = ["History.txt", "Manifest.txt", "README.txt", "Rakefile", "lib/stubgem.rb", "test/test_stubgem.rb"]
-  s.test_files = ["test/test_stubgem.rb"]
-  s.add_dependency(%q<hoe>, [">= 1.1.4"])
 end
