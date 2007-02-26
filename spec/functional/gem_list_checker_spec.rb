@@ -5,10 +5,10 @@ context "a GemListChecker instance" do
   include GemInstaller::SpecUtils
   setup do
     GemInstaller::TestGemHome.use
-    GemInstaller::SpecUtils::EmbeddedGemServer.start
+    GemInstaller::EmbeddedGemServer.start
     
     # TODO: refactor this into EmbeddedGemServer when setting up a dummy source dir instead of the real one
-    embedded_gem_dir = GemInstaller::SpecUtils::EmbeddedGemServer.embedded_gem_dir
+    embedded_gem_dir = GemInstaller::EmbeddedGemServer.embedded_gem_dir
     Gem.use_paths(embedded_gem_dir)
   
     @registry = GemInstaller.create_registry

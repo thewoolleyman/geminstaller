@@ -5,7 +5,7 @@ context "The geminstaller command line application" do
   include GemInstaller::SpecUtils
   setup do
     GemInstaller::TestGemHome.use
-    GemInstaller::SpecUtils::EmbeddedGemServer.start
+    GemInstaller::EmbeddedGemServer.start
     
     @mock_output_proxy = mock("Mock Output Proxy")
     @registry = GemInstaller::create_registry
@@ -80,7 +80,7 @@ context "The geminstaller command line application created via GemInstaller.run 
   include GemInstaller::SpecUtils
   setup do
     GemInstaller::TestGemHome.use
-    GemInstaller::SpecUtils::EmbeddedGemServer.start
+    GemInstaller::EmbeddedGemServer.start
   end
 
   teardown do

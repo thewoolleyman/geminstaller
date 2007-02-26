@@ -27,10 +27,8 @@ module GemInstaller
       init_dir
       rm_config
       create_config
-      GemInstaller::SpecUtils::EmbeddedGemServer.start
+      GemInstaller::EmbeddedGemServer.start
       `gem update --source #{GemInstaller::SpecUtils.embedded_gem_server_url} --config-file #{config_file}`
-      # TODO: is the use_paths even necessary if you set the config file???
-      # Gem.use_paths(test_gem_home_dir)
       @@initialized = true
     end
     

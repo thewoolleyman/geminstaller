@@ -9,7 +9,7 @@ context "a GemRunnerProxy instance" do
     @gem_runner_proxy = @registry.gem_runner_proxy
     @noninteractive_chooser = @registry.noninteractive_chooser
     
-    GemInstaller::SpecUtils::EmbeddedGemServer.start
+    GemInstaller::EmbeddedGemServer.start
   end
 
   specify "should return output of gem command" do

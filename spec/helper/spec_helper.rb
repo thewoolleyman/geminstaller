@@ -5,6 +5,7 @@ require 'find'
 require 'stringio'
 require File.expand_path("#{dir}/spec_utils.rb")
 require File.expand_path("#{dir}/test_gem_home.rb")
+require File.expand_path("#{dir}/embedded_gem_server.rb")
 
 args = ARGV.dup
 unless args.include?("-f") || args.include?("--format")
@@ -23,7 +24,7 @@ def run_context_runner_if_necessary(has_run)
   begin
     retval = context_runner.run(false)
   ensure
-    server_was_stopped = GemInstaller::SpecUtils::EmbeddedGemServer.stop
+    server_was_stopped = GemInstaller::EmbeddedGemServer.stop
     GemInstaller::TestGemHome.reset
   end
   retval ||= 0

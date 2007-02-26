@@ -6,7 +6,7 @@ context "a gem command line proxy" do
 
   setup do
     GemInstaller::TestGemHome.use
-    GemInstaller::SpecUtils::EmbeddedGemServer.start
+    GemInstaller::EmbeddedGemServer.start
     @gem_command_line_proxy = GemInstaller::GemCommandLineProxy.new
   end
   

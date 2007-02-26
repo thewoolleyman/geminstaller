@@ -15,7 +15,7 @@ context "a GemCommandManager instance" do
     @registry = GemInstaller::create_registry
     @gem_command_manager = @registry.gem_command_manager
 
-    GemInstaller::SpecUtils::EmbeddedGemServer.start
+    GemInstaller::EmbeddedGemServer.start
   end
 
   specify "should be able to install, uninstall, and check for existence of specific versions of a gem" do
