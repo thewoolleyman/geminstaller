@@ -4,6 +4,7 @@ require 'spec'
 require 'find' 
 require 'stringio'
 require File.expand_path("#{dir}/spec_utils.rb")
+require File.expand_path("#{dir}/test_gem_home.rb")
 
 args = ARGV.dup
 unless args.include?("-f") || args.include?("--format")
@@ -23,7 +24,7 @@ def run_context_runner_if_necessary(has_run)
     retval = context_runner.run(false)
   ensure
     server_was_stopped = GemInstaller::SpecUtils::EmbeddedGemServer.stop
-    GemInstaller::SpecUtils::TestGemHome.reset
+    GemInstaller::TestGemHome.reset
   end
   retval ||= 0
   puts "Warning: If any tests failed with an IO permissions error, you need to ensure that the current user can install a gem, or run everything with sudo" if retval != 0

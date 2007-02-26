@@ -4,7 +4,7 @@ require File.expand_path("#{dir}/../helper/spec_helper")
 context "a GemListChecker instance" do
   include GemInstaller::SpecUtils
   setup do
-    GemInstaller::SpecUtils::TestGemHome.use
+    GemInstaller::TestGemHome.use
     GemInstaller::SpecUtils::EmbeddedGemServer.start
     
     # TODO: refactor this into EmbeddedGemServer when setting up a dummy source dir instead of the real one

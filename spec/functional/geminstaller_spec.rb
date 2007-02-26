@@ -4,7 +4,7 @@ require File.expand_path("#{dir}/../helper/spec_helper")
 context "The geminstaller command line application" do
   include GemInstaller::SpecUtils
   setup do
-    GemInstaller::SpecUtils::TestGemHome.use
+    GemInstaller::TestGemHome.use
     GemInstaller::SpecUtils::EmbeddedGemServer.start
     
     @mock_output_proxy = mock("Mock Output Proxy")
@@ -79,12 +79,12 @@ end
 context "The geminstaller command line application created via GemInstaller.run method" do
   include GemInstaller::SpecUtils
   setup do
-    GemInstaller::SpecUtils::TestGemHome.use
+    GemInstaller::TestGemHome.use
     GemInstaller::SpecUtils::EmbeddedGemServer.start
   end
 
   teardown do
-    GemInstaller::SpecUtils::TestGemHome.reset
+    GemInstaller::TestGemHome.reset
   end
 
   specify "should run successfully" do

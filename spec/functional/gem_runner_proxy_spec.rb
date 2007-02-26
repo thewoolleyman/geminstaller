@@ -4,7 +4,7 @@ require File.expand_path("#{dir}/../helper/spec_helper")
 context "a GemRunnerProxy instance" do
   include GemInstaller::SpecUtils
   setup do
-    GemInstaller::SpecUtils::TestGemHome.use
+    GemInstaller::TestGemHome.use
     @registry = GemInstaller::create_registry
     @gem_runner_proxy = @registry.gem_runner_proxy
     @noninteractive_chooser = @registry.noninteractive_chooser
