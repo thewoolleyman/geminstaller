@@ -21,6 +21,17 @@ context "a GemRunnerProxy instance" do
     output.join("\n").should_match(expected_output)
   end
 
+  specify "should return output if there is an abnormal exit" do
+    gem_runner_args = ["bogus_command"]
+
+    begin
+      @gem_runner_proxy.run(gem_runner_args)
+    rescue GemInstaller::GemInstallerError => error
+      expected_error_message = /Gem command was:.*gem bogus_command.*Gem command output was:.*Unknown command bogus_command/m
+      error.message.should_match(expected_error_message)
+    end
+  end
+
   specify "should choose from list" do
     gem_runner_args = ["install", "#{sample_multiplatform_gem_name}", "--remote"]
     gem_runner_args += install_options_for_testing

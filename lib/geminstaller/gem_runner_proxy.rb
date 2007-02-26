@@ -24,10 +24,22 @@ module GemInstaller
         gem_runner.run(args)
       rescue GemInstaller::RubyGemsExit => normal_exit
         exit_status = normal_exit.message
+      rescue GemInstaller::GemInstallerError => abnormal_exit
+        raise_error_with_output(abnormal_exit.message, listener, args)
       end
       output_lines = listener.read!
       output_lines.push(exit_status) if exit_status
       return output_lines
+    end
+    
+    def raise_error_with_output(exit_status, listener, args)
+      args_string = args.join(" ")
+      error_message = "\n#{exit_status}\n"
+      error_message += "Gem command was:\n  gem #{args_string}\n\n"
+      error_message += "Gem command output was:\n"
+      error_message += listener.read!.join("\n")
+      error_message += "\n\n"
+      raise GemInstaller::GemInstallerError.new(error_message)
     end
   end
 end
