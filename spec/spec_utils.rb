@@ -2,10 +2,8 @@ module GemInstaller::SpecUtils
   SUPPRESS_RUBYGEMS_OUTPUT = false
   
   def self.test_gem_home
-    # TODO: This dir name is duplicated in test_rubygems_config_file.  We would have to 
-    # dynamically generate that file to remove the duplication
-    dir_name = "test_gem_home.tmp"
-    File.dirname(__FILE__) + "/#{dir_name}"
+    dir_name = "test_gem_home"
+    File.dirname(__FILE__) + "/tmp/#{dir_name}"
   end
   
   def self.rubygems_dist_dir
@@ -14,7 +12,7 @@ module GemInstaller::SpecUtils
   
   def self.test_rubygems_config_file
     file_name = "test_gem.rc"
-    File.dirname(__FILE__) + "/#{file_name}"
+    File.dirname(__FILE__) + "/tmp/#{file_name}"
   end
   
   def self.sample_gem_name
