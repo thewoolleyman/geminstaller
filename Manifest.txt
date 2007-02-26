@@ -176,7 +176,7 @@ spec/sample_rails_app/test/test_helper.rb
 spec/smoketest/smoketest-geminstaller-override.yml
 spec/smoketest/smoketest-geminstaller.yml
 spec/smoketest/smoketest.rb
-spec/spec_helper.rb
+spec/helper/spec_helper.rb
 spec/spec_utils.rb
 spec/unit/application_spec.rb
 spec/unit/arg_parser_spec.rb

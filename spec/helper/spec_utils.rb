@@ -3,16 +3,16 @@ module GemInstaller::SpecUtils
   
   def self.test_gem_home
     dir_name = "test_gem_home"
-    File.dirname(__FILE__) + "/tmp/#{dir_name}"
+    File.expand_path(File.dirname(__FILE__) + "/../tmp/#{dir_name}")
   end
   
   def self.rubygems_dist_dir
-    File.dirname(__FILE__) + "/fixture/rubygems_dist/rubygems-0.9.2"
+    File.expand_path(File.dirname(__FILE__) + "/../fixture/rubygems_dist/rubygems-0.9.2")
   end
   
   def self.test_rubygems_config_file
     file_name = "test_gem.rc"
-    File.dirname(__FILE__) + "/tmp/#{file_name}"
+    File.expand_path(File.dirname(__FILE__) + "/../tmp/#{file_name}")
   end
   
   def self.sample_gem_name
@@ -111,7 +111,7 @@ module GemInstaller::SpecUtils
     end
     
     def self.embedded_gem_dir
-      File.dirname(__FILE__) + "/fixture/gems"
+      File.dirname(__FILE__) + "/../fixture/gems"
     end
     
     def self.stop

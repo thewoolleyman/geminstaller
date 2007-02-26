@@ -1,6 +1,6 @@
 dir = File.dirname(__FILE__)
-require File.expand_path("#{dir}/../spec_helper")
-require File.expand_path("#{dir}/../rubygems_installer")
+require File.expand_path("#{dir}/../helper/spec_helper")
+require File.expand_path("#{dir}/../helper/rubygems_installer")
 
 context "rubygems_installer_spec: the RubyGemsInstaller class" do
   include GemInstaller::SpecUtils

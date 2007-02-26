@@ -1,5 +1,5 @@
 dir = File.dirname(__FILE__)
-require File.expand_path("#{dir}/../spec_helper")
+require File.expand_path("#{dir}/../helper/spec_helper")
 
 context "a NoninteractiveChooser instance which is passed an install-formatted list of both non-binary and binary gems" do
   setup do

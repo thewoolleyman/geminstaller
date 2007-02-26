@@ -1,5 +1,5 @@
 dir = File.dirname(__FILE__)
-require File.expand_path("#{dir}/../spec_helper")
+require File.expand_path("#{dir}/../helper/spec_helper")
 
 context "a GemListChecker instance with mock dependencies" do
   include GemInstaller::SpecUtils

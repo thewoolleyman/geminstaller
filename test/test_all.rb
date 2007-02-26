@@ -1,7 +1,7 @@
 dir = File.dirname(__FILE__)
 
 require 'test/unit'
-require File.expand_path("#{dir}/../spec/spec_helper")
+require File.expand_path("#{dir}/../spec/helper/spec_helper")
 
 @@test_files = Dir.glob("#{dir}/../spec/**/*_spec.rb")
 @@test_files.each {|x| require File.expand_path(x)}
