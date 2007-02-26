@@ -127,7 +127,6 @@ spec/fixture/rubygems_dist/rubygems-0.9.2/README
 spec/fixture/rubygems_dist/rubygems-0.9.2/Rakefile
 spec/fixture/rubygems_dist/rubygems-0.9.2/Releases
 spec/fixture/rubygems_dist/rubygems-0.9.2/TODO
-spec/fixture/rubygems_dist/rubygems-0.9.2/bin/._index_gem_repository.rb
 spec/fixture/rubygems_dist/rubygems-0.9.2/bin/gem
 spec/fixture/rubygems_dist/rubygems-0.9.2/bin/gem_mirror
 spec/fixture/rubygems_dist/rubygems-0.9.2/bin/gem_server
