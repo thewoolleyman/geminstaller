@@ -7,10 +7,6 @@ context "a GemListChecker instance" do
     GemInstaller::TestGemHome.use
     GemInstaller::EmbeddedGemServer.start
     
-    # TODO: refactor this into EmbeddedGemServer when setting up a dummy source dir instead of the real one
-    embedded_gem_dir = GemInstaller::EmbeddedGemServer.embedded_gem_dir
-    Gem.use_paths(embedded_gem_dir)
-  
     @registry = GemInstaller.create_registry
     @gem_list_checker = @registry.gem_list_checker
     @sample_gem = sample_gem
