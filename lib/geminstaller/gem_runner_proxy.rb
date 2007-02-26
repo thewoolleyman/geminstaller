@@ -4,7 +4,13 @@ module GemInstaller
     attr_writer :options, :enhanced_stream_ui
 
     def run(args = [], stdin = [])
-      gem_runner = @gem_runner_class.new(:command_manager => @gem_cmd_manager_class)
+      rubygems_version = Gem::RubyGemsVersion
+      gem_runner = nil
+      if rubygems_version.index('0.8') == 0
+        gem_runner = @gem_runner_class.new()
+      else
+        gem_runner = @gem_runner_class.new(:command_manager => @gem_cmd_manager_class)
+      end
       # We have to manually initialize the configuration here, or else the GemCommandManager singleton
       # will initialize with the (incorrect) default args when we call GemRunner.run.
       gem_runner.do_configuration(args)
