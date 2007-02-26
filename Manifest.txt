@@ -365,9 +365,11 @@ spec/functional/test_geminstaller_config.yml
 spec/functional/test_geminstaller_config_2.yml
 spec/functional/test_geminstaller_config_3.yml
 spec/functional/version_specifier_spec.rb
+spec/helper/embedded_gem_server.rb
 spec/helper/rubygems_installer.rb
 spec/helper/spec_helper.rb
 spec/helper/spec_utils.rb
+spec/helper/test_gem_home.rb
 spec/smoketest/smoketest-geminstaller-override.yml
 spec/smoketest/smoketest-geminstaller.yml
 spec/smoketest/smoketest.rb
@@ -384,7 +386,7 @@ spec/unit/output_listener_spec.rb
 spec/unit/ruby_gem_spec.rb
 spec/unit/rubygems_installer_spec.rb
 spec/unit/spec_helper_spec.rb
-spec/unit/spec_utils_spec.rb
+spec/unit/test_gem_home_spec.rb
 spec/unit/testfile.txt
 spec/unit/yaml_loader_spec.rb
 start_local_gem_server.sh
