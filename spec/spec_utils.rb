@@ -9,7 +9,7 @@ module GemInstaller::SpecUtils
   end
   
   def self.rubygems_dist_dir
-    File.dirname(__FILE__) + "/rubygems_dist/rubygems-0.9.2"
+    File.dirname(__FILE__) + "/fixture/rubygems_dist/rubygems-0.9.2"
   end
   
   def self.test_rubygems_config_file
@@ -113,7 +113,7 @@ module GemInstaller::SpecUtils
     end
     
     def self.embedded_gem_dir
-      File.dirname(__FILE__) + "/gems"
+      File.dirname(__FILE__) + "/fixture/gems"
     end
     
     def self.stop
