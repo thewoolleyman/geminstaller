@@ -23,6 +23,14 @@ module GemInstaller::SpecUtils
     "1.0.0"
   end
 
+  def self.sample_dependent_gem_name
+    sample_gem_name = "dependent-stubgem"
+  end
+
+  def self.sample_dependent_gem_version
+    "1.0.0"
+  end
+
   def self.sample_multiplatform_gem_name
     "stubgem-multiplatform"
   end
@@ -55,6 +63,14 @@ module GemInstaller::SpecUtils
     GemInstaller::SpecUtils.sample_gem_version    
   end
 
+  def sample_dependent_gem_name
+    GemInstaller::SpecUtils.sample_dependent_gem_name
+  end
+
+  def sample_dependent_gem_version
+    GemInstaller::SpecUtils.sample_dependent_gem_version    
+  end
+
   def sample_multiplatform_gem_name
     GemInstaller::SpecUtils.sample_multiplatform_gem_name    
   end
@@ -79,13 +95,16 @@ module GemInstaller::SpecUtils
     GemInstaller::RubyGem.new(sample_gem_name, :version => sample_gem_version, :install_options => install_options)
   end
   
+  def sample_dependent_gem(install_options=install_options_for_testing)
+    GemInstaller::RubyGem.new(sample_dependent_gem_name, :version => sample_dependent_gem_version, :install_options => install_options)
+  end
+  
   def sample_multiplatform_gem(install_options=install_options_for_testing)
     GemInstaller::RubyGem.new(sample_multiplatform_gem_name, :version => sample_multiplatform_gem_version, :platform => 'mswin32', :install_options => install_options)
   end
   
   def proc_should_raise_with_message(message_regex, &block)
     error = nil
-    p GemInstaller::GemInstallerError
     lambda {
       begin
         block.call
