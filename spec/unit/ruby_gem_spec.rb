@@ -46,4 +46,9 @@ context "A ruby gem data object" do
     gems[3].install_options.should==('3')
     gems[4].install_options.should==('4')
   end
+
+  specify "should return regexp_escaped_name" do
+    gem = GemInstaller::RubyGem.new('mygem()')
+    gem.regexp_escaped_name.should==('mygem\(\)')
+  end
 end

@@ -32,6 +32,10 @@ module GemInstaller
       compare = @version <=> other.version
       return compare if compare != 0
       return @platform <=> other.platform
-    end 
+    end
+    
+    def regexp_escaped_name
+      Regexp.escape(@name)
+    end
   end
 end
