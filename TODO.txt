@@ -17,6 +17,7 @@
 * Rails integration doesn't work under mongrel when invoked via executable (e.g, actionmailer gem not recognized after install, only after mongrel restart).  Does't occur under webrick, or if geminstaller is invoked programatically via class.
 * Do a port check before starting embedded gem server, give option to kill process or at least exit with a descriptive warning.
 * rake test fails on linux (problems starting embedded gem server)
+* update docs with details on how to handle unmet dependencies when -y is not specified
 * write basic rdoc instructions
 * publish site
 * upload gem 

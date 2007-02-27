@@ -15,6 +15,10 @@ module GemInstaller
       @output_proxy.output(msg) if !@output_proxy.nil? and @echo
     end
     
+    def read
+      @messages.dup
+    end
+
     def read!
       messages = @messages.dup
       @messages.clear

@@ -25,8 +25,16 @@ context "An EnhancedStreamUI instance" do
     @enhanced_stream_ui.ask('question').should==(input2)
   end
 
-  specify "will throw error if there is no queued input" do
-    lambda{ @enhanced_stream_ui.ask('question') }.should_raise(GemInstaller::GemInstallerError)
+  specify "will throw unexpected prompt error if there is no queued input" do
+    lambda{ @enhanced_stream_ui.ask('question') }.should_raise(GemInstaller::UnexpectedPromptError)
+  end
+
+  specify "will force throw of GemInstaller::UnexpectedPromptError if intercepted by alert_error" do
+    begin
+      raise GemInstaller::UnexpectedPromptError.new
+    rescue StandardError => error
+      lambda{ @enhanced_stream_ui.alert_error('statement') }.should_raise(GemInstaller::UnexpectedPromptError)
+    end
   end
 
   specify "can listen to error stream" do

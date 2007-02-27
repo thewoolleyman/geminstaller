@@ -21,13 +21,41 @@ context "a GemRunnerProxy instance" do
     output.join("\n").should_match(expected_output)
   end
 
-  specify "should return output if there is an abnormal exit" do
+  specify "should return error output if there is an abnormal exit" do
     gem_runner_args = ["bogus_command"]
 
     begin
       @gem_runner_proxy.run(gem_runner_args)
     rescue GemInstaller::GemInstallerError => error
       expected_error_message = /Gem command was:.*gem bogus_command.*Gem command output was:.*Unknown command bogus_command/m
+      error.message.should_match(expected_error_message)
+    end
+  end
+
+  specify "should return descriptive message if there was an unexpected prompt due to unmet dependency" do
+    use_mocks
+    @mock_gem_runner.should_receive(:run).and_raise(GemInstaller::UnexpectedPromptError.new("unexpected dependency prompt"))
+    dependency_prompt = 'Install required dependency somegem? [Yn]'
+    @mock_output_listener.should_receive(:read).and_return([dependency_prompt])
+    @mock_output_listener.should_receive(:read!).and_return([dependency_prompt])
+    begin
+      @gem_runner_proxy.run(['install'])
+    rescue GemInstaller::GemInstallerError => error
+      expected_error_message = /RubyGems is prompting to install a required dependency.*Gem command was:.*install.*Gem command output was:.*Install required dependency/m
+      error.message.should_match(expected_error_message)
+    end
+  end
+
+  specify "should return generic error output if there was an unexpected prompt due to something other than an unmet dependency" do
+    use_mocks
+    @mock_gem_runner.should_receive(:run).and_raise(GemInstaller::UnexpectedPromptError.new("unexpected prompt"))
+    unexpected_prompt = 'some unexpected prompt?'
+    @mock_output_listener.should_receive(:read).and_return([unexpected_prompt])
+    @mock_output_listener.should_receive(:read!).and_return([unexpected_prompt])
+    begin
+      @gem_runner_proxy.run(['install'])
+    rescue GemInstaller::GemInstallerError => error
+      expected_error_message = /Gem command was:.*install.*Gem command output was:.*#{unexpected_prompt}/m
       error.message.should_match(expected_error_message)
     end
   end
@@ -39,5 +67,30 @@ context "a GemRunnerProxy instance" do
     @noninteractive_chooser.specify_exact_gem_spec(sample_multiplatform_gem_name, sample_multiplatform_gem_version, 'mswin32')
     output = @gem_runner_proxy.run(gem_runner_args)
     output.join("\n").should_match(/Successfully installed #{sample_multiplatform_gem_name}-#{sample_multiplatform_gem_version}-mswin32/m)
+  end
+  
+  def use_mocks
+    @mock_gem_runner = mock("Mock Gem Runner")
+    @mock_output_listener = mock("Mock Output Listener")
+    @gem_runner_proxy.instance_eval do
+      def gem_runner=(runner)
+        @gem_runner = runner
+      end
+      
+      def output_listener=(listener)
+       @output_listener = listener
+     end
+     
+      def create_gem_runner
+        return @gem_runner
+      end
+      def create_output_listener
+        return @output_listener
+      end
+    end
+    @gem_runner_proxy.gem_runner = @mock_gem_runner
+    @gem_runner_proxy.output_listener = @mock_output_listener
+    
+    @mock_gem_runner.should_receive(:do_configuration)
   end
 end

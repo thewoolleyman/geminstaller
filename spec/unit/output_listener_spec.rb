@@ -6,11 +6,12 @@ context "an OutputListener" do
     @output_listener = GemInstaller::OutputListener.new
   end
   
-  specify "should queue all output of which it is notified, and flush it upon read!" do
+  specify "should queue all output of which it is notified, return it without flushing for read, and flush it upon read!" do
     msg1 = 'msg1'
     msg2 = 'msg2'
     @output_listener.notify(msg1)
     @output_listener.notify(msg2)
+    @output_listener.read.should==([msg1, msg2])
     @output_listener.read!.should==([msg1, msg2])
     @output_listener.read!.should==([])
   end

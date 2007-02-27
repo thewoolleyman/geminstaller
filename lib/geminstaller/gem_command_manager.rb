@@ -7,7 +7,6 @@ module GemInstaller
     def list_remote_gem(gem, list_options)
       run_args = ["list",gem.name,"--remote"]
       run_args += list_options
-      say_capture_buffer = []
       @gem_runner_proxy.run(run_args)
     end
 

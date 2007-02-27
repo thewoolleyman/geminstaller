@@ -41,6 +41,16 @@ module GemInstaller
       raise GemInstaller::RubyGemsExit.new(status)
     end
     
+    def alert_error(statement, question=nil)
+      # if alert_error got called due to a GemInstaller::UnexpectedPromptError, re-throw it
+      last_exception = $!
+      if last_exception.class == GemInstaller::UnexpectedPromptError
+        raise last_exception
+      end
+      # otherwise let alert_error continue normally...
+      super(statement, question)
+    end
+    
     protected
     def raise_error(status)
       raise GemInstaller::GemInstallerError.new("RubyGems exited abnormally.  Status: #{status}\n")
@@ -85,7 +95,7 @@ module GemInstaller
     
     def gets
       input = @queue.shift
-      raise GemInstaller::GemInstallerError.new("GemInstaller Internal Error: No input queued for EnhancedStreamUI.") if input.nil?
+      raise GemInstaller::UnexpectedPromptError.new("GemInstaller Internal Error: Unexpected prompt received from RubyGems- no input queued for EnhancedStreamUI.") if input.nil?
       input
     end
   end
