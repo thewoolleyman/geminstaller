@@ -86,6 +86,17 @@ context "an application instance invoked with no args and quiet option" do
     @application.run
   end
 
+  specify "should verify and specify gem if check_for_upgrade is specified" do
+    @mock_config_builder.should_receive(:build_config).and_return {@stub_config_local}
+    @application.gem_command_manager = @mock_gem_command_manager
+    @stub_gem.check_for_upgrade = true
+    gems = [@stub_gem]
+    @stub_config.should_receive(:gems).and_return(gems)
+    @mock_gem_list_checker.should_receive(:verify_and_specify_remote_gem!).once.with(@stub_gem)
+    @mock_gem_command_manager.should_receive(:is_gem_installed).once.with(@stub_gem).and_return(true)
+    @application.run
+  end
+
   specify "should print any exception message to stderr then exit gracefully" do
     @mock_output_proxy.should_receive(:syserr).once().with(/GemInstaller::GemInstallerError.*/)
     @mock_config_builder.should_receive(:build_config).and_raise(GemInstaller::GemInstallerError)
