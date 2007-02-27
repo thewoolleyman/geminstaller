@@ -9,7 +9,7 @@ context "a config builder with a single config file path" do
 
   specify "should successfully assemble a config object" do
     @config.gems[0].name.should==("testgem1")
-    @config.gems[1].check_for_upgrade.should==(true)
+    @config.gems[1].check_for_upgrade.should==(false)
   end
 
   specify "should have code coverage for default config file path" do

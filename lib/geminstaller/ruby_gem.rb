@@ -15,7 +15,7 @@ module GemInstaller
         @platform = opts[:platform]
       end
       @install_options = opts[:install_options] ||= []
-      @check_for_upgrade = opts[:check_for_upgrade] == false ? false : true
+      @check_for_upgrade = opts[:check_for_upgrade] == true ? true : false
     end
 
     def self.default_version
