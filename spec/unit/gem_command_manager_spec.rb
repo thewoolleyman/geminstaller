@@ -18,7 +18,7 @@ context "a GemCommandManager instance injected with mock dependencies" do
     @gem_command_manager.gem_runner_proxy = @mock_gem_runner_proxy
     @gem_command_manager.gem_source_index_proxy = @mock_gem_source_index_proxy
     @gem_command_manager.noninteractive_chooser = @mock_noninteractive_chooser
-    @escaped_sample_gem_name = Regexp.escape(@sample_gem.name)
+    @escaped_sample_gem_name = @sample_gem.regexp_escaped_name
     
   end
 

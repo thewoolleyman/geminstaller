@@ -13,7 +13,7 @@ module GemInstaller
 
     def is_gem_installed(gem)
       @gem_source_index_proxy.refresh!
-      gem_name_regexp = /^#{Regexp.escape(gem.name)}$/
+      gem_name_regexp = /^#{gem.regexp_escaped_name}$/
       found_gems = @gem_source_index_proxy.search(gem_name_regexp,gem.version)
       found_gems.each do |found_gem|
         platform_matches = true if
