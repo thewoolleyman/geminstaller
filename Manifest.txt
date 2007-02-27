@@ -37,6 +37,7 @@ lib/geminstaller/ruby_gem.rb
 lib/geminstaller/rubygems_exit.rb
 lib/geminstaller/rubygems_extensions.rb
 lib/geminstaller/version_specifier.rb
+lib/geminstaller/geminstaller_unexpected_prompt_error.rb
 lib/geminstaller/yaml_loader.rb
 site/geminstaller.css
 site/index.html
