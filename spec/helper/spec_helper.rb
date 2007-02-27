@@ -28,7 +28,6 @@ def run_context_runner_if_necessary(has_run)
     GemInstaller::TestGemHome.reset
   end
   retval ||= 0
-  puts "Warning: If any tests failed with an IO permissions error, you need to ensure that the current user can install a gem, or run everything with sudo" if retval != 0
   exit retval
 end
 
