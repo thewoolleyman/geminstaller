@@ -74,6 +74,18 @@ RAILS_ROOT/config/boot.rb:
 	unless defined?(Rails::Initializer)
 	...
 
+=== "check_for_upgrade" option
+
+You can specify the "check_for_upgrade" boolean option for any gem, or as the default.  This will cause geminstaller to install the latest version of the gem, if there is a more recent version available at the specified source.  check_for_upgrade is true by default, so geminstaller will always install the latest versions of all gems by default.  If you don't want this, then set it to false in the defaults section.  You may also want check_for_upgrade to be false by default if you will be working without a network connection - on a laptop, for example.
+
+Here's an example geminstaller.yml which will disable upgrade checking for all gems but one:
+
+	defaults:
+	  check_for_upgrade: false
+	gems:
+	  - name: some-gem
+	  - name: my-bleeding-edge-gem
+	    check_for_upgrade: true
 
 === Multiple Config Files:
 
