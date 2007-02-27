@@ -45,5 +45,5 @@
 * add option to specify --backtrace on all gem commands
 * Add support, syntax, and options for uninstalling gems - completely, or down to highest specified version.
 * Review and clarify meanings of --info, --verbose, and --trace (logging vs. stacktraces vs. ???)
-* add feature to automatically warn if there is a more recent version of the gem available and check_for_upgrade == false.
-* auto-generate geminstaller.yml files (possibly by parsing source)
+* add feature to automatically warn if there is a more recent version of the gem available and check_for_upgrade == false.  Use "gem outdated" command
+* auto-generate geminstaller.yml files (possibly by parsing source, or based on all gems installed locally)
