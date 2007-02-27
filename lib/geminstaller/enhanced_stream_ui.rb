@@ -17,7 +17,7 @@ module GemInstaller
     end
     
     def unregister_outs_listener(listener)
-      @outs.register(listener)
+      @outs.unregister(listener)
     end
     
     def register_errs_listener(listener)
@@ -25,7 +25,7 @@ module GemInstaller
     end
     
     def unregister_errs_listener(listener)
-      @errs.register(listener)
+      @errs.unregister(listener)
     end
     
     def queue_input(input)

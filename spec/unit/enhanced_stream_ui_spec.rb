@@ -45,6 +45,26 @@ context "An EnhancedStreamUI instance" do
     @enhanced_stream_ui.alert_error(statement)
   end
   
+  specify "will stop listening to streams if listeners are unregistered" do
+    statement = 'statement'
+    mock_errs_listener = mock('mock_errs_listener')
+    mock_outs_listener = mock('mock_outs_listener')
+    mock_errs_listener.should_receive(:notify).once.with('ERROR:  ' + statement)
+    mock_outs_listener.should_receive(:notify).once.with(statement)
+    # listeners should receive messages when they are registered
+    @enhanced_stream_ui.register_errs_listener([mock_errs_listener])
+    @enhanced_stream_ui.register_outs_listener([mock_outs_listener])
+    @enhanced_stream_ui.alert_error(statement)
+    @enhanced_stream_ui.say(statement)
+
+    # listeners should no longer receive messages when they are unregistered
+    @enhanced_stream_ui.unregister_errs_listener(mock_errs_listener)
+    @enhanced_stream_ui.unregister_outs_listener(mock_outs_listener)
+    @enhanced_stream_ui.alert_error(statement)
+    @enhanced_stream_ui.say(statement)
+    
+  end
+  
   specify "will raise exception on terminate_interaction! (instead of exiting)" do
     lambda{ @enhanced_stream_ui.terminate_interaction!(0) }.should_raise(GemInstaller::GemInstallerError)
   end
