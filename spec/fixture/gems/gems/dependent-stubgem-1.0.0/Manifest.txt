@@ -1,0 +1,7 @@
+History.txt
+Manifest.txt
+README.txt
+Rakefile
+bin/dependent_stubgem
+lib/dependent_stubgem.rb
+test/test_dependent_stubgem.rb
