@@ -1,1 +1,1 @@
-gem_server --dir=./spec/gems --port=9909
+gem_server --dir=./spec/fixture/gems --port=9909
