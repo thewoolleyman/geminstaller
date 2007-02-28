@@ -31,7 +31,7 @@ module GemInstaller
           message = "Error: RubyGems is prompting to install a required dependency, and you have not " +
                     "specified the '--install-dependencies' option for the current gem.  You must modify your " +
                     "geminstaller config file to either specify the '--install-depencencies' (-y) " +
-                    "option, or explicitly add an entry for the dependency gem earlier in the file."
+                    "option, or explicitly add an entry for the dependency gem earlier in the file.\n"
         end
         raise_error_with_output(unexpected_prompt_exit, message, listener, args)
       rescue GemInstaller::GemInstallerError => abnormal_exit
