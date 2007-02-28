@@ -47,13 +47,15 @@ context "a GemCommandManager instance" do
     @gem_command_manager.uninstall_gem(@sample_gem)
     sample_dependent_gem = @sample_dependent_gem.dup
     sample_dependent_gem.install_options = install_options_for_testing.dup
+    exception = nil
     begin
       @gem_command_manager.install_gem(sample_dependent_gem)
-      raise Spec::Expectations::ExpectationNotMetError.new("Expected to receive a GemInstaller::UnexpectedPromptError")
     rescue GemInstaller::UnexpectedPromptError => error
+      exception = error
       expected_error_message = /RubyGems is prompting to install a required dependency.*Gem command was:.*install dependent-stubgem.*Gem command output was:.*Install required dependency stubgem/m
       error.message.should_match(expected_error_message)
     end
+    exception.class.should==(GemInstaller::UnexpectedPromptError)
   end
   
   # specify "should be able to install and uninstall similarly named gems without a prompt (using exact name matching)" do
