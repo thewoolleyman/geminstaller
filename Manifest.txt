@@ -29,6 +29,7 @@ lib/geminstaller/gem_list_checker.rb
 lib/geminstaller/gem_runner_proxy.rb
 lib/geminstaller/gem_source_index_proxy.rb
 lib/geminstaller/geminstaller_error.rb
+lib/geminstaller/hoe_extensions.rb
 lib/geminstaller/noninteractive_chooser.rb
 lib/geminstaller/output_listener.rb
 lib/geminstaller/output_proxy.rb
