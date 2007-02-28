@@ -35,7 +35,6 @@ module GemInstaller
       @gem_source_index_proxy.gem_source_index = @gem_source_index
   
       @noninteractive_chooser = GemInstaller::NoninteractiveChooser.new
-      @noninteractive_chooser.gem_source_index_proxy = @gem_source_index_proxy
       @enhanced_stream_ui = GemInstaller::EnhancedStreamUI.new
       @enhanced_stream_ui.noninteractive_chooser = @noninteractive_chooser
 
