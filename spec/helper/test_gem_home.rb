@@ -28,7 +28,9 @@ module GemInstaller
       rm_config
       create_config
       GemInstaller::EmbeddedGemServer.start
-      `gem update --source #{GemInstaller::SpecUtils.embedded_gem_server_url} --config-file #{config_file}`
+      gem_cmd = 'gem'
+      gem_cmd = 'gem.bat' if RUBY_PLATFORM.index('mswin')
+      `#{gem_cmd} update --source #{GemInstaller::SpecUtils.embedded_gem_server_url} --config-file #{config_file}`
       @@initialized = true
     end
     
