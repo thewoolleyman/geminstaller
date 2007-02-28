@@ -12,5 +12,13 @@ gems:
     version: '>= 0.7.5'
   - name: rcov
     version: '>= 0.7.0.1'
-    platform: <%= RUBY_PLATFORM == 'i386-mswin32' ? 'mswin32' : 'ruby'%>
+    platform: <%= RUBY_PLATFORM.index('mswin') ? 'mswin32' : 'ruby'%>
+    <% if RUBY_PLATFORM.index('mswin') %>
+  - name: win32-process
+    version: '>= 0.5.0'
+    platform: 'mswin32'
+  - name: win32-open3
+    version: '>= 0.2.5'
+    platform: 'mswin32'
+    <% end %>
     
