@@ -24,12 +24,9 @@ context "a GemRunnerProxy instance" do
   specify "should not throw an error if there is an normal rubygems exit via terminate_interaction" do
     gem_runner_args = ["--help"]
   
-    begin
-      @gem_runner_proxy.run(gem_runner_args)
-    rescue GemInstaller::GemInstallerError => error
-      expected_error_message = /Gem command was:.*--help.*Gem command output was:.*Usage:/m
-      error.message.should_match(expected_error_message)
-    end
+    output = @gem_runner_proxy.run(gem_runner_args)
+    expected_output = /Usage:/m
+    output.join("\n").should_match(expected_output)
   end
 
   specify "should return error output if there is an abnormal exit" do

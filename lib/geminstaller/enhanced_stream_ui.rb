@@ -44,7 +44,7 @@ module GemInstaller
     def alert_error(statement, question=nil)
       # if alert_error got called due to a GemInstaller::UnexpectedPromptError, re-throw it
       last_exception = $!
-      if last_exception.class == GemInstaller::UnexpectedPromptError
+      if last_exception.class == GemInstaller::UnexpectedPromptError || last_exception.class == GemInstaller::RubyGemsExit
         raise last_exception
       end
       # otherwise let alert_error continue normally...
