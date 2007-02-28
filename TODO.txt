@@ -12,6 +12,7 @@
 * update_manifest doesn't work - problems with dot files and bin dir
 * Add spec file name to all contexts (or see if rspec can do it automatically)
 * Make GemInstaller.run take a parameter to not fail if there is any error
+* Tests don't run on windows after implementing test_gem_home
 * Embedded gem_server process doesn't get killed on windows during tests
 * Embedded gem_server ports aren't handled correctly on linux during tests - port conflict on startup, open ports die off slowly after tests finish
 * Rails integration doesn't work under mongrel when invoked via executable (e.g, actionmailer gem not recognized after install, only after mongrel restart).  Does't occur under webrick, or if geminstaller is invoked programatically via class.
