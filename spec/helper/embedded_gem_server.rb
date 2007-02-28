@@ -27,7 +27,7 @@ module GemInstaller
       stopped = false
       if @@gem_server_pid
         print "Killing embedded gem server at pid = #{@@gem_server_pid}\n"
-        kill_result = Process.kill(1,@@gem_server_pid)
+        kill_result = Process.kill(8,@@gem_server_pid)
         if windows?
           kill_result.each do |pid|
             print "  Killed pid: #{pid}\n"
