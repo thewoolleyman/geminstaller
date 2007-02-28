@@ -1,0 +1,5 @@
+== 1.0.0 / 2006-11-24
+
+* 1 major enhancement
+  * Create dependent multiplatform stub gem for testing geminstaller
+
