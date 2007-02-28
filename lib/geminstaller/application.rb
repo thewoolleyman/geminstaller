@@ -32,7 +32,7 @@ module GemInstaller
         @output_proxy.syserr(message)
         if @options[:verbose]
           backtrace_as_string = e.backtrace.join("\n")
-          @output_proxy.syserr(backtrace_as_string)
+          @output_proxy.syserr("#{backtrace_as_string}\n")
         end
         return 1
       end
