@@ -99,6 +99,10 @@ module GemInstaller::SpecUtils
     GemInstaller::RubyGem.new(sample_multiplatform_gem_name, :version => sample_multiplatform_gem_version, :platform => 'mswin32', :install_options => install_options)
   end
   
+  def embedded_gem_server_url
+    GemInstaller::SpecUtils.embedded_gem_server_url
+  end
+  
   def proc_should_raise_with_message(message_regex, &block)
     error = nil
     lambda {
