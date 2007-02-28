@@ -8,6 +8,10 @@ module GemInstaller
       @errs = OutputObserver.new
     end
     
+    def ask_yes_no(question, default=nil)
+      super
+    end
+    
     def choose_from_list(question, list)
       @noninteractive_chooser.choose(question, list)
     end
