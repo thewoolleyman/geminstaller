@@ -83,10 +83,6 @@ module GemInstaller::SpecUtils
     GemInstaller::SpecUtils.sample_multiplatform_gem_version    
   end
   
-  def embedded_gem_server_url
-    GemInstaller::SpecUtils.embedded_gem_server_url
-  end
-  
   def install_options_for_testing
     GemInstaller::SpecUtils.install_options_for_testing
   end
