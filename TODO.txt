@@ -3,7 +3,7 @@
 * diff-lcs gem was not installed for geminstaller project (linux)
 * Dependencies are not checked if gem is already installed (e.g. uninstall actionmailer and start rails app)
 * --config does not work on windows with c:\path\to\yml
-* update smoketest.  Fails if gem is not installed.  Use --sudo option instead of manually doing sudo.
+* verify that >= version spec works with a specific platform, if that platform is not available for the highest version
 * Handle multiplatform gem which has a dependency on another multiplatform gem which has a dependency on...
 * Check for write access, and exit with warning to use sudo if there is no write access.
 * by default, print when gems are installed
