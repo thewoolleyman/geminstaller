@@ -7,11 +7,6 @@ README.txt
 Rakefile
 TODO.txt
 bin/geminstaller
-geminstaller.iml
-geminstaller.ipr
-geminstaller.iws
-geminstaller.kpf
-geminstaller.tmproj
 geminstaller.yml
 lib/dev_runner.rb
 lib/geminstaller.rb
