@@ -21,15 +21,21 @@ print "Important Note: Before running this, you should make sure you don't have 
 print "This will uninstall the following gems and reinstall them with geminstaller.  If you don't want that to happen, kill it now (oops it's too late, you should have read the comments first!)\n\n"
 test_gems.each {|gem| print "  " + gem + "\n"}
 
-is_windows = RUBY_PLATFORM == 'i386-mswin32' ? true : false
-use_sudo = false if is_windows 
+is_windows = RUBY_PLATFORM.index('mswin') == 'i386-mswin32' ? true : false
+
+use_sudo = false
 gem_cmd = is_windows ? 'gem.bat' : 'gem'
 sudo = ''
-if use_sudo
-  sudo = 'sudo '
-  print "Enter your sudo password (if required), or cancel and set the 'use_sudo' variable to false if you don't want to use sudo:\n"
-  sudo_init = IO.popen("sudo pwd")
-  sudo_init.gets
+unless is_windows
+  print "Enter y if you need to use sudo to install/uninstall gems, anything else to not use sudo:\n"
+  response = gets
+  use_sudo = true if response.index('y')
+  if use_sudo
+    print "Enter your sudo password (if required),\n"
+    sudo_init = IO.popen("sudo pwd")
+    sudo_init.gets
+    sudo = 'sudo'
+  end
 end
 test_gems.each do |gem|
   print "Uninstalling all versions of #{gem}.  This will give an error if it's not already installed.\n"
@@ -52,5 +58,5 @@ print "Geminstaller command complete.  Now we'll run gem list to visually check 
 test_gems.each do |gem|
   print "\nRunning gem list for #{gem}, verify that it contains the expected version(s)"
   # TODO: we could make this into a real test and avoid visual inspection by parsing and checking the output, then failing if we don't get the expected output. 
-  IO.popen("#{sudo} #{gem_cmd} list #{gem}") {|process| process.readlines.each {|line| print line}}
+  IO.popen("#{gem_cmd} list #{gem}") {|process| process.readlines.each {|line| print line}}
 end
