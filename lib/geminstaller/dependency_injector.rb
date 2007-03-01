@@ -53,6 +53,7 @@ module GemInstaller
       @gem_command_manager.gem_source_index_proxy = @gem_source_index_proxy
       @gem_command_manager.gem_runner_proxy = @gem_runner_proxy
       @gem_command_manager.noninteractive_chooser = @noninteractive_chooser
+      @gem_command_manager.gem_dependency_handler = @gem_dependency_handler
         
       @gem_list_checker = GemInstaller::GemListChecker.new
       @gem_list_checker.gem_command_manager = @gem_command_manager

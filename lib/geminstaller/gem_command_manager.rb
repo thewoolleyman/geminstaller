@@ -1,8 +1,6 @@
 module GemInstaller
   class GemCommandManager
-    attr_writer :gem_source_index_proxy
-    attr_writer :gem_runner_proxy
-    attr_writer :noninteractive_chooser
+    attr_writer :gem_source_index_proxy, :gem_runner_proxy, :noninteractive_chooser, :gem_dependency_handler
     
     def list_remote_gem(gem, list_options)
       run_args = ["list",gem.name,"--remote"]
@@ -33,6 +31,7 @@ module GemInstaller
     def install_gem(gem)
       return if is_gem_installed(gem)
       setup_noninteractive_chooser(:install_list_type, gem)
+      @gem_dependency_handler.parent_gem = gem
       run_gem_command('install',gem)
     end
 
