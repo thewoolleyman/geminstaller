@@ -12,8 +12,8 @@ gems:
     version: '>= 0.7.5'
   - name: rcov
     version: '>= 0.7.0.1'
-    platform: <%= RUBY_PLATFORM.index('mswin') ? 'mswin32' : 'ruby'%>
-    <% if RUBY_PLATFORM.index('mswin') %>
+    platform: <%= RUBY_PLATFORM =~ /mswin/ ? 'mswin32' : 'ruby'%>
+    <% if RUBY_PLATFORM =~ /mswin/ %>
   - name: win32-process
     version: '>= 0.5.0'
     platform: 'mswin32'

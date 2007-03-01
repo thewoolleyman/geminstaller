@@ -99,7 +99,7 @@ geminstaller-detect-platform.yml
 	gems:
 	  - name: x10-cm17a
 	    version: '> 1.0.0'
-	    platform: <%= RUBY_PLATFORM == 'i386-mswin32' ? 'i386-mswin32' : 'ruby'%>
+	    platform: <%= RUBY_PLATFORM =~ /mswin/ ? 'i386-mswin32' : 'ruby'%>
 
 === A Real Working Example:
 
@@ -125,7 +125,7 @@ smoketest-geminstaller-override.yml:
 	    version: 0.8
 	  - name: x10-cm17a
 	    version: '> 1.0.0'
-	    platform: <%= RUBY_PLATFORM == 'i386-mswin32' ? 'i386-mswin32' : 'ruby'%>
+	    platform: <%= RUBY_PLATFORM =~ /mswin/ ? 'i386-mswin32' : 'ruby'%>
 
 === Dealing with sudo and root-owned RubyGem installations:
 

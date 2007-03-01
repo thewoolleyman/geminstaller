@@ -49,7 +49,7 @@ module GemInstaller
     end
     
     def self.windows?
-      RUBY_PLATFORM.index('mswin')
+      RUBY_PLATFORM =~ /mswin/
     end
   end
 end
