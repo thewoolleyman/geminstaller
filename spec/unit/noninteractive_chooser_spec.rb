@@ -23,6 +23,14 @@ context "a NoninteractiveChooser instance which is passed an install-formatted l
     should_choose(2, "stubgem-multiplatform", "1.0.1", "ruby")
   end
 
+  specify "should properly select with a binary platform and nil name/version" do
+    should_choose(1, nil, nil, "mswin32")
+  end
+  
+  specify "should properly select with a ruby platform and nil name/version" do
+    should_choose(0, nil, nil, "ruby")
+  end
+  
   specify "should raise error if there is no match" do
     should_raise_error("stubgem-nomatch", "1.0.0", "ruby")
     should_raise_error("stubgem-multiplatform", "1.0.1", "nomatch")
@@ -52,6 +60,14 @@ context "a NoninteractiveChooser instance which is passed an uninstall-formatted
     should_choose(2, "stubgem-multiplatform", "1.0.1", "ruby")
   end
 
+  specify "should properly select with a binary platform and nil name/version" do
+    should_choose(1, nil, nil, "mswin32")
+  end
+  
+  specify "should properly select with a ruby platform and nil name/version" do
+    should_choose(0, nil, nil, "ruby")
+  end
+  
   specify "should raise error if there is no match" do
     should_raise_error("stubgem-nomatch", "1.0.0", "ruby")
     should_raise_error("stubgem-multiplatform", "1.0.1", "nomatch")

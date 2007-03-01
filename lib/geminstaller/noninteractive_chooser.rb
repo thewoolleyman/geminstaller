@@ -17,7 +17,15 @@ module GemInstaller
         list_type = :uninstall_list_type
       end
       raise GemInstaller::GemInstallerError.new("Internal GemInstaller Error, unexpected question: '#{question}'") unless list_type
-      required_list_item = "#{Regexp.escape(@required_name)}.#{Regexp.escape(@required_version)}"
+      required_name_regexp = ".*?"
+      if @required_name
+        required_name_regexp = Regexp.escape(@required_name)
+      end
+      required_version_regexp = ".*?"
+      if @required_version
+        required_version_regexp = Regexp.escape(@required_version)
+      end
+      required_list_item = "#{required_name_regexp}[\s-]{0,1}#{required_version_regexp}"
       # install list types always have the platform for each gem in parenthesis, even if it is ruby
       if (list_type == :install_list_type && @required_platform)
         required_list_item += Regexp.escape(" (#{@required_platform})")
