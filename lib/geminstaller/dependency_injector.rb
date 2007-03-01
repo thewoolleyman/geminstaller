@@ -24,16 +24,15 @@ module GemInstaller
       @output_proxy = GemInstaller::OutputProxy.new
       @gem_arg_processor = GemInstaller::GemArgProcessor.new
       @version_specifier = GemInstaller::VersionSpecifier.new
-  
+
       @config_builder = GemInstaller::ConfigBuilder.new
       @config_builder.file_reader = @file_reader
       @config_builder.yaml_loader = @yaml_loader
-  
-      # rubygems classes
+
       @gem_source_index = Gem::SourceIndex.new
       @gem_source_index_proxy = GemInstaller::GemSourceIndexProxy.new
       @gem_source_index_proxy.gem_source_index = @gem_source_index
-  
+
       @noninteractive_chooser = GemInstaller::NoninteractiveChooser.new
       @enhanced_stream_ui = GemInstaller::EnhancedStreamUI.new
       @enhanced_stream_ui.noninteractive_chooser = @noninteractive_chooser
