@@ -8,6 +8,7 @@ context "a GemInteractionHandler instance" do
     @mock_noninteractive_chooser = mock("Mock NonInteractiveChooser")
     @gem_interaction_handler.noninteractive_chooser = @mock_noninteractive_chooser
     @parent_gem = sample_dependent_gem
+    @child_gem = sample_gem
   end
 
   specify "should raise UnauthorizedDependencyPromptError from handle_ask_yes_no if question is a dependency prompt" do
@@ -31,5 +32,17 @@ context "a GemInteractionHandler instance" do
     item.should==(list[0])
     index.should==(0)
   end
+
+  specify "should call noninteractive_chooser with nil name/version if handle_choose_from_list is passed a list for a non-parent gem" do
+    @gem_interaction_handler.parent_gem = @parent_gem
+    question = "Select which gem to install for your platform (i686-darwin8.7.1)"
+    list = ["#{@child_gem.name} #{@child_gem.version} (#{@child_gem.platform})"]
+    @mock_noninteractive_chooser.should_receive(:specify_gem_spec).with(nil, nil, @child_gem.platform)
+    @mock_noninteractive_chooser.should_receive(:choose).with(question, list).and_return([list[0],0])
+    item, index = @gem_interaction_handler.handle_choose_from_list(question, list)
+    item.should==(list[0])
+    index.should==(0)
+  end
+
 end
 

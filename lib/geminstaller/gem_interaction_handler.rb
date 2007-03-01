@@ -14,14 +14,15 @@ module GemInstaller
     
     def handle_choose_from_list(question, list)
       if list[0] =~ /^#{@parent_gem.name}.*/
-        setup_noninteractive_chooser(@parent_gem.name,@parent_gem.version,@parent_gem.platform)
-        return @noninteractive_chooser.choose(question, list)
+        return choose_gem(@parent_gem.name,@parent_gem.version,@parent_gem.platform, question, list)
       end
-      raise RuntimeError.new("Fell through in GemInteractionHandler - FIXME")
+      # choose the first gem with a platform matching the parent gem
+      return choose_gem(nil,nil,@parent_gem.platform, question, list)
     end
     
-    def setup_noninteractive_chooser(name, version, platform)
+    def choose_gem(name, version, platform, question, list)
       @noninteractive_chooser.specify_gem_spec(name, version, platform)
+      @noninteractive_chooser.choose(question, list)
     end
   end
 end
