@@ -3,7 +3,7 @@ module GemInstaller
     attr_writer :parent_gem, :noninteractive_chooser
     DEPENDENCY_PROMPT = 'Install required dependency'
     
-    def handle_prompt(question)
+    def handle_ask_yes_no(question)
       return unless question.index(DEPENDENCY_PROMPT)
       message = "Error: RubyGems is prompting to install a required dependency, and you have not " +
                 "specified the '--install-dependencies' option for the current gem.  You must modify your " +

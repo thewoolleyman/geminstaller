@@ -10,11 +10,11 @@ context "a GemInteractionHandler instance" do
     @parent_gem = sample_dependent_gem
   end
 
-  specify "should raise UnauthorizedDependencyPromptError from handle_prompt if question is a dependency prompt" do
+  specify "should raise UnauthorizedDependencyPromptError from handle_ask_yes_no if question is a dependency prompt" do
     @gem_interaction_handler.parent_gem = @parent_gem
     question = GemInstaller::GemInteractionHandler::DEPENDENCY_PROMPT
     begin
-      @gem_interaction_handler.handle_prompt(question)
+      @gem_interaction_handler.handle_ask_yes_no(question)
     rescue GemInstaller::UnauthorizedDependencyPromptError => error
       expected_error_message = /RubyGems is prompting to install a required dependency/m
       error.message.should_match(expected_error_message)

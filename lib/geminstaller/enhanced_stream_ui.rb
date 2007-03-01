@@ -10,7 +10,7 @@ module GemInstaller
     
     def ask_yes_no(question, default=nil)
       begin
-        @gem_interaction_handler.handle_prompt(question)
+        @gem_interaction_handler.handle_ask_yes_no(question)
       rescue Exception => e
         @outs.print(question)
         @outs.flush

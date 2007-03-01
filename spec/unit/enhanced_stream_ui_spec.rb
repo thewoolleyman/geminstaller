@@ -88,7 +88,7 @@ context "An EnhancedStreamUI instance" do
     @enhanced_stream_ui.gem_interaction_handler = mock_gem_interaction_handler
     question = 'question'
     error = GemInstaller::UnauthorizedDependencyPromptError
-    mock_gem_interaction_handler.should_receive(:handle_prompt).with(question).and_raise(error)
+    mock_gem_interaction_handler.should_receive(:handle_ask_yes_no).with(question).and_raise(error)
     lambda{ @enhanced_stream_ui.ask_yes_no(question) }.should_raise(error)
   end
 
