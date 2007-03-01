@@ -39,8 +39,22 @@ unless is_windows
 end
 test_gems.each do |gem|
   print "Uninstalling all versions of #{gem}.  This will give an error if it's not already installed.\n"
-  IO.popen("#{sudo} #{gem_cmd} uninstall -a #{gem}") {|process| process.readlines.each {|line| print line}}
+  IO.popen("#{sudo} #{gem_cmd} uninstall -a #{gem}") do |process| 
+    process.readlines.each do |line| 
+      print line
+    end
+  end
 end
+
+# verify gems are actually uninstalled
+test_gems.each do |gem|
+  IO.popen("#{gem_cmd} list #{gem}") do |process| 
+    process.readlines.each do |line|
+      raise RuntimeError.new("FAILURE: Test setup failed, #{gem} should not still be installed.") if line.index(gem)
+    end
+  end
+end
+
 
 print "\n\n"
 dir = File.dirname(__FILE__)
@@ -55,8 +69,27 @@ IO.popen(geminstaller_cmd) {|process| process.readlines.each {|line| print line}
 print "\n\n"
 
 print "Geminstaller command complete.  Now we'll run gem list to visually check that the gems listed above were actually installed locally.\n"
+success = true
+missing_gems = ''
 test_gems.each do |gem|
   print "\nRunning gem list for #{gem}, verify that it contains the expected version(s)"
-  # TODO: we could make this into a real test and avoid visual inspection by parsing and checking the output, then failing if we don't get the expected output. 
-  IO.popen("#{gem_cmd} list #{gem}") {|process| process.readlines.each {|line| print line}}
+  gem_found = false
+  IO.popen("#{gem_cmd} list #{gem}") do |process| 
+    process.readlines.each do |line|
+      print line
+      gem_found = true if line.index(gem)
+    end
+  end
+  unless gem_found
+    success = false
+    print "ERROR: #{gem} was not installed."
+    missing_gems += "#{gem} "
+  end    
+end
+
+print "\n\n"
+if success
+  print "SUCCESS! FANFARE! All gems were successfully installed!\n\n"
+else
+  raise RuntimeError.new("\n\nFAILURE: The following gems were not installed: #{missing_gems}\n\n")
 end
