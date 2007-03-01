@@ -7,6 +7,11 @@ README.txt
 Rakefile
 TODO.txt
 bin/geminstaller
+geminstaller.iml
+geminstaller.ipr
+geminstaller.iws
+geminstaller.kpf
+geminstaller.tmproj
 geminstaller.yml
 lib/dev_runner.rb
 lib/geminstaller.rb
@@ -33,7 +38,7 @@ lib/geminstaller/ruby_gem.rb
 lib/geminstaller/rubygems_exit.rb
 lib/geminstaller/rubygems_extensions.rb
 lib/geminstaller/version_specifier.rb
-lib/geminstaller/geminstaller_unexpected_prompt_error.rb
+lib/geminstaller/unexpected_prompt_error.rb
 lib/geminstaller/yaml_loader.rb
 site/geminstaller.css
 site/index.html
