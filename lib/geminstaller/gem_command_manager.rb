@@ -1,6 +1,6 @@
 module GemInstaller
   class GemCommandManager
-    attr_writer :gem_source_index_proxy, :gem_runner_proxy, :noninteractive_chooser, :gem_dependency_handler
+    attr_writer :gem_source_index_proxy, :gem_runner_proxy, :gem_dependency_handler
     
     def list_remote_gem(gem, list_options)
       run_args = ["list",gem.name,"--remote"]
@@ -24,21 +24,16 @@ module GemInstaller
 
     def uninstall_gem(gem)
       return if !is_gem_installed(gem)
-      setup_noninteractive_chooser(:uninstall_list_type, gem)
+      @gem_dependency_handler.parent_gem = gem
       run_gem_command('uninstall',gem)
     end
 
     def install_gem(gem)
       return if is_gem_installed(gem)
-      setup_noninteractive_chooser(:install_list_type, gem)
       @gem_dependency_handler.parent_gem = gem
       run_gem_command('install',gem)
     end
 
-    def setup_noninteractive_chooser(list_type, gem)
-      @noninteractive_chooser.specify_exact_gem_spec(gem.name, gem.version, gem.platform)
-    end
-    
     def run_gem_command(gem_command,gem)
       run_args = [gem_command,gem.name,"--version", "#{gem.version}"]
       run_args += gem.install_options

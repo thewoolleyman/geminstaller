@@ -1,6 +1,6 @@
 module GemInstaller
   class GemDependencyHandler
-    attr_writer :parent_gem
+    attr_writer :parent_gem, :noninteractive_chooser
     DEPENDENCY_PROMPT = 'Install required dependency'
     
     def handle_prompt(question)
@@ -10,6 +10,18 @@ module GemInstaller
                 "geminstaller config file to either specify the '--install-depencencies' (-y) " +
                 "option, or explicitly add an entry for the dependency gem earlier in the file.\n"
       raise GemInstaller::UnauthorizedDependencyPromptError.new(message)
+    end
+    
+    def handle_choose_from_list(question, list)
+      if list[0] =~ /^#{@parent_gem.name}.*/
+        setup_noninteractive_chooser(@parent_gem.name,@parent_gem.version,@parent_gem.platform)
+        return @noninteractive_chooser.choose(question, list)
+      end
+      raise RuntimeError.new("Fell through in GemDependencyHandler - FIXME")
+    end
+    
+    def setup_noninteractive_chooser(name, version, platform)
+      @noninteractive_chooser.specify_exact_gem_spec(name, version, platform)
     end
   end
 end

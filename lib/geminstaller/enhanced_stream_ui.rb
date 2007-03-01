@@ -1,6 +1,6 @@
 module GemInstaller
   class EnhancedStreamUI < Gem::StreamUI
-    attr_writer :noninteractive_chooser, :gem_dependency_handler
+    attr_writer :gem_dependency_handler
     
     def initialize()
       @ins = InputQueue.new
@@ -20,7 +20,7 @@ module GemInstaller
     end
     
     def choose_from_list(question, list)
-      @noninteractive_chooser.choose(question, list)
+      @gem_dependency_handler.handle_choose_from_list(question, list)
     end
 
     def register_outs_listener(listener)
