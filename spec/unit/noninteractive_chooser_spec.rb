@@ -60,13 +60,13 @@ context "a NoninteractiveChooser instance which is passed an uninstall-formatted
 end
 
 def should_choose(expected_choice, name, version, platform)
-  @noninteractive_chooser.specify_exact_gem_spec(name, version, platform)
+  @noninteractive_chooser.specify_gem_spec(name, version, platform)
   string, index = @noninteractive_chooser.choose(@question, @list)
   index.should==(expected_choice)
 end
 
 def should_raise_error(name, version, platform)
-  @noninteractive_chooser.specify_exact_gem_spec(name, version, platform)
+  @noninteractive_chooser.specify_gem_spec(name, version, platform)
   lambda{ @noninteractive_chooser.choose(@question, @list) }.should_raise(GemInstaller::GemInstallerError)
 end
 

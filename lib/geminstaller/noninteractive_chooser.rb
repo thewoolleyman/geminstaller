@@ -2,7 +2,7 @@ module GemInstaller
   # Format for "install" prompt list: "#{spec.name} #{spec.version} (#{spec.platform})"
   # Format for "uninstall" prompt list: "#{spec.name}-#{spec.version}" for ruby,  "#{spec.name}-#{spec.version}-#{spec.platform}" (gem.full_name) for binary
   class NoninteractiveChooser
-    def specify_exact_gem_spec(name, version, platform)
+    def specify_gem_spec(name, version, platform)
       @required_name = name
       @required_version = version
       @required_platform = platform

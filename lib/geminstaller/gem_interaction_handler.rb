@@ -21,7 +21,7 @@ module GemInstaller
     end
     
     def setup_noninteractive_chooser(name, version, platform)
-      @noninteractive_chooser.specify_exact_gem_spec(name, version, platform)
+      @noninteractive_chooser.specify_gem_spec(name, version, platform)
     end
   end
 end

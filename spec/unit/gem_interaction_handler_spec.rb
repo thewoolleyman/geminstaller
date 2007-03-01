@@ -25,7 +25,7 @@ context "a GemInteractionHandler instance" do
     @gem_interaction_handler.parent_gem = @parent_gem
     question = "Select which gem to install for your platform (i686-darwin8.7.1)"
     list = ["#{@parent_gem.name} #{@parent_gem.version} (#{@parent_gem.platform})"]
-    @mock_noninteractive_chooser.should_receive(:specify_exact_gem_spec).with(@parent_gem.name, @parent_gem.version, @parent_gem.platform)
+    @mock_noninteractive_chooser.should_receive(:specify_gem_spec).with(@parent_gem.name, @parent_gem.version, @parent_gem.platform)
     @mock_noninteractive_chooser.should_receive(:choose).with(question, list).and_return([list[0],0])
     item, index = @gem_interaction_handler.handle_choose_from_list(question, list)
     item.should==(list[0])
