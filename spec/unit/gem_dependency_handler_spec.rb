@@ -12,7 +12,13 @@ context "a GemDependencyHandler instance" do
            parent gem does not have --install-dependences specified" do
     @gem_dependency_handler.parent_gem = @parent_gem
     question = GemInstaller::GemDependencyHandler::DEPENDENCY_PROMPT
-    lambda{ @gem_dependency_handler.handle_prompt(question) }.should_raise(GemInstaller::UnauthorizedDependencyPromptError)
+    begin
+      @gem_dependency_handler.handle_prompt(question)
+    rescue GemInstaller::UnauthorizedDependencyPromptError => error
+      expected_error_message = /RubyGems is prompting to install a required dependency/m
+      error.message.should_match(expected_error_message)
+    end
+    
   end
 
 end

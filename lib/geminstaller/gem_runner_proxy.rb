@@ -24,18 +24,8 @@ module GemInstaller
         gem_runner.run(args)
       rescue GemInstaller::RubyGemsExit => normal_exit
         exit_status = normal_exit.message
-      rescue GemInstaller::UnexpectedPromptError => unexpected_prompt_exit
-        last_output_line = listener.read.last
-        message = unexpected_prompt_exit.message
-        if last_output_line.index('Install required dependency')
-          message = "Error: RubyGems is prompting to install a required dependency, and you have not " +
-                    "specified the '--install-dependencies' option for the current gem.  You must modify your " +
-                    "geminstaller config file to either specify the '--install-depencencies' (-y) " +
-                    "option, or explicitly add an entry for the dependency gem earlier in the file.\n"
-        end
-        raise_error_with_output(unexpected_prompt_exit, message, listener, args)
-      rescue GemInstaller::GemInstallerError => abnormal_exit
-        raise_error_with_output(abnormal_exit, abnormal_exit.message, listener, args)
+      rescue GemInstaller::GemInstallerError => exit_error
+        raise_error_with_output(exit_error, args, listener)
       end
       output_lines = listener.read!
       output_lines.push(exit_status) if exit_status
@@ -55,14 +45,8 @@ module GemInstaller
       @output_listener_class.new
     end
     
-    def raise_error_with_output(exit_error, message, listener, args)
-      args_string = args.join(" ")
-      descriptive_exit_message = "\n=========================================================\n"
-      descriptive_exit_message += "#{message}\n"
-      descriptive_exit_message += "Gem command was:\n  gem #{args_string}\n\n"
-      descriptive_exit_message += "Gem command output was:\n"
-      descriptive_exit_message += listener.read!.join("\n")
-      descriptive_exit_message += "\n=========================================================\n\n"
+    def raise_error_with_output(exit_error, args, listener)
+      descriptive_exit_message = exit_error.descriptive_exit_message(exit_error.message, 'gem', args, listener)
       raise exit_error.class.new(descriptive_exit_message)
     end
   end

@@ -29,11 +29,17 @@ context "An EnhancedStreamUI instance" do
     lambda{ @enhanced_stream_ui.ask('question') }.should_raise(GemInstaller::UnexpectedPromptError)
   end
 
-  specify "will force throw of GemInstaller::UnexpectedPromptError if intercepted by alert_error" do
+  specify "will force throw of GemInstaller::UnauthorizedDependencyPromptError or RubyGemsExit if intercepted by alert_error" do
     begin
-      raise GemInstaller::UnexpectedPromptError.new
+      raise GemInstaller::UnauthorizedDependencyPromptError.new
     rescue StandardError => error
-      lambda{ @enhanced_stream_ui.alert_error('statement') }.should_raise(GemInstaller::UnexpectedPromptError)
+      lambda{ @enhanced_stream_ui.alert_error('statement') }.should_raise(GemInstaller::UnauthorizedDependencyPromptError)
+    end
+
+    begin
+      raise GemInstaller::RubyGemsExit.new
+    rescue StandardError => error
+      lambda{ @enhanced_stream_ui.alert_error('statement') }.should_raise(GemInstaller::RubyGemsExit)
     end
   end
 
@@ -75,6 +81,15 @@ context "An EnhancedStreamUI instance" do
 
   specify "will raise exception on terminate_interaction and status != 0 (instead of exiting)" do
     lambda{ @enhanced_stream_ui.terminate_interaction(1) }.should_raise(GemInstaller::GemInstallerError)
+  end
+  
+  specify "will call gem_dependency_handler when ask_yes_no is called" do
+    mock_gem_dependency_handler = mock("mock_gem_dependency_handler")
+    @enhanced_stream_ui.gem_dependency_handler = mock_gem_dependency_handler
+    question = 'question'
+    error = GemInstaller::UnauthorizedDependencyPromptError
+    mock_gem_dependency_handler.should_receive(:handle_prompt).with(question).and_raise(error)
+    lambda{ @enhanced_stream_ui.ask_yes_no(question) }.should_raise(error)
   end
 
   

@@ -42,14 +42,13 @@ context "a GemRunnerProxy instance" do
 
   specify "should return descriptive message if there was an unexpected prompt due to unmet dependency" do
     use_mocks
-    @mock_gem_runner.should_receive(:run).and_raise(GemInstaller::UnexpectedPromptError.new("unexpected dependency prompt"))
+    @mock_gem_runner.should_receive(:run).and_raise(GemInstaller::UnauthorizedDependencyPromptError.new("unexpected dependency error message"))
     dependency_prompt = 'Install required dependency somegem? [Yn]'
-    @mock_output_listener.should_receive(:read).and_return([dependency_prompt])
     @mock_output_listener.should_receive(:read!).and_return([dependency_prompt])
     begin
       @gem_runner_proxy.run(['install'])
     rescue GemInstaller::GemInstallerError => error
-      expected_error_message = /RubyGems is prompting to install a required dependency.*Gem command was:.*install.*Gem command output was:.*Install required dependency/m
+      expected_error_message = /unexpected dependency error message.*Gem command was:.*install.*Gem command output was:.*Install required dependency/m
       error.message.should_match(expected_error_message)
     end
   end
@@ -58,7 +57,6 @@ context "a GemRunnerProxy instance" do
     use_mocks
     @mock_gem_runner.should_receive(:run).and_raise(GemInstaller::UnexpectedPromptError.new("unexpected prompt"))
     unexpected_prompt = 'some unexpected prompt?'
-    @mock_output_listener.should_receive(:read).and_return([unexpected_prompt])
     @mock_output_listener.should_receive(:read!).and_return([unexpected_prompt])
     begin
       @gem_runner_proxy.run(['install'])

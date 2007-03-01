@@ -50,12 +50,12 @@ context "a GemCommandManager instance" do
     exception = nil
     begin
       @gem_command_manager.install_gem(sample_dependent_gem)
-    rescue GemInstaller::UnexpectedPromptError => error
+    rescue GemInstaller::UnauthorizedDependencyPromptError => error
       exception = error
       expected_error_message = /RubyGems is prompting to install a required dependency.*Gem command was:.*install dependent-stubgem.*Gem command output was:.*Install required dependency stubgem/m
       error.message.should_match(expected_error_message)
     end
-    exception.class.should==(GemInstaller::UnexpectedPromptError)
+    exception.class.should==(GemInstaller::UnauthorizedDependencyPromptError)
   end
   
   specify "should be able to install and uninstall similarly named gems without a prompt (using exact name matching)" do

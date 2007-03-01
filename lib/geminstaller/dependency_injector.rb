@@ -33,9 +33,11 @@ module GemInstaller
       @gem_source_index_proxy = GemInstaller::GemSourceIndexProxy.new
       @gem_source_index_proxy.gem_source_index = @gem_source_index
 
+      @gem_dependency_handler = GemInstaller::GemDependencyHandler.new
       @noninteractive_chooser = GemInstaller::NoninteractiveChooser.new
       @enhanced_stream_ui = GemInstaller::EnhancedStreamUI.new
       @enhanced_stream_ui.noninteractive_chooser = @noninteractive_chooser
+      @enhanced_stream_ui.gem_dependency_handler = @gem_dependency_handler
 
       @gem_runner_class = Gem::GemRunner
       @gem_cmd_manager_class = Gem::CommandManager

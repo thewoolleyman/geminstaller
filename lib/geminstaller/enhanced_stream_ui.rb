@@ -1,6 +1,6 @@
 module GemInstaller
   class EnhancedStreamUI < Gem::StreamUI
-    attr_writer :noninteractive_chooser
+    attr_writer :noninteractive_chooser, :gem_dependency_handler
     
     def initialize()
       @ins = InputQueue.new
@@ -9,6 +9,13 @@ module GemInstaller
     end
     
     def ask_yes_no(question, default=nil)
+      begin
+        @gem_dependency_handler.handle_prompt(question)
+      rescue Exception => e
+        @outs.print(question)
+        @outs.flush
+        raise e
+      end
       super
     end
     
@@ -48,7 +55,7 @@ module GemInstaller
     def alert_error(statement, question=nil)
       # if alert_error got called due to a GemInstaller::UnexpectedPromptError, re-throw it
       last_exception = $!
-      if last_exception.class == GemInstaller::UnexpectedPromptError || last_exception.class == GemInstaller::RubyGemsExit
+      if last_exception.class == GemInstaller::UnauthorizedDependencyPromptError || last_exception.class == GemInstaller::RubyGemsExit
         raise last_exception
       end
       # otherwise let alert_error continue normally...
