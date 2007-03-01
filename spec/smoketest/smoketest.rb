@@ -21,7 +21,7 @@ print "Important Note: Before running this, you should make sure you don't have 
 print "This will uninstall the following gems and reinstall them with geminstaller.  If you don't want that to happen, kill it now (oops it's too late, you should have read the comments first!)\n\n"
 test_gems.each {|gem| print "  " + gem + "\n"}
 
-is_windows = RUBY_PLATFORM.index('mswin') == 'i386-mswin32' ? true : false
+is_windows = RUBY_PLATFORM =~ /mswin/ ? true : false
 
 use_sudo = false
 gem_cmd = is_windows ? 'gem.bat' : 'gem'
