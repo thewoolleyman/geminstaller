@@ -20,14 +20,13 @@ context "a GemCommandManager instance" do
   end
 
   specify "should be able to install, uninstall, and check for existence of specific versions of a gem" do
-    @gem_command_manager.install_gem(@sample_gem_with_extra_install_options)
+    install_gem(@sample_gem_with_extra_install_options)
   
     @gem_command_manager.is_gem_installed(@sample_gem).should==(true)
     @gem_command_manager.is_gem_installed(@nonexistent_version_sample_gem).should==(false)
   
     # uninstall it again after we are done
-    @gem_command_manager.uninstall_gem(@sample_gem)
-    @gem_command_manager.is_gem_installed(@sample_gem).should==(false)
+    uninstall_gem(@sample_gem)
   end
   
   specify "should be able to list remote gems" do
@@ -61,32 +60,59 @@ context "a GemCommandManager instance" do
   specify "should be able to install and uninstall similarly named gems without a prompt (using exact name matching)" do
     gems = [@sample_gem, @sample_multiplatform_gem]
     gems.each do |gem|
-      @gem_command_manager.install_gem(gem)
-      @gem_command_manager.is_gem_installed(gem).should==(true)
+      install_gem(gem)
     end
   
     # uninstall it again after we are done
     gems.each do |gem|
-      @gem_command_manager.uninstall_gem(gem)
-      @gem_command_manager.is_gem_installed(gem).should==(false)
+      uninstall_gem(gem)
     end
   end
   
   specify "should be able to install two gems with the same version but different platforms" do
     @sample_multiplatform_gem_for_another_platform = sample_multiplatform_gem
     @sample_multiplatform_gem_for_another_platform.platform = 'ruby'
-    @gem_command_manager.uninstall_gem(@sample_multiplatform_gem_for_another_platform)
+    uninstall_gem(@sample_multiplatform_gem_for_another_platform)
     gems = [@sample_multiplatform_gem, @sample_multiplatform_gem_for_another_platform]
     gems.each do |gem|
-      @gem_command_manager.install_gem(gem)
-      @gem_command_manager.is_gem_installed(gem).should==(true)
+      install_gem(gem)
     end
   
     # uninstall it again after we are done
     gems.each do |gem|
-      @gem_command_manager.uninstall_gem(gem)
-      @gem_command_manager.is_gem_installed(gem).should==(false)
+      uninstall_gem(gem)
     end
+  end
+  
+  specify "should be able to automatically install a dependency gem if dependent gem is installed" do
+    @sample_dependent_gem = sample_dependent_gem
+    @sample_dependency_gem = sample_gem
+    uninstall_gem(@sample_dependent_gem)
+    uninstall_gem(@sample_dependency_gem)
+    @sample_dependent_gem.install_options << "-y"
+    install_gem(@sample_dependent_gem)
+    @gem_command_manager.is_gem_installed(@sample_dependency_gem).should==(true)
+  
+    # uninstall it again after we are done
+    @sample_dependent_gem = sample_dependent_gem
+    uninstall_gem(@sample_dependent_gem)
+    uninstall_gem(@sample_dependency_gem)
+  end
+  
+  specify "should be able to automatically install a multiplatform dependency gem 
+           if a multiplatform dependent gem is installed" do
+    @sample_dependent_gem = sample_dependent_multiplatform_gem
+    @sample_dependency_gem = sample_multiplatform_gem
+    uninstall_gem(@sample_dependent_gem)
+    uninstall_gem(@sample_dependency_gem)
+    @sample_dependent_gem.install_options << "-y"
+    install_gem(@sample_dependent_gem)
+    @gem_command_manager.is_gem_installed(@sample_dependency_gem).should==(true)
+  
+    # uninstall it again after we are done
+    @sample_dependent_gem = sample_dependent_multiplatform_gem
+    uninstall_gem(@sample_dependent_gem)
+    uninstall_gem(@sample_dependency_gem)
   end
   
   specify "should be able to install and uninstall a gem with the 'current' platform" do
@@ -97,6 +123,15 @@ context "a GemCommandManager instance" do
     @gem_command_manager.is_gem_installed(gem).should==(true)
   
     # uninstall it again after we are done
+    uninstall_gem(gem)
+  end
+
+  def install_gem(gem)
+    @gem_command_manager.install_gem(gem)
+    @gem_command_manager.is_gem_installed(gem).should==(true)
+  end
+  
+  def uninstall_gem(gem)
     @gem_command_manager.uninstall_gem(gem)
     @gem_command_manager.is_gem_installed(gem).should==(false)
   end
