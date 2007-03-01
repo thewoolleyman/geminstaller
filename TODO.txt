@@ -9,8 +9,10 @@
 * by default, print when gems are installed
 * print line for yaml errors
 * non-specific versions in config yml (such as > 0.1.2) must be specified in quotes (such as '> 0.1.2') or else they are not correctly parsed by yaml (just returns '0.1.2' instead of '> 0.1.2').  Should give some warning instead of just failing
+* clean up manifest or fix update_manifest
 * why don't update_manifest and coverage tasks show up in rake -T?
 * update_manifest doesn't work - problems with dot files and bin dir
+* store rubygems dist as a tar, and untar it on demand
 * Add spec file name to all contexts (or see if rspec can do it automatically)
 * Make GemInstaller.run take a parameter to not fail if there is any error
 * Tests don't run on windows after implementing test_gem_home
