@@ -1,4 +1,5 @@
-* make all possible attempts install dependent gems.  If match fails, and parent gem was /win/, try to match that
+* dependency gems should print installing message to info as well as parent gem
+* make all possible attempts install dependent gems.  If match fails, and parent gem was /win/, try to match that.  Maybe print warnings if the platform does not match one of the valid ones in RubyGems?
 * Return meaningful message instructing to use the --sudo option if Errno::EACCES is caught on a sudo-able platform
 * check gems: mongrel, mongrel_cluster, hpricot, rmagick
 * diff-lcs gem was not installed for geminstaller project (linux)
