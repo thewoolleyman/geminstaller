@@ -1,5 +1,5 @@
 module GemInstaller
-  class GemDependencyHandler
+  class GemInteractionHandler
     attr_writer :parent_gem, :noninteractive_chooser
     DEPENDENCY_PROMPT = 'Install required dependency'
     
@@ -17,7 +17,7 @@ module GemInstaller
         setup_noninteractive_chooser(@parent_gem.name,@parent_gem.version,@parent_gem.platform)
         return @noninteractive_chooser.choose(question, list)
       end
-      raise RuntimeError.new("Fell through in GemDependencyHandler - FIXME")
+      raise RuntimeError.new("Fell through in GemInteractionHandler - FIXME")
     end
     
     def setup_noninteractive_chooser(name, version, platform)

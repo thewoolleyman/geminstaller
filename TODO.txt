@@ -1,5 +1,4 @@
-* Rename gem_dependency_handler to gem_interaction_handler
-* rename gem_dependency_handler.handle_prompt to handle_ask_yes_no
+* rename gem_interaction_handler.handle_prompt to handle_ask_yes_no
 * Return meaningful message instructing to use the --sudo option if Errno::EACCES is caught on a sudo-able platform
 * check gems: mongrel, mongrel_cluster, hpricot, rmagick
 * diff-lcs gem was not installed for geminstaller project (linux)

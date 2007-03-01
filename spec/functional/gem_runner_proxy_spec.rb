@@ -7,7 +7,7 @@ context "a GemRunnerProxy instance" do
     GemInstaller::TestGemHome.use
     @registry = GemInstaller::create_registry
     @gem_runner_proxy = @registry.gem_runner_proxy
-    @gem_dependency_handler = @registry.gem_dependency_handler
+    @gem_interaction_handler = @registry.gem_interaction_handler
     
     GemInstaller::EmbeddedGemServer.start
   end
@@ -70,7 +70,7 @@ context "a GemRunnerProxy instance" do
     gem_runner_args = ["install", "#{sample_multiplatform_gem_name}", "--remote"]
     gem_runner_args += install_options_for_testing
 
-    @gem_dependency_handler.parent_gem = sample_multiplatform_gem
+    @gem_interaction_handler.parent_gem = sample_multiplatform_gem
     output = @gem_runner_proxy.run(gem_runner_args)
     output.join("\n").should_match(/Successfully installed #{sample_multiplatform_gem_name}-#{sample_multiplatform_gem_version}-mswin32/m)
   end

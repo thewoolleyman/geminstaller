@@ -12,12 +12,12 @@ context "a GemCommandManager instance injected with mock dependencies" do
 
     @mock_gem_runner_proxy = mock("Mock GemRunnerProxy")
     @mock_gem_source_index_proxy = mock("Mock GemSourceIndexProxy")
-    @mock_gem_dependency_handler = mock("Mock GemDependencyHandler")
+    @mock_gem_interaction_handler = mock("Mock GemDependencyHandler")
 
     @gem_command_manager = GemInstaller::GemCommandManager.new
     @gem_command_manager.gem_runner_proxy = @mock_gem_runner_proxy
     @gem_command_manager.gem_source_index_proxy = @mock_gem_source_index_proxy
-    @gem_command_manager.gem_dependency_handler = @mock_gem_dependency_handler
+    @gem_command_manager.gem_interaction_handler = @mock_gem_interaction_handler
     @escaped_sample_gem_name = @sample_gem.regexp_escaped_name
     
   end
@@ -32,7 +32,7 @@ context "a GemCommandManager instance injected with mock dependencies" do
     @mock_gem_source_index_proxy.should_receive(:refresh!).once
     @mock_gem_source_index_proxy.should_receive(:search).once.with(/^#{@escaped_sample_gem_name}$/,@sample_gem.version).and_return([])
     @mock_gem_runner_proxy.should_receive(:run).once.with(:anything)
-    @mock_gem_dependency_handler.should_receive(:parent_gem=).with(@sample_gem)
+    @mock_gem_interaction_handler.should_receive(:parent_gem=).with(@sample_gem)
     @gem_command_manager.install_gem(@sample_gem)
   end
   

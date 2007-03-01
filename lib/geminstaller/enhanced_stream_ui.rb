@@ -1,6 +1,6 @@
 module GemInstaller
   class EnhancedStreamUI < Gem::StreamUI
-    attr_writer :gem_dependency_handler
+    attr_writer :gem_interaction_handler
     
     def initialize()
       @ins = InputQueue.new
@@ -10,7 +10,7 @@ module GemInstaller
     
     def ask_yes_no(question, default=nil)
       begin
-        @gem_dependency_handler.handle_prompt(question)
+        @gem_interaction_handler.handle_prompt(question)
       rescue Exception => e
         @outs.print(question)
         @outs.flush
@@ -20,7 +20,7 @@ module GemInstaller
     end
     
     def choose_from_list(question, list)
-      @gem_dependency_handler.handle_choose_from_list(question, list)
+      @gem_interaction_handler.handle_choose_from_list(question, list)
     end
 
     def register_outs_listener(listener)

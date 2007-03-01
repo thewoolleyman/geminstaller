@@ -1,6 +1,6 @@
 module GemInstaller
   class GemCommandManager
-    attr_writer :gem_source_index_proxy, :gem_runner_proxy, :gem_dependency_handler
+    attr_writer :gem_source_index_proxy, :gem_runner_proxy, :gem_interaction_handler
     
     def list_remote_gem(gem, list_options)
       run_args = ["list",gem.name,"--remote"]
@@ -24,13 +24,13 @@ module GemInstaller
 
     def uninstall_gem(gem)
       return if !is_gem_installed(gem)
-      @gem_dependency_handler.parent_gem = gem
+      @gem_interaction_handler.parent_gem = gem
       run_gem_command('uninstall',gem)
     end
 
     def install_gem(gem)
       return if is_gem_installed(gem)
-      @gem_dependency_handler.parent_gem = gem
+      @gem_interaction_handler.parent_gem = gem
       run_gem_command('install',gem)
     end
 
