@@ -46,7 +46,7 @@ test_gems.each do |gem|
   end
 end
 
-# verify gems are actually uninstalled
+# verify gems are actually uninstalled before attempting to install them with GemInstaller
 test_gems.each do |gem|
   IO.popen("#{gem_cmd} list #{gem}") do |process| 
     process.readlines.each do |line|
@@ -68,7 +68,7 @@ print "Please be patient, it may take a bit, or may not work at all if rubyforge
 IO.popen(geminstaller_cmd) {|process| process.readlines.each {|line| print line}}
 print "\n\n"
 
-print "Geminstaller command complete.  Now we'll run gem list to visually check that the gems listed above were actually installed locally.\n"
+print "Geminstaller command complete.  Now we'll run gem list to check that the gems listed above were actually installed locally.\n"
 success = true
 missing_gems = ''
 test_gems.each do |gem|
