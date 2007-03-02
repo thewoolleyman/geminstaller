@@ -20,7 +20,7 @@ lib/geminstaller/file_reader.rb
 lib/geminstaller/gem_arg_processor.rb
 lib/geminstaller/gem_command_line_proxy.rb
 lib/geminstaller/gem_command_manager.rb
-lib/geminstaller/gem_interaction_manager.rb
+lib/geminstaller/gem_interaction_handler.rb
 lib/geminstaller/gem_list_checker.rb
 lib/geminstaller/gem_runner_proxy.rb
 lib/geminstaller/gem_source_index_proxy.rb
