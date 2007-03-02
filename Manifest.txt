@@ -190,7 +190,6 @@ spec/unit/gem_list_checker_spec.rb
 spec/unit/noninteractive_chooser_spec.rb
 spec/unit/output_listener_spec.rb
 spec/unit/ruby_gem_spec.rb
-spec/unit/rubygems_installer_spec.rb
 spec/unit/spec_helper_spec.rb
 spec/unit/test_gem_home_spec.rb
 spec/unit/testfile.txt
