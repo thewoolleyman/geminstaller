@@ -20,6 +20,7 @@ lib/geminstaller/file_reader.rb
 lib/geminstaller/gem_arg_processor.rb
 lib/geminstaller/gem_command_line_proxy.rb
 lib/geminstaller/gem_command_manager.rb
+lib/geminstaller/gem_interaction_manager.rb
 lib/geminstaller/gem_list_checker.rb
 lib/geminstaller/gem_runner_proxy.rb
 lib/geminstaller/gem_source_index_proxy.rb
@@ -34,6 +35,7 @@ lib/geminstaller/rubygems_exit.rb
 lib/geminstaller/rubygems_extensions.rb
 lib/geminstaller/version_specifier.rb
 lib/geminstaller/unexpected_prompt_error.rb
+lib/geminstaller/unauthorized_dependency_prompt_error.rb
 lib/geminstaller/yaml_loader.rb
 site/geminstaller.css
 site/index.html
