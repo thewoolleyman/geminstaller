@@ -1,4 +1,3 @@
-.project
 COPYING
 History.txt
 LICENSE
