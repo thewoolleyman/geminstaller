@@ -7,11 +7,6 @@ README.txt
 Rakefile
 TODO.txt
 bin/geminstaller
-geminstaller.iml
-geminstaller.ipr
-geminstaller.iws
-geminstaller.kpf
-geminstaller.tmproj
 geminstaller.yml
 lib/dev_runner.rb
 lib/geminstaller.rb
@@ -42,7 +37,6 @@ lib/geminstaller/unexpected_prompt_error.rb
 lib/geminstaller/yaml_loader.rb
 site/geminstaller.css
 site/index.html
-spec/fixture/gems/.DS_Store
 spec/fixture/gems/cache/stubgem-1.0.0.gem
 spec/fixture/gems/cache/stubgem-multiplatform-1.0.0.gem
 spec/fixture/gems/cache/stubgem-multiplatform-1.0.1-mswin32.gem
