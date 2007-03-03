@@ -1,23 +1,18 @@
+* Dependencies are not checked if gem is already installed (e.g. uninstall actionmailer and start rails app)
 * dependency gems should print installing message to info as well as parent gem
 * make all possible attempts install dependent gems.  If match fails, and parent gem was /win/, try to match that.  Maybe print warnings if the platform does not match one of the valid ones in RubyGems?
 * Return meaningful message instructing to use the --sudo option if Errno::EACCES is caught on a sudo-able platform
 * check gems: mongrel, mongrel_cluster, hpricot, rmagick
 * diff-lcs gem was not installed for geminstaller project (linux)
-* Dependencies are not checked if gem is already installed (e.g. uninstall actionmailer and start rails app)
 * --config does not work on windows with c:\path\to\yml
 * verify that >= version spec works with a specific platform, if that platform is not available for the highest version
-* Handle multiplatform gem which has a dependency on another multiplatform gem which has a dependency on...
 * Check for write access, and exit with warning to use sudo if there is no write access.
 * by default, print when gems are installed
 * print line for yaml errors
 * non-specific versions in config yml (such as > 0.1.2) must be specified in quotes (such as '> 0.1.2') or else they are not correctly parsed by yaml (just returns '0.1.2' instead of '> 0.1.2').  Should give some warning instead of just failing
-* clean up manifest or fix update_manifest
-* why don't update_manifest and coverage tasks show up in rake -T?
-* update_manifest doesn't work - problems with dot files and bin dir
 * store rubygems dist as a tar, and untar it on demand
 * Add spec file name to all contexts (or see if rspec can do it automatically)
 * Make GemInstaller.run take a parameter to not fail if there is any error
-* Tests don't run on windows after implementing test_gem_home
 * Embedded gem_server process doesn't get killed on windows during tests
 * Embedded gem_server ports aren't handled correctly on linux during tests - port conflict on startup, open ports die off slowly after tests finish
 * Rails integration doesn't work under mongrel when invoked via executable (e.g, actionmailer gem not recognized after install, only after mongrel restart).  Does't occur under webrick, or if geminstaller is invoked programatically via class.
