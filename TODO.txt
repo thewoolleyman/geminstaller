@@ -28,8 +28,9 @@
 * create basic website
 * Clean up spec_helper, find out simplest way to invoke rspec via test_unit, and still provide proper return codes/output
 * Application should not do any remote operations (or anything, really) if the version and platform are non-ambiguous and already installed.
+* remove cruft from test output - intercept output streams from gem_server and rubygems setup
+* enhance DependencyInjector - allow items to be substituted prior to initialization - then geminstaller_spec could simply set a mock output_proxy on the registry instead of explicitly setting it every place it is used.
 * ensure --debug install option works as expected
-* remove cruft from test output
 * quiet/info/verbose option enhancements
   * move checks for quiet/info/verbose into output_proxy
   * Use a logger, hook it into --info/verbose option
