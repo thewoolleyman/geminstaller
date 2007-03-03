@@ -37,8 +37,27 @@ task :coverage do
   sh "rcov test/test_all.rb"
 end
 
+desc "Diff the manifest"
+task :diff_manifest => :clean do
+  f = "Manifest.tmp"
+  require 'find'
+  files = []
+  Find.find '.' do |path|
+    next unless File.file? path
+    next if path =~ /\.svn|tmp$|CVS/
+    next if path =~ /\.iml|\.ipr|\.iws|\.kpf|\.tmproj|\.project/
+    next if path =~ /\.\/spec/
+    files << path[2..-1]
+  end
+  files = files.sort.join "\n"
+  File.open f, 'w' do |fp| fp.puts files end
+  system "diff -du Manifest.txt #{f}"
+  rm f
+end
+
+desc "Update the manifest"
 task :update_manifest do
-  system('rake check_manifest | patch -p0 Manifest.txt')
+  system('rake diff_manifest | patch -p0 Manifest.txt')
 end
 
 # vim: syntax=Ruby
