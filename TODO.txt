@@ -9,6 +9,7 @@
 * Check for write access, and exit with warning to use sudo if there is no write access.
 * by default, print when gems are installed
 * print line for yaml errors
+* Change windows orphaned grandchild error message - link to post http://rubyforge.org/tracker/?func=detail&atid=412&aid=8957&group_id=85 - say there's no way to fix other than use ruby_services.
 * non-specific versions in config yml (such as > 0.1.2) must be specified in quotes (such as '> 0.1.2') or else they are not correctly parsed by yaml (just returns '0.1.2' instead of '> 0.1.2').  Should give some warning instead of just failing
 * store rubygems dist as a tar, and untar it on demand
 * Add spec file name to all contexts (or see if rspec can do it automatically)
