@@ -31,14 +31,18 @@ module GemInstaller
     end
     
     def verify_and_specify_remote_gem!(gem)
-      remote_match_line = find_remote_matching_gem(gem)
       # TODO: this seems like it is a hack, but we must have a non-ambiguous version on the gem in order for 
       # noninteractive_chooser to be able to parse the gem list for multi-platform gems.  This will not be necessary
       # if a future RubyGems release allows specification/searching of the platform, because then we won't need noninteractive_chooser
       
-      version_list = parse_out_version_list(remote_match_line)
+      version_list = available_versions(gem)
       specified_version = @version_specifier.specify(gem.version, version_list)
       gem.version = specified_version
+    end
+
+    def available_versions(gem)
+      remote_match_line = find_remote_matching_gem(gem)
+      version_list = parse_out_version_list(remote_match_line)
     end
     
     def parse_out_version_list(line)
