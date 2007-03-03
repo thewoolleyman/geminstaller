@@ -30,6 +30,7 @@
 * ensure --debug install option works as expected
 * remove cruft from test output
 * quiet/info/verbose option enhancements
+  * move checks for quiet/info/verbose into output_proxy
   * Use a logger, hook it into --info/verbose option
   * Review and clarify meanings of --info, --verbose
   * add more output for --info option.  Should also be able to check info flag from classes other than Application
