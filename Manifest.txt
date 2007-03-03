@@ -2,7 +2,6 @@ COPYING
 History.txt
 LICENSE
 Manifest.txt
-Manifest.txt.rej
 README.txt
 Rakefile
 TODO.txt
