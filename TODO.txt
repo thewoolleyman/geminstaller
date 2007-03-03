@@ -29,9 +29,12 @@
 * Application should not do any remote operations (or anything, really) if the version and platform are non-ambiguous and already installed.
 * ensure --debug install option works as expected
 * remove cruft from test output
-* Use a logger, hook it into --info/verbose option
+* quiet/info/verbose option enhancements
+  * Use a logger, hook it into --info/verbose option
+  * Review and clarify meanings of --info, --verbose
+  * add more output for --info option.  Should also be able to check info flag from classes other than Application
+  * add --trace option? logging vs. stacktraces vs. ???
 * boot.rb parsed twice under webrick?
-* add more output for --info option.  Should also be able to check info flag from classes other than Application
 * rename is_gem_installed to is_gem_installed?
 * fix all Zentest warnings
 * Rename RubyGem class to RubyGemAction, add install vs. uninstall actions in config (install is default)
@@ -44,8 +47,7 @@
 * update info in stubgem (not sow defaults)
 * Make SourceIndex.search use alternate method that does exact regex match, to avoid passing the exact regex ourselves.
 * Fix errors when using relative or ~/ dir in --config path
-* add option to specify --backtrace on all gem commands
+* make verbose option specify --backtrace on all gem commands
 * Add support, syntax, and options for uninstalling gems - completely, or down to highest specified version.
-* Review and clarify meanings of --info, --verbose, and --trace (logging vs. stacktraces vs. ???)
 * add feature to automatically warn if there is a more recent version of the gem available and check_for_upgrade == false.  Use "gem outdated" command
 * auto-generate geminstaller.yml files (possibly by parsing source, or based on all gems installed locally)
