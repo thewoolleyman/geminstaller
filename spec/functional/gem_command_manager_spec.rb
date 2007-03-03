@@ -22,8 +22,8 @@ context "a GemCommandManager instance" do
   specify "should be able to install, uninstall, and check for existence of specific versions of a gem" do
     install_gem(@sample_gem_with_extra_install_options)
   
-    @gem_command_manager.is_gem_installed(@sample_gem).should==(true)
-    @gem_command_manager.is_gem_installed(@nonexistent_version_sample_gem).should==(false)
+    @gem_command_manager.is_gem_installed?(@sample_gem).should==(true)
+    @gem_command_manager.is_gem_installed?(@nonexistent_version_sample_gem).should==(false)
   
     # uninstall it again after we are done
     uninstall_gem(@sample_gem)
@@ -91,7 +91,7 @@ context "a GemCommandManager instance" do
     uninstall_gem(@sample_dependency_gem)
     @sample_dependent_gem.install_options << "-y"
     install_gem(@sample_dependent_gem)
-    @gem_command_manager.is_gem_installed(@sample_dependency_gem).should==(true)
+    @gem_command_manager.is_gem_installed?(@sample_dependency_gem).should==(true)
   
     # uninstall it again after we are done
     @sample_dependent_gem = sample_dependent_gem
@@ -107,7 +107,7 @@ context "a GemCommandManager instance" do
     uninstall_gem(@sample_dependency_gem)
     @sample_dependent_gem.install_options << "-y"
     install_gem(@sample_dependent_gem)
-    @gem_command_manager.is_gem_installed(@sample_dependency_gem).should==(true)
+    @gem_command_manager.is_gem_installed?(@sample_dependency_gem).should==(true)
   
     # uninstall it again after we are done
     @sample_dependent_gem = sample_dependent_multiplatform_gem
@@ -118,9 +118,9 @@ context "a GemCommandManager instance" do
   specify "should be able to install and uninstall a gem with the 'current' platform" do
     gem = @sample_gem
     gem.platform = 'current'
-    @gem_command_manager.is_gem_installed(gem).should==(false)
+    @gem_command_manager.is_gem_installed?(gem).should==(false)
     @gem_command_manager.install_gem(gem)
-    @gem_command_manager.is_gem_installed(gem).should==(true)
+    @gem_command_manager.is_gem_installed?(gem).should==(true)
   
     # uninstall it again after we are done
     uninstall_gem(gem)
@@ -128,12 +128,12 @@ context "a GemCommandManager instance" do
 
   def install_gem(gem)
     @gem_command_manager.install_gem(gem)
-    @gem_command_manager.is_gem_installed(gem).should==(true)
+    @gem_command_manager.is_gem_installed?(gem).should==(true)
   end
   
   def uninstall_gem(gem)
     @gem_command_manager.uninstall_gem(gem)
-    @gem_command_manager.is_gem_installed(gem).should==(false)
+    @gem_command_manager.is_gem_installed?(gem).should==(false)
   end
   
   teardown do

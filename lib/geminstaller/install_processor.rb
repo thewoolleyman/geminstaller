@@ -7,7 +7,7 @@ module GemInstaller
         @gem_list_checker.verify_and_specify_remote_gem!(gem)
         already_specified = true
       end
-      gem_is_installed = @gem_command_manager.is_gem_installed(gem)
+      gem_is_installed = @gem_command_manager.is_gem_installed?(gem)
       if gem_is_installed 
         @output_proxy.sysout("Gem #{gem.name}, version #{gem.version} is already installed.\n") if @options[:info]
       else

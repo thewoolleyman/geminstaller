@@ -25,7 +25,7 @@ context "a GemCommandManager instance injected with mock dependencies" do
   specify "should be able to check for existence of a specific version of a gem" do
     @mock_gem_source_index_proxy.should_receive(:refresh!).once
     @mock_gem_source_index_proxy.should_receive(:search).once.with(/^#{@escaped_sample_gem_name}$/,@sample_gem.version).and_return([@sample_gem])
-    @gem_command_manager.is_gem_installed(@sample_gem).should==(true)
+    @gem_command_manager.is_gem_installed?(@sample_gem).should==(true)
   end
 
   specify "should be able to install a gem which is not already installed" do

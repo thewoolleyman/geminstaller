@@ -8,7 +8,7 @@ context "an InstallProcessor instance with no options passed" do
   end
 
   specify "should install a gem" do
-    @mock_gem_command_manager.should_receive(:is_gem_installed).once.with(@sample_gem).and_return(false)
+    @mock_gem_command_manager.should_receive(:is_gem_installed?).once.with(@sample_gem).and_return(false)
     @mock_gem_list_checker.should_receive(:verify_and_specify_remote_gem!).once.with(@sample_gem)
     @mock_gem_command_manager.should_receive(:install_gem).once.with(@sample_gem)
     @install_processor.process(@sample_gem)
@@ -24,7 +24,7 @@ context "an InstallProcessor instance invoked with info, quiet options passed" d
 
   specify "should show info message for a gem which is already installed" do
     @sample_gem.check_for_upgrade = false
-    @mock_gem_command_manager.should_receive(:is_gem_installed).once.with(@sample_gem).and_return(true)
+    @mock_gem_command_manager.should_receive(:is_gem_installed?).once.with(@sample_gem).and_return(true)
     @mock_output_proxy.should_receive(:sysout).once().with(/Gem .*, version .*is already installed/)
     @install_processor.process(@sample_gem)
   end
@@ -38,14 +38,14 @@ context "an InstallProcessor instance invoked with quiet option" do
 
   specify "should not install a gem which is already installed and not print installed message" do
     @sample_gem.check_for_upgrade = false
-    @mock_gem_command_manager.should_receive(:is_gem_installed).once.with(@sample_gem).and_return(true)
+    @mock_gem_command_manager.should_receive(:is_gem_installed?).once.with(@sample_gem).and_return(true)
     @install_processor.process(@sample_gem)
   end
 
   specify "should verify and specify gem if check_for_upgrade is specified" do
     @sample_gem.check_for_upgrade = true
     @mock_gem_list_checker.should_receive(:verify_and_specify_remote_gem!).once.with(@sample_gem)
-    @mock_gem_command_manager.should_receive(:is_gem_installed).once.with(@sample_gem).and_return(true)
+    @mock_gem_command_manager.should_receive(:is_gem_installed?).once.with(@sample_gem).and_return(true)
     @install_processor.process(@sample_gem)
   end
 

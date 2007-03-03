@@ -16,7 +16,7 @@ context "The geminstaller command line application" do
     
     @gem_command_manager = @registry.gem_command_manager
     @sample_gem = sample_gem
-    @gem_command_manager.uninstall_gem(@sample_gem) if @gem_command_manager.is_gem_installed(@sample_gem)
+    @gem_command_manager.uninstall_gem(@sample_gem) if @gem_command_manager.is_gem_installed?(@sample_gem)
   end
 
   specify "should print usage if --help arg is specified" do
@@ -29,7 +29,7 @@ context "The geminstaller command line application" do
     @application.args = geminstaller_spec_test_args
     @mock_output_proxy.should_receive(:sysout).with(/Installing gem stubgem.*/)
     @application.run
-    @gem_command_manager.is_gem_installed(@sample_gem).should==(true)
+    @gem_command_manager.is_gem_installed?(@sample_gem).should==(true)
   end
   
   specify "should handle 'current' as a valid platform" do
@@ -37,7 +37,7 @@ context "The geminstaller command line application" do
     @sample_gem.platform = 'current'
     @mock_output_proxy.should_receive(:sysout).with(/Installing gem stubgem.*/)
     @application.run
-    @gem_command_manager.is_gem_installed(@sample_gem).should==(true)
+    @gem_command_manager.is_gem_installed?(@sample_gem).should==(true)
   end
   
   specify "should print message if gem is already installed and --info arg is specified" do
@@ -55,25 +55,25 @@ context "The geminstaller command line application" do
   
   specify "should install a platform-specific binary gem" do
     @sample_multiplatform_gem = sample_multiplatform_gem
-    @gem_command_manager.uninstall_gem(@sample_multiplatform_gem) if @gem_command_manager.is_gem_installed(@sample_multiplatform_gem)
+    @gem_command_manager.uninstall_gem(@sample_multiplatform_gem) if @gem_command_manager.is_gem_installed?(@sample_multiplatform_gem)
     @application.args = ["--info","--q","--config=#{dir}/live_geminstaller_config_2.yml"]
     @mock_output_proxy.should_receive(:sysout).with(/Installing gem stubgem-multiplatform.*/)
     @application.run
-    @gem_command_manager.is_gem_installed(@sample_multiplatform_gem).should==(true)
+    @gem_command_manager.is_gem_installed?(@sample_multiplatform_gem).should==(true)
   end
   
   specify "should install correctly even if install_options is not specified" do
     @application.args = ["--info","--q","--config=#{dir}/live_geminstaller_config_3.yml"]
     @mock_output_proxy.should_receive(:sysout).with(/Installing gem stubgem.*/)
     @application.run
-    @gem_command_manager.is_gem_installed(@sample_gem).should==(true)
+    @gem_command_manager.is_gem_installed?(@sample_gem).should==(true)
   end
   
   specify "should show error if a version specification is not met" do
     @application.args = ["--info","--q","--config=#{dir}/live_geminstaller_config_4.yml"]
     @mock_output_proxy.should_receive(:syserr).with(/The specified version requirement '> 1.0.0' is not met by any of the available versions: 1.0.0./)
     @application.run
-    @gem_command_manager.is_gem_installed(@sample_gem).should==(false)
+    @gem_command_manager.is_gem_installed?(@sample_gem).should==(false)
   end
    
 end
