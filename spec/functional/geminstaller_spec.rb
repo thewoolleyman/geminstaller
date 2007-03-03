@@ -11,6 +11,8 @@ context "The geminstaller command line application" do
     @registry = GemInstaller::create_registry
     @application = @registry.app
     @application.output_proxy = @mock_output_proxy
+    @install_processor = @registry.install_processor
+    @install_processor.output_proxy = @mock_output_proxy
     
     @gem_command_manager = @registry.gem_command_manager
     @sample_gem = sample_gem
@@ -73,7 +75,7 @@ context "The geminstaller command line application" do
     @application.run
     @gem_command_manager.is_gem_installed(@sample_gem).should==(false)
   end
-  
+   
 end
 
 context "The geminstaller command line application created via GemInstaller.run method" do

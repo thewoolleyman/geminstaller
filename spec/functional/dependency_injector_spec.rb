@@ -10,7 +10,7 @@ context "Dependency Injector" do
     application = dependency_injector.registry.app
     application.should_not_be_nil
     application.config_builder.should_not_be_nil
-    application.gem_command_manager.should_not_be_nil
+    application.install_processor.should_not_be_nil
     application.output_proxy.should_not_be_nil
     application.arg_parser.should_not_be_nil
   end

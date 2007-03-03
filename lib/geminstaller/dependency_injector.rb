@@ -13,7 +13,7 @@ module GemInstaller
   class Registry
     attr_accessor :file_reader, :yaml_loader, :output_proxy, :config_builder, :gem_source_index, :gem_runner_proxy
     attr_accessor :gem_runner, :gem_command_manager, :gem_list_checker, :app, :arg_parser, :options, :noninteractive_chooser
-    attr_accessor :gem_interaction_handler
+    attr_accessor :gem_interaction_handler, :install_processor
 
     def initialize
       @options = {}
@@ -59,13 +59,18 @@ module GemInstaller
       @gem_list_checker.gem_command_manager = @gem_command_manager
       @gem_list_checker.gem_arg_processor = @gem_arg_processor
       @gem_list_checker.version_specifier = @version_specifier
-  
+
+      @install_processor = GemInstaller::InstallProcessor.new
+      @install_processor.options = @options
+      @install_processor.gem_list_checker = @gem_list_checker
+      @install_processor.gem_command_manager = @gem_command_manager
+      @install_processor.output_proxy = @output_proxy
+
       @app = GemInstaller::Application.new
       @app.options = @options
       @app.arg_parser = @arg_parser
       @app.config_builder = @config_builder
-      @app.gem_command_manager = @gem_command_manager
-      @app.gem_list_checker = @gem_list_checker
+      @app.install_processor = @install_processor
       @app.output_proxy = @output_proxy
     end
   end

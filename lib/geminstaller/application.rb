@@ -1,7 +1,7 @@
 module GemInstaller
   class Application
     # we have accessors instead of just writers so that we can ensure it is assembled correctly in the dependency injector test
-    attr_accessor :config_builder, :gem_command_manager, :gem_list_checker, :output_proxy, :arg_parser, :args, :options
+    attr_accessor :config_builder, :install_processor, :output_proxy, :arg_parser, :args, :options
     
     def run
       begin
@@ -11,20 +11,7 @@ module GemInstaller
         gems = config.gems
         print_startup_message(gems) unless @options[:quiet]
         gems.each do |gem|
-          already_specified = false
-          if gem.check_for_upgrade
-            @gem_list_checker.verify_and_specify_remote_gem!(gem)
-            already_specified = true
-          end
-          gem_is_installed = @gem_command_manager.is_gem_installed(gem)
-          if gem_is_installed && @options[:info]
-            @output_proxy.sysout("Gem #{gem.name}, version #{gem.version} is already installed.\n")
-          end
-          unless gem_is_installed
-            @gem_list_checker.verify_and_specify_remote_gem!(gem) unless already_specified
-            @output_proxy.sysout("Installing gem #{gem.name}, version #{gem.version}.\n") if @options[:info]
-            @gem_command_manager.install_gem(gem)
-          end
+          @install_processor.process(gem)
         end
       rescue Exception => e
         message = e.message
