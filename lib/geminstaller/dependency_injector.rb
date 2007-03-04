@@ -63,6 +63,7 @@ module GemInstaller
       @missing_dependency_finder = GemInstaller::MissingDependencyFinder.new
       @missing_dependency_finder.gem_command_manager = @gem_command_manager
       @missing_dependency_finder.gem_arg_processor = @gem_arg_processor
+      @missing_dependency_finder.output_proxy = @output_proxy
 
       @install_processor = GemInstaller::InstallProcessor.new
       @install_processor.options = @options
