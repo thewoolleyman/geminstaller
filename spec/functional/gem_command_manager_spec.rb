@@ -123,6 +123,15 @@ context "a GemCommandManager instance" do
     # uninstall it again after we are done
     uninstall_gem(gem)
   end
+  
+  specify "should be able to list dependencies" do
+    install_gem = sample_dependent_gem
+    install_gem.install_options << '--include-dependencies'
+    install_gem(install_gem)
+    dependency_output = @gem_command_manager.dependency(sample_dependent_gem, sample_dependent_gem.install_options)
+    dependency_output.size.should==(1)
+    dependency_output[0].should==('stubgem (>= 1.0.0)')
+  end
 
   def install_gem(gem)
     @gem_command_manager.install_gem(gem)

@@ -42,6 +42,25 @@ module GemInstaller
       @gem_interaction_handler.parent_gem = gem
       run_gem_command('install',gem)
     end
+    
+    def dependency(gem, common_options)
+      # it would be great to use the dependency --pipe option, but unfortunately, rubygems has a bug
+      # up to at least 0.9.2 where the pipe options uses 'puts', instead of 'say', so we can't capture it
+      # with enhanced_stream_ui.  Patch submitted: 
+      # http://rubyforge.org/tracker/index.php?func=detail&aid=9020&group_id=126&atid=577
+      run_args = ["dependency",gem.name,"--version",gem.version]
+      run_args += common_options
+      output_lines = @gem_runner_proxy.run(run_args)
+      # dependency output has all lines in the first element
+      output_array = output_lines[0].split("\n")
+      # drop the first line which just echoes the dependent gem
+      output_array.shift
+      # drop all empty lines
+      output_array.reject! { |line| line == "" }
+      # strip leading space
+      output_array.each { |line| line.strip! }
+      output_array
+    end
 
     def run_gem_command(gem_command,gem)
       run_args = [gem_command,gem.name,"--version", "#{gem.version}"]
