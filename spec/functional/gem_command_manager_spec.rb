@@ -99,8 +99,7 @@ context "a GemCommandManager instance" do
     uninstall_gem(@sample_dependency_gem)
   end
   
-  specify "should be able to automatically install a multiplatform dependency gem 
-           when a multiplatform dependent gem is installed" do
+  specify "should be able to automatically install a multiplatform dependency gem when a multiplatform dependent gem is installed" do
     uninstall_gem(@sample_dependent_multiplatform_gem)
     uninstall_gem(@sample_multiplatform_gem)
     @sample_dependent_multiplatform_gem.install_options << "-y"
