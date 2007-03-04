@@ -29,9 +29,8 @@ module GemInstaller
     def fix_dependencies(gem)
       missing_dependencies = @missing_dependency_finder.find(gem)
       if missing_dependencies.size > 0
-        @output_proxy.sysout("Missing dependencies found for #{gem.name} (#{gem.version})\n")
         missing_dependencies.each do |missing_dependency|
-          @output_proxy.sysout("  #{missing_dependency.name} (#{missing_dependency.version})\n")
+          @output_proxy.sysout("Installing #{missing_dependency.name} (#{missing_dependency.version})\n")
         end
       end
     end

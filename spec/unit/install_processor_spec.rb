@@ -23,8 +23,7 @@ context "an InstallProcessor instance with fix_dependencies option set to true" 
   end
 
   specify "should print message and fix dependencies if dependencies are found" do
-    @mock_output_proxy.should_receive(:sysout).once.with(/Missing dependencies found for #{@sample_dependent_gem.name} \(#{@sample_dependent_gem.version}\)/)
-    @mock_output_proxy.should_receive(:sysout).once.with(/  #{@sample_gem.name} \(#{@sample_gem.version}\)/)
+    @mock_output_proxy.should_receive(:sysout).once.with(/Installing #{@sample_gem.name} \(#{@sample_gem.version}\)/)
     @mock_gem_command_manager.should_receive(:is_gem_installed?).once.with(@sample_dependent_gem).and_return(true)
     @mock_missing_dependency_finder.should_receive(:find).once.with(@sample_dependent_gem).and_return([@sample_gem])
     @install_processor.process([@sample_dependent_gem])
