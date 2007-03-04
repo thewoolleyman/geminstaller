@@ -5,6 +5,7 @@ include GemInstaller::SpecUtils
 context "an InstallProcessor instance with no options passed" do
   setup do
     install_processor_spec_setup_common
+    @sample_gem.fix_dependencies = false
   end
 
   specify "should install a gem" do
@@ -15,9 +16,24 @@ context "an InstallProcessor instance with no options passed" do
   end  
 end
 
+context "an InstallProcessor instance with fix_dependencies option set to true" do
+  setup do
+    install_processor_spec_setup_common
+    @sample_dependent_gem = sample_dependent_gem
+  end
+
+  specify "should print message and fix dependencies if dependencies are found" do
+    @mock_output_proxy.should_receive(:sysout).once.with(/Missing dependency.*#{@sample_gem.name}.*(#{@sample_gem.version})/)
+    @mock_gem_command_manager.should_receive(:is_gem_installed?).once.with(@sample_dependent_gem).and_return(true)
+    @mock_missing_dependency_finder.should_receive(:find).once.with([@sample_dependent_gem]).and_return([@sample_gem])
+    @install_processor.process([@sample_dependent_gem])
+  end  
+end
+
 context "an InstallProcessor instance invoked with info, quiet options passed" do
   setup do
     install_processor_spec_setup_common
+    @sample_gem.fix_dependencies = false
     @options[:info] = true
     @options[:quiet] = true
   end
@@ -33,6 +49,7 @@ end
 context "an InstallProcessor instance invoked with quiet option" do
   setup do
     install_processor_spec_setup_common
+    @sample_gem.fix_dependencies = false
     @options[:quiet] = true
   end
 
@@ -48,7 +65,6 @@ context "an InstallProcessor instance invoked with quiet option" do
     @mock_gem_command_manager.should_receive(:is_gem_installed?).once.with(@sample_gem).and_return(true)
     @install_processor.process([@sample_gem])
   end
-
 end
 
 
@@ -58,12 +74,14 @@ def install_processor_spec_setup_common
   @mock_gem_command_manager = mock("Mock GemCommandManager")
   @mock_output_proxy = mock("Mock Output Proxy")
   @mock_gem_list_checker = mock("Mock GemListChecker")
+  @mock_missing_dependency_finder = mock("Mock MissingDependencyFinder")
   @options = {}
 
   @install_processor.gem_list_checker = @mock_gem_list_checker
   @install_processor.gem_command_manager = @mock_gem_command_manager
   @install_processor.options = @options
   @install_processor.output_proxy = @mock_output_proxy
+  @install_processor.missing_dependency_finder = @mock_missing_dependency_finder
 
   @sample_gem = sample_gem
 end

@@ -1,9 +1,21 @@
 module GemInstaller
   class InstallProcessor
-    attr_writer :gem_list_checker, :gem_command_manager, :options, :output_proxy
+    attr_writer :gem_list_checker, :gem_command_manager, :missing_dependency_finder, :options, :output_proxy
     def process(gems)
+      fix_dependencies(gems)
       gems.each do |gem|
         install_gem(gem)
+      end
+    end
+    
+    def fix_dependencies(gems)
+      gems.each do |gem|
+        if gem.fix_dependencies
+          missing_dependencies = @missing_dependency_finder.find([gem])
+          missing_dependencies.each do |gem|
+            @output_proxy.sysout("Missing dependency: #{gem.name} (#{gem.version})\n")
+          end
+        end
       end
     end
     
