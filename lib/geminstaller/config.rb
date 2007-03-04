@@ -30,12 +30,18 @@ module GemInstaller
           check_for_upgrade = @default_check_for_upgrade
         end
 
+        fix_dependencies = gem_def['fix_dependencies']
+        if fix_dependencies.nil? && defined? @default_fix_dependencies then
+          fix_dependencies = @default_fix_dependencies
+        end
+
         gem = GemInstaller::RubyGem.new(
           name, 
           :version => version, 
           :platform => platform, 
           :install_options => install_options_array, 
-          :check_for_upgrade => check_for_upgrade)
+          :check_for_upgrade => check_for_upgrade,
+          :fix_dependencies => fix_dependencies)
         gems << gem
       end
       gems.sort!
@@ -49,6 +55,7 @@ module GemInstaller
       return if defaults.nil?
       @default_install_options_string = defaults['install_options']
       @default_check_for_upgrade = defaults['check_for_upgrade']
+      @default_fix_dependencies = defaults['fix_dependencies']
     end
   end
 end

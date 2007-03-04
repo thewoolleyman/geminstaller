@@ -7,9 +7,12 @@ context "a config builder with a single config file path" do
     config_builder_spec_common_setup
   end
 
-  specify "should successfully assemble a config object" do
+  specify "should successfully assemble a config object with default overrides" do
     @config.gems[0].name.should==("testgem1")
+    @config.gems[0].check_for_upgrade.should==(true)
+    @config.gems[0].fix_dependencies.should==(false)
     @config.gems[1].check_for_upgrade.should==(false)
+    @config.gems[1].fix_dependencies.should==(true)
   end
 
   specify "should have code coverage for default config file path" do
@@ -27,7 +30,8 @@ context "a config builder with multiple config file paths" do
   
   specify "should successfully assemble a config object" do
     @config.gems[0].name.should==("testgem1")
-    @config.gems[0].check_for_upgrade.should==(false)
+    @config.gems[0].check_for_upgrade.should==(true)
+    @config.gems[0].fix_dependencies.should==(false)
     
     @config.gems[1].name.should==("testgem1")
     @config.gems[1].version.should==("v2.0")

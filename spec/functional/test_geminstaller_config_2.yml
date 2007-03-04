@@ -3,6 +3,7 @@ defaults:
 gems:
   - name: testgem1
     version: v2.0
+    fix_dependences: false
   - name: testgem2
     version: v1.2
     install_options: --backtrace    

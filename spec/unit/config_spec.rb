@@ -9,7 +9,8 @@ context "config YAML containing a single gem" do
           version: '> 0.1.2.3'
           platform: ruby
           install_options: -y
-          check_for_upgrade: false
+          check_for_upgrade: true
+          fix_dependencies: false
     STRING_END
     @yaml = YAML.load(@yaml_text)
     @config = GemInstaller::Config.new(@yaml)
@@ -21,7 +22,8 @@ context "config YAML containing a single gem" do
     gem.version.should==('> 0.1.2.3')
     gem.platform.should==('ruby')
     gem.install_options.should==(["-y"])
-    gem.check_for_upgrade.should==(false)
+    gem.check_for_upgrade.should==(true)
+    gem.fix_dependencies.should==(false)
   end
 end
 

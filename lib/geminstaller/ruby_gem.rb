@@ -1,7 +1,7 @@
 module GemInstaller
   class RubyGem
     include Comparable
-    attr_accessor :name, :version, :platform, :install_options, :check_for_upgrade
+    attr_accessor :name, :version, :platform, :install_options, :check_for_upgrade, :fix_dependencies
 
     def initialize(name, opts={})
       @name = name
@@ -16,6 +16,7 @@ module GemInstaller
       end
       @install_options = opts[:install_options] ||= []
       @check_for_upgrade = opts[:check_for_upgrade] == true ? true : false
+      @fix_dependencies = opts[:fix_dependencies] == false ? false : true
     end
 
     def self.default_version
