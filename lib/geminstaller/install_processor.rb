@@ -2,20 +2,8 @@ module GemInstaller
   class InstallProcessor
     attr_writer :gem_list_checker, :gem_command_manager, :missing_dependency_finder, :options, :output_proxy
     def process(gems)
-      fix_dependencies(gems)
       gems.each do |gem|
         install_gem(gem)
-      end
-    end
-    
-    def fix_dependencies(gems)
-      gems.each do |gem|
-        if gem.fix_dependencies
-          missing_dependencies = @missing_dependency_finder.find([gem])
-          missing_dependencies.each do |gem|
-            @output_proxy.sysout("Missing dependency: #{gem.name} (#{gem.version})\n")
-          end
-        end
       end
     end
     
@@ -28,11 +16,25 @@ module GemInstaller
       gem_is_installed = @gem_command_manager.is_gem_installed?(gem)
       if gem_is_installed 
         @output_proxy.sysout("Gem #{gem.name}, version #{gem.version} is already installed.\n") if @options[:info]
+        if gem.fix_dependencies
+          fix_dependencies(gem)
+        end
       else
         @gem_list_checker.verify_and_specify_remote_gem!(gem) unless already_specified
         @output_proxy.sysout("Installing gem #{gem.name}, version #{gem.version}.\n") if @options[:info]
         @gem_command_manager.install_gem(gem)
       end
     end
+
+    def fix_dependencies(gem)
+      missing_dependencies = @missing_dependency_finder.find(gem)
+      if missing_dependencies.size > 0
+        @output_proxy.sysout("Missing dependencies found for #{gem.name} (#{gem.version})\n")
+        missing_dependencies.each do |missing_dependency|
+          @output_proxy.sysout("  #{missing_dependency.name} (#{missing_dependency.version})\n")
+        end
+      end
+    end
+    
   end
 end
