@@ -10,9 +10,7 @@ module GemInstaller
         config = @config_builder.build_config
         gems = config.gems
         print_startup_message(gems) unless @options[:quiet]
-        gems.each do |gem|
-          @install_processor.process(gem)
-        end
+        @install_processor.process(gems)
       rescue Exception => e
         message = e.message
         message += "\n"

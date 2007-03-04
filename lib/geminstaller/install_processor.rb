@@ -1,7 +1,13 @@
 module GemInstaller
   class InstallProcessor
     attr_writer :gem_list_checker, :gem_command_manager, :options, :output_proxy
-    def process(gem)
+    def process(gems)
+      gems.each do |gem|
+        install_gem(gem)
+      end
+    end
+    
+    def install_gem(gem)
       already_specified = false
       if gem.check_for_upgrade
         @gem_list_checker.verify_and_specify_remote_gem!(gem)

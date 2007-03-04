@@ -13,7 +13,7 @@ context "an application instance invoked with no args" do
     
     gems = [@stub_gem]
     @stub_config.should_receive(:gems).and_return(gems)
-    @mock_install_processor.should_receive(:process).once.with(@stub_gem)
+    @mock_install_processor.should_receive(:process).once.with(gems)
     @mock_output_proxy.should_receive(:sysout).once().with(/GemInstaller is verifying gem installation: gemname 1.0/)
     @application.run
   end
@@ -24,8 +24,7 @@ context "an application instance invoked with no args" do
     @stub_gem2 = GemInstaller::RubyGem.new("gemname2")
     gems = [@stub_gem, @stub_gem2]
     @stub_config.should_receive(:gems).and_return(gems)
-    @mock_install_processor.should_receive(:process).once.with(@stub_gem)
-    @mock_install_processor.should_receive(:process).once.with(@stub_gem2)
+    @mock_install_processor.should_receive(:process).once.with(gems)
     @mock_output_proxy.should_receive(:sysout).once().with(/GemInstaller is verifying gem installation: gemname 1.0, gemname2 > 0.0.0/)
     @application.run
   end
@@ -46,7 +45,7 @@ context "an application instance invoked with no args and info, quiet options" d
     @stub_gem.check_for_upgrade = false
     gems = [@stub_gem]
     @stub_config.should_receive(:gems).and_return(gems)
-    @mock_install_processor.should_receive(:process).once.with(@stub_gem)
+    @mock_install_processor.should_receive(:process).once.with(gems)
     @application.run
   end
 end
@@ -65,7 +64,7 @@ context "an application instance invoked with no args and quiet option" do
     @stub_gem.check_for_upgrade = false
     gems = [@stub_gem]
     @stub_config.should_receive(:gems).and_return(gems)
-    @mock_install_processor.should_receive(:process).once.with(@stub_gem)
+    @mock_install_processor.should_receive(:process).once.with(gems)
     @application.run
   end
 
@@ -75,7 +74,7 @@ context "an application instance invoked with no args and quiet option" do
     @stub_gem.check_for_upgrade = false
     gems = [@stub_gem]
     @stub_config.should_receive(:gems).and_return(gems)
-    @mock_install_processor.should_receive(:process).once.with(@stub_gem)
+    @mock_install_processor.should_receive(:process).once.with(gems)
     @application.run
   end
 
@@ -85,7 +84,7 @@ context "an application instance invoked with no args and quiet option" do
     @stub_gem.check_for_upgrade = true
     gems = [@stub_gem]
     @stub_config.should_receive(:gems).and_return(gems)
-    @mock_install_processor.should_receive(:process).once.with(@stub_gem)
+    @mock_install_processor.should_receive(:process).once.with(gems)
     @application.run
   end
 
@@ -145,7 +144,7 @@ context "an application instance invoked with alternate config file location" do
     
     gems = [@stub_gem]
     @stub_config.should_receive(:gems).and_return(gems)
-    @mock_install_processor.should_receive(:process).once.with(@stub_gem)
+    @mock_install_processor.should_receive(:process).once.with(gems)
     @application.run
   end
 end
