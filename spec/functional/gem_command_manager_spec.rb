@@ -11,6 +11,7 @@ context "a GemCommandManager instance" do
     @sample_gem = sample_gem
     @sample_dependent_gem = sample_dependent_gem
     @sample_multiplatform_gem = sample_multiplatform_gem
+    @sample_dependent_multiplatform_gem = sample_dependent_multiplatform_gem
     @nonexistent_version_sample_gem = GemInstaller::RubyGem.new(sample_gem_name, :version => "0.0.37", :install_options => install_options_for_testing)
     @unspecified_version_sample_gem = GemInstaller::RubyGem.new(sample_gem_name,:install_options => install_options_for_testing)
     @registry = GemInstaller::create_registry
@@ -84,35 +85,32 @@ context "a GemCommandManager instance" do
     end
   end
   
-  specify "should be able to automatically install a dependency gem if dependent gem is installed" do
-    @sample_dependent_gem = sample_dependent_gem
+  specify "should be able to automatically install a dependency gem when dependent gem is installed" do
     @sample_dependency_gem = sample_gem
     uninstall_gem(@sample_dependent_gem)
-    uninstall_gem(@sample_dependency_gem)
+    uninstall_gem(@sample_gem)
     @sample_dependent_gem.install_options << "-y"
     install_gem(@sample_dependent_gem)
-    @gem_command_manager.is_gem_installed?(@sample_dependency_gem).should==(true)
+    @gem_command_manager.is_gem_installed?(@sample_gem).should==(true)
   
-    # uninstall it again after we are done
+    # uninstall it again after we are done - clearing out -y option
     @sample_dependent_gem = sample_dependent_gem
     uninstall_gem(@sample_dependent_gem)
     uninstall_gem(@sample_dependency_gem)
   end
   
   specify "should be able to automatically install a multiplatform dependency gem 
-           if a multiplatform dependent gem is installed" do
-    @sample_dependent_gem = sample_dependent_multiplatform_gem
-    @sample_dependency_gem = sample_multiplatform_gem
-    uninstall_gem(@sample_dependent_gem)
-    uninstall_gem(@sample_dependency_gem)
-    @sample_dependent_gem.install_options << "-y"
-    install_gem(@sample_dependent_gem)
-    @gem_command_manager.is_gem_installed?(@sample_dependency_gem).should==(true)
+           when a multiplatform dependent gem is installed" do
+    uninstall_gem(@sample_dependent_multiplatform_gem)
+    uninstall_gem(@sample_multiplatform_gem)
+    @sample_dependent_multiplatform_gem.install_options << "-y"
+    install_gem(@sample_dependent_multiplatform_gem)
+    @gem_command_manager.is_gem_installed?(@sample_multiplatform_gem).should==(true)
   
-    # uninstall it again after we are done
-    @sample_dependent_gem = sample_dependent_multiplatform_gem
-    uninstall_gem(@sample_dependent_gem)
-    uninstall_gem(@sample_dependency_gem)
+    # uninstall it again after we are done - clearing out -y option
+    @sample_dependent_multiplatform_gem = sample_dependent_multiplatform_gem
+    uninstall_gem(@sample_dependent_multiplatform_gem)
+    uninstall_gem(@sample_multiplatform_gem)
   end
   
   specify "should be able to install and uninstall a gem with the 'current' platform" do
@@ -142,5 +140,4 @@ context "a GemCommandManager instance" do
     @gem_command_manager.uninstall_gem(sample_dependent_gem)
     @gem_command_manager.uninstall_gem(@sample_gem)
   end
-  
 end
