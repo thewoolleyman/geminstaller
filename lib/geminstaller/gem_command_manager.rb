@@ -2,9 +2,9 @@ module GemInstaller
   class GemCommandManager
     attr_writer :gem_source_index_proxy, :gem_runner_proxy, :gem_interaction_handler
     
-    def list_remote_gem(gem, list_options)
+    def list_remote_gem(gem, additional_options)
       run_args = ["list",gem.name,"--remote"]
-      run_args += list_options
+      run_args += additional_options
       @gem_runner_proxy.run(run_args)
     end
 
@@ -43,13 +43,13 @@ module GemInstaller
       run_gem_command('install',gem)
     end
     
-    def dependency(gem, common_options)
+    def dependency(gem, additional_options)
       # it would be great to use the dependency --pipe option, but unfortunately, rubygems has a bug
       # up to at least 0.9.2 where the pipe options uses 'puts', instead of 'say', so we can't capture it
       # with enhanced_stream_ui.  Patch submitted: 
       # http://rubyforge.org/tracker/index.php?func=detail&aid=9020&group_id=126&atid=577
       run_args = ["dependency",gem.name,"--version",gem.version]
-      run_args += common_options
+      run_args += additional_options
       output_lines = @gem_runner_proxy.run(run_args)
       # dependency output has all lines in the first element
       output_array = output_lines[0].split("\n")

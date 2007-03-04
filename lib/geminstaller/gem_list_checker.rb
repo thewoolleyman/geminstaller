@@ -4,8 +4,8 @@ module GemInstaller
     
     def find_remote_matching_gem(gem)
       gem_list_match_regexp =  /^#{gem.regexp_escaped_name} \(.*/
-      list_command_args = @gem_arg_processor.strip_non_common_gem_args(gem.install_options)
-      remote_list = @gem_command_manager.list_remote_gem(gem, list_command_args)
+      common_args = @gem_arg_processor.strip_non_common_gem_args(gem.install_options)
+      remote_list = @gem_command_manager.list_remote_gem(gem, common_args)
 
       matched_lines = []
       remote_list.each do |line|
