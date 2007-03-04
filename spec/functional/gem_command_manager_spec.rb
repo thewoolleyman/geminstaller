@@ -124,10 +124,14 @@ context "a GemCommandManager instance" do
     uninstall_gem(gem)
   end
   
-  specify "should be able to list dependencies" do
-    install_gem = sample_dependent_gem
-    install_gem.install_options << '--include-dependencies'
-    install_gem(install_gem)
+  specify "should be able to list dependencies based on exact name match" do
+    nonmatching_gem = sample_dependent_multiplatform_gem
+    nonmatching_gem.install_options << '--include-dependencies'
+    install_gem(nonmatching_gem)
+    
+    matching_gem = sample_dependent_gem
+    matching_gem.install_options << '--include-dependencies'
+    install_gem(matching_gem)
     dependency_output = @gem_command_manager.dependency(sample_dependent_gem, sample_dependent_gem.install_options)
     dependency_output.size.should==(1)
     dependency_output[0].should==('stubgem (>= 1.0.0)')
@@ -144,9 +148,10 @@ context "a GemCommandManager instance" do
   end
   
   teardown do
-    sample_dependent_gem = @sample_dependent_gem.dup
-    sample_dependent_gem.install_options << '-i'
-    @gem_command_manager.uninstall_gem(sample_dependent_gem)
-    @gem_command_manager.uninstall_gem(@sample_gem)
+    [sample_gem, sample_dependent_gem, sample_multiplatform_gem, sample_dependent_multiplatform_gem].each do |gem|
+      uninstall_gem = gem.dup
+      uninstall_gem.install_options << '-i'
+      @gem_command_manager.uninstall_gem(uninstall_gem)
+    end
   end
 end

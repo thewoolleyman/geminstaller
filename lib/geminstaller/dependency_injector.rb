@@ -13,7 +13,7 @@ module GemInstaller
   class Registry
     attr_accessor :file_reader, :yaml_loader, :output_proxy, :config_builder, :gem_source_index, :gem_runner_proxy
     attr_accessor :gem_runner, :gem_command_manager, :gem_list_checker, :app, :arg_parser, :options, :noninteractive_chooser
-    attr_accessor :gem_interaction_handler, :install_processor
+    attr_accessor :gem_interaction_handler, :install_processor, :missing_dependency_finder
 
     def initialize
       @options = {}
@@ -59,6 +59,10 @@ module GemInstaller
       @gem_list_checker.gem_command_manager = @gem_command_manager
       @gem_list_checker.gem_arg_processor = @gem_arg_processor
       @gem_list_checker.version_specifier = @version_specifier
+
+      @missing_dependency_finder = GemInstaller::MissingDependencyFinder.new
+      @missing_dependency_finder.gem_command_manager = @gem_command_manager
+      @missing_dependency_finder.gem_arg_processor = @gem_arg_processor
 
       @install_processor = GemInstaller::InstallProcessor.new
       @install_processor.options = @options
