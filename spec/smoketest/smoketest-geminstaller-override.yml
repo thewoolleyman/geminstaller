@@ -6,6 +6,6 @@ gems:
   - name: ruby-doom
     version: 0.8
   - name: x10-cm17a
-    version: '> 1.0.0'
+    version: '1.0.1'
     platform: <%= RUBY_PLATFORM =~ /mswin/ ? 'i386-mswin32' : 'ruby'%>
     

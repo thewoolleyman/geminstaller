@@ -15,16 +15,28 @@
 # (or change the ownership/permissions of your gems installation to the current user)
 
 use_sudo = true
-test_gems = ['ruby-doom', 'rutils', 'x10-cm17a']
 
-print "Important Note: Before running this, you should make sure you don't have the geminstaller gem installed locally.  Otherwise, you could run the installed version rather than the version in your working copy.\n\n"
-print "This will uninstall the following gems and reinstall them with geminstaller.  If you don't want that to happen, kill it now (oops it's too late, you should have read the comments first!)\n\n"
-test_gems.each {|gem| print "  " + gem + "\n"}
+# heckle -> hoe -> rubyforge show a three-level dependency
+test_gems = ['ruby-doom', 'rutils', 'x10-cm17a', 'heckle', 'hoe', 'rubyforge']
+expected_versions = {
+  'ruby-doom' => ['0.8'],
+  'rutils' => ['0.1.3','0.1.9'],
+  'x10-cm17a' => ['1.0.1']
+}
 
 is_windows = RUBY_PLATFORM =~ /mswin/ ? true : false
+gem_cmd = is_windows ? 'gem.bat' : 'gem'
+
+print "Important Note: Before running this, you should make sure you don't have the geminstaller gem installed locally.  Otherwise, you could run the installed version rather than the version in your working copy.\n\n"
+print "This will uninstall the following gems and reinstall them with geminstaller.  If that is OK, press 'y'\n\n"
+test_gems.each {|gem| print "  " + gem + "\n"}
+response = gets
+exit unless response.index('y')
+
+print "Here's the versions you currently have installed (if any), just in case this fails and you have to reinstall them manually:\n\n"
+IO.popen("#{gem_cmd} list #{test_gems.join(' ')}")
 
 use_sudo = false
-gem_cmd = is_windows ? 'gem.bat' : 'gem'
 sudo = ''
 unless is_windows
   print "Enter y if you need to use sudo to install/uninstall gems, anything else to not use sudo:\n"
@@ -39,7 +51,7 @@ unless is_windows
 end
 test_gems.each do |gem|
   print "Uninstalling all versions of #{gem}.  This will give an error if it's not already installed.\n"
-  IO.popen("#{sudo} #{gem_cmd} uninstall -a #{gem}") do |process| 
+  IO.popen("#{sudo} #{gem_cmd} uninstall --all --ignore-dependencies --executables #{gem}") do |process| 
     process.readlines.each do |line| 
       print line
     end
@@ -74,9 +86,11 @@ missing_gems = ''
 test_gems.each do |gem|
   print "\nRunning gem list for #{gem}, verify that it contains the expected version(s)"
   gem_found = false
+  all_list_output = ''
   IO.popen("#{gem_cmd} list #{gem}") do |process| 
     process.readlines.each do |line|
       print line
+      all_list_output += " #{line}"
       gem_found = true if line.index(gem)
     end
   end
@@ -84,7 +98,16 @@ test_gems.each do |gem|
     success = false
     print "ERROR: #{gem} was not installed."
     missing_gems += "#{gem} "
-  end    
+  end
+  if expected_versions[gem]
+    expected_versions[gem].each do |version|
+      unless all_list_output.index(version)
+        success = false
+        print "ERROR: Version #{version} was not installed for #{gem}"
+        missing_gems += "#{gem} (#{version})"
+      end
+    end
+  end
 end
 
 print "\n\n"
