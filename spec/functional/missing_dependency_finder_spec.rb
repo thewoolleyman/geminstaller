@@ -38,14 +38,14 @@ context "a MissingDependencyFinder instance" do
     missing_dependencies[0].version.should==('>= 1.0.0')
     missing_dependencies[0].install_options.should_include('--no-test')
 
-    # @mock_output_proxy.should_receive(:sysout).once.with(/Missing dependencies found for #{@sample_dependent_multiplatform_gem.name} \(#{@sample_dependent_multiplatform_gem.version}\)/)
-    # @mock_output_proxy.should_receive(:sysout).once.with(/  #{@sample_multiplatform_gem.name} \(#{@sample_multiplatform_gem.version}\)/)
-    # missing_dependencies = @missing_dependency_finder.find(@sample_dependent_multiplatform_gem)
-    # missing_dependencies[0].name.should==(@sample_multiplatform_gem.name)
-    # missing_dependencies[0].version.should==('>= 1.0.0')
-    # missing_dependencies[0].install_options.should_include('--rdoc')
+    @mock_output_proxy.should_receive(:sysout).once.with(/Missing dependencies found for #{@sample_dependent_multiplatform_gem.name} \(1.0.0\)/)
+    @mock_output_proxy.should_receive(:sysout).once.with(/  #{@sample_multiplatform_gem.name} \(>= 1.0.0\)/)
+    missing_dependencies = @missing_dependency_finder.find(@sample_dependent_multiplatform_gem)
+    missing_dependencies[0].name.should==(@sample_multiplatform_gem.name)
+    missing_dependencies[0].version.should==('>= 1.0.0')
+    missing_dependencies[0].install_options.should_include('--rdoc')
   end
-  
+
   def install_gem(gem)
     @gem_command_manager.install_gem(gem)
     @gem_command_manager.is_gem_installed?(gem).should==(true)
