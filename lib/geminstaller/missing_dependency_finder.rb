@@ -8,6 +8,7 @@ module GemInstaller
       matching_gem_specs = @gem_command_manager.local_matching_gem_specs(gem)
       missing_dependencies = []
       install_options = gem.install_options
+      add_include_dependency_option(install_options)
       common_args = @gem_arg_processor.strip_non_common_gem_args(gem.install_options)
       matching_gem_specs.each do |matching_gem_spec|
         message_already_printed = false
@@ -29,6 +30,11 @@ module GemInstaller
         end
       end
       return missing_dependencies
+    end
+    
+    def add_include_dependency_option(install_options)
+      return if install_options.index('-y') or install_options.index('--include-dependencies')
+      install_options << '--include-dependencies'
     end
   end
 end

@@ -22,7 +22,7 @@ context "a MissingDependencyFinder instance" do
     end
   end
 
-  specify "should return all missing dependencies, and inherit install_options from dependent" do
+  specify "should return all missing dependencies, and inherit install_options from dependent, and force --include-dependencies option if not already set" do
     # uninstall the dependencies
     [@sample_gem, @sample_multiplatform_gem].each do |gem|
       gem.install_options << '--ignore-dependencies'
@@ -30,6 +30,7 @@ context "a MissingDependencyFinder instance" do
     end
     @sample_dependent_gem.install_options << '--no-test'
     @sample_dependent_multiplatform_gem.install_options << '--rdoc'
+    @sample_dependent_multiplatform_gem.install_options << '-y'
 
     @mock_output_proxy.should_receive(:sysout).once.with(/Missing dependencies found for #{@sample_dependent_gem.name} \(1.0.0\)/m)
     @mock_output_proxy.should_receive(:sysout).once.with(/  #{@sample_gem.name} \(>= 1.0.0\)/)
@@ -37,6 +38,7 @@ context "a MissingDependencyFinder instance" do
     missing_dependencies[0].name.should==(@sample_gem.name)
     missing_dependencies[0].version.should==('>= 1.0.0')
     missing_dependencies[0].install_options.should_include('--no-test')
+    missing_dependencies[0].install_options.should_include('--include-dependencies')
 
     @mock_output_proxy.should_receive(:sysout).once.with(/Missing dependencies found for #{@sample_dependent_multiplatform_gem.name} \(1.0.0\)/)
     @mock_output_proxy.should_receive(:sysout).once.with(/  #{@sample_multiplatform_gem.name} \(>= 1.0.0\)/)
@@ -44,6 +46,7 @@ context "a MissingDependencyFinder instance" do
     missing_dependencies[0].name.should==(@sample_multiplatform_gem.name)
     missing_dependencies[0].version.should==('>= 1.0.0')
     missing_dependencies[0].install_options.should_include('--rdoc')
+    missing_dependencies[0].install_options.should_include('-y')
   end
 
   def install_gem(gem)
