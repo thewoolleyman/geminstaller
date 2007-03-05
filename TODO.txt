@@ -1,4 +1,5 @@
-* Dependencies are not checked if gem is already installed (e.g. uninstall actionmailer and start rails app)
+* make smoketest test fix_dependencies
+* Rails app is looking on some random machine for gems, not rubyforge.
 * dependency gems should print installing message to info as well as parent gem
 * make all possible attempts install dependent gems.  If match fails, and parent gem was /win/, try to match that.  Maybe print warnings if the platform does not match one of the valid ones in RubyGems?  Maybe a guess_platform flag, true by default?
 * spec_utils global teardown method which uninstalls all gems
