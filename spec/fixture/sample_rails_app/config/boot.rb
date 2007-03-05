@@ -20,6 +20,9 @@ end
 # this is the Rails GemInstaller setup if you DO require root access to install gems
 system "geminstaller --sudo --info --config=#{RAILS_ROOT}/config/geminstaller.yml"
 
+# this will allow you to debug against a local checkout of geminstaller - make sure the gem is not installed
+#system "ruby /Users/woolley/workspace/geminstaller/bin/geminstaller --sudo --info --verbose --config=#{RAILS_ROOT}/config/geminstaller.yml"
+
 unless defined?(Rails::Initializer)
   if File.directory?("#{RAILS_ROOT}/vendor/rails")
     require "#{RAILS_ROOT}/vendor/rails/railties/lib/initializer"
