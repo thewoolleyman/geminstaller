@@ -31,6 +31,10 @@ module GemInstaller
       if missing_dependencies.size > 0
         missing_dependencies.each do |missing_dependency|
           @output_proxy.sysout("Installing #{missing_dependency.name} (#{missing_dependency.version})\n")
+          # recursively call install_gem to install the missing dependency.  Since fix_dependencies
+          # should never be set on an auto-created missing dependency gem, there is no risk of an 
+          # endless loop or stack overflow.
+          install_gem(missing_dependency)
         end
       end
     end
