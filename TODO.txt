@@ -1,6 +1,4 @@
 * make smoketest test fix_dependencies
-* Rails app is looking on some random machine for gems, not rubyforge when trying to fix missing actionmailer dependency: Errno::ECONNREFUSED reading http://chadlin:4567/gems/actionmailer-1.2.5.gem.
-* rails app didn't fix missing dependency: "RubyGem version error: activerecord(1.15.2 not = 1.14.4) "
 * dependency gems should print installing message to info as well as parent gem
 * make all possible attempts install dependent gems.  If match fails, and parent gem was /win/, try to match that.  Maybe print warnings if the platform does not match one of the valid ones in RubyGems?  Maybe a guess_platform flag, true by default?
 * spec_utils global teardown method which uninstalls all gems
