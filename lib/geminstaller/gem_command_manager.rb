@@ -55,6 +55,10 @@ module GemInstaller
       output_array = output_lines[0].split("\n")
       # drop the first line which just echoes the dependent gem
       output_array.shift
+      # drop the line containing 'requires' (rubygems < 0.9.0)
+      if output_array[0] == '  Requires'
+        output_array.shift
+      end
       # drop all empty lines
       output_array.reject! { |line| line == "" }
       # strip leading space
