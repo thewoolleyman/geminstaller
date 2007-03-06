@@ -1,6 +1,6 @@
 module GemInstaller
   class GemInteractionHandler
-    attr_writer :parent_gem, :noninteractive_chooser
+    attr_writer :dependent_gem, :noninteractive_chooser
     DEPENDENCY_PROMPT = 'Install required dependency'
     
     def handle_ask_yes_no(question)
@@ -13,11 +13,11 @@ module GemInstaller
     end
     
     def handle_choose_from_list(question, list)
-      if list[0] =~ /^#{@parent_gem.name}.*/
-        return choose_gem(@parent_gem.name,@parent_gem.version,@parent_gem.platform, question, list)
+      if list[0] =~ /^#{@dependent_gem.name}.*/
+        return choose_gem(@dependent_gem.name,@dependent_gem.version,@dependent_gem.platform, question, list)
       end
-      # choose the first gem with a platform matching the parent gem
-      return choose_gem(nil,nil,@parent_gem.platform, question, list)
+      # choose the first gem with a platform matching the dependent gem
+      return choose_gem(nil,nil,@dependent_gem.platform, question, list)
     end
     
     def choose_gem(name, version, platform, question, list)

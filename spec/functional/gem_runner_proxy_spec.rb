@@ -70,7 +70,7 @@ context "a GemRunnerProxy instance" do
     gem_runner_args = ["install", "#{sample_multiplatform_gem_name}", "--remote"]
     gem_runner_args += install_options_for_testing
 
-    @gem_interaction_handler.parent_gem = sample_multiplatform_gem
+    @gem_interaction_handler.dependent_gem = sample_multiplatform_gem
     output = @gem_runner_proxy.run(gem_runner_args)
     output.join("\n").should_match(/Successfully installed #{sample_multiplatform_gem_name}-#{sample_multiplatform_gem_version}-mswin32/m)
   end

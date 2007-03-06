@@ -33,13 +33,13 @@ module GemInstaller
 
     def uninstall_gem(gem)
       return if !is_gem_installed?(gem)
-      @gem_interaction_handler.parent_gem = gem
+      @gem_interaction_handler.dependent_gem = gem
       run_gem_command('uninstall',gem)
     end
 
     def install_gem(gem)
       return if is_gem_installed?(gem)
-      @gem_interaction_handler.parent_gem = gem
+      @gem_interaction_handler.dependent_gem = gem
       run_gem_command('install',gem)
     end
     
