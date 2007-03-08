@@ -6,7 +6,7 @@ context "a NoninteractiveChooser instance which is passed an install-formatted l
     @noninteractive_chooser = GemInstaller::NoninteractiveChooser.new
     @question = "Select which gem to install for your platform (i686-darwin8.7.1)"
     @list = [
-      "stubgem 1.0.0 (ruby)",
+      "stubgem-multiplatform 2.0.0 (ruby)",
       "stubgem-multiplatform 1.0.1 (mswin32)",
       "stubgem-multiplatform 1.0.1 (ruby)",
       "stubgem-multiplatform 1.0.0 (mswin32)",
@@ -31,10 +31,31 @@ context "a NoninteractiveChooser instance which is passed an install-formatted l
     should_choose(0, nil, nil, "ruby")
   end
   
+  specify "should select first matching platform if list does not match name exactly (it's a dependency gem)" do
+    should_choose(1, 'stubgem', '1.2.3', "mswin32")
+  end
+end
+
+context "a NoninteractiveChooser instance which is passed an install-formatted list for a dependent gem" do
+  setup do
+    @noninteractive_chooser = GemInstaller::NoninteractiveChooser.new
+    @question = "Select which gem to install for your platform (i686-darwin8.7.1)"
+    @list = [
+      "stubgem-dependency 2.0.0 (ruby)",
+      "stubgem-dependency 1.0.1 (mswin32)",
+      "stubgem-dependency 1.0.1 (ruby)",
+      "stubgem-dependency 1.0.0 (mswin32)",
+      "stubgem-dependency 1.0.0 (ruby)",
+      "Cancel installation"
+      ]
+  end
+
+  specify "should select the first matching platform" do
+    should_choose(1, 'stubgem', '1.2.3', "mswin32")
+  end
+
   specify "should raise error if there is no match" do
-    should_raise_error("stubgem-nomatch", "1.0.0", "ruby")
-    should_raise_error("stubgem-multiplatform", "1.0.1", "nomatch")
-    should_raise_error("stubgem-multiplatform", "9", "mswin32")
+    should_raise_error("stubgem-nomatch", "1.0.0", "solaris")
   end
 end
 
@@ -43,11 +64,12 @@ context "a NoninteractiveChooser instance which is passed an uninstall-formatted
     @noninteractive_chooser = GemInstaller::NoninteractiveChooser.new
     @question = "Select RubyGem to uninstall"
     @list = [
-      "stubgem-1.0.0",
+      "stubgem-multiplatform 2.0.0 (ruby)",
       "stubgem-multiplatform-1.0.1-mswin32",
       "stubgem-multiplatform-1.0.1",
       "stubgem-multiplatform-1.0.0-mswin32",
       "stubgem-multiplatform-1.0.0",
+      "stubgem-1.0.0",
       "All versions"
       ]
   end
@@ -68,7 +90,11 @@ context "a NoninteractiveChooser instance which is passed an uninstall-formatted
     should_choose(0, nil, nil, "ruby")
   end
   
-  specify "should raise error if there is no match" do
+  specify "should do an exact name match (not substring)" do
+    should_choose(5, "stubgem", "1.0.0", "ruby")
+  end
+
+  specify "should properly select if there is no match" do
     should_raise_error("stubgem-nomatch", "1.0.0", "ruby")
     should_raise_error("stubgem-multiplatform", "1.0.1", "nomatch")
     should_raise_error("stubgem-multiplatform", "9", "mswin32")

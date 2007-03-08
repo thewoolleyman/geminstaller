@@ -71,8 +71,9 @@ context "a GemCommandManager instance" do
   end
   
   specify "should be able to install two gems with the same version but different platforms" do
-    @sample_multiplatform_gem_for_another_platform = sample_multiplatform_gem
+    @sample_multiplatform_gem_for_another_platform = sample_multiplatform_gem.dup
     @sample_multiplatform_gem_for_another_platform.platform = 'ruby'
+    uninstall_gem(@sample_multiplatform_gem)
     uninstall_gem(@sample_multiplatform_gem_for_another_platform)
     gems = [@sample_multiplatform_gem, @sample_multiplatform_gem_for_another_platform]
     gems.each do |gem|

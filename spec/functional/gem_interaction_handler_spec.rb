@@ -18,12 +18,16 @@ context "a GemInteractionHandler instance with a non-multiplatform dependent gem
     end
   end
 
-  specify "should call noninteractive_chooser for dependent gem if handle_choose_from_list is passed a list for the dependent gem" do
-    should_choose_properly
+  specify "should call noninteractive_chooser for dependent gem if handle_choose_from_list is passed an install-formatted list for the dependent gem" do
+    @gem_interaction_handler.dependent_gem = @dependent_gem
+    list = ["#{@dependent_gem.name} #{@dependent_gem.version} (#{@dependent_gem.platform})"]
+    should_choose_properly(list, 0)
   end
 
-  specify "should choose properly if handle_choose_from_list is passed a list for a non-dependent gem" do
-    should_choose_properly
+  specify "should choose properly if handle_choose_from_list is passed an install-formatted list for a non-dependent gem" do
+    @gem_interaction_handler.dependent_gem = @dependent_gem
+    list = ["#{@dependency_gem.name} #{@dependency_gem.version} (#{@dependency_gem.platform})"]
+    should_choose_properly(list, 0)
   end
 end
 
@@ -51,13 +55,11 @@ context "a GemInteractionHandler instance with a non-multiplatform dependent gem
   end
 end
 
-def should_choose_properly
-  @gem_interaction_handler.dependent_gem = @dependent_gem
+def should_choose_properly(list, expected_item_index)
   question = "Select which gem to install for your platform (i686-darwin8.7.1)"
-  list = ["#{@dependency_gem.name} #{@dependency_gem.version} (#{@dependency_gem.platform})"]
   item, index = @gem_interaction_handler.handle_choose_from_list(question, list)
-  item.should==(list[0])
-  index.should==(0)
+  item.should==(list[expected_item_index])
+  index.should==(expected_item_index)
 end
 
 def gem_interaction_handler_spec_setup_common(dependent_gem, dependency_gem)

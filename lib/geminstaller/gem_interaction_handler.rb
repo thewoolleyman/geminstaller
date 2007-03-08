@@ -13,15 +13,7 @@ module GemInstaller
     end
     
     def handle_choose_from_list(question, list)
-      if list[0] =~ /^#{@dependent_gem.name}.*/
-        return choose_gem(@dependent_gem.name,@dependent_gem.version,@dependent_gem.platform, question, list)
-      end
-      # choose the first gem with a platform matching the dependent gem
-      return choose_gem(nil,nil,@dependent_gem.platform, question, list)
-    end
-    
-    def choose_gem(name, version, platform, question, list)
-      @noninteractive_chooser.specify_gem_spec(name, version, platform)
+      @noninteractive_chooser.specify_gem_spec(@dependent_gem.name,@dependent_gem.version,@dependent_gem.platform)
       @noninteractive_chooser.choose(question, list)
     end
   end
