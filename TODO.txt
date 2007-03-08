@@ -1,3 +1,4 @@
+* write docs for fix_dependencies option
 * Use rubygems executables from test_gem_home.  In order to do this, we must run test_gem_home and ensure it is on the load path BEFORE the system installation of rubygems ever gets initialized.  We will also have to manually include all geminstaller test dependency gems in test_gem_home or on the path.  Tried this once and failed, patch on linux box...
 * make smoketest test fix_dependencies
 * dependency gems should print installing message to info as well as parent gem
