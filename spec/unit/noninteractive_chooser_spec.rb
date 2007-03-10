@@ -59,9 +59,8 @@ context "a NoninteractiveChooser instance which is passed an install-formatted l
   end
 
   specify "should have properly formatted error" do
-    @noninteractive_chooser.specify_gem_spec("stubgem-nomatch", "1.0.0", "solaris")
     begin
-      @noninteractive_chooser.choose(@question, @list)
+      @noninteractive_chooser.choose(@question, @list, "stubgem-nomatch", "1.0.0", "solaris")
     rescue GemInstaller::GemInstallerError => e
       @list.collect! do |item|
         Regexp.escape(item)
@@ -116,13 +115,11 @@ context "a NoninteractiveChooser instance which is passed an uninstall-formatted
 end
 
 def should_choose(expected_choice, name, version, platform)
-  @noninteractive_chooser.specify_gem_spec(name, version, platform)
-  string, index = @noninteractive_chooser.choose(@question, @list)
+  string, index = @noninteractive_chooser.choose(@question, @list, name, version, platform)
   index.should==(expected_choice)
 end
 
 def should_raise_error(name, version, platform)
-  @noninteractive_chooser.specify_gem_spec(name, version, platform)
-  lambda{ @noninteractive_chooser.choose(@question, @list) }.should_raise(GemInstaller::GemInstallerError)
+  lambda{ @noninteractive_chooser.choose(@question, @list, name, version, platform) }.should_raise(GemInstaller::GemInstallerError)
 end
 

@@ -2,15 +2,12 @@ module GemInstaller
   # Format for "install" prompt list: "#{spec.name} #{spec.version} (#{spec.platform})"
   # Format for "uninstall" prompt list: "#{spec.name}-#{spec.version}" for ruby,  "#{spec.name}-#{spec.version}-#{spec.platform}" (gem.full_name) for binary
   class NoninteractiveChooser
-    def specify_gem_spec(name, version, platform)
-      @dependent_gem_name = name
-      @dependent_gem_version = version
-      @dependent_gem_platform = platform
-    end
-
-    def choose(question, list)
+    def choose(question, list, dependent_gem_name, dependent_gem_version, dependent_gem_platform)
       @question = question
       @list = list
+      @dependent_gem_name = dependent_gem_name
+      @dependent_gem_version = dependent_gem_version
+      @dependent_gem_platform = dependent_gem_platform
       raise GemInstaller::GemInstallerError.new("Internal GemInstaller Error, unexpected question: '#{question}'") unless
         install_list_type? or uninstall_list_type?
 
