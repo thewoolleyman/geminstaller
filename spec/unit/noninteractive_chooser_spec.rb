@@ -57,6 +57,20 @@ context "a NoninteractiveChooser instance which is passed an install-formatted l
   specify "should raise error if there is no match" do
     should_raise_error("stubgem-nomatch", "1.0.0", "solaris")
   end
+
+  specify "should have properly formatted error" do
+    @noninteractive_chooser.specify_gem_spec("stubgem-nomatch", "1.0.0", "solaris")
+    begin
+      @noninteractive_chooser.choose(@question, @list)
+    rescue GemInstaller::GemInstallerError => e
+      @list.collect! do |item|
+        Regexp.escape(item)
+      end
+      list_regexp = @list[0..4].join(".*")
+      tmp = "\"stubgem-nomatch 1.0.0 (solaris)\""
+      e.message.should_match(/.*Unable to select gem from list.*#{list_regexp}/m)
+    end
+  end
 end
 
 context "a NoninteractiveChooser instance which is passed an uninstall-formatted list of both non-binary and binary gems" do
