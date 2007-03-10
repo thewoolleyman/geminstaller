@@ -95,6 +95,10 @@ module GemInstaller::SpecUtils
     GemInstaller::RubyGem.new(sample_dependent_gem_name, :version => sample_dependent_gem_version, :install_options => install_options)
   end
   
+  def sample_dependent_depends_on_multiplatform_gem(install_options=install_options_for_testing)
+    GemInstaller::RubyGem.new('dependent-stubgem-depends-on-multiplatform', :version => sample_dependent_gem_version, :install_options => install_options)
+  end
+  
   def sample_multiplatform_gem(install_options=install_options_for_testing)
     GemInstaller::RubyGem.new(sample_multiplatform_gem_name, :version => sample_multiplatform_gem_version, :platform => 'mswin32', :install_options => install_options)
   end

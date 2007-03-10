@@ -21,6 +21,7 @@ context "a GemInteractionHandler instance with a non-multiplatform dependent gem
   specify "should call noninteractive_chooser for dependent gem if handle_choose_from_list is passed an install-formatted list for the dependent gem" do
     @gem_interaction_handler.dependent_gem = @dependent_gem
     list = ["#{@dependent_gem.name} #{@dependent_gem.version} (#{@dependent_gem.platform})"]
+    list << 'Cancel'
     should_choose_properly(list, 0)
   end
 
@@ -31,19 +32,23 @@ context "a GemInteractionHandler instance with a non-multiplatform dependent gem
   end
 end
 
-context "a GemInteractionHandler instance with a multiplatform dependent gem and non-multiplatform child gem" do
+context "a GemInteractionHandler instance with a multiplatform dependency gem and non-multiplatform dependent gem" do
   include GemInstaller::SpecUtils
   setup do
-    gem_interaction_handler_spec_setup_common(sample_dependent_multiplatform_gem, sample_gem)    
+    gem_interaction_handler_spec_setup_common(sample_dependent_depends_on_multiplatform_gem, sample_dependent_multiplatform_gem)    
   end
 
-  specify "should choose properly if handle_choose_from_list is passed a list for a non-dependent gem" do
-    # TODO: fix this - should make noninteractive_chooser take an array of possible valid platforms
-    #    should_choose_properly
+  specify "should choose multiplatform dependency gem before ruby platform" do
+    @gem_interaction_handler.dependent_gem = @dependent_gem
+    list = ["#{@dependency_gem.name} #{@dependency_gem.version} (#{GemInstaller::RubyGem.default_platform})"]
+    list << ["#{@dependency_gem.name} #{@dependency_gem.version} (#{@dependency_gem.platform})"]
+    list << 'Cancel'
+    # TODO: uncomment when test passes
+#    should_choose_properly(list, 1)
   end
 end
 
-context "a GemInteractionHandler instance with a non-multiplatform dependent gem and multiplatform child gem" do
+context "a GemInteractionHandler instance with a non-multiplatform dependency gem and multiplatform dependent gem" do
   include GemInstaller::SpecUtils
   setup do
     gem_interaction_handler_spec_setup_common(sample_dependent_gem, sample_multiplatform_gem)    
