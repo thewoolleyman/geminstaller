@@ -11,25 +11,10 @@ module GemInstaller
       raise GemInstaller::GemInstallerError.new("Internal GemInstaller Error, unexpected question: '#{question}'") unless
         install_list_type? or uninstall_list_type?
 
-      required_name_regexp = ".*?"
-      required_version_regexp = ".*?"
-      if uninstall_list_type? or dependent_gem?
-         # match the exact name and version if it's an uninstall prompt or a dependent gem
-        required_name_regexp = Regexp.escape(@dependent_gem_name) if @dependent_gem_name
-        required_version_regexp = Regexp.escape(@dependent_gem_version) if @dependent_gem_version
-      end
-      required_list_item = "#{required_name_regexp}[\s-]{0,1}#{required_version_regexp}"
-      # install list types always have the platform for each gem in parenthesis, even if it is ruby
-      if (install_list_type? && @dependent_gem_platform)
-        required_list_item += Regexp.escape(" (#{@dependent_gem_platform})")
-      end
-      # uninstall list types have the gem full_name, which is the platform for each gem appended after a dash, but only if it is not ruby
-      if (uninstall_list_type? && @dependent_gem_platform && @dependent_gem_platform.to_s != GemInstaller::RubyGem.default_platform)
-        required_list_item += Regexp.escape("-#{@dependent_gem_platform}")
-      end
-      required_list_item_regex = /^#{required_list_item}$/
+      required_list_item_regexp = required_platform_and_version_regexp + required_platform_regexp
+      required_list_item_regexp = /^#{required_list_item_regexp}$/
       list.each_with_index do |item, index|
-        if (item =~ required_list_item_regex) != nil
+        if (item =~ required_list_item_regexp) != nil
           return item, index
         end
       end
@@ -46,7 +31,31 @@ module GemInstaller
       end
       raise GemInstaller::GemInstallerError.new(error_message)
     end
-  
+    
+    def required_platform_and_version_regexp
+      required_name_regexp = ".*?"
+      required_version_regexp = ".*?"
+      if uninstall_list_type? or dependent_gem?
+         # match the exact name and version if it's an uninstall prompt or a dependent gem
+        required_name_regexp = Regexp.escape(@dependent_gem_name) if @dependent_gem_name
+        required_version_regexp = Regexp.escape(@dependent_gem_version) if @dependent_gem_version
+      end
+      "#{required_name_regexp}[\s-]{0,1}#{required_version_regexp}"
+    end
+
+    def required_platform_regexp
+      required_platform = ""
+      # install list types always have the platform for each gem in parenthesis, even if it is ruby
+      if (install_list_type? && @dependent_gem_platform)
+        required_platform = " (#{@dependent_gem_platform})"
+      end
+      # uninstall list types have the gem full_name, which is the platform for each gem appended after a dash, but only if it is not ruby
+      if (uninstall_list_type? && @dependent_gem_platform && @dependent_gem_platform.to_s != GemInstaller::RubyGem.default_platform)
+        required_platform = "-#{@dependent_gem_platform}"
+      end
+      Regexp.escape(required_platform)
+    end
+    
     def install_list_type?
       @question =~ /to install/
     end
