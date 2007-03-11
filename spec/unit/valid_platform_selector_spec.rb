@@ -15,7 +15,7 @@ context "an ValidPlatformSelector with prefer_binary_platform == true and no dep
   end
 end
 
-context "an ValidPlatformSelector with prefer_binary_platform == true and some dependent_gem_platform passed" do
+context "an ValidPlatformSelector with prefer_binary_platform == true and a dependent_gem_platform passed" do
   setup do
     @valid_platform_selector = GemInstaller::ValidPlatformSelector.new
     @valid_platform_selector.prefer_binary_platform = true
@@ -23,6 +23,10 @@ context "an ValidPlatformSelector with prefer_binary_platform == true and some d
 
   specify "should select dependent_gem_platform first, RUBY_PLATFORM platform second, and default platform (ruby) last" do
     should_select_correct_valid_platforms("i686-darwin8.7.1", "some-other-platform", ['some-other-platform', '686-darwin', 'ruby'])
+  end
+
+  specify "should not duplicate dependent gem if it is the same as RUBY_PLATFORM" do
+    should_select_correct_valid_platforms("i686-darwin8.7.1", "i686-darwin8.7.1", ['686-darwin', 'ruby'])
   end
 end
 

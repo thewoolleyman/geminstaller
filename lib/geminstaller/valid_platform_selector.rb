@@ -12,7 +12,8 @@ module GemInstaller
       else
         valid_platforms.unshift('ruby')
       end
-      valid_platforms.unshift(dependent_gem_platform) if dependent_gem_platform
+      valid_platforms.unshift(dependent_gem_platform) if 
+        dependent_gem_platform && dependent_gem_platform != @ruby_platform
       valid_platforms
     end
     
