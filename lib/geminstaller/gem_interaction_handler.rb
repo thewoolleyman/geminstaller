@@ -13,7 +13,8 @@ module GemInstaller
     end
     
     def handle_choose_from_list(question, list)
-      @noninteractive_chooser.choose(question, list, @dependent_gem.name,@dependent_gem.version,@dependent_gem.platform)
+      valid_platforms = [@dependent_gem.platform]
+      @noninteractive_chooser.choose(question, list, @dependent_gem.name, @dependent_gem.version, valid_platforms)
     end
   end
 end

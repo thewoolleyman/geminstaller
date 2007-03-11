@@ -16,23 +16,23 @@ context "a NoninteractiveChooser instance which is passed an install-formatted l
   end
 
   specify "should properly select with a binary platform" do
-    should_choose(1, "stubgem-multiplatform", "1.0.1", "mswin32")
+    should_choose(1, "stubgem-multiplatform", "1.0.1", ["mswin32"])
   end
 
   specify "should properly select with a ruby platform" do
-    should_choose(2, "stubgem-multiplatform", "1.0.1", "ruby")
+    should_choose(2, "stubgem-multiplatform", "1.0.1", ["ruby"])
   end
 
   specify "should properly select with a binary platform and nil name/version" do
-    should_choose(1, nil, nil, "mswin32")
+    should_choose(1, nil, nil, ["mswin32"])
   end
   
   specify "should properly select with a ruby platform and nil name/version" do
-    should_choose(0, nil, nil, "ruby")
+    should_choose(0, nil, nil, ["ruby"])
   end
   
   specify "should select first matching platform if list does not match name exactly (it's a dependency gem)" do
-    should_choose(1, 'stubgem', '1.2.3', "mswin32")
+    should_choose(1, 'stubgem', '1.2.3', ["mswin32"])
   end
 end
 
@@ -51,23 +51,23 @@ context "a NoninteractiveChooser instance which is passed an install-formatted l
   end
 
   specify "should select the first matching platform" do
-    should_choose(1, 'stubgem', '1.2.3', "mswin32")
+    should_choose(1, 'stubgem', '1.2.3', ["mswin32"])
   end
 
   specify "should raise error if there is no match" do
-    should_raise_error("stubgem-nomatch", "1.0.0", "solaris")
+    should_raise_error("stubgem-nomatch", "1.0.0", ["solaris"])
   end
 
   specify "should have properly formatted error" do
     begin
-      @noninteractive_chooser.choose(@question, @list, "stubgem-nomatch", "1.0.0", "solaris")
+      @noninteractive_chooser.choose(@question, @list, "stubgem-nomatch", "1.0.0", ["solaris","mvs"])
     rescue GemInstaller::GemInstallerError => e
       @list.collect! do |item|
         Regexp.escape(item)
       end
       list_regexp = @list[0..4].join(".*")
-      tmp = "\"stubgem-nomatch 1.0.0 (solaris)\""
-      e.message.should_match(/.*Unable to select gem from list.*#{list_regexp}/m)
+      dependent_gem_regexp = Regexp.escape('"stubgem-nomatch 1.0.0 (solaris or mvs)"')
+      e.message.should_match(/.*Unable to select gem from list.*#{dependent_gem_regexp}.*#{list_regexp}/m)
     end
   end
 end
@@ -88,30 +88,35 @@ context "a NoninteractiveChooser instance which is passed an uninstall-formatted
   end
 
   specify "should properly select with a binary platform" do
-    should_choose(1, "stubgem-multiplatform", "1.0.1", "mswin32")
+    should_choose(1, "stubgem-multiplatform", "1.0.1", ["mswin32"])
   end
 
   specify "should properly select with a ruby platform" do
-    should_choose(2, "stubgem-multiplatform", "1.0.1", "ruby")
+    should_choose(2, "stubgem-multiplatform", "1.0.1", ["ruby"])
   end
 
   specify "should properly select with a binary platform and nil name/version" do
-    should_choose(1, nil, nil, "mswin32")
+    should_choose(1, nil, nil, ["mswin32"])
   end
   
   specify "should properly select with a ruby platform and nil name/version" do
-    should_choose(0, nil, nil, "ruby")
+    should_choose(0, nil, nil, ["ruby"])
   end
   
   specify "should do an exact name match (not substring)" do
-    should_choose(5, "stubgem", "1.0.0", "ruby")
+    should_choose(5, "stubgem", "1.0.0", ["ruby"])
   end
 
   specify "should properly select if there is no match" do
-    should_raise_error("stubgem-nomatch", "1.0.0", "ruby")
-    should_raise_error("stubgem-multiplatform", "1.0.1", "nomatch")
-    should_raise_error("stubgem-multiplatform", "9", "mswin32")
+    should_raise_error("stubgem-nomatch", "1.0.0", ["ruby"])
+    should_raise_error("stubgem-multiplatform", "1.0.1", ["nomatch"])
+    should_raise_error("stubgem-multiplatform", "9", ["mswin32"])
   end
+
+  specify "should raise error if there is more than one platform specified to uninstall" do
+    should_raise_error("stubgem", "1.0.0", ["ruby", "mswin32"])
+  end
+
 end
 
 def should_choose(expected_choice, name, version, platform)
