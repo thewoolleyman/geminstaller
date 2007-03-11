@@ -46,6 +46,7 @@ require File.expand_path("#{dir}/rubygems_exit")
 require File.expand_path("#{dir}/ruby_gem")
 require File.expand_path("#{dir}/unexpected_prompt_error")
 require File.expand_path("#{dir}/unauthorized_dependency_prompt_error")
+require File.expand_path("#{dir}/valid_platform_selector")
 require File.expand_path("#{dir}/version_specifier")
 require File.expand_path("#{dir}/yaml_loader")
 
