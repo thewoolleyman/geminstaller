@@ -1,4 +1,5 @@
 * add more tests for dependencies to geminstaller_spec
+* write a spec_utils method to uninstall ALL test gems, put it in the teardown of every test which installs gems.
 * remove test_gem_home.reset from geminstaller_spec.rb WITHOUT breaking the test suite.
 * write docs for fix_dependencies and prefer_binary_platform options
 * document rules for automatic dependency selection - always pick binary platform-specific gem first, provide option to override
