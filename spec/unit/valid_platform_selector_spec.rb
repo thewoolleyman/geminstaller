@@ -23,9 +23,11 @@ context "an ValidPlatformSelector with prefer_binary_platform == true and a depe
     should_select_correct_valid_platforms("i686-darwin8.7.1", "dependent-gem-platform", ['dependent-gem-platform', '686-darwin', 'ruby'])
   end
 
-  specify "should not duplicate dependent gem if it is the same as RUBY_PLATFORM" do
-    should_select_correct_valid_platforms("i686-darwin8.7.1", "i686-darwin8.7.1", ['686-darwin', 'ruby'])
+  specify "should not duplicate dependent gem platform if it is already in the list (or if it is ruby, which will always be in the list)" do
+    should_select_correct_valid_platforms("solaris", "solaris", ['solaris', 'ruby'])
+    should_select_correct_valid_platforms("solaris", "ruby", ['solaris', 'ruby'])
   end
+
 end
 
 context "an ValidPlatformSelector with prefer_binary_platform == false and no dependent_gem_platform passed" do

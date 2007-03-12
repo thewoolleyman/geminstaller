@@ -19,6 +19,10 @@ context "a NoninteractiveChooser instance which is passed an install-formatted l
     should_choose(1, "stubgem-multiplatform", "1.0.1", ["mswin32"])
   end
 
+  specify "should properly select with a substring of a binary platform if the list is not for the dependent gem" do
+    should_choose(1, "stubgem", "1.0.1", ["mswin"])
+  end
+
   specify "should properly select with a ruby platform" do
     should_choose(2, "stubgem-multiplatform", "1.0.1", ["ruby"])
   end

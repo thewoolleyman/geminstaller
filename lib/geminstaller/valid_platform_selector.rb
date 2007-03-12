@@ -13,8 +13,14 @@ module GemInstaller
         # leave binary platform first if prefer_binary_platform is false or nil
         valid_platforms << 'ruby'
       end
-      valid_platforms.unshift(dependent_gem_platform) if 
-        dependent_gem_platform && dependent_gem_platform != @ruby_platform
+      if dependent_gem_platform and 
+        !valid_platforms.include?(dependent_gem_platform)
+        # only prepend the dependent_gem_platform as the first choice if
+        # 1. it is not nil
+        # 2. it is not already in the list
+        # 3. it is not 'ruby'
+        valid_platforms.unshift(dependent_gem_platform)
+      end
       valid_platforms
     end
     
@@ -27,6 +33,7 @@ module GemInstaller
       return '486-linux' if @ruby_platform =~ /486-linux/
       return '586-linux' if @ruby_platform =~ /586-linux/
       return '686-linux' if @ruby_platform =~ /686-linux/
+      return 'solaris' if @ruby_platform =~ /solaris/
       return nil
     end
   end

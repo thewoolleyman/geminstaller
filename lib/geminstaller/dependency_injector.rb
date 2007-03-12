@@ -13,7 +13,7 @@ module GemInstaller
   class Registry
     attr_accessor :file_reader, :yaml_loader, :output_proxy, :config_builder, :gem_source_index, :gem_runner_proxy
     attr_accessor :gem_runner, :gem_command_manager, :gem_list_checker, :app, :arg_parser, :options, :noninteractive_chooser
-    attr_accessor :gem_interaction_handler, :install_processor, :missing_dependency_finder
+    attr_accessor :gem_interaction_handler, :install_processor, :missing_dependency_finder, :valid_platform_selector
 
     def initialize
       @options = {}
@@ -26,6 +26,9 @@ module GemInstaller
       @gem_arg_processor = GemInstaller::GemArgProcessor.new
       @version_specifier = GemInstaller::VersionSpecifier.new
 
+      @valid_platform_selector = GemInstaller::ValidPlatformSelector.new
+      @valid_platform_selector.options = @options
+
       @config_builder = GemInstaller::ConfigBuilder.new
       @config_builder.file_reader = @file_reader
       @config_builder.yaml_loader = @yaml_loader
@@ -37,6 +40,7 @@ module GemInstaller
       @gem_interaction_handler = GemInstaller::GemInteractionHandler.new
       @noninteractive_chooser = GemInstaller::NoninteractiveChooser.new
       @gem_interaction_handler.noninteractive_chooser = @noninteractive_chooser
+      @gem_interaction_handler.valid_platform_selector = @valid_platform_selector
       @enhanced_stream_ui = GemInstaller::EnhancedStreamUI.new
       @enhanced_stream_ui.gem_interaction_handler = @gem_interaction_handler
 

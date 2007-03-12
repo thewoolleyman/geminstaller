@@ -32,32 +32,40 @@ context "a GemInteractionHandler instance with a non-multiplatform dependent gem
   end
 end
 
-context "a GemInteractionHandler instance with a multiplatform dependency gem and non-multiplatform dependent gem" do
+context "a GemInteractionHandler instance with a non-multiplatform dependency gem and multiplatform dependent gem" do
   include GemInstaller::SpecUtils
   setup do
     gem_interaction_handler_spec_setup_common(sample_dependent_depends_on_multiplatform_gem, sample_dependent_multiplatform_gem)    
+    @valid_platform_selector = @registry.valid_platform_selector
+    @valid_platform_selector.ruby_platform = "i386-mswin32"
   end
 
   specify "should choose multiplatform dependency gem before ruby platform" do
     @gem_interaction_handler.dependent_gem = @dependent_gem
     list = ["#{@dependency_gem.name} #{@dependency_gem.version} (#{GemInstaller::RubyGem.default_platform})"]
-    list << ["#{@dependency_gem.name} #{@dependency_gem.version} (#{@dependency_gem.platform})"]
+    list << "#{@dependency_gem.name} #{@dependency_gem.version} (#{@dependency_gem.platform})"
     list << 'Cancel'
-    # TODO: uncomment when test passes
-#    should_choose_properly(list, 1)
-  end
-end
-
-context "a GemInteractionHandler instance with a non-multiplatform dependency gem and multiplatform dependent gem" do
-  include GemInstaller::SpecUtils
-  setup do
-    gem_interaction_handler_spec_setup_common(sample_dependent_gem, sample_multiplatform_gem)    
+    should_choose_properly(list, 1)
   end
 
-  specify "should choose properly if handle_choose_from_list is passed a list for a non-dependent gem" do
-    # TODO: fix this - should make noninteractive_chooser take an array of possible valid platforms
-    #should_choose_properly
+  specify "should choose ruby platform if no matching valid binary platform is found" do
+    @gem_interaction_handler.dependent_gem = @dependent_gem
+    list = ["#{@dependency_gem.name} #{@dependency_gem.version} (nonmatching-binary-platform)"]
+    list << "#{@dependency_gem.name} #{@dependency_gem.version} (#{GemInstaller::RubyGem.default_platform})"
+    list << 'Cancel'
+    should_choose_properly(list, 1)
   end
+
+  specify "should choose dependent gem platform if it is specified and the list is for the dependent gem, even if other matches exist" do
+    @dependent_gem.platform = "mswin32"
+    @gem_interaction_handler.dependent_gem = @dependent_gem
+    list = ["#{@dependent_gem.name} #{@dependent_gem.version} (#{GemInstaller::RubyGem.default_platform})"]
+    list << "#{@dependent_gem.name} #{@dependent_gem.version} (i386-mswin32)"
+    list << "#{@dependent_gem.name} #{@dependent_gem.version} (#{@dependent_gem.platform})"
+    list << 'Cancel'
+    should_choose_properly(list, 2)
+  end
+
 end
 
 def should_choose_properly(list, expected_item_index)
