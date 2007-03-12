@@ -13,6 +13,7 @@ context "A ruby gem data object" do
     gem.install_options.should==('-y')
     gem.check_for_upgrade.should==(false)
     gem.fix_dependencies.should==(true)
+    gem.prefer_binary_platform.should==(true)
   end
 
   specify "should default the platform to ruby if it is not specified" do
