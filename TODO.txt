@@ -20,7 +20,8 @@
 * store rubygems dist as a tar, and untar it on demand
 * Add spec file name to all contexts (or see if rspec can do it automatically)
 * Make GemInstaller.run take a parameter to not fail if there is any error
-* Embedded gem_server process doesn't get killed on windows during tests
+* tests run slow and fail on windows (but smoketest works).  Was worse if RubyGems 0.8.11 is installed (works with 0.9.2).  Might have been a corrupt install, test with clean 0.8.11.
+* Embedded gem_server process doesn't get killed on windows during tests - need to use ruby services, see comment in embedded_gem_server.rb
 * Embedded gem_server ports aren't handled correctly on linux during tests - port conflict on startup, open ports die off slowly after tests finish
 * Rails integration doesn't work under mongrel when invoked via executable (e.g, actionmailer gem not recognized after install, only after mongrel restart).  Does't occur under webrick, or if geminstaller is invoked programatically via class.
 * Do a port check before starting embedded gem server, give option to kill process or at least exit with a descriptive warning.
