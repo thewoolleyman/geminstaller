@@ -50,7 +50,8 @@ end
 
 def common_setup_valid_platform_selector(prefer_binary_platform)
   @valid_platform_selector = GemInstaller::ValidPlatformSelector.new
-  @valid_platform_selector.prefer_binary_platform = prefer_binary_platform
+  options = {:prefer_binary_platform => prefer_binary_platform}
+  @valid_platform_selector.options = options
 end
 
 def should_select_correct_valid_platforms(ruby_platform, dependent_gem_platform, expected_valid_platforms)

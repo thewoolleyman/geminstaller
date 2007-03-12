@@ -1,16 +1,17 @@
 module GemInstaller
   class ValidPlatformSelector
-    attr_writer :prefer_binary_platform
-    attr_writer :ruby_platform
+    attr_writer :options, :ruby_platform
     
     def select(dependent_gem_platform = nil)
       @ruby_platform ||= RUBY_PLATFORM
       valid_platforms = []
       valid_platforms << binary_platform_substring if binary_platform_substring
-      if @prefer_binary_platform
-        valid_platforms << 'ruby'
-      else
+      if @options[:prefer_binary_platform] == false
+        # put ruby first if prefer_binary_platform is false
         valid_platforms.unshift('ruby')
+      else
+        # leave binary platform first if prefer_binary_platform is false or nil
+        valid_platforms << 'ruby'
       end
       valid_platforms.unshift(dependent_gem_platform) if 
         dependent_gem_platform && dependent_gem_platform != @ruby_platform
