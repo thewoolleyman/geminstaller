@@ -3,6 +3,7 @@
 * remove test_gem_home.reset from geminstaller_spec.rb WITHOUT breaking the test suite.
 * write docs for fix_dependencies and prefer_binary_platform options
 * document rules for automatic dependency selection - always pick binary platform-specific gem first, provide option to override
+* tests fail on windows - seems to be related to test_gem_home running twice.  smoketest still passes.
 * Use rubygems executables from test_gem_home.  In order to do this, we must run test_gem_home and ensure it is on the load path BEFORE the system installation of rubygems ever gets initialized.  We will also have to manually include all geminstaller test dependency gems in test_gem_home or on the path.  Tried this once and failed, patch on linux box...
 * make smoketest test fix_dependencies
 * dependency gems should print installing message to info as well as parent gem
@@ -20,7 +21,6 @@
 * store rubygems dist as a tar, and untar it on demand
 * Add spec file name to all contexts (or see if rspec can do it automatically)
 * Make GemInstaller.run take a parameter to not fail if there is any error
-* tests run slow and fail on windows (but smoketest works).  Was worse if RubyGems 0.8.11 is installed (works with 0.9.2).  Might have been a corrupt install, test with clean 0.8.11.
 * Embedded gem_server process doesn't get killed on windows during tests - need to use ruby services, see comment in embedded_gem_server.rb
 * Embedded gem_server ports aren't handled correctly on linux during tests - port conflict on startup, open ports die off slowly after tests finish
 * Rails integration doesn't work under mongrel when invoked via executable (e.g, actionmailer gem not recognized after install, only after mongrel restart).  Does't occur under webrick, or if geminstaller is invoked programatically via class.
