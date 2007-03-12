@@ -5,6 +5,7 @@
 * make smoketest test fix_dependencies
 * dependency gems should print installing message to info as well as parent gem
 * make all possible attempts install dependent gems.  If match fails, and parent gem was /win/, try to match that.  Maybe print warnings if the platform does not match one of the valid ones in RubyGems?  Maybe a guess_platform flag, true by default?
+* clean up spec_utils - remove duplication of class and instance methods
 * spec_utils global teardown method which uninstalls all gems
 * can't run binary out of source dir unless running it via ruby
 * Return meaningful message instructing to use the --sudo option if Errno::EACCES is caught on a sudo-able platform

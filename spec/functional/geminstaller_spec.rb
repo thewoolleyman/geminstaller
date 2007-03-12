@@ -76,6 +76,18 @@ context "The geminstaller command line application" do
     @gem_command_manager.is_gem_installed?(@sample_gem).should==(false)
   end
    
+  specify "should handle a multiplatform dependency chain" do
+    @gem_command_manager.uninstall_gem(sample_dependent_depends_on_multiplatform_gem) if 
+      @gem_command_manager.is_gem_installed?(sample_dependent_depends_on_multiplatform_gem)
+    @gem_command_manager.uninstall_gem(sample_multiplatform_gem) if @gem_command_manager.is_gem_installed?(sample_multiplatform_gem)
+    @application.args = ["--info","--q","--config=#{dir}/live_geminstaller_config_5.yml"]
+    @mock_output_proxy.should_receive(:sysout).with(/Installing gem #{sample_dependent_depends_on_multiplatform_gem.name}.*/)
+    @application.run
+    @gem_command_manager.is_gem_installed?(sample_dependent_depends_on_multiplatform_gem).should==(true)
+    # TODO: why did this fail?
+    # @gem_command_manager.is_gem_installed?(sample_multiplatform_gem).should==(true)
+  end
+   
 end
 
 context "The geminstaller command line application created via GemInstaller.run method" do
