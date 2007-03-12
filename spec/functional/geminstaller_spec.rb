@@ -85,10 +85,6 @@ context "The geminstaller command line application created via GemInstaller.run 
     GemInstaller::EmbeddedGemServer.start
   end
 
-  teardown do
-    GemInstaller::TestGemHome.reset
-  end
-
   specify "should run successfully" do
     result = GemInstaller.run(geminstaller_spec_test_args)
     result.should_equal(0)
