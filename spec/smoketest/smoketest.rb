@@ -117,7 +117,7 @@ else
   raise RuntimeError.new("\n\nFAILURE: The following gems were not installed: #{missing_gems}\n\n")
 end
 
-geminstaller_cmd = "ruby #{path_to_app} #{sudo_flag} --quiet --config=smoketest-geminstaller-reinstall.yml"
+geminstaller_cmd = "ruby #{path_to_app} #{sudo_flag} --quiet --config=#{File.join(dir,'smoketest-geminstaller-reinstall.yml')}"
 print "Now (re)installing the latest version of the test gems, in a minimal attempt not to leave your system in a screwed-up state.\n"
 print "Running geminstaller: #{geminstaller_cmd}\n"
 IO.popen(geminstaller_cmd) {|process| process.readlines.each {|line| print line}}
