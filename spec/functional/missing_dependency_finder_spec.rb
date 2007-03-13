@@ -12,7 +12,7 @@ context "a MissingDependencyFinder instance" do
     @gem_command_manager = @registry.gem_command_manager
     @sample_gem = sample_gem
     @sample_dependent_gem = sample_dependent_gem
-    @sample_multiplatform_gem = sample_multiplatform_gem
+    @sample_multiplatform_gem = sample_multiplatform_gem_ruby
     @sample_dependent_multiplatform_gem = sample_dependent_multiplatform_gem
 
     GemInstaller::EmbeddedGemServer.start
