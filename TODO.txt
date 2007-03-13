@@ -1,3 +1,4 @@
+* gem_command_manager tests fail on windows
 * --config does not work on windows with c:\path\to\yml
 * make smoketest test fix_dependencies
 * dependency gems should print installing message to info as well as parent gem
