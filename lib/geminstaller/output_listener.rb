@@ -8,6 +8,7 @@ module GemInstaller
     def initialize
       @messages = []
       @echo = true
+      @output_proxy = nil
     end
     
     def notify(msg)
