@@ -84,6 +84,12 @@ context "The geminstaller command line application" do
     @mock_output_proxy.should_receive(:sysout).with(/Installing gem #{sample_dependent_depends_on_multiplatform_gem.name}.*/)
     @application.run
     @gem_command_manager.is_gem_installed?(sample_dependent_depends_on_multiplatform_gem).should==(true)
+    expected_dependency_gem = nil
+    if RUBY_PLATFORM =~ /mswin/
+      expected_dependency_gem = sample_multiplatform_gem
+    else
+      expected_dependency_gem = sample_multiplatform_gem_ruby
+    end
     @gem_command_manager.is_gem_installed?(sample_multiplatform_gem_ruby).should==(true)
   end
 
