@@ -1,3 +1,4 @@
+* write a spec_utils method to uninstall ALL test gems, put it in the teardown of every test which installs gems.
 * gem_command_manager tests fail on windows
 * --config does not work on windows with c:\path\to\yml
 * make smoketest test fix_dependencies
@@ -12,7 +13,6 @@
 - 0.2.0 release
 
 * add more tests for dependencies to geminstaller_spec
-* write a spec_utils method to uninstall ALL test gems, put it in the teardown of every test which installs gems.
 * remove test_gem_home.reset from geminstaller_spec.rb WITHOUT breaking the test suite.
 * tests fail on windows - seems to be related to test_gem_home running twice.  smoketest still passes.
 * Use rubygems executables from test_gem_home.  In order to do this, we must run test_gem_home and ensure it is on the load path BEFORE the system installation of rubygems ever gets initialized.  We will also have to manually include all geminstaller test dependency gems in test_gem_home or on the path.  Tried this once and failed, patch on linux box...
