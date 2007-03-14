@@ -28,10 +28,14 @@ module GemInstaller
       rm_config
       create_config
       GemInstaller::EmbeddedGemServer.start
-      gem_cmd = 'gem'
-      gem_cmd = 'gem.bat' if RUBY_PLATFORM.index('mswin')
       `#{gem_cmd} update --source #{GemInstaller::SpecUtils.embedded_gem_server_url} --config-file #{config_file}`
       @@initialized = true
+    end
+    
+    def self.gem_cmd
+      gem_cmd = 'gem'
+      gem_cmd = 'gem.bat' if RUBY_PLATFORM.index('mswin')
+      gem_cmd
     end
     
     def self.rm_dir
@@ -55,6 +59,16 @@ module GemInstaller
       rm_config
       rm_dir
       @@initialized = false
+    end
+    
+    def self.uninstall_all_test_gems
+      test_gem_names = GemInstaller::SpecUtils.test_gem_names
+      test_gem_names.each do |test_gem_name|
+        list_output = `#{gem_cmd} list #{test_gem_name}`
+        next unless list_output =~ /#{test_gem_name} /
+        uninstall_command = "#{gem_cmd} uninstall #{test_gem_name} --config-file #{config_file} --all --ignore-dependencies --executables"
+        `#{uninstall_command}`
+      end
     end
   end
 end

@@ -86,6 +86,10 @@ context "The geminstaller command line application" do
     @gem_command_manager.is_gem_installed?(sample_dependent_depends_on_multiplatform_gem).should==(true)
     @gem_command_manager.is_gem_installed?(sample_multiplatform_gem_ruby).should==(true)
   end
+
+  teardown do
+    GemInstaller::TestGemHome.uninstall_all_test_gems
+  end
    
 end
 
@@ -99,6 +103,10 @@ context "The geminstaller command line application created via GemInstaller.run 
   specify "should run successfully" do
     result = GemInstaller.run(geminstaller_spec_test_args)
     result.should_equal(0)
+  end
+
+  teardown do
+    GemInstaller::TestGemHome.uninstall_all_test_gems
   end
 end
 

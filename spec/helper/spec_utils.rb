@@ -1,6 +1,11 @@
 module GemInstaller::SpecUtils
   SUPPRESS_RUBYGEMS_OUTPUT = false
   
+  def self.test_gem_names
+    test_gem_names = [sample_gem_name, sample_dependent_gem_name, sample_dependent_depends_on_multiplatform_gem_name,
+      sample_dependent_depends_on_multiplatform_gem_name, sample_multiplatform_gem_name]
+  end
+  
   def self.test_gem_home_dir
     dir_name = "test_gem_home"
     File.expand_path(File.dirname(__FILE__) + "/../tmp/#{dir_name}")

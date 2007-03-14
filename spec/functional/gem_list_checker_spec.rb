@@ -48,6 +48,10 @@ context "a GemListChecker instance" do
     should_raise_error
   end
   
+  teardown do
+    GemInstaller::TestGemHome.uninstall_all_test_gems
+  end
+
   def should_raise_error
     lambda { invoke_method }.should_raise(GemInstaller::GemInstallerError)
   end

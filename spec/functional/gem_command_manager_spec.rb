@@ -148,10 +148,6 @@ context "a GemCommandManager instance" do
   end
   
   teardown do
-    [sample_gem, sample_dependent_gem, sample_multiplatform_gem, sample_dependent_multiplatform_gem].each do |gem|
-      uninstall_gem = gem.dup
-      uninstall_gem.install_options << '-i'
-      @gem_command_manager.uninstall_gem(uninstall_gem)
-    end
+    GemInstaller::TestGemHome.uninstall_all_test_gems
   end
 end

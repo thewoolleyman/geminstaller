@@ -47,4 +47,8 @@ context "a gem command line proxy" do
   #   output = @gem_command_line_proxy.run(args)
   #   output.should_be_an_instance_of(Array)
   # end
+
+  teardown do
+    GemInstaller::TestGemHome.uninstall_all_test_gems
+  end
 end

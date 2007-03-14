@@ -49,6 +49,10 @@ context "a MissingDependencyFinder instance" do
     missing_dependencies[0].install_options.should_include('-y')
   end
 
+  teardown do
+    GemInstaller::TestGemHome.uninstall_all_test_gems
+  end
+
   def install_gem(gem)
     @gem_command_manager.install_gem(gem)
     @gem_command_manager.is_gem_installed?(gem).should==(true)

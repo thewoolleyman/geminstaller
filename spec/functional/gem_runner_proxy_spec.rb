@@ -75,6 +75,10 @@ context "a GemRunnerProxy instance" do
     output.join("\n").should_match(/Successfully installed #{sample_multiplatform_gem_name}-#{sample_multiplatform_gem_version}-mswin32/m)
   end
   
+  teardown do
+    GemInstaller::TestGemHome.uninstall_all_test_gems
+  end
+
   def use_mocks
     @mock_gem_runner = mock("Mock Gem Runner")
     @mock_output_listener = mock("Mock Output Listener")
