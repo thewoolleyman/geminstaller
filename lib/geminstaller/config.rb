@@ -2,6 +2,7 @@ module GemInstaller
   class Config
     def initialize(yaml)
       @yaml = yaml
+      @default_install_options_string = nil
     end
 
     def gems

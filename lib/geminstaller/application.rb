@@ -3,6 +3,10 @@ module GemInstaller
     # we have accessors instead of just writers so that we can ensure it is assembled correctly in the dependency injector test
     attr_accessor :config_builder, :install_processor, :output_proxy, :arg_parser, :args, :options
     
+    def initialize
+      @args = nil
+    end
+    
     def run
       begin
         should_exit = handle_args
