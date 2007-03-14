@@ -90,7 +90,7 @@ context "The geminstaller command line application" do
     else
       expected_dependency_gem = sample_multiplatform_gem_ruby
     end
-    @gem_command_manager.is_gem_installed?(sample_multiplatform_gem_ruby).should==(true)
+    @gem_command_manager.is_gem_installed?(expected_dependency_gem).should==(true)
   end
 
   teardown do
