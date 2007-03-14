@@ -2,6 +2,10 @@ module GemInstaller
   # Format for "install" prompt list: "#{spec.name} #{spec.version} (#{spec.platform})"
   # Format for "uninstall" prompt list: "#{spec.name}-#{spec.version}" for ruby,  "#{spec.name}-#{spec.version}-#{spec.platform}" (gem.full_name) for binary
   class NoninteractiveChooser
+    def initialize
+      @question = nil
+    end
+    
     def choose(question, list, dependent_gem_name, dependent_gem_version, valid_platforms)
       require 'pp'
       @question = question
