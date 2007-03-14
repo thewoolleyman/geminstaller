@@ -1,4 +1,3 @@
-* write a spec_utils method to uninstall ALL test gems, put it in the teardown of every test which installs gems.
 * gem_command_manager tests fail on windows
 * --config does not work on windows with c:\path\to\yml
 * make smoketest test fix_dependencies
