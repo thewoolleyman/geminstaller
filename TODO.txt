@@ -4,6 +4,7 @@
 * dependency gems should print installing message to info as well as parent gem
 * print line for yaml errors
 * write docs for fix_dependencies and prefer_binary_platform options
+* update docs with details on how to handle unmet dependencies when -y is not specified
 * document rules for automatic dependency selection - always pick binary platform-specific gem first, provide option to override
 * document option to run via capistrano
 * create basic website via rubygen
@@ -31,7 +32,6 @@
 * Embedded gem_server ports aren't handled correctly on linux during tests - port conflict on startup, open ports die off slowly after tests finish
 * Rails integration doesn't work under mongrel when invoked via executable (e.g, actionmailer gem not recognized after install, only after mongrel restart).  Does't occur under webrick, or if geminstaller is invoked programatically via class.
 * Do a port check before starting embedded gem server, give option to kill process or at least exit with a descriptive warning.
-* update docs with details on how to handle unmet dependencies when -y is not specified
 * Clean up spec_helper, find out simplest way to invoke rspec via test_unit, and still provide proper return codes/output
 * remove cruft from test output - intercept output streams from gem_server and rubygems setup
 * enhance DependencyInjector - allow items to be substituted prior to initialization - then geminstaller_spec could simply set a mock output_proxy on the registry instead of explicitly setting it every place it is used.
