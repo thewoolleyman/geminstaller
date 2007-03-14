@@ -1,8 +1,6 @@
-* gem_command_manager tests fail on windows
 * --config does not work on windows with c:\path\to\yml
 * make smoketest test fix_dependencies
 * dependency gems should print installing message to info as well as parent gem
-* print line for yaml errors
 * write docs for fix_dependencies and prefer_binary_platform options
 * update docs with details on how to handle unmet dependencies when -y is not specified
 * document rules for automatic dependency selection - always pick binary platform-specific gem first, provide option to override
@@ -12,6 +10,7 @@
 * upload gem 
 - 0.2.0 release
 
+* tests fail with timeouts intermittently on windows
 * add more tests for dependencies to geminstaller_spec
 * reconcile methods for testing error messages - manually vs proc_should_raise_with_message.  Probably should patch rspec.
 * remove test_gem_home.reset from geminstaller_spec.rb WITHOUT breaking the test suite.
