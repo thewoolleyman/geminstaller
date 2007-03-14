@@ -1,6 +1,7 @@
-* --config does not work on windows with c:\path\to\yml
+* fix_dependencies does not traverse dependency chain (install heckle, uninstall rubyforge, then run smoke test)
 * make smoketest test fix_dependencies
-* dependency gems should print installing message to info as well as parent gem
+* grandchild dependency gems should print installing message to info as well as parent gem (uninstall hoe/rubyforge, only hoe prints installing message)
+* Installing gem message not printed (heckle)
 * write docs for fix_dependencies and prefer_binary_platform options
 * update docs with details on how to handle unmet dependencies when -y is not specified
 * document rules for automatic dependency selection - always pick binary platform-specific gem first, provide option to override
