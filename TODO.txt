@@ -1,6 +1,6 @@
-* fix_dependencies does not traverse dependency chain (install heckle, uninstall rubyforge, then run smoke test)
 * make smoketest test fix_dependencies
 * grandchild dependency gems should print installing message to info as well as parent gem (uninstall hoe/rubyforge, only hoe prints installing message)
+* expose "installing" message from rubygems for gems that are automatically installed via -y option
 * Installing gem message not printed (heckle)
 * write docs for fix_dependencies and prefer_binary_platform options
 * update docs with details on how to handle unmet dependencies when -y is not specified
