@@ -1,25 +1,23 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/rubygems_installer")
+require 'fileutils'
 
 module GemInstaller
 
   class TestGemHome
     include FileUtils
+    include GemInstaller::SpecUtils
     @@initialized = false
     
     def self.init_dir
       @rubygems_installer = GemInstaller::RubyGemsInstaller.new
       @rubygems_installer.install_dir = test_gem_home_dir
-      @rubygems_installer.rubygems_dist_dir = GemInstaller::SpecUtils.rubygems_dist_dir
+      @rubygems_installer.rubygems_dist_dir = rubygems_dist_dir
       @rubygems_installer.install
     end
 
-    def self.test_gem_home_dir
-      GemInstaller::SpecUtils.test_gem_home_dir
-    end
-    
     def self.config_file
-      GemInstaller::SpecUtils.test_rubygems_config_file
+      GemInstaller::TestGemHome.test_rubygems_config_file
     end
     
     def self.use
@@ -28,7 +26,7 @@ module GemInstaller
       rm_config
       create_config
       GemInstaller::EmbeddedGemServer.start
-      `#{gem_cmd} update --source #{GemInstaller::SpecUtils.embedded_gem_server_url} --config-file #{config_file}`
+      `#{gem_cmd} update --source #{embedded_gem_server_url} --config-file #{config_file}`
       @@initialized = true
     end
     
@@ -62,7 +60,6 @@ module GemInstaller
     end
     
     def self.uninstall_all_test_gems
-      test_gem_names = GemInstaller::SpecUtils.test_gem_names
       test_gem_names.each do |test_gem_name|
         list_output = `#{gem_cmd} list #{test_gem_name}`
         next unless list_output =~ /#{test_gem_name} /

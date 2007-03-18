@@ -4,7 +4,7 @@ module GemInstaller
     def self.start
       return if @@gem_server_pid
       Gem.clear_paths
-      cmd_args = "--dir=#{embedded_gem_dir} --port=#{GemInstaller::SpecUtils.embedded_gem_server_port}"
+      cmd_args = "--dir=#{embedded_gem_dir} --port=#{embedded_gem_server_port}"
       if windows?
         io_handles_and_pid = Open4.popen4("gem_server.bat #{cmd_args}",'b',true)
         pid = io_handles_and_pid[3]

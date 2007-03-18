@@ -2,8 +2,6 @@ dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
 context "YamlLoader instance" do
-  include GemInstaller::SpecUtils
-  
   setup do
     @yaml_loader = GemInstaller::YamlLoader.new
   end

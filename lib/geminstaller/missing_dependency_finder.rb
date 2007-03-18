@@ -9,7 +9,7 @@ module GemInstaller
       missing_dependencies = []
       install_options = gem.install_options
       add_include_dependency_option(install_options)
-      common_args = @gem_arg_processor.strip_non_common_gem_args(gem.install_options)
+      common_args = @gem_arg_processor.strip_non_common_gem_args(install_options)
       matching_gem_specs.each do |matching_gem_spec|
         message_already_printed = false
         dependency_output_lines = @gem_command_manager.dependency(matching_gem_spec.name, matching_gem_spec.version.to_s, common_args)

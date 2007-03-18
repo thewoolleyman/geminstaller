@@ -2,7 +2,6 @@ dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
 context "a GemInteractionHandler instance with mock dependencies" do
-  include GemInstaller::SpecUtils
   setup do
     @gem_interaction_handler = GemInstaller::GemInteractionHandler.new
     @dependent_gem = sample_dependent_gem

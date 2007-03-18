@@ -2,7 +2,6 @@ dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
 context "An EnhancedStreamUI instance" do
-  include GemInstaller::SpecUtils
   
   setup do
     # Can't use an rspec mock here, because you can't mock the 'puts' method

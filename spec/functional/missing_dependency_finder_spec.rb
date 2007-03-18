@@ -2,7 +2,6 @@ dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
 context "a MissingDependencyFinder instance" do
-  include GemInstaller::SpecUtils
   setup do
     GemInstaller::TestGemHome.use
     @registry = GemInstaller::create_registry

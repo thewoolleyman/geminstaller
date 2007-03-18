@@ -2,7 +2,6 @@ dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
 context "a GemInteractionHandler instance with a non-multiplatform dependent gem and non-multiplatform dependency gem" do
-  include GemInstaller::SpecUtils
   setup do
     gem_interaction_handler_spec_setup_common(sample_dependent_gem, sample_gem)    
   end
@@ -33,7 +32,6 @@ context "a GemInteractionHandler instance with a non-multiplatform dependent gem
 end
 
 context "a GemInteractionHandler instance with a non-multiplatform dependency gem and multiplatform dependent gem" do
-  include GemInstaller::SpecUtils
   setup do
     gem_interaction_handler_spec_setup_common(sample_dependent_depends_on_multiplatform_gem, sample_dependent_multiplatform_gem)    
     @valid_platform_selector = @registry.valid_platform_selector

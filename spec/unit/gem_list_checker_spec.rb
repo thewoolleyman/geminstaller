@@ -2,7 +2,6 @@ dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
 context "a GemListChecker instance with mock dependencies" do
-  include GemInstaller::SpecUtils
   setup do
     @mock_gem_command_manager = mock("Mock GemCommandManager")
     @mock_gem_arg_processor = mock("Mock GemArgProcessor")

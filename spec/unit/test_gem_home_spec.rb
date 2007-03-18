@@ -3,11 +3,10 @@ require File.expand_path("#{dir}/../helper/spec_helper")
 require File.expand_path("#{dir}/../../lib/geminstaller/requires.rb")
 
 context "test_gem_home_spec: the TestGemHome class" do
-  include GemInstaller::SpecUtils
   include FileUtils
   
   setup do
-    @test_gem_home_dir = GemInstaller::SpecUtils.test_gem_home_dir
+    @test_gem_home_dir = test_gem_home_dir
   end
   
   specify "should delete and recreate a test gem home" do

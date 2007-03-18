@@ -22,7 +22,6 @@ class MockStdout
 end
 
 context "The output proxy" do
-  include GemInstaller::SpecUtils
   setup do
     @output_proxy = GemInstaller::OutputProxy.new
     @original_stdout = $stdout

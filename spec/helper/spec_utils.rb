@@ -1,7 +1,9 @@
-module GemInstaller::SpecUtils
-  SUPPRESS_RUBYGEMS_OUTPUT = false
-  
+module GemInstaller::SpecUtils  
   def self.included(base)
+    base.extend(ClassMethods)
+  end
+
+  module ClassMethods
     def test_gem_names
       test_gem_names = [sample_gem_name, sample_dependent_gem_name, sample_dependent_depends_on_multiplatform_gem_name,
         sample_dependent_depends_on_multiplatform_gem_name, sample_multiplatform_gem_name]
@@ -62,7 +64,7 @@ module GemInstaller::SpecUtils
     end
   
     def install_options_for_testing
-      ['--backtrace','--source', embedded_gem_server_url, '--config-file', GemInstaller::SpecUtils.test_rubygems_config_file]
+      ['--backtrace','--source', embedded_gem_server_url, '--config-file', test_rubygems_config_file]
     end
     
     def sample_gem(install_options=install_options_for_testing)

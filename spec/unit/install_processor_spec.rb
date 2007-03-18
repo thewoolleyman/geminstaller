@@ -1,7 +1,6 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
-include GemInstaller::SpecUtils
 context "an InstallProcessor instance with no options passed" do
   setup do
     install_processor_spec_setup_common

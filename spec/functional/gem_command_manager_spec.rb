@@ -2,7 +2,6 @@ dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
 context "a GemCommandManager instance" do
-  include GemInstaller::SpecUtils
   setup do
     GemInstaller::TestGemHome.use
     extra_install_options = install_options_for_testing

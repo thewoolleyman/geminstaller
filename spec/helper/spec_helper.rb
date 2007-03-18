@@ -22,6 +22,8 @@ args << $0
 option_parser = ::Spec::Runner::OptionParser.new
 $context_runner  = option_parser.create_context_runner(args, STDERR, STDOUT, false)
 
+include GemInstaller::SpecUtils::ClassMethods
+
 def run_context_runner_if_necessary(has_run)
   return if has_run
   retval = 1
