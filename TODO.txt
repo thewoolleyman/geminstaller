@@ -1,3 +1,4 @@
+* Installing Gem message no longer printed (uninstall RedCloth, and run geminstaller for itself)
 * make smoketest test fix_dependencies
 * grandchild dependency gems should print installing message to info as well as parent gem (uninstall hoe/rubyforge, only hoe prints installing message)
 * expose "installing" message from rubygems for gems that are automatically installed via -y option
