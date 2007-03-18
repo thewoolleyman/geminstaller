@@ -27,6 +27,9 @@ module GemInstaller
             @output_proxy.sysout("  #{name} (#{version_spec})\n")
             missing_dependencies << dependency_gem
           end        
+          # recurse to find any missing dependencies in the tree
+          sub_dependencies = find(dependency_gem)
+          missing_dependencies += sub_dependencies if sub_dependencies.size > 0 
         end
       end
       return missing_dependencies

@@ -16,19 +16,19 @@ module GemInstaller
       gem_is_installed = @gem_command_manager.is_gem_installed?(gem)
       if gem_is_installed 
         @output_proxy.sysout("Gem #{gem.name}, version #{gem.version} is already installed.\n") if @options[:info]
-        if gem.fix_dependencies
-          fix_dependencies(gem)
-        end
       else
         @gem_list_checker.verify_and_specify_remote_gem!(gem) unless already_specified
         @output_proxy.sysout("Installing gem #{gem.name}, version #{gem.version}.\n") if @options[:info]
         @gem_command_manager.install_gem(gem)
       end
+      if gem.fix_dependencies
+        fix_dependencies(gem)
+      end
     end
 
     def fix_dependencies(gem)
       missing_dependencies = @missing_dependency_finder.find(gem)
-      if missing_dependencies.size > 0
+      while (missing_dependencies.size > 0)
         missing_dependencies.each do |missing_dependency|
           @output_proxy.sysout("Installing #{missing_dependency.name} (#{missing_dependency.version})\n")
           # recursively call install_gem to install the missing dependency.  Since fix_dependencies
@@ -36,6 +36,8 @@ module GemInstaller
           # endless loop or stack overflow.
           install_gem(missing_dependency)
         end
+        # continue to look for and install missing dependencies until none are found
+        missing_dependencies = @missing_dependency_finder.find(gem)
       end
     end
     

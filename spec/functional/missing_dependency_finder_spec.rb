@@ -13,10 +13,12 @@ context "a MissingDependencyFinder instance" do
     @sample_dependent_gem = sample_dependent_gem
     @sample_multiplatform_gem = sample_multiplatform_gem_ruby
     @sample_dependent_multiplatform_gem = sample_dependent_multiplatform_gem
+    @sample_dependent_multilevel_gem = sample_dependent_multilevel_gem
 
     GemInstaller::EmbeddedGemServer.start
     # ensure all gems are installed to start
-    [@sample_gem, @sample_dependent_gem, @sample_multiplatform_gem, @sample_dependent_multiplatform_gem].each do |gem|
+    [@sample_gem, @sample_dependent_gem, @sample_multiplatform_gem, 
+      @sample_dependent_multiplatform_gem, @sample_dependent_multilevel_gem].each do |gem|
       install_gem(gem)
     end
   end
@@ -30,7 +32,7 @@ context "a MissingDependencyFinder instance" do
     @sample_dependent_gem.install_options << '--no-test'
     @sample_dependent_multiplatform_gem.install_options << '--rdoc'
     @sample_dependent_multiplatform_gem.install_options << '-y'
-
+  
     @mock_output_proxy.should_receive(:sysout).once.with(/Missing dependencies found for #{@sample_dependent_gem.name} \(1.0.0\)/m)
     @mock_output_proxy.should_receive(:sysout).once.with(/  #{@sample_gem.name} \(>= 1.0.0\)/)
     missing_dependencies = @missing_dependency_finder.find(@sample_dependent_gem)
@@ -38,7 +40,7 @@ context "a MissingDependencyFinder instance" do
     missing_dependencies[0].version.should==('>= 1.0.0')
     missing_dependencies[0].install_options.should_include('--no-test')
     missing_dependencies[0].install_options.should_include('--include-dependencies')
-
+  
     @mock_output_proxy.should_receive(:sysout).once.with(/Missing dependencies found for #{@sample_dependent_multiplatform_gem.name} \(1.0.0\)/)
     @mock_output_proxy.should_receive(:sysout).once.with(/  #{@sample_multiplatform_gem.name} \(>= 1.0.0\)/)
     missing_dependencies = @missing_dependency_finder.find(@sample_dependent_multiplatform_gem)
@@ -48,6 +50,19 @@ context "a MissingDependencyFinder instance" do
     missing_dependencies[0].install_options.should_include('-y')
   end
 
+  specify "should find a missing dependency at the bottom of a multilevel dependency chain" do
+    # uninstall the dependencies
+    @sample_gem.install_options << '--ignore-dependencies'
+    uninstall_gem(@sample_gem)
+
+    @mock_output_proxy.should_receive(:sysout).once.with(/Missing dependencies found for #{@sample_dependent_gem.name} \(1.0.0\)/m)
+    @mock_output_proxy.should_receive(:sysout).once.with(/  #{@sample_gem.name} \(>= 1.0.0\)/)
+
+    dependencies = @missing_dependency_finder.find(@sample_dependent_multilevel_gem)
+    dependencies.size.should==(1)
+    dependencies[0].name.should==("stubgem")    
+  end
+  
   teardown do
     GemInstaller::TestGemHome.uninstall_all_test_gems
   end

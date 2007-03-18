@@ -6,7 +6,8 @@ module GemInstaller::SpecUtils
   module ClassMethods
     def test_gem_names
       test_gem_names = [sample_gem_name, sample_dependent_gem_name, sample_dependent_depends_on_multiplatform_gem_name,
-        sample_dependent_depends_on_multiplatform_gem_name, sample_multiplatform_gem_name]
+        sample_dependent_depends_on_multiplatform_gem_name, sample_multiplatform_gem_name, 
+        sample_dependent_multilevel_gem_name]
     end
   
     def test_gem_home_dir
@@ -43,6 +44,10 @@ module GemInstaller::SpecUtils
       "1.0.0"
     end
 
+    def sample_dependent_multilevel_gem_name
+      sample_gem_name = "dependent-stubgem-multilevel"
+    end
+
     def sample_multiplatform_gem_name
       "stubgem-multiplatform"
     end
@@ -73,6 +78,10 @@ module GemInstaller::SpecUtils
   
     def sample_dependent_gem(install_options=install_options_for_testing)
       GemInstaller::RubyGem.new(sample_dependent_gem_name, :version => sample_dependent_gem_version, :install_options => install_options)
+    end
+  
+    def sample_dependent_multilevel_gem(install_options=install_options_for_testing)
+      GemInstaller::RubyGem.new(sample_dependent_multilevel_gem_name, :version => sample_dependent_gem_version, :install_options => install_options)
     end
   
     def sample_dependent_depends_on_multiplatform_gem(install_options=install_options_for_testing)
