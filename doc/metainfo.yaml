@@ -1,0 +1,18 @@
+index.page:
+  orderInfo: 10
+  inMenu: true
+
+documentation:
+  title: Documentation
+  orderInfo: 20
+
+documentation/index.page:
+  orderInfo: 10
+  inMenu: true
+
+documentation/documentation.page:
+  title: Detailed Documentation
+  orderInfo: 20
+  inMenu: true
+
+

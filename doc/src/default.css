@@ -1,0 +1,162 @@
+/* andreas09 v1.0 (Dec 10th 2005) - An open source template by Andreas Viklund - http://andreasviklund.com. Free to use for any purpose as long as the proper credits are given to the original author. */
+
+body {
+background:#FFFFFF;
+color:#303030;
+font:90% Verdana,Tahoma,Arial,sans-serif;
+margin:0;
+padding:0;
+text-align:center;
+}s
+
+a {
+color:#505050;
+font-weight:bold;
+text-decoration:none;
+}
+
+a:hover {
+color:#808080;
+text-decoration:underline;
+}
+
+p {
+line-height:1.5em;
+margin:0 0 15px;
+}
+
+/*** Main container ***/
+
+#container {
+background:#CCCCCC;
+color:#303030;
+margin:0;
+min-width:770px;
+padding:0;
+text-align:left;
+width:100%;
+}
+
+/*** Header section ***/
+
+#header {
+background:#000000;
+padding-bottom:10px;
+}
+
+#sitename {
+color:#ffffff;
+margin:0 20px 10px 40px;
+text-align:left;
+}
+
+#sitename h1,#sitename h2 {
+letter-spacing:7px;
+margin:0;
+padding:0;
+}
+
+#sitename h1 {
+font-size:2.4em;
+padding-top:18px;
+}
+
+#sitename h2 {
+font-size:1.6em;
+}
+
+
+
+#navigation {
+  text-align:left;
+  margin:0 18px 10px auto;
+  padding:0;
+	font-size:1.4em;
+	line-height:.3em;
+}
+#navigation li {
+  margin:0;
+  padding-right: 10px;
+  list-style:none;
+  display:inline;
+}
+#navigation li a {
+  margin:0 1px 0 1px;
+  color:#666;
+  text-decoration:none;
+  font-weight:bold;
+}
+#navigation li a:hover {
+  color:#AA2233;
+}
+#navigation li.webgen-menu-item-selected a, #naviation li.webgen-menu-item-selected a:hover {
+    color: #000;
+}
+
+
+/*** Content wrap ***/
+
+#wrap {
+background:#FFFFFF;
+clear:both;
+font-size:0.9em;
+padding-top:10px;
+}
+
+
+
+/*** Content ***/
+#content,#contentalt {
+padding:0px 20px 5px;
+}
+
+#content {
+	margin-top: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+#contentalt {margin:0 200px 0 20px;}
+
+#content h1,#content h2,#contentalt h1,#contentalt h2 {
+background-color:inherit;
+color:#606060;
+font-size:1.8em;
+font-weight:bold;
+letter-spacing:-1px;
+margin:0 0 15px;
+padding:0;
+}
+
+#content h2,#contentalt h2 {
+font-size:1.6em;
+margin-bottom:10px;
+}
+
+#content img,#contentalt img {
+border:1px solid #b0b0b0;
+float:left;
+margin:5px 15px 6px;
+padding:5px;
+}
+
+/*** Footer ***/
+
+#footer {
+background:#FFFFFF;
+clear:both;
+color:#d0d0d0;
+font-size:0.9em;
+font-weight:bold;
+margin:0;
+padding:20px 0;
+text-align:center;
+width:100%;
+}
+
+#footer a {
+color:#d0d0d0;
+font-weight:bold;
+}
+
+
+/*** End of file ***/
