@@ -19,7 +19,7 @@
       <div id="header">
         <div id="sitename">
           <h1>GemInstaller</h1>
-          <h2>Automate and control RubyGems!</h2>
+          <h2>Automate RubyGems!</h2>
         </div>
       </div>
 
