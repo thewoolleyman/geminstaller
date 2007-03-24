@@ -19,7 +19,7 @@ documentation/index.page:
   orderInfo: 10
 
 documentation/documentation.page:
-  title: Detailed Documentation
+  title: Documentation
   inMenu: true
   orderInfo: 20
 
@@ -30,19 +30,19 @@ community/index.page:
 community/design.page:
   title: Design
   inMenu: true
-  orderInfo: 30
+  orderInfo: 20
 
 community/links.page:
   title: Links
   inMenu: true
-  orderInfo: 40
+  orderInfo: 30
 
 ---
 community/rubyforge.html:
   url: http://rubyforge.org/projects/geminstaller/
   inMenu: true
   title: Rubyforge
-  orderInfo: 20
+  orderInfo: 40
 
 download.html:
   url: http://rubyforge.org/frs/?group_id=1902

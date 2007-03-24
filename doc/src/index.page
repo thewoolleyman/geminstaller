@@ -5,9 +5,9 @@ h1. Overview
 
 h2. What is GemInstaller?
 
-Rubygems uses a simple config file to automatically install and upgrade ruby Gems for multiple machines, platforms, and environments.  It can automatically install all required gems wherever your app runs, and make sure that multiple machines have all the required gems installed.
+Rubygems uses a simple config file to automatically install and upgrade ruby Gems for multiple machines, platforms, and environments.  It can automatically install all required gems wherever your app runs, and make sure that multiple machines have all the required gems installed for multiple apps.
 
-It also has some useful features that are not present in the standard RubyGems package, such as automatically fixing missing dependency gems, and doing _some_ intelligent handling of multi-platform gems.
+It also has some useful features that are not (yet) present in the standard RubyGems package, such as automatically fixing missing dependency gems, and doing _some_ automated handling of multi-platform gems.
 
 More features are planned, such as using your GemInstaller config file to automatically perform ruby "require" statements of all your required gems.
 
