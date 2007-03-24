@@ -57,12 +57,12 @@ padding:0;
 }
 
 #sitename h1 {
-font-size:2.4em;
+font-size:2.6em;
 padding-top:18px;
 }
 
 #sitename h2 {
-font-size:1.6em;
+font-size:1.8em;
 }
 
 
@@ -99,14 +99,12 @@ font-size:1.6em;
 #wrap {
 background:#FFFFFF;
 clear:both;
-font-size:1.0em;
+font-size:1.1em;
 padding-top:10px;
 }
 
-
-
 /*** Content ***/
-#content,#contentalt {
+#content {
 padding:0px 20px 5px;
 }
 
@@ -115,24 +113,28 @@ padding:0px 20px 5px;
   margin-left: 20px;
   margin-right: 20px;
 }
-#contentalt {margin:0 200px 0 20px;}
 
-#content h1,#content h2,#contentalt h1,#contentalt h2 {
+#content h1,#content h2,#content h3 {
 background-color:inherit;
 color:#606060;
 font-size:1.8em;
 font-weight:bold;
 letter-spacing:-1px;
-margin:0 0 15px;
+margin:0 0 10px;
 padding:0;
 }
 
-#content h2,#contentalt h2 {
+#content h2 {
 font-size:1.6em;
 margin-bottom:10px;
 }
 
-#content img,#contentalt img {
+#content h3 {
+font-size:1.4em;
+margin-bottom:10px;
+}
+
+#content img {
 border:1px solid #b0b0b0;
 float:left;
 margin:5px 15px 6px;
