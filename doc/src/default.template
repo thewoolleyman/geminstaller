@@ -32,7 +32,6 @@
         <div id="content">
           {block:}
         </div>
-        <div class="clearingdiv">&nbsp;</div>
 
       </div>
     </div>
