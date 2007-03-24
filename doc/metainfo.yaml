@@ -10,8 +10,8 @@ faq.page:
   inMenu: true
   orderInfo: 40
 
-developers:
-  title: Developers
+community:
+  title: Community
   orderInfo: 50
 
 documentation/index.page:
@@ -23,11 +23,11 @@ documentation/documentation.page:
   inMenu: true
   orderInfo: 20
 
-developers/index.page:
+community/index.page:
   inMenu: true
   orderInfo: 10
 
-developers/design_notes.page:
+community/design_notes.page:
   title: Design Notes
   inMenu: true
   orderInfo: 20
