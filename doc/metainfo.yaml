@@ -6,6 +6,10 @@ documentation:
   title: Documentation
   orderInfo: 20
 
+faq.page:
+  orderInfo: 30
+  inMenu: true
+
 documentation/index.page:
   orderInfo: 10
   inMenu: true
