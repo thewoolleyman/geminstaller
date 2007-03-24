@@ -30,9 +30,14 @@ community/index.page:
 community/design_notes.page:
   title: Design Notes
   inMenu: true
-  orderInfo: 20
+  orderInfo: 30
 
 ---
+community/rubyforge.html:
+  url: http://rubyforge.org/projects/geminstaller/
+  inMenu: true
+  title: Rubyforge Page
+  orderInfo: 20
 
 download.html:
   url: http://rubyforge.org/frs/?group_id=1902
