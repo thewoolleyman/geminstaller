@@ -1,22 +1,43 @@
 index.page:
-  orderInfo: 10
   inMenu: true
+  orderInfo: 10
 
 documentation:
   title: Documentation
   orderInfo: 20
 
 faq.page:
-  orderInfo: 30
   inMenu: true
+  orderInfo: 40
+
+developers:
+  title: Developers
+  orderInfo: 50
 
 documentation/index.page:
-  orderInfo: 10
   inMenu: true
+  orderInfo: 10
 
 documentation/documentation.page:
   title: Detailed Documentation
-  orderInfo: 20
   inMenu: true
+  orderInfo: 20
+
+developers/index.page:
+  inMenu: true
+  orderInfo: 10
+
+developers/design_notes.page:
+  title: Design Notes
+  inMenu: true
+  orderInfo: 20
+
+---
+
+download.html:
+  url: http://rubyforge.org/frs/?group_id=1902
+  inMenu: true
+  title: Download
+  orderInfo: 30
 
 
