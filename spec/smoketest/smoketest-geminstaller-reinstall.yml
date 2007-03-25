@@ -4,5 +4,6 @@ defaults:
 gems:
   - name: rutils
   - name: ruby-doom
+    platform: <%= RUBY_PLATFORM =~ /mswin/ ? 'i386-mswin32' : 'ruby'%>
   - name: x10-cm17a
   - name: heckle
