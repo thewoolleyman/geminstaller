@@ -39,7 +39,5 @@ lib/geminstaller/unexpected_prompt_error.rb
 lib/geminstaller/valid_platform_selector.rb
 lib/geminstaller/version_specifier.rb
 lib/geminstaller/yaml_loader.rb
-site/geminstaller.css
-site/index.html
 start_local_gem_server.sh
 test/test_all.rb
