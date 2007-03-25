@@ -18,9 +18,9 @@ module GemInstaller
         @output_proxy.sysout("Gem #{gem.name}, version #{gem.version} is already installed.\n") if @options[:info]
       else
         @gem_list_checker.verify_and_specify_remote_gem!(gem) unless already_specified
-        @output_proxy.sysout("Installing gem #{gem.name}, version #{gem.version}.\n") if @options[:info]
+        @output_proxy.sysout("Invoking gem install for #{gem.name}, version #{gem.version}.\n") unless @options[:quiet]
         output_lines = @gem_command_manager.install_gem(gem)
-        print_dependency_install_messages(gem, output_lines) if @options[:info]
+        print_dependency_install_messages(gem, output_lines) unless @options[:quiet]
       end
       if gem.fix_dependencies
         fix_dependencies(gem)

@@ -26,7 +26,6 @@ context "The geminstaller command line application" do
   
   specify "should install gem if it is not already installed" do
     @application.args = geminstaller_spec_test_args
-    @mock_output_proxy.should_receive(:sysout).with(/Installing gem stubgem.*/)
     @application.run
     @gem_command_manager.is_gem_installed?(@sample_gem).should==(true)
   end
@@ -34,14 +33,15 @@ context "The geminstaller command line application" do
   specify "should handle 'current' as a valid platform" do
     @application.args = geminstaller_spec_test_args
     @sample_gem.platform = 'current'
-    @mock_output_proxy.should_receive(:sysout).with(/Installing gem stubgem.*/)
     @application.run
     @gem_command_manager.is_gem_installed?(@sample_gem).should==(true)
   end
   
   specify "should print message if gem is already installed and --info arg is specified" do
     @gem_command_manager.install_gem(@sample_gem)
-    @application.args = geminstaller_spec_test_args
+    args = ["--info","--config=#{geminstaller_spec_live_config_path}"]
+    @application.args = args
+    @mock_output_proxy.should_receive(:sysout).with(/GemInstaller is verifying gem installation: #{@sample_gem.name}/)
     @mock_output_proxy.should_receive(:sysout).with(/Gem .* is already installed/)
     @application.run
   end
@@ -55,15 +55,13 @@ context "The geminstaller command line application" do
   specify "should install a platform-specific binary gem" do
     @sample_multiplatform_gem = sample_multiplatform_gem
     @gem_command_manager.uninstall_gem(@sample_multiplatform_gem) if @gem_command_manager.is_gem_installed?(@sample_multiplatform_gem)
-    @application.args = ["--info","--q","--config=#{dir}/live_geminstaller_config_2.yml"]
-    @mock_output_proxy.should_receive(:sysout).with(/Installing gem stubgem-multiplatform.*/)
+    @application.args = ["--q","--config=#{dir}/live_geminstaller_config_2.yml"]
     @application.run
     @gem_command_manager.is_gem_installed?(@sample_multiplatform_gem).should==(true)
   end
   
   specify "should install correctly even if install_options is not specified" do
     @application.args = ["--info","--q","--config=#{dir}/live_geminstaller_config_3.yml"]
-    @mock_output_proxy.should_receive(:sysout).with(/Installing gem stubgem.*/)
     @application.run
     @gem_command_manager.is_gem_installed?(@sample_gem).should==(true)
   end
@@ -79,8 +77,9 @@ context "The geminstaller command line application" do
     @gem_command_manager.uninstall_gem(sample_dependent_depends_on_multiplatform_gem) if 
       @gem_command_manager.is_gem_installed?(sample_dependent_depends_on_multiplatform_gem)
     @gem_command_manager.uninstall_gem(sample_multiplatform_gem) if @gem_command_manager.is_gem_installed?(sample_multiplatform_gem)
-    @application.args = ["--info","--q","--config=#{dir}/live_geminstaller_config_5.yml"]
-    @mock_output_proxy.should_receive(:sysout).with(/Installing gem #{sample_dependent_depends_on_multiplatform_gem.name}.*/)
+    @application.args = ["--info","--config=#{dir}/live_geminstaller_config_5.yml"]
+    @mock_output_proxy.should_receive(:sysout).with(/GemInstaller is verifying gem installation: #{sample_dependent_depends_on_multiplatform_gem.name}.*/)
+    @mock_output_proxy.should_receive(:sysout).with(/Invoking gem install for #{sample_dependent_depends_on_multiplatform_gem.name}.*/)
     @mock_output_proxy.should_receive(:sysout).with(/Rubygems automatically installed dependency gem #{sample_multiplatform_gem.name}-#{sample_multiplatform_gem.version}/)
     @application.run
     @gem_command_manager.is_gem_installed?(sample_dependent_depends_on_multiplatform_gem).should==(true)
@@ -123,7 +122,6 @@ context "The GemInstaller.autogem method" do
     added_gems = GemInstaller.autogem(geminstaller_spec_live_config_path)
     added_gems[0].should ==(sample_gem)
     dir = File.dirname(__FILE__)
-    p $:
     $:.should_include(expected_load_path_entry)
   end
 
@@ -138,5 +136,5 @@ def geminstaller_spec_live_config_path
 end
 
 def geminstaller_spec_test_args
-  ["--info","--verbose","--quiet","--config=#{geminstaller_spec_live_config_path}"]
+  ["--quiet","--config=#{geminstaller_spec_live_config_path}"]
 end

@@ -34,6 +34,7 @@ context "an InstallProcessor instance" do
     @mock_output_proxy.should_receive(:sysout).once.with(/Missing dependencies found for #{@sample_dependent_gem.name} \(1.0.0\)/m)
     @mock_output_proxy.should_receive(:sysout).once.with(/  #{@sample_gem.name} \(>= 1.0.0\)/)
     @mock_output_proxy.should_receive(:sysout).once.with(/Installing #{@sample_gem.name} \(>= 1.0.0\)/)
+    @mock_output_proxy.should_receive(:sysout).once.with(/Invoking gem install for #{@sample_gem.name}, version 1.0.0/)
 
     @install_processor.process([@sample_dependent_multilevel_gem])
     @gem_command_manager.is_gem_installed?(@sample_gem).should==(true)
@@ -54,7 +55,7 @@ context "an InstallProcessor instance" do
     @mock_output_proxy.should_receive(:sysout).once.with(/  #{@sample_dependent_gem.name} \(>= 1.0.0\)/)
     # TODO: info option results in duplicate installation messages
     @mock_output_proxy.should_receive(:sysout).once.with(/Installing #{@sample_dependent_gem.name} \(>= 1.0.0\)/)
-    @mock_output_proxy.should_receive(:sysout).once.with(/Installing gem #{@sample_dependent_gem.name}, version 1.0.0/)
+    @mock_output_proxy.should_receive(:sysout).once.with(/Invoking gem install for #{@sample_dependent_gem.name}, version 1.0.0/)
     @mock_output_proxy.should_receive(:sysout).once.with(/Rubygems automatically installed dependency gem #{@sample_gem.name}-#{@sample_gem.version}/)
 
     @install_processor.process([@sample_dependent_multilevel_gem])
@@ -71,6 +72,8 @@ context "an InstallProcessor instance" do
 
     @mock_output_proxy.should_receive(:sysout).once.with(/Missing dependencies found for #{@sample_dependent_gem.name} \(1.0.0\)/m)
     @mock_output_proxy.should_receive(:sysout).once.with(/  #{@sample_gem.name} \(>= 1.0.0\)/)
+    @mock_output_proxy.should_receive(:sysout).once.with(/Invoking gem install for #{@sample_dependent_multilevel_gem.name}, version 1.0.0/)
+    @mock_output_proxy.should_receive(:sysout).once.with(/Invoking gem install for #{@sample_gem.name}, version 1.0.0/)
     @mock_output_proxy.should_receive(:sysout).once.with(/Installing #{@sample_gem.name} \(>= 1.0.0\)/)
 
     @install_processor.process([@sample_dependent_multilevel_gem])
