@@ -1,0 +1,14 @@
+---
+title: Feedback
+---
+h1. Feedback, Bugs, and Source Code
+
+h2. Rubyforge Bug/Feature Tracker and Mailing Lists
+
+* "RubyForge Page":http://rubyforge.org/projects/geminstaller/
+* "Bug/Feature Tracker":http://rubyforge.org/tracker/?group_id=1902
+* "Mailing Lists":http://rubyforge.org/mail/?group_id=1902
+
+h2. Source Code
+
+* Subversion Repository: svn://rubyforge.org/var/svn/geminstaller/trunk
