@@ -12,6 +12,10 @@
 * upload gem 
 - 0.2.0 release
 
+* non-smoketest coverage for autogem
+* fix mongrel support
+- 0.3.0 release
+
 * tests fail with timeouts intermittently on windows
 * add more tests for dependencies to geminstaller_spec
 * reconcile methods for testing error messages - manually vs proc_should_raise_with_message.  Probably should patch rspec.
