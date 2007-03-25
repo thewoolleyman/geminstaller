@@ -41,3 +41,14 @@ lib/geminstaller/version_specifier.rb
 lib/geminstaller/yaml_loader.rb
 start_local_gem_server.sh
 test/test_all.rb
+website/config.yaml
+website/metainfo.yaml
+website/src/community/design.page
+website/src/community/index.page
+website/src/community/links.page
+website/src/default.css
+website/src/default.template
+website/src/documentation/documentation.page
+website/src/documentation/index.page
+website/src/faq.page
+website/src/index.page
