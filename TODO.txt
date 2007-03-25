@@ -1,7 +1,5 @@
 * Installing Gem message not printed unless info message passed (uninstall RedCloth, and run geminstaller for itself)
-* Return meaningful message instructing to use the --sudo option if Errno::EACCES is caught on a sudo-able platform
 * modify rails example to try non-sudo first, then sudo
-* make smoketest test fix_dependencies
 * check gems: mongrel, mongrel_cluster, hpricot, rmagick
 * diff-lcs gem was not installed for geminstaller project (linux)
 * update docs for autogem
@@ -14,16 +12,15 @@
 * upload gem 
 - 0.2.0 release
 
-* rails example doesn't print any warning if geminstaller is not installed
-* "Installing gem" messages are duplicated if info message is specified, one from rubygems, one from geminstaller.  See todo in install_processor.rb
+* Return meaningful message instructing to use the --sudo option if Errno::EACCES is caught on a sudo-able platform - should throw GemInstaller::AccessException, which can be caught
+* Rails integration doesn't work under mongrel when invoked via executable (e.g, actionmailer gem not recognized after install, only after mongrel restart).  Does't occur under webrick, or if geminstaller is invoked programatically via class.
 * quiet/info/verbose option enhancements
   * move checks for quiet/info/verbose into output_proxy
-  * Use a logger, hook it into --info/verbose option
-  * Review and clarify meanings of --info, --verbose
-  * add more output for --info option.  Should also be able to check info flag from classes other than Application
+  * Use a logger approach, verbose > info > important > quiet > warning > error
   * add --trace option? logging vs. stacktraces vs. ???
+* rails example doesn't print any warning if geminstaller is not installed
+* "Installing gem" messages are duplicated if info message is specified, one from rubygems, one from geminstaller.  See todo in install_processor.rb
 * boot.rb parsed twice under webrick?
-* Rails integration doesn't work under mongrel when invoked via executable (e.g, actionmailer gem not recognized after install, only after mongrel restart).  Does't occur under webrick, or if geminstaller is invoked programatically via class.
 - 0.3.0 release
 
 * tests fail with timeouts intermittently on windows
