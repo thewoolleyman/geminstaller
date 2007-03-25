@@ -14,8 +14,6 @@
 # Run this file as sudo if that is required in order for you to successfully install gems
 # (or change the ownership/permissions of your gems installation to the current user)
 
-use_sudo = true
-
 # heckle -> hoe -> rubyforge show a three-level dependency
 test_gems = ['ruby-doom', 'rutils', 'x10-cm17a', 'heckle', 'hoe', 'rubyforge']
 expected_versions = {
@@ -118,7 +116,7 @@ else
 end
 
 geminstaller_cmd = "ruby #{path_to_app} #{sudo_flag} --quiet --config=#{File.join(dir,'smoketest-geminstaller-reinstall.yml')}"
-print "Now (re)installing the test gems, in a minimal attempt not to leave your system in a screwed-up state if you already had them installed.\n"
+print "Now (re)installing the latest version of the test gems, in a minimal attempt not to leave your system in a screwed-up state if you already had them installed.\n"
 print "Running geminstaller: #{geminstaller_cmd}\n"
 IO.popen(geminstaller_cmd) {|process| process.readlines.each {|line| print line}}
 print "\n\n"
