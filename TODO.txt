@@ -1,4 +1,4 @@
-* Installing Gem message no longer printed (uninstall RedCloth, and run geminstaller for itself)
+* Installing Gem message not printed unless info message passed (uninstall RedCloth, and run geminstaller for itself)
 * Return meaningful message instructing to use the --sudo option if Errno::EACCES is caught on a sudo-able platform
 * modify rails example to try non-sudo first, then sudo
 * make smoketest test fix_dependencies
