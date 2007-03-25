@@ -114,7 +114,28 @@ context "The geminstaller command line application created via GemInstaller.run 
   end
 end
 
-def geminstaller_spec_test_args
+context "The GemInstaller.autogem method" do
+  specify "should add a specified gem to the load path" do
+    expected_load_path_entry = "#{test_gem_home_dir}/gems/#{sample_gem_name}-#{sample_gem_version}/lib"
+    $:.should_not_include(expected_load_path_entry)
+    GemInstaller.run(geminstaller_spec_test_args)
+    added_gems = GemInstaller.autogem(geminstaller_spec_live_config_path)
+    added_gems[0].should ==(sample_gem)
+    dir = File.dirname(__FILE__)
+    p $:
+    $:.should_include(expected_load_path_entry)
+  end
+
+  teardown do
+    GemInstaller::TestGemHome.uninstall_all_test_gems
+  end
+end
+
+def geminstaller_spec_live_config_path
   dir = File.dirname(__FILE__)
-  ["--info","--verbose","--quiet","--config=#{dir}/live_geminstaller_config.yml"]
+  "#{dir}/live_geminstaller_config.yml"
+end
+
+def geminstaller_spec_test_args
+  ["--info","--verbose","--quiet","--config=#{geminstaller_spec_live_config_path}"]
 end
