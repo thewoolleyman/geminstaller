@@ -19,10 +19,21 @@ module GemInstaller
       else
         @gem_list_checker.verify_and_specify_remote_gem!(gem) unless already_specified
         @output_proxy.sysout("Installing gem #{gem.name}, version #{gem.version}.\n") if @options[:info]
-        @gem_command_manager.install_gem(gem)
+        output_lines = @gem_command_manager.install_gem(gem)
+        print_dependency_install_messages(gem, output_lines) if @options[:info]
       end
       if gem.fix_dependencies
         fix_dependencies(gem)
+      end
+    end
+    
+    def print_dependency_install_messages(gem, output_lines)
+      output_lines.each do |line|
+        line =~ /Successfully installed /
+        match = $'
+        next unless match
+        next if match =~ /#{gem.name}-/
+        @output_proxy.sysout("Rubygems automatically installed dependency gem #{match}\n")
       end
     end
 

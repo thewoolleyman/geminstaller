@@ -81,6 +81,7 @@ context "The geminstaller command line application" do
     @gem_command_manager.uninstall_gem(sample_multiplatform_gem) if @gem_command_manager.is_gem_installed?(sample_multiplatform_gem)
     @application.args = ["--info","--q","--config=#{dir}/live_geminstaller_config_5.yml"]
     @mock_output_proxy.should_receive(:sysout).with(/Installing gem #{sample_dependent_depends_on_multiplatform_gem.name}.*/)
+    @mock_output_proxy.should_receive(:sysout).with(/Rubygems automatically installed dependency gem #{sample_multiplatform_gem.name}-#{sample_multiplatform_gem.version}/)
     @application.run
     @gem_command_manager.is_gem_installed?(sample_dependent_depends_on_multiplatform_gem).should==(true)
     expected_dependency_gem = nil

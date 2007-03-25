@@ -1,8 +1,7 @@
 * Installing Gem message no longer printed (uninstall RedCloth, and run geminstaller for itself)
 * make smoketest test fix_dependencies
-* grandchild dependency gems should print installing message to info as well as parent gem (uninstall hoe/rubyforge, only hoe prints installing message)
-* expose "installing" message from rubygems for gems that are automatically installed via -y option
-* Installing gem message not printed (heckle)
+* check gems: mongrel, mongrel_cluster, hpricot, rmagick
+* diff-lcs gem was not installed for geminstaller project (linux)
 * update docs for autogem
 * write docs for fix_dependencies and prefer_binary_platform options
 * update docs with details on how to handle unmet dependencies when -y is not specified
@@ -13,7 +12,15 @@
 * upload gem 
 - 0.2.0 release
 
-* fix mongrel support
+* "Installing gem" messages are duplicated if info message is specified, one from rubygems, one from geminstaller.  See todo in install_processor.rb
+* quiet/info/verbose option enhancements
+  * move checks for quiet/info/verbose into output_proxy
+  * Use a logger, hook it into --info/verbose option
+  * Review and clarify meanings of --info, --verbose
+  * add more output for --info option.  Should also be able to check info flag from classes other than Application
+  * add --trace option? logging vs. stacktraces vs. ???
+* boot.rb parsed twice under webrick?
+* Rails integration doesn't work under mongrel when invoked via executable (e.g, actionmailer gem not recognized after install, only after mongrel restart).  Does't occur under webrick, or if geminstaller is invoked programatically via class.
 - 0.3.0 release
 
 * tests fail with timeouts intermittently on windows
@@ -26,8 +33,6 @@
 * spec_utils global teardown method which uninstalls all gems
 * can't run binary out of source dir unless running it via ruby
 * Return meaningful message instructing to use the --sudo option if Errno::EACCES is caught on a sudo-able platform
-* check gems: mongrel, mongrel_cluster, hpricot, rmagick
-* diff-lcs gem was not installed for geminstaller project (linux)
 * verify that >= version spec works with a specific platform, if that platform is not available for the highest version
 * Check for write access, and exit with warning to use sudo if there is no write access.
 * non-specific versions in config yml (such as > 0.1.2) must be specified in quotes (such as '> 0.1.2') or else they are not correctly parsed by yaml (just returns '0.1.2' instead of '> 0.1.2').  Should give some warning instead of just failing
@@ -36,19 +41,11 @@
 * Make GemInstaller.run take a parameter to not fail if there is any error
 * Embedded gem_server process doesn't get killed on windows during tests - need to use ruby services, see comment in embedded_gem_server.rb
 * Embedded gem_server ports aren't handled correctly on linux during tests - port conflict on startup, open ports die off slowly after tests finish
-* Rails integration doesn't work under mongrel when invoked via executable (e.g, actionmailer gem not recognized after install, only after mongrel restart).  Does't occur under webrick, or if geminstaller is invoked programatically via class.
 * Do a port check before starting embedded gem server, give option to kill process or at least exit with a descriptive warning.
 * Clean up spec_helper, find out simplest way to invoke rspec via test_unit, and still provide proper return codes/output
 * remove cruft from test output - intercept output streams from gem_server and rubygems setup
 * enhance DependencyInjector - allow items to be substituted prior to initialization - then geminstaller_spec could simply set a mock output_proxy on the registry instead of explicitly setting it every place it is used.
 * ensure --debug install option works as expected
-* quiet/info/verbose option enhancements
-  * move checks for quiet/info/verbose into output_proxy
-  * Use a logger, hook it into --info/verbose option
-  * Review and clarify meanings of --info, --verbose
-  * add more output for --info option.  Should also be able to check info flag from classes other than Application
-  * add --trace option? logging vs. stacktraces vs. ???
-* boot.rb parsed twice under webrick?
 * fix all Zentest warnings
 * Rename RubyGem class to RubyGemAction, add install vs. uninstall actions in config (install is default)
 * Automate process for creating a stubgem

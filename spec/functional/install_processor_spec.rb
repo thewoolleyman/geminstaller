@@ -46,9 +46,16 @@ context "an InstallProcessor instance" do
       uninstall_gem(gem)
     end
 
+    options = {:info => true}
+    @install_processor.options = options
+
+    @mock_output_proxy.should_receive(:sysout).once.with(/Gem #{@sample_dependent_multilevel_gem.name}, version 1.0.0 is already installed/m)
     @mock_output_proxy.should_receive(:sysout).once.with(/Missing dependencies found for #{@sample_dependent_multilevel_gem.name} \(1.0.0\)/m)
     @mock_output_proxy.should_receive(:sysout).once.with(/  #{@sample_dependent_gem.name} \(>= 1.0.0\)/)
+    # TODO: info option results in duplicate installation messages
     @mock_output_proxy.should_receive(:sysout).once.with(/Installing #{@sample_dependent_gem.name} \(>= 1.0.0\)/)
+    @mock_output_proxy.should_receive(:sysout).once.with(/Installing gem #{@sample_dependent_gem.name}, version 1.0.0/)
+    @mock_output_proxy.should_receive(:sysout).once.with(/Rubygems automatically installed dependency gem #{@sample_gem.name}-#{@sample_gem.version}/)
 
     @install_processor.process([@sample_dependent_multilevel_gem])
     @gem_command_manager.is_gem_installed?(@sample_dependent_gem).should==(true)
