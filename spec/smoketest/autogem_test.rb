@@ -35,15 +35,16 @@ print "Please be patient, it may take a bit, or may not work at all if rubyforge
 IO.popen(geminstaller_cmd) {|process| process.readlines.each {|line| print line}}
 print "\n\n"
 
-print "Geminstaller command complete.  Now testing GemInstaller.require_all() command.\n"
+print "Geminstaller command complete.  Now testing GemInstaller.autogem() command.\n"
 require 'rubygems'
 require 'geminstaller'
-GemInstaller.autogem("#{config_files}")
+GemInstaller::autogem("#{config_files}")
 
 required_gems.each do |gem|
   found = nil
   $:.each do |path_element|
     found = path_element =~ /gem/
+    break if found
   end
   raise "required gem #{gem} not found in load path: #{$:}" unless found
 end

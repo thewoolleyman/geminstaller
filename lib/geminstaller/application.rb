@@ -28,6 +28,25 @@ module GemInstaller
       return 0
     end
     
+    def autogem
+      # TODO: do some validation that args only contains --config option
+      handle_args
+      config = @config_builder.build_config
+      gems = config.gems
+      reversed_gems = gems.reverse!
+      completed_names = []
+      completed_gems = []
+      reversed_gems.each do |gem|
+        unless completed_names.index(gem.name)
+          gem(gem.name, gem.version)
+          completed_names << gem.name
+          completed_gems << gem
+        end
+      end
+      completed_gems
+    end
+
+    
     def handle_args
       @arg_parser.parse(@args)
       arg_parser_output = @arg_parser.output
