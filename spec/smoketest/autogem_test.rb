@@ -17,7 +17,7 @@ required_gems = [
 
 is_windows = RUBY_PLATFORM =~ /mswin/ ? true : false
 
-print "Important Note: Before running this, you should make sure you don't have the geminstaller gem installed locally.  Otherwise, you could run the installed version rather than the version in your working copy.\n\n"
+print "Important Note: Before running this, you should make sure you DO have the current geminstaller gem installed locally.  Use rake install_gem to install it.\n\n"
 print "This will uninstall the following gems and reinstall them with geminstaller.  If that is OK, press 'y'\n\n"
 required_gems.each {|gem| print "  " + gem + "\n"}
 response = gets
