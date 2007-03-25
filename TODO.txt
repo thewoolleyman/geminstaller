@@ -1,3 +1,4 @@
+* output_proxy is not getting injected into output_listener
 * Installing Gem message not printed unless info message passed (uninstall RedCloth, and run geminstaller for itself)
 * modify rails example to try non-sudo first, then sudo
 * check gems: mongrel, mongrel_cluster, hpricot, rmagick
