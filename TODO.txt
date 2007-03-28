@@ -1,8 +1,10 @@
+* add -v/--geminstaller-verbosity -V/-rubygems-verbosity flags.  0-n, lower is less.
 * output_proxy is not getting injected into output_listener
 * Installing Gem message not printed unless info message passed (uninstall RedCloth, and run geminstaller for itself)
 * modify rails example to try non-sudo first, then sudo
 * check gems: mongrel, mongrel_cluster, hpricot, rmagick
 * diff-lcs gem was not installed for geminstaller project (linux)
+* update docs for verbosity
 * update docs for autogem
 * write docs for fix_dependencies and prefer_binary_platform options
 * update docs with details on how to handle unmet dependencies when -y is not specified
@@ -15,10 +17,6 @@
 
 * Return meaningful message instructing to use the --sudo option if Errno::EACCES is caught on a sudo-able platform - should throw GemInstaller::AccessException, which can be caught
 * Rails integration doesn't work under mongrel when invoked via executable (e.g, actionmailer gem not recognized after install, only after mongrel restart).  Does't occur under webrick, or if geminstaller is invoked programatically via class.
-* quiet/info/verbose option enhancements
-  * move checks for quiet/info/verbose into output_proxy
-  * Use a logger approach, verbose > info > important > quiet > warning > error
-  * add --trace option? logging vs. stacktraces vs. ???
 * rails example doesn't print any warning if geminstaller is not installed
 * "Installing gem" messages are duplicated if info message is specified, one from rubygems, one from geminstaller.  See todo in install_processor.rb
 * boot.rb parsed twice under webrick?
