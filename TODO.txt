@@ -15,6 +15,7 @@
 * upload gem 
 - 0.2.0 release
 
+* autogem should follow dependency chains
 * Return meaningful message instructing to use the --sudo option if Errno::EACCES is caught on a sudo-able platform - should throw GemInstaller::AccessException, which can be caught
 * Rails integration doesn't work under mongrel when invoked via executable (e.g, actionmailer gem not recognized after install, only after mongrel restart).  Does't occur under webrick, or if geminstaller is invoked programatically via class.
 * rails example doesn't print any warning if geminstaller is not installed
