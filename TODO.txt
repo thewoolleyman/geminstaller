@@ -1,5 +1,3 @@
-* tests with "gem" fail on rubygems < 0.9
-* tests fail when disconnected from network
 * add -v/--geminstaller-verbosity -V/-rubygems-verbosity flags.  0-n, lower is less.
 * output_proxy is not getting injected into output_listener
 * Installing Gem message not printed unless info message passed (uninstall RedCloth, and run geminstaller for itself)
@@ -26,6 +24,7 @@
 * boot.rb parsed twice under webrick?
 - 0.3.0 release
 
+* tests failed when "partially" connected to network? (wireless at office)
 * tests fail with timeouts intermittently on windows
 * add more tests for dependencies to geminstaller_spec
 * reconcile methods for testing error messages - manually vs proc_should_raise_with_message.  Probably should patch rspec.
