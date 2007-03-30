@@ -11,8 +11,11 @@ module GemInstaller
 
       @options[:verbose] = false
       @options[:quiet] = false
+      @options[:silent] = false
       @options[:info] = false
       @options[:sudo] = false
+      @options[:geminstaller_output] = {}
+      @options[:rubygems_output] = {}
       @output = ""
       opts = OptionParser.new do |opts|
         opts.banner = "Usage: geminstaller [options]"
@@ -29,6 +32,10 @@ module GemInstaller
 
         opts.on("-q", "--quiet", "Suppress all output except severe errors or exceptions") do
           @options[:quiet] = true
+        end
+
+        opts.on("-t", "--silent", "Suppress all output except fatal exceptions") do
+          @options[:silent] = true
         end
 
         opts.on("-s", "--sudo", "Perform all gem operations under sudo (as root).  Will only work on correctly configured, supported systems.  See docs for more info") do
@@ -59,7 +66,9 @@ module GemInstaller
         return @options
       end
       
-      if @unparsed_rubygems_output_flags
+      if @options[:silent] and (@unparsed_geminstaller_output_flags or @unparsed_rubygems_output_flags)
+        @output = "The rubygems-output or geminstaller-output option cannot be specified if the silent option is true."
+      elsif @unparsed_rubygems_output_flags
         flags = @unparsed_rubygems_output_flags.split(',') 
         flags.delete_if {|flag| flag == nil or flag == ''}
         flags.map! {|flag| flag.downcase}
@@ -67,12 +76,10 @@ module GemInstaller
         flags.uniq!
         flags.map! {|flag| flag.to_sym}
         flags.each do |flag|
-          raise GemInstaller::GemInstallerError.new("Invalid rubygems-output flag: #{flag}") unless VALID_RUBYGEMS_OUTPUT_FLAGS.include?(flag)
+          @output = "Invalid rubygems-output flag: #{flag}" unless VALID_RUBYGEMS_OUTPUT_FLAGS.include?(flag)
         end
         @options[:rubygems_output] = flags
-      end
-      
-      if (@options[:sudo])
+      elsif (@options[:sudo])
         @output = "The sudo option is not (yet) supported when invoking GemInstaller programatically.  It is only supported when using the command line 'geminstaller' executable.  See the docs for more info."
       end
 

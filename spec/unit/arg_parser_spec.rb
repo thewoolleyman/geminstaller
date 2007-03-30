@@ -93,6 +93,19 @@ context "an ArgParser instance with rubygems-output option" do
   end
 end
 
+context "an ArgParser instance with rubygems-output option and silent option set to true" do
+  setup do
+    common_setup
+  end
+
+  specify "should return error message" do
+    @args.push("--silent")
+    @args.push("--rubygems-output","stderr,stdout")
+    @arg_parser.parse(@args)
+    @arg_parser.output.should_match(/The rubygems-output or geminstaller-output option cannot be specified if the silent option is true/)
+  end
+end
+
 context "an ArgParser instance with quiet option" do
   setup do
     common_setup
@@ -102,6 +115,18 @@ context "an ArgParser instance with quiet option" do
   specify "should return quiet flag as true in options hash" do
     @arg_parser.parse(@args)
     @options[:quiet].should==(true)
+  end
+end
+
+context "an ArgParser instance with silent option" do
+  setup do
+    common_setup
+    @args.push("--silent")
+  end
+
+  specify "should return silent flag as true in options hash" do
+    @arg_parser.parse(@args)
+    @options[:silent].should==(true)
   end
 end
 

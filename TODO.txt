@@ -1,3 +1,5 @@
+* tests with "gem" fail on rubygems < 0.9
+* tests fail when disconnected from network
 * add -v/--geminstaller-verbosity -V/-rubygems-verbosity flags.  0-n, lower is less.
 * output_proxy is not getting injected into output_listener
 * Installing Gem message not printed unless info message passed (uninstall RedCloth, and run geminstaller for itself)
@@ -15,6 +17,7 @@
 * upload gem 
 - 0.2.0 release
 
+* clean up regexps - no leading or trailing .*
 * autogem should follow dependency chains
 * Return meaningful message instructing to use the --sudo option if Errno::EACCES is caught on a sudo-able platform - should throw GemInstaller::AccessException, which can be caught
 * Rails integration doesn't work under mongrel when invoked via executable (e.g, actionmailer gem not recognized after install, only after mongrel restart).  Does't occur under webrick, or if geminstaller is invoked programatically via class.
