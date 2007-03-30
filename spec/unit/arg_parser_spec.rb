@@ -75,21 +75,21 @@ context "an ArgParser instance with verbose option" do
   end
 end
 
-context "an ArgParser instance with rubygems-verbosity option" do
+context "an ArgParser instance with rubygems-output option" do
   setup do
     common_setup
   end
 
-  specify "should correctly parse rubygems verbosity level from options" do
-    @args.push("--rubygems-verbosity","0")
+  specify "should correctly parse rubygems output level from options" do
+    @args.push("--rubygems-output","stderr,STDOUT,stderr")
     @arg_parser.parse(@args)
-    @options[:rubygems_verbosity].should ==(0)
+    @options[:rubygems_output].should ==([:stderr,:stdout])
   end
 
-  specify "should correctly parse rubygems verbosity level from options" do
-    @args.push("-V","1")
+  specify "should correctly parse rubygems output level from options" do
+    @args.push("-V","all")
     @arg_parser.parse(@args)
-    @options[:rubygems_verbosity].should ==(1)
+    @options[:rubygems_output].should ==([:all])
   end
 end
 

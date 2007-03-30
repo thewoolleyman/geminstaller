@@ -3,6 +3,8 @@ module GemInstaller
     attr_reader :output
     attr_writer :options
     
+    VALID_RUBYGEMS_OUTPUT_FLAGS = [:none,:stdout,:stderr,:all]
+    
     def parse(args = [])
       raise GemInstaller::GemInstallerError.new("Args must be passed as an array.") unless args.nil? or args.respond_to? :shift
       args = ARGV if args.nil? || args == []
@@ -37,8 +39,8 @@ module GemInstaller
           @options[:verbose] = true
         end
 
-        opts.on("-V=RUBYGEMS_VERBOSITY", "--rubygems-verbosity=RUBYGEMS_VERBOSITY", Integer, "Level of output to show from internal RubyGems command invocation.") do |rubygems_verbosity|
-          @options[:rubygems_verbosity] = rubygems_verbosity
+        opts.on("-V=RUBYGEMS_OUTPUT", "--rubygems-output=RUBYGEMS_OUTPUT", String, "Types of output to show from internal RubyGems command invocation.") do |rubygems_output_flags|
+          @unparsed_rubygems_output_flags = rubygems_output_flags
         end
 
         opts.on_tail("-h", "--help", "Show this message") do
@@ -55,6 +57,19 @@ module GemInstaller
       rescue(OptionParser::InvalidOption)
         @output << opts.to_s
         return @options
+      end
+      
+      if @unparsed_rubygems_output_flags
+        flags = @unparsed_rubygems_output_flags.split(',') 
+        flags.delete_if {|flag| flag == nil or flag == ''}
+        flags.map! {|flag| flag.downcase}
+        flags.sort!
+        flags.uniq!
+        flags.map! {|flag| flag.to_sym}
+        flags.each do |flag|
+          raise GemInstaller::GemInstallerError.new("Invalid rubygems-output flag: #{flag}") unless VALID_RUBYGEMS_OUTPUT_FLAGS.include?(flag)
+        end
+        @options[:rubygems_output] = flags
       end
       
       if (@options[:sudo])
