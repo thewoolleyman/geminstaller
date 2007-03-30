@@ -30,12 +30,11 @@ context "an application instance invoked with no args" do
   end
 end
 
-context "an application instance invoked with no args and info, quiet options" do
+context "an application instance invoked with no args and silent options" do
   setup do
     application_spec_setup_common
     @mock_arg_parser.should_receive(:parse).with(nil)
-    @options[:info] = true
-    @options[:quiet] = true
+    @options[:silent] = true
     @mock_arg_parser.should_receive(:output).and_return(nil)
   end
 
@@ -50,15 +49,15 @@ context "an application instance invoked with no args and info, quiet options" d
   end
 end
 
-context "an application instance invoked with no args and quiet option" do
+context "an application instance invoked with no args and silent option" do
   setup do
     application_spec_setup_common
     @mock_arg_parser.should_receive(:parse).with(nil)
-    @options[:quiet] = true
+    @options[:silent] = true
     @mock_arg_parser.should_receive(:output).and_return(nil)
   end
 
-  specify "should not show startup message if quiet flag is specified" do
+  specify "should not show startup message if silent flag is specified" do
     @mock_config_builder.should_receive(:build_config).and_return {@stub_config_local}
     
     @stub_gem.check_for_upgrade = false

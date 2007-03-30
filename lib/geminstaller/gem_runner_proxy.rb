@@ -13,7 +13,7 @@ module GemInstaller
       listener = create_output_listener
       stdout_output_listener = listener
       stderr_output_listener = listener
-      if @options[:quiet]
+      if @options[:silent]
         listener.echo = false
       end
       @enhanced_stream_ui.register_outs_listener(stdout_output_listener)

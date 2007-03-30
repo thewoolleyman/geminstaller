@@ -17,12 +17,11 @@ context "an InstallProcessor instance with no options passed" do
   end  
 end
 
-context "an InstallProcessor instance invoked with info, quiet options passed" do
+context "an InstallProcessor instance invoked with info option passed" do
   setup do
     install_processor_spec_setup_common
     @sample_gem.fix_dependencies = false
     @options[:info] = true
-    @options[:quiet] = true
   end
 
   specify "should show info message for a gem which is already installed" do
@@ -33,11 +32,11 @@ context "an InstallProcessor instance invoked with info, quiet options passed" d
   end
 end
 
-context "an InstallProcessor instance invoked with quiet option" do
+context "an InstallProcessor instance invoked with silent option" do
   setup do
     install_processor_spec_setup_common
     @sample_gem.fix_dependencies = false
-    @options[:quiet] = true
+    @options[:silent] = true
   end
 
   specify "should not install a gem which is already installed and not print installed message" do

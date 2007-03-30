@@ -13,7 +13,7 @@ module GemInstaller
         return 0 if should_exit
         config = @config_builder.build_config
         gems = config.gems
-        print_startup_message(gems) unless @options[:quiet]
+        print_startup_message(gems) unless @options[:silent]
         @install_processor.process(gems)
       rescue Exception => e
         message = e.message

@@ -10,7 +10,6 @@ module GemInstaller
       args = ARGV if args.nil? || args == []
 
       @options[:verbose] = false
-      @options[:quiet] = false
       @options[:silent] = false
       @options[:info] = false
       @options[:sudo] = false
@@ -28,10 +27,6 @@ module GemInstaller
 
         opts.on("-cCONFIGPATHS", "--config=CONFIGPATHS", String, "Comma-delimited path(s) to GemInstaller config file(s)") do |config_paths|
           @options[:config_paths] = config_paths
-        end
-
-        opts.on("-q", "--quiet", "Suppress all output except severe errors or exceptions") do
-          @options[:quiet] = true
         end
 
         opts.on("-t", "--silent", "Suppress all output except fatal exceptions") do
