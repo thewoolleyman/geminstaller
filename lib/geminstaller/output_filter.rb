@@ -3,11 +3,13 @@ module GemInstaller
     attr_writer :output_proxy, :options
     
     def rubygems_output(type, message)
+      return if @options[:silent]
       return unless rubygems_output_type_matches?(type)
       output(:rubygems, type, message)
     end
       
     def geminstaller_output(type, message)
+      return if @options[:silent]
       return unless geminstaller_output_type_matches?(type)
       output(:geminstaller, type, message)
     end
