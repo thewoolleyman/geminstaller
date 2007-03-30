@@ -3,7 +3,7 @@ module GemInstaller
     attr_reader :output
     attr_writer :options
     
-    VALID_RUBYGEMS_OUTPUT_FLAGS = [:none,:stdout,:stderr,:all]
+    VALID_RUBYGEMS_OUTPUT_FLAGS = [:stdout,:stderr,:all]
     
     def parse(args = [])
       raise GemInstaller::GemInstallerError.new("Args must be passed as an array.") unless args.nil? or args.respond_to? :shift

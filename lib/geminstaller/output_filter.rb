@@ -13,18 +13,20 @@ module GemInstaller
     end
       
     def output(source, type, message)
-      formatted_message = format_message(source,message)
-      @output_proxy.sysout(formatted_message)
+      message = format_rubygems_message(type,message) if source == :rubygems
+      @output_proxy.sysout(message)
     end
     
-    def format_message(source, message)
-      prefix = case source
-      when :rubygems : "[RubyGems] "
+    def format_rubygems_message(type, message)
+      prefix = case type
+      when :stdout : "[RubyGems:stdout] "
+      when :stderr : "[RubyGems:stderr] "
       end
       "#{prefix}#{message}"
     end
 
     def rubygems_output_type_matches?(type)
+      return true if @options[:rubygems_output].include?(:all)
       return true if @options[:rubygems_output].include?(type)
       return false
     end
