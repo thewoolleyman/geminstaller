@@ -18,7 +18,7 @@ required_gems = [
 is_windows = RUBY_PLATFORM =~ /mswin/ ? true : false
 
 print "Important Note: Before running this, you should make sure you DO have the current geminstaller gem installed locally.  Use rake install_gem to install it.\n\n"
-print "This will uninstall the following gems and reinstall them with geminstaller.  If that is OK, press 'y'\n\n"
+print "This will install the following gems and verify they can be autoloaded with geminstaller the autoload command.  If that is OK, press 'y'\n\n"
 required_gems.each {|gem| print "  " + gem + "\n"}
 response = gets
 exit unless response.index('y')
