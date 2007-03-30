@@ -70,10 +70,14 @@ module GemInstaller
         flags.sort!
         flags.uniq!
         flags.map! {|flag| flag.to_sym}
+        rubygems_output_valid = true
         flags.each do |flag|
-          @output = "Invalid rubygems-output flag: #{flag}" unless VALID_RUBYGEMS_OUTPUT_FLAGS.include?(flag)
+          unless VALID_RUBYGEMS_OUTPUT_FLAGS.include?(flag)
+            @output = "Invalid rubygems-output flag: #{flag}" 
+            rubygems_output_valid = false
+          end
         end
-        @options[:rubygems_output] = flags
+        @options[:rubygems_output] = flags if rubygems_output_valid
       elsif (@options[:sudo])
         @output = "The sudo option is not (yet) supported when invoking GemInstaller programatically.  It is only supported when using the command line 'geminstaller' executable.  See the docs for more info."
       end

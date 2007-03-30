@@ -12,7 +12,7 @@ context "an ArgParser instance with no args" do
     @options[:silent].should==(false)
     @options[:info].should==(false)
     @options[:sudo].should==(false)
-    @options[:rubygems_output].should==({})
+    @options[:rubygems_output].should==(@rubygems_output_default)
   end
 
 end
@@ -92,6 +92,14 @@ context "an ArgParser instance with rubygems-output option" do
     @arg_parser.parse(@args)
     @options[:rubygems_output].should ==([:all])
   end
+
+  specify "should raise error and not assign options if invalid rubygems-output option is given" do
+    invalid = "invalid"
+    @args.push("-V",invalid)
+    @arg_parser.parse(@args)
+    @arg_parser.output.should_match(/Invalid rubygems-output flag: #{invalid}/)
+    @options[:rubygems_output].should == @rubygems_output_default
+  end
 end
 
 context "an ArgParser instance with rubygems-output option and silent option set to true" do
@@ -160,6 +168,7 @@ def common_setup
   @arg_parser = GemInstaller::ArgParser.new
   @args = []
   @options = {}
+  @rubygems_output_default = {}
   @arg_parser.options = @options
 end
 
