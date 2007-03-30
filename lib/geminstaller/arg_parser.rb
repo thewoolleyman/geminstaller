@@ -29,12 +29,16 @@ module GemInstaller
           @options[:quiet] = true
         end
 
+        opts.on("-s", "--sudo", "Perform all gem operations under sudo (as root).  Will only work on correctly configured, supported systems.  See docs for more info") do
+          @options[:sudo] = true
+        end
+
         opts.on("-v", "--verbose", "Show verbose output (such as exceptions from rubygems)") do
           @options[:verbose] = true
         end
 
-        opts.on("-s", "--sudo", "Perform all gem operations under sudo (as root).  Will only work on correctly configured, supported systems.  See docs for more info") do
-          @options[:sudo] = true
+        opts.on("-V=RUBYGEMS_VERBOSITY", "--rubygems-verbosity=RUBYGEMS_VERBOSITY", Integer, "Level of output to show from internal RubyGems command invocation.") do |rubygems_verbosity|
+          @options[:rubygems_verbosity] = rubygems_verbosity
         end
 
         opts.on_tail("-h", "--help", "Show this message") do

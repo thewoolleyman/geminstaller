@@ -75,6 +75,24 @@ context "an ArgParser instance with verbose option" do
   end
 end
 
+context "an ArgParser instance with rubygems-verbosity option" do
+  setup do
+    common_setup
+  end
+
+  specify "should correctly parse rubygems verbosity level from options" do
+    @args.push("--rubygems-verbosity","0")
+    @arg_parser.parse(@args)
+    @options[:rubygems_verbosity].should ==(0)
+  end
+
+  specify "should correctly parse rubygems verbosity level from options" do
+    @args.push("-V","1")
+    @arg_parser.parse(@args)
+    @options[:rubygems_verbosity].should ==(1)
+  end
+end
+
 context "an ArgParser instance with quiet option" do
   setup do
     common_setup
