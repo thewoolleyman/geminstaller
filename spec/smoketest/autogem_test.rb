@@ -40,7 +40,16 @@ print "\n\n"
 print "Geminstaller command complete.  Now testing GemInstaller.autogem() command.\n"
 require 'rubygems'
 require 'geminstaller'
-GemInstaller::autogem("#{config_files}")
+begin
+  GemInstaller::autogem("#{config_files}")
+rescue Exception => e
+  # ruby-doom fails with require-gem on rubygems 0.8
+  if Gem::RubyGemsVersion.index('0.8') == 0
+    raise e unless e.message.index('ruby-doom')
+  else
+    raise e
+  end
+end
 
 required_gems.each do |gem|
   found = nil
