@@ -28,6 +28,7 @@ lib/geminstaller/hoe_extensions.rb
 lib/geminstaller/install_processor.rb
 lib/geminstaller/missing_dependency_finder.rb
 lib/geminstaller/noninteractive_chooser.rb
+lib/geminstaller/output_filter.rb
 lib/geminstaller/output_listener.rb
 lib/geminstaller/output_proxy.rb
 lib/geminstaller/requires.rb
