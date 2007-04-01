@@ -33,9 +33,7 @@ context "an OutputListener" do
     @output_listener.output_proxy = @mock_output_proxy
     @mock_output_proxy.should_receive(:sysout).once.with(stdout)
     @mock_output_proxy.should_receive(:syserr).once.with(stderr)
-    @output_listener.stream = :stdout
-    @output_listener.notify(stdout)
-    @output_listener.stream = :stderr
-    @output_listener.notify(stderr)
+    @output_listener.notify(stdout, :stdout)
+    @output_listener.notify(stderr, :stderr)
   end
 end

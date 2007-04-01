@@ -3,22 +3,21 @@ require File.expand_path("#{dir}/requires.rb")
 
 module GemInstaller
   class OutputListener
-    attr_writer :echo, :output_proxy, :stream
+    attr_writer :echo, :output_proxy
     
     def initialize
       @messages = []
       @echo = true
-      @stream = :stdout
       @output_proxy = nil
     end
     
-    def notify(msg)
+    def notify(msg, stream = :stdout)
       @messages.push(msg)
       return unless @output_proxy
       return unless @echo
-      if @stream == :stdout
+      if stream == :stdout
         @output_proxy.sysout(msg)
-      elsif @stream == :stderr
+      elsif stream == :stderr
         @output_proxy.syserr(msg)
       else
         raise GemInstaller::GemInstallerError.new("Invalid stream specified: #{@stream}")
