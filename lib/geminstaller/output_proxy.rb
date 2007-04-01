@@ -13,6 +13,7 @@ module GemInstaller
       $stderr.print err
     end
     
+    # TODO: should remove this, make callers explicitly choose.
     def output(output)
       if @default_stream == :stdout
         sysout(output)
