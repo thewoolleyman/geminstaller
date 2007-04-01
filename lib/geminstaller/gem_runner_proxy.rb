@@ -10,6 +10,7 @@ module GemInstaller
       gem_runner.do_configuration(args)
       @gem_cmd_manager_class.instance.ui = @enhanced_stream_ui
       
+      # TODO: move this to OutputObserver after it is extracted
       listener = create_output_listener
       stdout_output_listener = listener
       stderr_output_listener = listener
