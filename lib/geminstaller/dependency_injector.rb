@@ -23,6 +23,7 @@ module GemInstaller
       @file_reader = GemInstaller::FileReader.new
       @yaml_loader = GemInstaller::YamlLoader.new
       @output_proxy = GemInstaller::OutputProxy.new
+      @output_observer = GemInstaller::OutputObserver.new
       @gem_arg_processor = GemInstaller::GemArgProcessor.new
       @version_specifier = GemInstaller::VersionSpecifier.new
 
@@ -42,6 +43,7 @@ module GemInstaller
       @gem_interaction_handler.noninteractive_chooser = @noninteractive_chooser
       @gem_interaction_handler.valid_platform_selector = @valid_platform_selector
       @enhanced_stream_ui = GemInstaller::EnhancedStreamUI.new
+      # @enhanced_stream_ui.output_observer = @output_observer
       @enhanced_stream_ui.gem_interaction_handler = @gem_interaction_handler
 
       @gem_runner_class = Gem::GemRunner
