@@ -1,6 +1,6 @@
 module GemInstaller
   class GemRunnerProxy
-    attr_writer :gem_runner_class, :gem_cmd_manager_class, :output_listener_class
+    attr_writer :gem_runner_class, :gem_cmd_manager_class, :output_listener
     attr_writer :options, :enhanced_stream_ui
 
     def run(args = [], stdin = [])
@@ -10,15 +10,6 @@ module GemInstaller
       gem_runner.do_configuration(args)
       @gem_cmd_manager_class.instance.ui = @enhanced_stream_ui
       
-      # TODO: move this to OutputObserver after it is extracted
-      listener = create_output_listener
-      stdout_output_listener = listener
-      stderr_output_listener = listener
-      if @options[:silent]
-        listener.echo = false
-      end
-      @enhanced_stream_ui.register_outs_listener(stdout_output_listener)
-      @enhanced_stream_ui.register_errs_listener(stderr_output_listener)
       @enhanced_stream_ui.queue_input(stdin)
       exit_status = nil
       begin
@@ -26,9 +17,9 @@ module GemInstaller
       rescue GemInstaller::RubyGemsExit => normal_exit
         exit_status = normal_exit.message
       rescue GemInstaller::GemInstallerError => exit_error
-        raise_error_with_output(exit_error, args, listener)
+        raise_error_with_output(exit_error, args, @output_listener)
       end
-      output_lines = listener.read!
+      output_lines = @output_listener.read!
       output_lines.push(exit_status) if exit_status
       return output_lines
     end
@@ -41,11 +32,7 @@ module GemInstaller
         @gem_runner_class.new(:command_manager => @gem_cmd_manager_class)
       end
     end
-    
-    def create_output_listener
-      @output_listener_class.new
-    end
-    
+        
     def raise_error_with_output(exit_error, args, listener)
       descriptive_exit_message = exit_error.descriptive_exit_message(exit_error.message, 'gem', args, listener)
       raise exit_error.class.new(descriptive_exit_message)

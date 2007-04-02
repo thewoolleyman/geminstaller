@@ -14,6 +14,7 @@ module GemInstaller
     attr_accessor :file_reader, :yaml_loader, :output_proxy, :config_builder, :gem_source_index, :gem_runner_proxy
     attr_accessor :gem_runner, :gem_command_manager, :gem_list_checker, :app, :arg_parser, :options, :noninteractive_chooser
     attr_accessor :gem_interaction_handler, :install_processor, :missing_dependency_finder, :valid_platform_selector
+    attr_accessor :output_listener, :outs_output_observer, :errs_output_observer
 
     def initialize
       @options = {}
@@ -22,10 +23,14 @@ module GemInstaller
       
       @file_reader = GemInstaller::FileReader.new
       @yaml_loader = GemInstaller::YamlLoader.new
-      @output_proxy = GemInstaller::OutputProxy.new
-      @output_observer = GemInstaller::OutputObserver.new
       @gem_arg_processor = GemInstaller::GemArgProcessor.new
       @version_specifier = GemInstaller::VersionSpecifier.new
+      
+      @output_proxy = GemInstaller::OutputProxy.new
+      @output_proxy.options = @options
+
+      @output_listener = GemInstaller::OutputListener.new
+      @output_listener.output_proxy = @output_proxy
 
       @valid_platform_selector = GemInstaller::ValidPlatformSelector.new
       @valid_platform_selector.options = @options
@@ -42,17 +47,25 @@ module GemInstaller
       @noninteractive_chooser = GemInstaller::NoninteractiveChooser.new
       @gem_interaction_handler.noninteractive_chooser = @noninteractive_chooser
       @gem_interaction_handler.valid_platform_selector = @valid_platform_selector
+      
+      @outs_output_observer = GemInstaller::OutputObserver.new
+      @outs_output_observer.stream = :stdout
+      @outs_output_observer.register(@output_listener)
+      @errs_output_observer = GemInstaller::OutputObserver.new
+      @errs_output_observer.stream = :stderr
+      @errs_output_observer.register(@output_listener)
+      
       @enhanced_stream_ui = GemInstaller::EnhancedStreamUI.new
-      # @enhanced_stream_ui.output_observer = @output_observer
+      @enhanced_stream_ui.outs = @outs_output_observer
+      @enhanced_stream_ui.errs = @errs_output_observer
       @enhanced_stream_ui.gem_interaction_handler = @gem_interaction_handler
 
       @gem_runner_class = Gem::GemRunner
       @gem_cmd_manager_class = Gem::CommandManager
-      @output_listener_class = GemInstaller::OutputListener
       @gem_runner_proxy = GemInstaller::GemRunnerProxy.new
       @gem_runner_proxy.gem_runner_class = @gem_runner_class
       @gem_runner_proxy.gem_cmd_manager_class = @gem_cmd_manager_class
-      @gem_runner_proxy.output_listener_class = @output_listener_class
+      @gem_runner_proxy.output_listener = @output_listener
       @gem_runner_proxy.enhanced_stream_ui = @enhanced_stream_ui
       @gem_runner_proxy.options = @options
   

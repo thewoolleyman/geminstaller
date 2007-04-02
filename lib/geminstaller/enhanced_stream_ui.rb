@@ -1,11 +1,9 @@
 module GemInstaller
   class EnhancedStreamUI < Gem::StreamUI
-    attr_writer :gem_interaction_handler
+    attr_writer :gem_interaction_handler, :outs, :errs
     
     def initialize()
       @ins = InputQueue.new
-      @outs = GemInstaller::OutputObserver.new
-      @errs = GemInstaller::OutputObserver.new
     end
     
     def ask_yes_no(question, default=nil)
@@ -23,22 +21,6 @@ module GemInstaller
       @gem_interaction_handler.handle_choose_from_list(question, list)
     end
 
-    def register_outs_listener(listener)
-      @outs.register(listener)
-    end
-    
-    def unregister_outs_listener(listener)
-      @outs.unregister(listener)
-    end
-    
-    def register_errs_listener(listener)
-      @errs.register(listener)
-    end
-    
-    def unregister_errs_listener(listener)
-      @errs.unregister(listener)
-    end
-    
     def queue_input(input)
       @ins.queue_input(input)
     end

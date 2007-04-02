@@ -19,12 +19,9 @@ context "an OutputListener" do
   
   specify "should echo all output, and stop echoing if echo is disabled" do
     echo = "this should be echoed"
-    noecho = "this should not be echoed"
     @mock_output_proxy.should_receive(:sysout).once.with(echo)
     @output_listener.output_proxy = @mock_output_proxy
     @output_listener.notify(echo)
-    @output_listener.echo = false
-    @output_listener.notify(echo)    
   end
   
   specify "should call sysout or sysin on based on output_stream property" do
