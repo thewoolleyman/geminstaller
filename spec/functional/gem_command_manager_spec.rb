@@ -33,11 +33,11 @@ context "a GemCommandManager instance" do
     list_options = ["--source=#{embedded_gem_server_url}"]
     @sample_gem.name = 'stubgem-multiplatform'
     list = @gem_command_manager.list_remote_gem(@sample_gem,list_options)
-    expected_list = ["",
-      "*** REMOTE GEMS ***", 
-      "", 
-      "stubgem-multiplatform (1.0.1, 1.0.0)", 
-      "    Multiplatform stub gem for testing geminstaller"]
+    expected_list = ["\n",
+      "*** REMOTE GEMS ***\n", 
+      "\n", 
+      "stubgem-multiplatform (1.0.1, 1.0.0)\n", 
+      "    Multiplatform stub gem for testing geminstaller\n"]
     list.should==(expected_list)
   end
   

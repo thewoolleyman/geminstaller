@@ -1,6 +1,8 @@
 * add -v/--geminstaller-verbosity -V/-rubygems-verbosity flags.
 * -v/--geminstaller-verbosity: none, install, info, commandecho, debug, all
-* prepend [RubyGems :<stream>] to all rubygems output
+* prepend [RubyGems:<stream>] to all rubygems output
+* ensure newlines are added to rubygems output
+* echo stdin
 * Installing Gem message not printed unless info message passed (uninstall RedCloth, and run geminstaller for itself)
 * modify rails example to try non-sudo first, then sudo
 * check gems: mongrel, mongrel_cluster, hpricot, rmagick

@@ -28,6 +28,7 @@ module GemInstaller
     end
 
     def rubygems_output_type_matches?(type)
+      return false unless @options[:rubygems_output]
       return true if @options[:rubygems_output].include?(:all)
       return true if @options[:rubygems_output].include?(type)
       return false

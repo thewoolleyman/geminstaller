@@ -13,8 +13,8 @@ module GemInstaller
       @options[:silent] = false
       @options[:info] = false
       @options[:sudo] = false
-      @options[:geminstaller_output] = {}
-      @options[:rubygems_output] = {}
+      @options[:geminstaller_output] = [:all]
+      @options[:rubygems_output] = [:all]
       @output = ""
       opts = OptionParser.new do |opts|
         opts.banner = "Usage: geminstaller [options]"

@@ -56,14 +56,14 @@ context "An EnhancedStreamUI instance with an OutputProxy injected for outs and 
 
   specify "can listen to error stream" do
     statement = 'statement'
-    @mock_errs_listener.should_receive(:notify).once.with('ERROR:  ' + statement, :stderr)
+    @mock_errs_listener.should_receive(:notify).once.with('ERROR:  ' + statement + "\n", :stderr)
     @enhanced_stream_ui.alert_error(statement)
   end
   
   specify "will stop listening to streams if listeners are unregistered" do
     statement = 'statement'
-    @mock_errs_listener.should_receive(:notify).once.with('ERROR:  ' + statement, :stderr)
-    @mock_outs_listener.should_receive(:notify).once.with(statement, :stdout)
+    @mock_errs_listener.should_receive(:notify).once.with('ERROR:  ' + statement + "\n", :stderr)
+    @mock_outs_listener.should_receive(:notify).once.with(statement + "\n", :stdout)
     # listeners should receive messages when they are registered
     @enhanced_stream_ui.alert_error(statement)
     @enhanced_stream_ui.say(statement)

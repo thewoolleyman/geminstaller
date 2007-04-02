@@ -29,7 +29,10 @@ module GemInstaller
         listener.notify(output, @stream)
       end
     end
-    alias puts print
+    
+    def puts(output)
+      print("#{output}\n")
+    end
     
     def flush
     end

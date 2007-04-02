@@ -168,7 +168,7 @@ def common_setup
   @arg_parser = GemInstaller::ArgParser.new
   @args = []
   @options = {}
-  @rubygems_output_default = {}
+  @rubygems_output_default = [:all]
   @arg_parser.options = @options
 end
 

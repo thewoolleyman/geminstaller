@@ -25,12 +25,14 @@ module GemInstaller
       @yaml_loader = GemInstaller::YamlLoader.new
       @gem_arg_processor = GemInstaller::GemArgProcessor.new
       @version_specifier = GemInstaller::VersionSpecifier.new
-      
       @output_proxy = GemInstaller::OutputProxy.new
       @output_proxy.options = @options
+      @output_filter = GemInstaller::OutputFilter.new
+      @output_filter.options = @options
+      @output_filter.output_proxy = @output_proxy
 
       @output_listener = GemInstaller::OutputListener.new
-      @output_listener.output_proxy = @output_proxy
+      @output_listener.output_filter = @output_filter
 
       @valid_platform_selector = GemInstaller::ValidPlatformSelector.new
       @valid_platform_selector.options = @options
