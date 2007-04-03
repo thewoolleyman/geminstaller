@@ -76,6 +76,34 @@ context "an ArgParser instance with verbose option" do
   end
 end
 
+context "an ArgParser instance with geminstaller-output option" do
+  setup do
+    common_setup
+  end
+
+  specify "should correctly parse geminstaller output level from options" do
+    @args.push("--geminstaller-output","install,info,commandecho,debug")
+    @arg_parser.parse(@args)
+    [:install,:info,:commandecho,:debug].each do |option|
+      @options[:geminstaller_output].should include(option)
+    end
+  end
+
+  specify "should correctly parse geminstaller output level from options" do
+    @args.push("-g","all")
+    @arg_parser.parse(@args)
+    @options[:geminstaller_output].should ==([:all])
+  end
+
+  specify "should raise error and not assign options if invalid geminstaller-output option is given" do
+    invalid = "invalid"
+    @args.push("-g",invalid)
+    @arg_parser.parse(@args)
+    @arg_parser.output.should_match(/Invalid geminstaller-output flag: #{invalid}/)
+    @options[:geminstaller_output].should == @geminstaller_output_default
+  end
+end
+
 context "an ArgParser instance with rubygems-output option" do
   setup do
     common_setup
@@ -169,6 +197,7 @@ def common_setup
   @args = []
   @options = {}
   @rubygems_output_default = [:all]
+  @geminstaller_output_default = [:all]
   @arg_parser.options = @options
 end
 

@@ -3,7 +3,8 @@ module GemInstaller
     attr_reader :output
     attr_writer :options
     
-    VALID_RUBYGEMS_OUTPUT_FLAGS = [:stdout,:stderr,:all]
+    VALID_GEMINSTALLER_OUTPUT_FLAGS = [:none,:install,:info,:commandecho,:debug,:all]
+    VALID_RUBYGEMS_OUTPUT_FLAGS = [:none,:stdout,:stderr,:all]
     
     def parse(args = [])
       raise GemInstaller::GemInstallerError.new("Args must be passed as an array.") unless args.nil? or args.respond_to? :shift
@@ -41,6 +42,10 @@ module GemInstaller
           @options[:verbose] = true
         end
 
+        opts.on("-g=GEMINSTALLER_OUTPUT", "--geminstaller-output=GEMINSTALLER_OUTPUT", String, "Types of output to show from GemInstaller.") do |geminstaller_output_flags|
+          @unparsed_geminstaller_output_flags = geminstaller_output_flags
+        end
+
         opts.on("-V=RUBYGEMS_OUTPUT", "--rubygems-output=RUBYGEMS_OUTPUT", String, "Types of output to show from internal RubyGems command invocation.") do |rubygems_output_flags|
           @unparsed_rubygems_output_flags = rubygems_output_flags
         end
@@ -63,7 +68,33 @@ module GemInstaller
       
       if @options[:silent] and (@unparsed_geminstaller_output_flags or @unparsed_rubygems_output_flags)
         @output = "The rubygems-output or geminstaller-output option cannot be specified if the silent option is true."
-      elsif @unparsed_rubygems_output_flags
+        return @options
+      end
+
+      if (@options[:sudo])
+        @output = "The sudo option is not (yet) supported when invoking GemInstaller programatically.  It is only supported when using the command line 'geminstaller' executable.  See the docs for more info."
+        return @options
+      end
+      
+      # TODO: remove duplication
+      if @unparsed_geminstaller_output_flags
+        flags = @unparsed_geminstaller_output_flags.split(',') 
+        flags.delete_if {|flag| flag == nil or flag == ''}
+        flags.map! {|flag| flag.downcase}
+        flags.sort!
+        flags.uniq!
+        flags.map! {|flag| flag.to_sym}
+        geminstaller_output_valid = true
+        flags.each do |flag|
+          unless VALID_GEMINSTALLER_OUTPUT_FLAGS.include?(flag)
+            @output = "Invalid geminstaller-output flag: #{flag}" 
+            geminstaller_output_valid = false
+          end
+        end
+        @options[:geminstaller_output] = flags if geminstaller_output_valid
+      end
+
+      if @unparsed_rubygems_output_flags
         flags = @unparsed_rubygems_output_flags.split(',') 
         flags.delete_if {|flag| flag == nil or flag == ''}
         flags.map! {|flag| flag.downcase}
@@ -78,8 +109,6 @@ module GemInstaller
           end
         end
         @options[:rubygems_output] = flags if rubygems_output_valid
-      elsif (@options[:sudo])
-        @output = "The sudo option is not (yet) supported when invoking GemInstaller programatically.  It is only supported when using the command line 'geminstaller' executable.  See the docs for more info."
       end
 
       # nil out @output if there was no output

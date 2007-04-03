@@ -1,3 +1,4 @@
+* -g, -r instead of -v -V
 * add -v/--geminstaller-verbosity -V/-rubygems-verbosity flags.
 * -v/--geminstaller-verbosity: none, install, info, commandecho, debug, all
 * prepend [RubyGems:<stream>] to all rubygems output
