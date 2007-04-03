@@ -35,6 +35,8 @@ module GemInstaller
     end
 
     def geminstaller_output_type_matches?(type)
+      return false unless @options[:geminstaller_output]
+      return true if @options[:geminstaller_output].include?(:all)
       return true if @options[:geminstaller_output].include?(type)
       return false
     end

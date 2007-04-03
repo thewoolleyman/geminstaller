@@ -38,10 +38,10 @@ context "An output filter" do
     @output_filter.rubygems_output(:stderr, @message)
   end
 
-  specify "should pass geminstaller stdout message to output proxy if 'stdout' geminstaller_output option is set" do
-    @options[:geminstaller_output] = [:stdout]
+  specify "should pass geminstaller info message to output proxy if 'info' geminstaller_output option is set" do
+    @options[:geminstaller_output] = [:info]
     @mock_output_proxy.should_receive(:sysout).with(@message)
-    @output_filter.geminstaller_output(:stdout, @message)
+    @output_filter.geminstaller_output(:info, @message)
   end
 
 
