@@ -3,7 +3,7 @@ module GemInstaller
     attr_reader :output
     attr_writer :options
     
-    VALID_GEMINSTALLER_OUTPUT_FLAGS = [:none,:install,:info,:commandecho,:debug,:all]
+    VALID_GEMINSTALLER_OUTPUT_FLAGS = [:none,:error,:install,:info,:commandecho,:debug,:all]
     VALID_RUBYGEMS_OUTPUT_FLAGS = [:none,:stdout,:stderr,:all]
     
     def parse(args = [])

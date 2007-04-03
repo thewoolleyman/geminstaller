@@ -82,9 +82,9 @@ context "an ArgParser instance with geminstaller-output option" do
   end
 
   specify "should correctly parse geminstaller output level from options" do
-    @args.push("--geminstaller-output","install,info,commandecho,debug")
+    @args.push("--geminstaller-output","error,install,info,commandecho,debug")
     @arg_parser.parse(@args)
-    [:install,:info,:commandecho,:debug].each do |option|
+    [:error,:install,:info,:commandecho,:debug].each do |option|
       @options[:geminstaller_output].should include(option)
     end
   end
