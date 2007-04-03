@@ -19,7 +19,7 @@ context "an InstallProcessor instance with no options passed" do
   specify "should not install a gem which is already installed" do
     @sample_gem.check_for_upgrade = false
     @mock_gem_command_manager.should_receive(:is_gem_installed?).once.with(@sample_gem).and_return(true)
-    @mock_output_filter.should_receive(:geminstaller_output).once.with(:info,/Gem #{@sample_gem.name}, version 1.0.0 is already installed./).and_return([])
+    @mock_output_filter.should_receive(:geminstaller_output).once.with(:debug,/Gem #{@sample_gem.name}, version 1.0.0 is already installed./).and_return([])
     @install_processor.process([@sample_gem])
   end
 
@@ -27,7 +27,7 @@ context "an InstallProcessor instance with no options passed" do
     @sample_gem.check_for_upgrade = true
     @mock_gem_list_checker.should_receive(:verify_and_specify_remote_gem!).once.with(@sample_gem)
     @mock_gem_command_manager.should_receive(:is_gem_installed?).once.with(@sample_gem).and_return(true)
-    @mock_output_filter.should_receive(:geminstaller_output).once.with(:info,/Gem #{@sample_gem.name}, version 1.0.0 is already installed./).and_return([])
+    @mock_output_filter.should_receive(:geminstaller_output).once.with(:debug,/Gem #{@sample_gem.name}, version 1.0.0 is already installed./).and_return([])
     @install_processor.process([@sample_gem])
   end
 end
@@ -42,7 +42,7 @@ context "an InstallProcessor instance invoked with info option passed" do
   specify "should show info message for a gem which is already installed" do
     @sample_gem.check_for_upgrade = false
     @mock_gem_command_manager.should_receive(:is_gem_installed?).once.with(@sample_gem).and_return(true)
-    @mock_output_filter.should_receive(:geminstaller_output).once().with(:info,/Gem .*, version .*is already installed/)
+    @mock_output_filter.should_receive(:geminstaller_output).once().with(:debug,/Gem .*, version .*is already installed/)
     @install_processor.process([@sample_gem])
   end
 end

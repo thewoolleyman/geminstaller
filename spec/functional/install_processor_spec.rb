@@ -31,7 +31,7 @@ context "an InstallProcessor instance" do
     @sample_gem.install_options << '--ignore-dependencies'
     uninstall_gem(@sample_gem)
 
-    @mock_output_filter.should_receive(:geminstaller_output).once.with(:info,/Gem #{@sample_dependent_multilevel_gem.name}, version 1.0.0 is already installed/m)
+    @mock_output_filter.should_receive(:geminstaller_output).once.with(:debug,/Gem #{@sample_dependent_multilevel_gem.name}, version 1.0.0 is already installed/m)
     @mock_output_filter.should_receive(:geminstaller_output).once.with(:info,/Missing dependencies found for #{@sample_dependent_gem.name} \(1.0.0\)/m)
     @mock_output_filter.should_receive(:geminstaller_output).once.with(:info,/  #{@sample_gem.name} \(>= 1.0.0\)/)
     @mock_output_filter.should_receive(:geminstaller_output).once.with(:install,/Installing #{@sample_gem.name} \(>= 1.0.0\)/)
@@ -51,7 +51,7 @@ context "an InstallProcessor instance" do
     options = {:info => true}
     @install_processor.options = options
 
-    @mock_output_filter.should_receive(:geminstaller_output).once.with(:info,/Gem #{@sample_dependent_multilevel_gem.name}, version 1.0.0 is already installed/m)
+    @mock_output_filter.should_receive(:geminstaller_output).once.with(:debug,/Gem #{@sample_dependent_multilevel_gem.name}, version 1.0.0 is already installed/m)
     @mock_output_filter.should_receive(:geminstaller_output).once.with(:info,/Missing dependencies found for #{@sample_dependent_multilevel_gem.name} \(1.0.0\)/m)
     @mock_output_filter.should_receive(:geminstaller_output).once.with(:info,/  #{@sample_dependent_gem.name} \(>= 1.0.0\)/)
     # TODO: info option results in duplicate installation messages

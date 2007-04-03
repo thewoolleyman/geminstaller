@@ -1,15 +1,10 @@
-* -g, -r instead of -v -V
+* autogem should follow dependency chains
 * geminstaller-output :error should print to stderr, not stdout
-* add -v/--geminstaller-verbosity -V/-rubygems-verbosity flags.
-* -v/--geminstaller-verbosity: none, install, info, commandecho, debug, all
-* prepend [RubyGems:<stream>] to all rubygems output
-* ensure newlines are added to rubygems output
 * echo stdin
-* Installing Gem message not printed unless info message passed (uninstall RedCloth, and run geminstaller for itself)
+* implement commandecho
 * modify rails example to try non-sudo first, then sudo
 * check gems: mongrel, mongrel_cluster, hpricot, rmagick
-* diff-lcs gem was not installed for geminstaller project (linux)
-* update docs for verbosity
+* update docs for geminstaller-output/rubygems-output
 * update docs for autogem
 * write docs for fix_dependencies and prefer_binary_platform options
 * update docs with details on how to handle unmet dependencies when -y is not specified
@@ -21,7 +16,6 @@
 - 0.2.0 release
 
 * clean up regexps - no leading or trailing .*
-* autogem should follow dependency chains
 * Return meaningful message instructing to use the --sudo option if Errno::EACCES is caught on a sudo-able platform - should throw GemInstaller::AccessException, which can be caught
 * Rails integration doesn't work under mongrel when invoked via executable (e.g, actionmailer gem not recognized after install, only after mongrel restart).  Does't occur under webrick, or if geminstaller is invoked programatically via class.
 * rails example doesn't print any warning if geminstaller is not installed

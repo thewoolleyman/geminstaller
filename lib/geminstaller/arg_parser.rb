@@ -12,7 +12,7 @@ module GemInstaller
 
       @options[:silent] = false
       @options[:sudo] = false
-      @options[:geminstaller_output] = [:all]
+      @options[:geminstaller_output] = [:error,:install,:info]
       @options[:rubygems_output] = [:stderr]
       @output = ""
       opts = OptionParser.new do |opts|

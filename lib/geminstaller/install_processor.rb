@@ -15,7 +15,7 @@ module GemInstaller
       end
       gem_is_installed = @gem_command_manager.is_gem_installed?(gem)
       if gem_is_installed 
-        @output_filter.geminstaller_output(:info,"Gem #{gem.name}, version #{gem.version} is already installed.\n")
+        @output_filter.geminstaller_output(:debug,"Gem #{gem.name}, version #{gem.version} is already installed.\n")
       else
         @gem_list_checker.verify_and_specify_remote_gem!(gem) unless already_specified
         @output_filter.geminstaller_output(:install,"Invoking gem install for #{gem.name}, version #{gem.version}.\n")

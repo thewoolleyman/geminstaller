@@ -38,7 +38,7 @@ context "The geminstaller command line application" do
   
   specify "should print message if gem is already installed" do
     @gem_command_manager.install_gem(@sample_gem)
-    args = ["--config=#{geminstaller_spec_live_config_path}"]
+    args = ["--geminstaller-output=debug","--config=#{geminstaller_spec_live_config_path}"]
     @application.args = args
     @mock_output_proxy.should_receive(:sysout).with(/Gem .* is already installed/)
     @mock_output_proxy.should_receive(:sysout).any_number_of_times.with(:anything)
