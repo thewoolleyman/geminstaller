@@ -1,4 +1,4 @@
-* autogem should follow dependency chains
+* autogem should follow dependency chains (use generic block in fix_dependencies)
 * geminstaller-output :error should print to stderr, not stdout
 * echo stdin
 * implement commandecho
@@ -15,6 +15,7 @@
 * upload gem 
 - 0.2.0 release
 
+* rubygems stdout - don't print prefix for single dot
 * clean up regexps - no leading or trailing .*
 * Return meaningful message instructing to use the --sudo option if Errno::EACCES is caught on a sudo-able platform - should throw GemInstaller::AccessException, which can be caught
 * Rails integration doesn't work under mongrel when invoked via executable (e.g, actionmailer gem not recognized after install, only after mongrel restart).  Does't occur under webrick, or if geminstaller is invoked programatically via class.
@@ -33,6 +34,7 @@
 * clean up spec_utils - remove duplication of class and instance methods
 * spec_utils global teardown method which uninstalls all gems
 * can't run binary out of source dir unless running it via ruby
+* running binary via ruby out of bin dir will pick up gem first on load path if it is installed
 * verify that >= version spec works with a specific platform, if that platform is not available for the highest version
 * Check for write access, and exit with warning to use sudo if there is no write access.
 * non-specific versions in config yml (such as > 0.1.2) must be specified in quotes (such as '> 0.1.2') or else they are not correctly parsed by yaml (just returns '0.1.2' instead of '> 0.1.2').  Should give some warning instead of just failing
