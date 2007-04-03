@@ -10,9 +10,7 @@ module GemInstaller
       raise GemInstaller::GemInstallerError.new("Args must be passed as an array.") unless args.nil? or args.respond_to? :shift
       args = ARGV if args.nil? || args == []
 
-      @options[:verbose] = false
       @options[:silent] = false
-      @options[:info] = false
       @options[:sudo] = false
       @options[:geminstaller_output] = [:all]
       @options[:rubygems_output] = [:all]
@@ -21,10 +19,6 @@ module GemInstaller
         opts.banner = "Usage: geminstaller [options]"
 
         opts.separator ""
-
-        opts.on("-i", "--info", "Show informational output, such as whether a gem is already installed.") do
-          @options[:info] = true
-        end
 
         opts.on("-cCONFIGPATHS", "--config=CONFIGPATHS", String, "Comma-delimited path(s) to GemInstaller config file(s)") do |config_paths|
           @options[:config_paths] = config_paths
@@ -38,15 +32,11 @@ module GemInstaller
           @options[:sudo] = true
         end
 
-        opts.on("-v", "--verbose", "Show verbose output (such as exceptions from rubygems)") do
-          @options[:verbose] = true
-        end
-
         opts.on("-g=GEMINSTALLER_OUTPUT", "--geminstaller-output=GEMINSTALLER_OUTPUT", String, "Types of output to show from GemInstaller.") do |geminstaller_output_flags|
           @unparsed_geminstaller_output_flags = geminstaller_output_flags
         end
 
-        opts.on("-V=RUBYGEMS_OUTPUT", "--rubygems-output=RUBYGEMS_OUTPUT", String, "Types of output to show from internal RubyGems command invocation.") do |rubygems_output_flags|
+        opts.on("-r=RUBYGEMS_OUTPUT", "--rubygems-output=RUBYGEMS_OUTPUT", String, "Types of output to show from internal RubyGems command invocation.") do |rubygems_output_flags|
           @unparsed_rubygems_output_flags = rubygems_output_flags
         end
 
@@ -63,17 +53,17 @@ module GemInstaller
         opts.parse!(args)
       rescue(OptionParser::InvalidOption)
         @output << opts.to_s
-        return @options
+        return -1
       end
       
       if @options[:silent] and (@unparsed_geminstaller_output_flags or @unparsed_rubygems_output_flags)
         @output = "The rubygems-output or geminstaller-output option cannot be specified if the silent option is true."
-        return @options
+        return -1
       end
 
       if (@options[:sudo])
         @output = "The sudo option is not (yet) supported when invoking GemInstaller programatically.  It is only supported when using the command line 'geminstaller' executable.  See the docs for more info."
-        return @options
+        return -1
       end
       
       # TODO: remove duplication
@@ -113,7 +103,7 @@ module GemInstaller
 
       # nil out @output if there was no output
       @output = nil if @output == ""
-      return @options
+      return 0
       
     end
   end

@@ -1,7 +1,7 @@
 module GemInstaller
   class Application
     # we have accessors instead of just writers so that we can ensure it is assembled correctly in the dependency injector test
-    attr_accessor :config_builder, :install_processor, :output_proxy, :arg_parser, :args, :options
+    attr_accessor :config_builder, :install_processor, :output_filter, :arg_parser, :args, :options
     
     def initialize
       @args = nil
@@ -9,8 +9,10 @@ module GemInstaller
     
     def run
       begin
-        should_exit = handle_args
-        return 0 if should_exit
+        exit_flag_and_return_code = handle_args
+        if exit_flag_and_return_code[0]
+          return exit_flag_and_return_code[1]
+        end
         config = @config_builder.build_config
         gems = config.gems
         print_startup_message(gems) unless @options[:silent]
@@ -18,11 +20,9 @@ module GemInstaller
       rescue Exception => e
         message = e.message
         message += "\n"
-        @output_proxy.syserr(message)
-        if @options[:verbose]
-          backtrace_as_string = e.backtrace.join("\n")
-          @output_proxy.syserr("#{backtrace_as_string}\n")
-        end
+        @output_filter.geminstaller_output(:error,message)
+        backtrace_as_string = e.backtrace.join("\n")
+        @output_filter.geminstaller_output(:error,"#{backtrace_as_string}\n")
         return 1
       end
       return 0
@@ -55,15 +55,19 @@ module GemInstaller
     end
     
     def handle_args
-      @arg_parser.parse(@args)
+      return_code = @arg_parser.parse(@args)
       arg_parser_output = @arg_parser.output
       if (arg_parser_output && arg_parser_output != '')
-        @output_proxy.sysout(arg_parser_output)
-        return true
+        if return_code == 0
+          @output_filter.geminstaller_output(:info,arg_parser_output)
+        else
+          @output_filter.geminstaller_output(:error,arg_parser_output)
+        end
+        return [true, return_code]
       end
       config_file_paths = @options[:config_paths]
       @config_builder.config_file_paths = config_file_paths if config_file_paths
-      return false
+      return [false, 0]
     end
 
     def print_startup_message(gems)
@@ -73,7 +77,7 @@ module GemInstaller
         message += gem_info 
         message += ", " if index + 1 < gems.size
       end
-      @output_proxy.sysout(message + "\n")
+      @output_filter.geminstaller_output(:info,message + "\n")
     end
   end
 end

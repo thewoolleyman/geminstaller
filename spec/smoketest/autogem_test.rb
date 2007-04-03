@@ -30,7 +30,7 @@ dir = File.dirname(__FILE__)
 config_files = "#{File.join(dir,'smoketest-geminstaller.yml')},#{File.join(dir,'smoketest-geminstaller-override.yml')}"
 geminstaller_exec = 'geminstaller'
 geminstaller_exec += '.cmd' if is_windows
-geminstaller_cmd = "#{geminstaller_exec} #{sudo} --info --verbose --config=#{config_files}"
+geminstaller_cmd = "#{geminstaller_exec} #{sudo} --config=#{config_files}"
 print "Running geminstaller: #{geminstaller_cmd}\n"
 print "We won't verify installation, run smoketest.rb for that...\n"
 print "Please be patient, it may take a bit, or may not work at all if rubyforge or your network connection is down, or you don't have proper permissions, or if there's a bug in geminstaller :)\n\n"

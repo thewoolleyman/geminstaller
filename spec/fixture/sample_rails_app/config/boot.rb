@@ -15,15 +15,15 @@ if RUBY_PLATFORM =~ /mswin/
   # this is the Rails GemInstaller setup if you DON'T require root access to install gems
   require "rubygems"
   require "geminstaller"
-  args = ["--info","--config=#{RAILS_ROOT}/config/geminstaller.yml"]
+  args = ["--config=#{RAILS_ROOT}/config/geminstaller.yml"]
   GemInstaller.run(args)
 else
   # this is the Rails GemInstaller setup if you DO require root access to install gems
-  system "geminstaller --sudo --info --config=#{RAILS_ROOT}/config/geminstaller.yml"
+  system "geminstaller --sudo --config=#{RAILS_ROOT}/config/geminstaller.yml"
 end
 
 # this will allow you to debug against a local checkout of geminstaller - make sure the gem is not installed
-#system "ruby /Users/woolley/workspace/geminstaller/bin/geminstaller --sudo --info --verbose --config=#{RAILS_ROOT}/config/geminstaller.yml"
+#system "ruby /Users/woolley/workspace/geminstaller/bin/geminstaller --sudo --config=#{RAILS_ROOT}/config/geminstaller.yml"
 
 unless defined?(Rails::Initializer)
   if File.directory?("#{RAILS_ROOT}/vendor/rails")

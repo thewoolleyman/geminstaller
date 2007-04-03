@@ -1,4 +1,5 @@
 * -g, -r instead of -v -V
+* geminstaller-output :error should print to stderr, not stdout
 * add -v/--geminstaller-verbosity -V/-rubygems-verbosity flags.
 * -v/--geminstaller-verbosity: none, install, info, commandecho, debug, all
 * prepend [RubyGems:<stream>] to all rubygems output

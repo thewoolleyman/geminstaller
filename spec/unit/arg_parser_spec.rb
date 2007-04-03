@@ -8,10 +8,9 @@ context "an ArgParser instance with no args" do
 
   specify "should properly set defaults" do
     @arg_parser.parse(@args)
-    @options[:verbose].should==(false)
     @options[:silent].should==(false)
-    @options[:info].should==(false)
     @options[:sudo].should==(false)
+    @options[:geminstaller_output].should==(@geminstaller_output_default)
     @options[:rubygems_output].should==(@rubygems_output_default)
   end
 
@@ -64,18 +63,6 @@ context "an ArgParser instance with configs option" do
   end
 end
 
-context "an ArgParser instance with verbose option" do
-  setup do
-    common_setup
-    @args.push("--verbose")
-  end
-
-  specify "should return verbose flag as true in options hash" do
-    @arg_parser.parse(@args)
-    @options[:verbose].should==(true)
-  end
-end
-
 context "an ArgParser instance with geminstaller-output option" do
   setup do
     common_setup
@@ -116,14 +103,14 @@ context "an ArgParser instance with rubygems-output option" do
   end
 
   specify "should correctly parse rubygems output level from options" do
-    @args.push("-V","all")
+    @args.push("-r","all")
     @arg_parser.parse(@args)
     @options[:rubygems_output].should ==([:all])
   end
 
   specify "should raise error and not assign options if invalid rubygems-output option is given" do
     invalid = "invalid"
-    @args.push("-V",invalid)
+    @args.push("-r",invalid)
     @arg_parser.parse(@args)
     @arg_parser.output.should_match(/Invalid rubygems-output flag: #{invalid}/)
     @options[:rubygems_output].should == @rubygems_output_default
@@ -165,18 +152,6 @@ context "an ArgParser instance with version option" do
     @arg_parser.parse(@args)
     output = @arg_parser.output
     output.should==("#{GemInstaller.version}")
-  end
-end
-
-context "an ArgParser instance with info option" do
-  setup do
-    common_setup
-    @args.push("--info")
-  end
-
-  specify "should return info flag as true in options hash" do
-    @arg_parser.parse(@args)
-    @options[:info].should==(true)
   end
 end
 

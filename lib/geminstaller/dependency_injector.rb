@@ -14,7 +14,7 @@ module GemInstaller
     attr_accessor :file_reader, :yaml_loader, :output_proxy, :config_builder, :gem_source_index, :gem_runner_proxy
     attr_accessor :gem_runner, :gem_command_manager, :gem_list_checker, :app, :arg_parser, :options, :noninteractive_chooser
     attr_accessor :gem_interaction_handler, :install_processor, :missing_dependency_finder, :valid_platform_selector
-    attr_accessor :output_listener, :outs_output_observer, :errs_output_observer
+    attr_accessor :output_listener, :outs_output_observer, :errs_output_observer, :output_filter
 
     def initialize
       @options = {}
@@ -84,21 +84,21 @@ module GemInstaller
       @missing_dependency_finder = GemInstaller::MissingDependencyFinder.new
       @missing_dependency_finder.gem_command_manager = @gem_command_manager
       @missing_dependency_finder.gem_arg_processor = @gem_arg_processor
-      @missing_dependency_finder.output_proxy = @output_proxy
+      @missing_dependency_finder.output_filter = @output_filter
 
       @install_processor = GemInstaller::InstallProcessor.new
       @install_processor.options = @options
       @install_processor.gem_list_checker = @gem_list_checker
       @install_processor.gem_command_manager = @gem_command_manager
       @install_processor.missing_dependency_finder = @missing_dependency_finder
-      @install_processor.output_proxy = @output_proxy
+      @install_processor.output_filter = @output_filter
 
       @app = GemInstaller::Application.new
       @app.options = @options
       @app.arg_parser = @arg_parser
       @app.config_builder = @config_builder
       @app.install_processor = @install_processor
-      @app.output_proxy = @output_proxy
+      @app.output_filter = @output_filter
     end
   end
 end

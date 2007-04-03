@@ -9,9 +9,8 @@ context "The geminstaller command line application" do
     @mock_output_proxy = mock("Mock Output Proxy")
     @registry = GemInstaller::create_registry
     @application = @registry.app
-    @application.output_proxy = @mock_output_proxy
-    @install_processor = @registry.install_processor
-    @install_processor.output_proxy = @mock_output_proxy
+    @output_filter = @registry.output_filter
+    @output_filter.output_proxy = @mock_output_proxy
     
     @gem_command_manager = @registry.gem_command_manager
     @sample_gem = sample_gem
@@ -20,7 +19,7 @@ context "The geminstaller command line application" do
 
   specify "should print usage if --help arg is specified" do
     @application.args = ["--help"]
-    @mock_output_proxy.should_receive(:syserr).with(/Usage.*/)
+    @mock_output_proxy.should_receive(:sysout).with(/Usage.*/)
     @application.run
   end
   
@@ -37,17 +36,17 @@ context "The geminstaller command line application" do
     @gem_command_manager.is_gem_installed?(@sample_gem).should==(true)
   end
   
-  specify "should print message if gem is already installed and --info arg is specified" do
+  specify "should print message if gem is already installed" do
     @gem_command_manager.install_gem(@sample_gem)
-    args = ["--info","--config=#{geminstaller_spec_live_config_path}"]
+    args = ["--config=#{geminstaller_spec_live_config_path}"]
     @application.args = args
-    @mock_output_proxy.should_receive(:sysout).with(/GemInstaller is verifying gem installation: #{@sample_gem.name}/)
     @mock_output_proxy.should_receive(:sysout).with(/Gem .* is already installed/)
+    @mock_output_proxy.should_receive(:sysout).any_number_of_times.with(:anything)
     @application.run
   end
   
   specify "should print error if --sudo option is specified (it's only supported if geminstaller is invoked via bin/geminstaller, which strips out the option)" do
-    @application.args = geminstaller_spec_test_args << '--sudo'
+    @application.args = ["--sudo","--config=#{geminstaller_spec_live_config_path}"]
     @mock_output_proxy.should_receive(:sysout).with(/The sudo option is not .* supported.*/)
     @application.run
   end
@@ -61,14 +60,15 @@ context "The geminstaller command line application" do
   end
   
   specify "should install correctly even if install_options is not specified" do
-    @application.args = ["--info","--silent","--config=#{dir}/live_geminstaller_config_3.yml"]
+    @application.args = ["--silent","--config=#{dir}/live_geminstaller_config_3.yml"]
     @application.run
     @gem_command_manager.is_gem_installed?(@sample_gem).should==(true)
   end
   
   specify "should show error if a version specification is not met" do
-    @application.args = ["--info","--silent","--config=#{dir}/live_geminstaller_config_4.yml"]
-    @mock_output_proxy.should_receive(:syserr).with(/The specified version requirement '> 1.0.0' is not met by any of the available versions: 1.0.0./)
+    @application.args = ["--config=#{dir}/live_geminstaller_config_4.yml"]
+    @mock_output_proxy.should_receive(:sysout).with(/The specified version requirement '> 1.0.0' is not met by any of the available versions: 1.0.0./)
+    @mock_output_proxy.should_receive(:sysout).any_number_of_times.with(:anything)
     @application.run
     @gem_command_manager.is_gem_installed?(@sample_gem).should==(false)
   end
@@ -77,10 +77,11 @@ context "The geminstaller command line application" do
     @gem_command_manager.uninstall_gem(sample_dependent_depends_on_multiplatform_gem) if 
       @gem_command_manager.is_gem_installed?(sample_dependent_depends_on_multiplatform_gem)
     @gem_command_manager.uninstall_gem(sample_multiplatform_gem) if @gem_command_manager.is_gem_installed?(sample_multiplatform_gem)
-    @application.args = ["--info","--config=#{dir}/live_geminstaller_config_5.yml"]
+    @application.args = ["--config=#{dir}/live_geminstaller_config_5.yml"]
     @mock_output_proxy.should_receive(:sysout).with(/GemInstaller is verifying gem installation: #{sample_dependent_depends_on_multiplatform_gem.name}.*/)
     @mock_output_proxy.should_receive(:sysout).with(/Invoking gem install for #{sample_dependent_depends_on_multiplatform_gem.name}.*/)
     @mock_output_proxy.should_receive(:sysout).with(/Rubygems automatically installed dependency gem #{sample_multiplatform_gem.name}-#{sample_multiplatform_gem.version}/)
+    @mock_output_proxy.should_receive(:sysout).any_number_of_times.with(:anything)
     @application.run
     @gem_command_manager.is_gem_installed?(sample_dependent_depends_on_multiplatform_gem).should==(true)
     expected_dependency_gem = nil

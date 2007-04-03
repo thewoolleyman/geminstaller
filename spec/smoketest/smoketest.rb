@@ -71,7 +71,7 @@ dir = File.dirname(__FILE__)
 path_to_app = File.expand_path("#{dir}/../../bin/geminstaller")
 sudo_flag = ''
 sudo_flag = '--sudo' if use_sudo
-geminstaller_cmd = "ruby #{path_to_app} #{sudo_flag} --info --verbose --config=#{File.join(dir,'smoketest-geminstaller.yml')},#{File.join(dir,'smoketest-geminstaller-override.yml')}"
+geminstaller_cmd = "ruby #{path_to_app} #{sudo_flag} --config=#{File.join(dir,'smoketest-geminstaller.yml')},#{File.join(dir,'smoketest-geminstaller-override.yml')}"
 print "Running geminstaller: #{geminstaller_cmd}\n"
 print "This should print a message for each of the gems which are installed.\n"
 print "Please be patient, it may take a bit, or may not work at all if rubyforge or your network connection is down, or you don't have proper permissions, or if there's a bug in geminstaller :)\n\n"

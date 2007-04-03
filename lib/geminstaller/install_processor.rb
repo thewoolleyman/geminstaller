@@ -1,6 +1,6 @@
 module GemInstaller
   class InstallProcessor
-    attr_writer :gem_list_checker, :gem_command_manager, :missing_dependency_finder, :options, :output_proxy
+    attr_writer :gem_list_checker, :gem_command_manager, :missing_dependency_finder, :options, :output_filter
     def process(gems)
       gems.each do |gem|
         install_gem(gem)
@@ -15,10 +15,10 @@ module GemInstaller
       end
       gem_is_installed = @gem_command_manager.is_gem_installed?(gem)
       if gem_is_installed 
-        @output_proxy.sysout("Gem #{gem.name}, version #{gem.version} is already installed.\n") if @options[:info]
+        @output_filter.geminstaller_output(:info,"Gem #{gem.name}, version #{gem.version} is already installed.\n")
       else
         @gem_list_checker.verify_and_specify_remote_gem!(gem) unless already_specified
-        @output_proxy.sysout("Invoking gem install for #{gem.name}, version #{gem.version}.\n") unless @options[:silent]
+        @output_filter.geminstaller_output(:install,"Invoking gem install for #{gem.name}, version #{gem.version}.\n")
         output_lines = @gem_command_manager.install_gem(gem)
         print_dependency_install_messages(gem, output_lines) unless @options[:silent]
       end
@@ -33,7 +33,7 @@ module GemInstaller
         match = $'
         next unless match
         next if match =~ /#{gem.name}-/
-        @output_proxy.sysout("Rubygems automatically installed dependency gem #{match}\n")
+        @output_filter.geminstaller_output(:install,"Rubygems automatically installed dependency gem #{match}\n")
       end
     end
 
@@ -41,7 +41,7 @@ module GemInstaller
       missing_dependencies = @missing_dependency_finder.find(gem)
       while (missing_dependencies.size > 0)
         missing_dependencies.each do |missing_dependency|
-          @output_proxy.sysout("Installing #{missing_dependency.name} (#{missing_dependency.version})\n")
+          @output_filter.geminstaller_output(:install,"Installing #{missing_dependency.name} (#{missing_dependency.version})\n")
           # recursively call install_gem to install the missing dependency.  Since fix_dependencies
           # should never be set on an auto-created missing dependency gem, there is no risk of an 
           # endless loop or stack overflow.

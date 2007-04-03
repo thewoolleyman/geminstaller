@@ -14,7 +14,7 @@ context "an application instance invoked with no args" do
     gems = [@stub_gem]
     @stub_config.should_receive(:gems).and_return(gems)
     @mock_install_processor.should_receive(:process).once.with(gems)
-    @mock_output_proxy.should_receive(:sysout).once().with(/GemInstaller is verifying gem installation: gemname 1.0/)
+    @mock_output_filter.should_receive(:geminstaller_output).once().with(:info,/GemInstaller is verifying gem installation: gemname 1.0/)
     @application.run
   end
 
@@ -25,45 +25,7 @@ context "an application instance invoked with no args" do
     gems = [@stub_gem, @stub_gem2]
     @stub_config.should_receive(:gems).and_return(gems)
     @mock_install_processor.should_receive(:process).once.with(gems)
-    @mock_output_proxy.should_receive(:sysout).once().with(/GemInstaller is verifying gem installation: gemname 1.0, gemname2 > 0.0.0/)
-    @application.run
-  end
-end
-
-context "an application instance invoked with no args and silent options" do
-  setup do
-    application_spec_setup_common
-    @mock_arg_parser.should_receive(:parse).with(nil)
-    @options[:silent] = true
-    @mock_arg_parser.should_receive(:output).and_return(nil)
-  end
-
-  specify "should show info message for a gem which is already installed if info flag is specified" do
-    @mock_config_builder.should_receive(:build_config).and_return {@stub_config_local}
-    
-    @stub_gem.check_for_upgrade = false
-    gems = [@stub_gem]
-    @stub_config.should_receive(:gems).and_return(gems)
-    @mock_install_processor.should_receive(:process).once.with(gems)
-    @application.run
-  end
-end
-
-context "an application instance invoked with no args and silent option" do
-  setup do
-    application_spec_setup_common
-    @mock_arg_parser.should_receive(:parse).with(nil)
-    @options[:silent] = true
-    @mock_arg_parser.should_receive(:output).and_return(nil)
-  end
-
-  specify "should not show startup message if silent flag is specified" do
-    @mock_config_builder.should_receive(:build_config).and_return {@stub_config_local}
-    
-    @stub_gem.check_for_upgrade = false
-    gems = [@stub_gem]
-    @stub_config.should_receive(:gems).and_return(gems)
-    @mock_install_processor.should_receive(:process).once.with(gems)
+    @mock_output_filter.should_receive(:geminstaller_output).once().with(:info,/GemInstaller is verifying gem installation: gemname 1.0, gemname2 > 0.0.0/)
     @application.run
   end
 
@@ -74,6 +36,7 @@ context "an application instance invoked with no args and silent option" do
     gems = [@stub_gem]
     @stub_config.should_receive(:gems).and_return(gems)
     @mock_install_processor.should_receive(:process).once.with(gems)
+    @mock_output_filter.should_receive(:geminstaller_output).once().with(:info,/GemInstaller is verifying gem installation/)
     @application.run
   end
 
@@ -84,28 +47,21 @@ context "an application instance invoked with no args and silent option" do
     gems = [@stub_gem]
     @stub_config.should_receive(:gems).and_return(gems)
     @mock_install_processor.should_receive(:process).once.with(gems)
+    @mock_output_filter.should_receive(:geminstaller_output).once().with(:info,/GemInstaller is verifying gem installation/)
     @application.run
   end
 
   specify "should print any exception message to stderr then exit gracefully" do
-    @mock_output_proxy.should_receive(:syserr).once().with(/GemInstaller::GemInstallerError.*/)
+    @mock_output_filter.should_receive(:geminstaller_output).once().with(:error,/GemInstaller::GemInstallerError/)
+    @mock_output_filter.should_receive(:geminstaller_output).once().with(:error,:anything)
     @mock_config_builder.should_receive(:build_config).and_raise(GemInstaller::GemInstallerError)
     return_code = @application.run
-    return_code.should==(1)
-  end
-end
-
-context "an application instance invoked with no args and verbose option" do
-  setup do
-    application_spec_setup_common
-    @mock_arg_parser.should_receive(:parse).with(nil)
-    @options[:verbose] = true
-    @mock_arg_parser.should_receive(:output).and_return(nil)
+    return_code.should ==(1)
   end
 
-  specify "should print any exception message AND stacktrace if verbose option is specified" do
-    @mock_output_proxy.should_receive(:syserr).once().with(/GemInstaller::GemInstallerError/)
-    @mock_output_proxy.should_receive(:syserr).once() # TODO: how to specify Error/stacktrace exception?
+  specify "should print any exception message AND stacktrace" do
+    @mock_output_filter.should_receive(:geminstaller_output).once().with(:error,/GemInstaller::GemInstallerError/)
+    @mock_output_filter.should_receive(:geminstaller_output).once() # TODO: how to specify Error/stacktrace exception?
     @mock_config_builder.should_receive(:build_config).and_raise(GemInstaller::GemInstallerError)
     return_code = @application.run
     return_code.should==(1)
@@ -117,20 +73,29 @@ context "an application instance invoked with invalid args or help option" do
     application_spec_setup_common
   end
 
-  specify "should print any arg parser output to stderr then exit gracefully" do
+  specify "should print any arg parser error output then exit gracefully" do
     arg_parser_output = "arg parser output"
-    @mock_output_proxy.should_receive(:syserr).with(/arg parser output/)
-    @mock_arg_parser.should_receive(:parse).with(nil)
+    @mock_output_filter.should_receive(:geminstaller_output).with(:error,/arg parser output/)
+    @mock_arg_parser.should_receive(:parse).with(nil).and_return(-1)
     @mock_arg_parser.should_receive(:output).and_return(arg_parser_output)
     return_code = @application.run
-    return_code.should==(1)
+    return_code.should==(-1)
+  end
+
+  specify "should print any arg parser non-error output then exit gracefully" do
+    arg_parser_output = "arg parser output"
+    @mock_output_filter.should_receive(:geminstaller_output).with(:info,/arg parser output/)
+    @mock_arg_parser.should_receive(:parse).with(nil).and_return(0)
+    @mock_arg_parser.should_receive(:output).and_return(arg_parser_output)
+    return_code = @application.run
+    return_code.should==(0)
   end
 end
 
 context "an application instance invoked with alternate config file location" do
   setup do
     application_spec_setup_common
-    @mock_output_proxy.should_receive(:sysout).with(:anything)
+    @mock_output_filter.should_receive(:geminstaller_output).with(:info,:anything)
   end
 
   specify "should use the alternate config file location" do
@@ -153,7 +118,7 @@ def application_spec_setup_common
   @mock_config_builder = mock("Mock Config Builder")
   @stub_config = mock("Mock Config")
   @mock_install_processor = mock("Mock InstallProcessor")
-  @mock_output_proxy = mock("Mock OutputProxy")
+  @mock_output_filter = mock("Mock Output Filter")
   @stub_gem = GemInstaller::RubyGem.new("gemname", :version => "1.0")
   @options = {}
 
@@ -164,7 +129,7 @@ def application_spec_setup_common
   @application.arg_parser = @mock_arg_parser
   @application.config_builder = @mock_config_builder
   @application.install_processor = @mock_install_processor
-  @application.output_proxy = @mock_output_proxy
+  @application.output_filter = @mock_output_filter
 end
 
 
