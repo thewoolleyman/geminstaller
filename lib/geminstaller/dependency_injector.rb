@@ -21,6 +21,7 @@ module GemInstaller
       @arg_parser = GemInstaller::ArgParser.new
       @arg_parser.options = @options
       
+      @autogem = GemInstaller::AutoGem.new
       @file_reader = GemInstaller::FileReader.new
       @yaml_loader = GemInstaller::YamlLoader.new
       @gem_arg_processor = GemInstaller::GemArgProcessor.new
@@ -94,6 +95,7 @@ module GemInstaller
       @install_processor.output_filter = @output_filter
 
       @app = GemInstaller::Application.new
+      @app.autogem = @autogem
       @app.options = @options
       @app.arg_parser = @arg_parser
       @app.config_builder = @config_builder

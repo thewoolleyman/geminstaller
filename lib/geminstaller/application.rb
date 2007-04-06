@@ -1,7 +1,7 @@
 module GemInstaller
   class Application
     # we have accessors instead of just writers so that we can ensure it is assembled correctly in the dependency injector test
-    attr_accessor :config_builder, :install_processor, :output_filter, :arg_parser, :args, :options
+    attr_accessor :config_builder, :install_processor, :output_filter, :arg_parser, :args, :options, :autogem
     
     def initialize
       @args = nil
@@ -33,27 +33,9 @@ module GemInstaller
       handle_args
       config = @config_builder.build_config
       gems = config.gems
-      reversed_gems = gems.reverse!
-      completed_names = []
-      completed_gems = []
-      reversed_gems.each do |gem|
-        unless completed_names.index(gem.name)
-          invoke_require_gem_command(gem.name, gem.version)
-          completed_names << gem.name
-          completed_gems << gem
-        end
-      end
-      completed_gems
+      @autogem.autogem(gems)
     end
-    
-    def invoke_require_gem_command(name, version)
-      if Gem::RubyGemsVersion.index('0.8') == 0
-        require_gem(name, version)
-      else
-        gem(name, version)
-      end
-    end
-    
+
     def handle_args
       return_code = @arg_parser.parse(@args)
       arg_parser_output = @arg_parser.output
