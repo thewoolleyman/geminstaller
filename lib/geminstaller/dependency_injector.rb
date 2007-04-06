@@ -21,7 +21,6 @@ module GemInstaller
       @arg_parser = GemInstaller::ArgParser.new
       @arg_parser.options = @options
       
-      @autogem = GemInstaller::AutoGem.new
       @file_reader = GemInstaller::FileReader.new
       @yaml_loader = GemInstaller::YamlLoader.new
       @gem_arg_processor = GemInstaller::GemArgProcessor.new
@@ -77,6 +76,9 @@ module GemInstaller
       @gem_command_manager.gem_runner_proxy = @gem_runner_proxy
       @gem_command_manager.gem_interaction_handler = @gem_interaction_handler
         
+      @autogem = GemInstaller::Autogem.new
+      @autogem.gem_command_manager = @gem_command_manager
+
       @gem_list_checker = GemInstaller::GemListChecker.new
       @gem_list_checker.gem_command_manager = @gem_command_manager
       @gem_list_checker.gem_arg_processor = @gem_arg_processor

@@ -43,7 +43,7 @@ module GemInstaller
       run_gem_command('install',gem)
     end
     
-    def dependency(name, version, additional_options)
+    def dependency(name, version, additional_options = [])
       # it would be great to use the dependency --pipe option, but unfortunately, rubygems has a bug
       # up to at least 0.9.2 where the pipe options uses 'puts', instead of 'say', so we can't capture it
       # with enhanced_stream_ui.  Patch submitted: 

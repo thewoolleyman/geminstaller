@@ -5,8 +5,10 @@ context "an AutoGem instance" do
   setup do
     GemInstaller::TestGemHome.use
     GemInstaller::EmbeddedGemServer.start
-    @autogem = GemInstaller::AutoGem.new
-    GemInstaller.run(["--silent","--config=#{dir}/live_geminstaller_config.yml"])
+    @registry = GemInstaller::create_registry
+    @autogem = @registry.autogem
+    # install all the sample gems
+    GemInstaller.run(["--silent","--config=#{dir}/live_geminstaller_config_all_sample_gems.yml"])
     # Clear out loaded specs in rubygems, otherwise the gem call won't do anything
     Gem.instance_eval { @loaded_specs.clear if @loaded_specs }
   end
@@ -17,11 +19,46 @@ context "an AutoGem instance" do
     added_gems[0].should ==(sample_gem)
     path_should_include_entries(sample_gem)
   end
-
+  
   specify "should add same specified gem to the load path again in a separate spec (verifies that Gem.loaded specs and load path are cleaned up between specs)" do
     delete_existing_path_entries(sample_gem)
     added_gems = @autogem.autogem([sample_gem])
     added_gems[0].should ==(sample_gem)
+    path_should_include_entries(sample_gem)
+  end
+
+  specify "should add a dependent gem and it's dependency to the load path" do
+    delete_existing_path_entries(sample_dependent_gem)
+    delete_existing_path_entries(sample_gem)
+    
+    added_gems = @autogem.autogem([sample_dependent_gem])
+    added_gem_names = []
+    added_gems.each do |added_gem|
+      added_gem_names << added_gem.name
+    end
+    added_gem_names.should_include(sample_dependent_gem.name)
+    added_gem_names.should_include(sample_gem.name)
+    
+    path_should_include_entries(sample_dependent_gem)
+    path_should_include_entries(sample_gem)
+  end
+
+  specify "should add all gems in a multilevel dependency chain to the load path" do
+    delete_existing_path_entries(sample_dependent_multilevel_gem)
+    delete_existing_path_entries(sample_dependent_gem)
+    delete_existing_path_entries(sample_gem)
+    
+    added_gems = @autogem.autogem([sample_dependent_multilevel_gem])
+    added_gem_names = []
+    added_gems.each do |added_gem|
+      added_gem_names << added_gem.name
+    end
+    added_gem_names.should_include(sample_dependent_multilevel_gem.name)
+    added_gem_names.should_include(sample_dependent_gem.name)
+    added_gem_names.should_include(sample_gem.name)
+    
+    path_should_include_entries(sample_dependent_multilevel_gem)
+    path_should_include_entries(sample_dependent_gem)
     path_should_include_entries(sample_gem)
   end
 
