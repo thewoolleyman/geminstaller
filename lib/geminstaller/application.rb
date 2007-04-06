@@ -1,7 +1,8 @@
 module GemInstaller
   class Application
     # we have accessors instead of just writers so that we can ensure it is assembled correctly in the dependency injector test
-    attr_accessor :config_builder, :install_processor, :output_filter, :arg_parser, :args, :options, :autogem
+    attr_accessor :config_builder, :install_processor, :output_filter, :arg_parser, :args, :options
+    attr_writer :autogem
     
     def initialize
       @args = nil
