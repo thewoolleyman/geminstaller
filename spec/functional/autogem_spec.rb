@@ -18,7 +18,7 @@ context "an AutoGem instance" do
     path_should_include_entries(sample_gem)
   end
 
-  specify "should add a specified gem to the load path" do
+  specify "should add same specified gem to the load path again in a separate spec (verifies that Gem.loaded specs and load path are cleaned up between specs)" do
     delete_existing_path_entries(sample_gem)
     added_gems = @autogem.autogem([sample_gem])
     added_gems[0].should ==(sample_gem)
