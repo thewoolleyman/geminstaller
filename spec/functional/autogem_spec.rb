@@ -12,41 +12,42 @@ context "an AutoGem instance" do
   end
 
   specify "should add a specified gem to the load path" do
-    expected_load_path_entry_lib = "#{test_gem_home_dir}/gems/#{sample_gem_name}-#{sample_gem_version}/lib"
-    expected_load_path_entry_bin = "#{test_gem_home_dir}/gems/#{sample_gem_name}-#{sample_gem_version}/bin"
-    $:.delete(expected_load_path_entry_lib)
-    $:.delete(expected_load_path_entry_bin)
-    $:.should_not_include(expected_load_path_entry_lib)
-    $:.should_not_include(expected_load_path_entry_bin)
+    delete_existing_path_entries(sample_gem)
     added_gems = @autogem.autogem([sample_gem])
     added_gems[0].should ==(sample_gem)
-    dir = File.dirname(__FILE__)
-    $:.should_include(expected_load_path_entry_lib)
-    $:.should_include(expected_load_path_entry_bin)
+    path_should_include_entries(sample_gem)
   end
 
-  specify "should add a specified gem to the load path #2" do
-    expected_load_path_entry_lib = "#{test_gem_home_dir}/gems/#{sample_gem_name}-#{sample_gem_version}/lib"
-    expected_load_path_entry_bin = "#{test_gem_home_dir}/gems/#{sample_gem_name}-#{sample_gem_version}/bin"
-    $:.delete(expected_load_path_entry_lib)
-    $:.delete(expected_load_path_entry_bin)
-    $:.should_not_include(expected_load_path_entry_lib)
-    $:.should_not_include(expected_load_path_entry_bin)
+  specify "should add a specified gem to the load path" do
+    delete_existing_path_entries(sample_gem)
     added_gems = @autogem.autogem([sample_gem])
     added_gems[0].should ==(sample_gem)
-    dir = File.dirname(__FILE__)
-    $:.should_include(expected_load_path_entry_lib)
-    $:.should_include(expected_load_path_entry_bin)
+    path_should_include_entries(sample_gem)
   end
 
+  def path_should_include_entries(gem)
+    load_path_entries(gem).each do |entry|
+      $:.should_include(entry)
+    end
+  end
+
+  def delete_existing_path_entries(gem)
+    load_path_entries(gem).each do |entry|
+      $:.delete(entry)
+      $:.should_not_include(entry)
+    end
+  end
+
+  def load_path_entries(gem)
+    name = gem.name
+    version = gem.version
+    [load_path_entry(name,version,"lib"),load_path_entry(name,version,"bin")]
+  end
+
+  def load_path_entry(name,version,subdir)
+    "#{test_gem_home_dir}/gems/#{name}-#{version}/#{subdir}"
+  end
   teardown do
     GemInstaller::TestGemHome.uninstall_all_test_gems
-  end
-  
-  def load_path_contains_substring?(expected_entry_substring)
-    $:.each do |load_path_entry|
-      return true if load_path_entry =~ /#{Regexp.escape(expected_entry_substring)}/
-    end
-    return false
   end
 end
