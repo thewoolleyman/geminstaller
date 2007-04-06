@@ -3,7 +3,7 @@ module GemInstaller
     attr_writer :gem_interaction_handler, :outs, :errs
     
     def initialize()
-      @ins = InputQueue.new
+      # override default constructor to have no args
     end
     
     def ask_yes_no(question, default=nil)
@@ -14,15 +14,15 @@ module GemInstaller
         @outs.flush
         raise e
       end
-      super
+      super(question, default)
+    end
+    
+    def ask(question)
+      raise GemInstaller::UnexpectedPromptError.new("GemInstaller Internal Error - Unexpected prompt received from RubyGems: '#{question}'.")
     end
     
     def choose_from_list(question, list)
       @gem_interaction_handler.handle_choose_from_list(question, list)
-    end
-
-    def queue_input(input)
-      @ins.queue_input(input)
     end
 
     def terminate_interaction!(status=-1)
@@ -49,22 +49,5 @@ module GemInstaller
       raise GemInstaller::GemInstallerError.new("RubyGems exited abnormally.  Status: #{status}\n")
     end
 
-  end
-
-  class InputQueue
-    def initialize
-      @queue = []
-    end
-    
-    def queue_input(input)
-      input = [input] unless input.is_a?(Array)
-      @queue += input
-    end
-    
-    def gets
-      input = @queue.shift
-      raise GemInstaller::UnexpectedPromptError.new("GemInstaller Internal Error: Unexpected prompt received from RubyGems- no input queued for EnhancedStreamUI.") if input.nil?
-      input
-    end
   end
 end

@@ -22,21 +22,8 @@ context "An EnhancedStreamUI instance with an OutputProxy injected for outs and 
     @errs_output_observer.register(@mock_errs_listener)
   end
 
-  specify "can queue input stream and listen to output stream" do
-    input1 = 'input1'
-    input2 = 'input2'
-    # can pass either a string or an array
-    @enhanced_stream_ui.queue_input([input1])
-    @enhanced_stream_ui.queue_input(input2)
-    question = 'question'
-    @mock_outs_listener.should_receive(:notify).twice.with(question + "  ", :stdout)
-    @enhanced_stream_ui.ask('question').should==(input1)
-    @enhanced_stream_ui.ask('question').should==(input2)
-  end
-
   specify "will throw unexpected prompt error if there is no queued input" do
     question = 'question'
-    @mock_outs_listener.should_receive(:notify).once.with(question + "  ", :stdout)
     lambda{ @enhanced_stream_ui.ask(question) }.should_raise(GemInstaller::UnexpectedPromptError)
   end
 

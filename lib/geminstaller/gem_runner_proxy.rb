@@ -10,7 +10,6 @@ module GemInstaller
       gem_runner.do_configuration(args)
       @gem_cmd_manager_class.instance.ui = @enhanced_stream_ui
       
-      @enhanced_stream_ui.queue_input(stdin)
       exit_status = nil
       begin
         gem_runner.run(args)
