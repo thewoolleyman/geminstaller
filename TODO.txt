@@ -1,4 +1,4 @@
-* autogem should follow dependency chains (use generic block in fix_dependencies)
+* add multilevel dependency smoketests for autogem (old rails version)
 * geminstaller-output :error should print to stderr, not stdout
 * echo stdin
 * implement commandecho
