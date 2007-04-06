@@ -117,13 +117,19 @@ end
 
 context "The GemInstaller.autogem method" do
   specify "should add a specified gem to the load path" do
+    # Clear out loaded specs in rubygems, otherwise the gem call won't do anything
+    Gem.instance_eval { @loaded_specs.clear if @loaded_specs }
     expected_load_path_entry = "#{test_gem_home_dir}/gems/#{sample_gem_name}-#{sample_gem_version}/lib"
-    $:.should_not_include(expected_load_path_entry)
+    expected_load_path_entry_bin = "#{test_gem_home_dir}/gems/#{sample_gem_name}-#{sample_gem_version}/bin"
     GemInstaller.run(geminstaller_spec_test_args)
+    $:.delete(expected_load_path_entry)
+    $:.delete(expected_load_path_entry_bin)
+    $:.should_not_include(expected_load_path_entry)
+    $:.should_not_include(expected_load_path_entry_bin)
     added_gems = GemInstaller.autogem(geminstaller_spec_live_config_path)
     added_gems[0].should ==(sample_gem)
-    dir = File.dirname(__FILE__)
     $:.should_include(expected_load_path_entry)
+    $:.should_include(expected_load_path_entry_bin)
   end
 
   teardown do

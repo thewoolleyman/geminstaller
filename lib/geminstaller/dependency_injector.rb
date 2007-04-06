@@ -14,7 +14,7 @@ module GemInstaller
     attr_accessor :file_reader, :yaml_loader, :output_proxy, :config_builder, :gem_source_index, :gem_runner_proxy
     attr_accessor :gem_runner, :gem_command_manager, :gem_list_checker, :app, :arg_parser, :options, :noninteractive_chooser
     attr_accessor :gem_interaction_handler, :install_processor, :missing_dependency_finder, :valid_platform_selector
-    attr_accessor :output_listener, :outs_output_observer, :errs_output_observer, :output_filter
+    attr_accessor :output_listener, :outs_output_observer, :errs_output_observer, :output_filter, :autogem
 
     def initialize
       @options = {}
