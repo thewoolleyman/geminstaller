@@ -24,7 +24,9 @@ gems:
   version: 1.0.0
 STRING_END
     
+    @mock_output_proxy.should_receive(:sysout).with(/===.*Rogue Gems.*===/)
     @mock_output_proxy.should_receive(:sysout).with(expected_output)
+    @mock_output_proxy.should_receive(:sysout).with(/====================/)
     @rogue_gem_finder.print_rogue_gems([@legit_gem])
   end
 end

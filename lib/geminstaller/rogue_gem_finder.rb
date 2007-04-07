@@ -27,7 +27,9 @@ module GemInstaller
       end
       output = format_to_yaml(rogue_gems)
       
+      @output_proxy.sysout("====== Rogue Gems - installed but not matched by GemInstaller config ======\n")
       @output_proxy.sysout(output)
+      @output_proxy.sysout("===========================================================================\n")
     end
     
     def process_gem(gem)

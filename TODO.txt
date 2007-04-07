@@ -1,9 +1,7 @@
 * Make a fixtures spec - install all sample gems, uninstall them all, nothing should be installed (except sources) as shown by all_local_gems
-* rogue-gem output delimiters
 * remove quotes from all yaml config entries
 * --- at beginning of all yaml
 * change all yaml indentation - see rogue_gem_finder_specs
-* rename rogue-gems options to print-rogue-gems
 * add multilevel dependency smoketests for autogem (old rails version)
 * geminstaller-output :error should print to stderr, not stdout
 * echo stdin
@@ -20,6 +18,7 @@
 * upload gem 
 - 0.2.0 release
 
+* refactor duplication in autogem/rogue_gem_finder using blocks
 * rubygems stdout - don't print prefix for single dot
 * clean up regexps - no leading or trailing .*
 * Return meaningful message instructing to use the --sudo option if Errno::EACCES is caught on a sudo-able platform - should throw GemInstaller::AccessException, which can be caught
