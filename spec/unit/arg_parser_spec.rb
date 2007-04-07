@@ -142,6 +142,24 @@ context "an ArgParser instance with silent option" do
   end
 end
 
+context "an ArgParser instance with rogue-gems option" do
+  setup do
+    common_setup
+  end
+
+  specify "specified by --rogue-gems should return rogue_gems flag as true in options hash" do
+    @args.push("--rogue-gems")
+    @arg_parser.parse(@args)
+    @options[:rogue_gems].should==(true)
+  end
+
+  specify "specified by -R should return rogue_gems flag as true in options hash" do
+    @args.push("-R")
+    @arg_parser.parse(@args)
+    @options[:rogue_gems].should==(true)
+  end
+end
+
 context "an ArgParser instance with version option" do
   setup do
     common_setup
