@@ -6,28 +6,27 @@ module GemInstaller
       @completed_names = []
       @completed_gems = []
       reversed_gems.each do |gem|
-        load_gem(gem)
+        process_gem(gem)
       end
       @completed_gems
     end
     
-    def load_gem(gem)
+    def process_gem(gem)
       unless @completed_names.index(gem.name)
         invoke_require_gem_command(gem.name, gem.version)
         @completed_names << gem.name
         @completed_gems << gem
       end
-      load_gem_dependencies(gem)
+      process_gem_dependencies(gem)
     end
     
-    def load_gem_dependencies(gem)
-      # TODO: some of this logic is duplicated with missing_dependency_finder.  Should refactor
-      # gem_command_manager.dependency to return ruby_gems instead of a line
+    def process_gem_dependencies(gem)
+      # TODO: this method is duplicated in rogue_gem_finder.  Should abstract and take a block
       matching_gem_specs = @gem_command_manager.local_matching_gem_specs(gem)
       matching_gem_specs.each do |matching_gem_spec|
         dependency_gems = @gem_command_manager.dependency(matching_gem_spec.name, matching_gem_spec.version.to_s)
         dependency_gems.each do |dependency_gem|
-          load_gem(dependency_gem)
+          process_gem(dependency_gem)
         end
       end
     end

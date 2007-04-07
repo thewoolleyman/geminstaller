@@ -1,4 +1,6 @@
 * Make a fixtures spec - install all sample gems, uninstall them all, nothing should be installed (except sources) as shown by all_local_gems
+* rogue-gem output delimiters
+* remove quotes from all yaml config entries
 * --- at beginning of all yaml
 * change all yaml indentation - see rogue_gem_finder_specs
 * rename rogue-gems options to print-rogue-gems
@@ -42,7 +44,6 @@
 * running binary via ruby out of bin dir will pick up gem first on load path if it is installed
 * verify that >= version spec works with a specific platform, if that platform is not available for the highest version
 * Check for write access, and exit with warning to use sudo if there is no write access.
-* non-specific versions in config yml (such as > 0.1.2) must be specified in quotes (such as '> 0.1.2') or else they are not correctly parsed by yaml (just returns '0.1.2' instead of '> 0.1.2').  Should give some warning instead of just failing
 * store rubygems dist as a tar, and untar it on demand
 * Add spec file name to all contexts (or see if rspec can do it automatically)
 * Make GemInstaller.run take a parameter to not fail if there is any error
