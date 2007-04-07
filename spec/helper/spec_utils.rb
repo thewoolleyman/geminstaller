@@ -7,7 +7,7 @@ module GemInstaller::SpecUtils
     def test_gem_names
       test_gem_names = [sample_gem_name, sample_dependent_gem_name, sample_dependent_depends_on_multiplatform_gem_name,
         sample_dependent_depends_on_multiplatform_gem_name, sample_multiplatform_gem_name, 
-        sample_dependent_multilevel_gem_name]
+        sample_dependent_multilevel_gem_name, sample_dependent_multiplatform_gem_name]
     end
   
     def test_gem_home_dir
@@ -25,7 +25,7 @@ module GemInstaller::SpecUtils
     end
   
     def sample_gem_name
-      sample_gem_name = "stubgem"
+      "stubgem"
     end
 
     def sample_gem_version
@@ -33,11 +33,15 @@ module GemInstaller::SpecUtils
     end
 
     def sample_dependent_gem_name
-      sample_gem_name = "dependent-stubgem"
+      "dependent-stubgem"
+    end
+
+    def sample_dependent_multiplatform_gem_name
+      "dependent-stubgem-multiplatform"
     end
 
     def sample_dependent_depends_on_multiplatform_gem_name
-      sample_gem_name = "dependent-stubgem-depends-on-multiplatform"
+      "dependent-stubgem-depends-on-multiplatform"
     end
 
     def sample_dependent_gem_version
@@ -45,7 +49,7 @@ module GemInstaller::SpecUtils
     end
 
     def sample_dependent_multilevel_gem_name
-      sample_gem_name = "dependent-stubgem-multilevel"
+      "dependent-stubgem-multilevel"
     end
 
     def sample_multiplatform_gem_name
@@ -99,7 +103,7 @@ module GemInstaller::SpecUtils
     end
 
     def sample_dependent_multiplatform_gem(install_options=install_options_for_testing)
-      GemInstaller::RubyGem.new('dependent-stubgem-multiplatform', :version => sample_multiplatform_gem_version_low, :platform => 'mswin32', :install_options => install_options)
+      GemInstaller::RubyGem.new(sample_dependent_multiplatform_gem_name, :version => sample_multiplatform_gem_version_low, :platform => 'mswin32', :install_options => install_options)
     end
   
     def proc_should_raise_with_message(message_regex, &block)

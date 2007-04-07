@@ -16,6 +16,12 @@ context "A ruby gem data object" do
     gem.prefer_binary_platform.should==(true)
   end
 
+  specify "may be instantiated with only a name and a version" do
+    gem = GemInstaller::RubyGem.new('mygem', :version => '1.1')
+    gem.name.should==('mygem')
+    gem.version.should==('1.1')
+  end
+
   specify "should default the platform to ruby if it is not specified" do
     gem = GemInstaller::RubyGem.new('mygem', :version => 'v1.1')
     gem.name.should==('mygem')

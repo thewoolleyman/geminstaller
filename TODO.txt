@@ -1,3 +1,7 @@
+* Make a fixtures spec - install all sample gems, uninstall them all, nothing should be installed (except sources) as shown by all_local_gems
+* --- at beginning of all yaml
+* change all yaml indentation - see rogue_gem_finder_specs
+* rename rogue-gems options to print-rogue-gems
 * add multilevel dependency smoketests for autogem (old rails version)
 * geminstaller-output :error should print to stderr, not stdout
 * echo stdin
@@ -22,6 +26,7 @@
 * "Installing gem" messages are duplicated if info message is specified, one from rubygems, one from geminstaller.  See todo in install_processor.rb
 * boot.rb parsed twice under webrick?
 * commandecho doesn't print regexps correctly
+* clean up registry - third-party first, no dependency next, alphabetized
 - 0.3.0 release
 
 * tests failed when "partially" connected to network? (wireless at office)

@@ -34,6 +34,7 @@ lib/geminstaller/output_listener.rb
 lib/geminstaller/output_observer.rb
 lib/geminstaller/output_proxy.rb
 lib/geminstaller/requires.rb
+lib/geminstaller/rogue_gem_finder.rb
 lib/geminstaller/ruby_gem.rb
 lib/geminstaller/rubygems_exit.rb
 lib/geminstaller/rubygems_extensions.rb

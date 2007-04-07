@@ -14,7 +14,7 @@ module GemInstaller
     attr_accessor :file_reader, :yaml_loader, :output_proxy, :config_builder, :gem_source_index, :gem_runner_proxy
     attr_accessor :gem_runner, :gem_command_manager, :gem_list_checker, :app, :arg_parser, :options, :noninteractive_chooser
     attr_accessor :gem_interaction_handler, :install_processor, :missing_dependency_finder, :valid_platform_selector
-    attr_accessor :output_listener, :outs_output_observer, :errs_output_observer, :output_filter, :autogem
+    attr_accessor :output_listener, :outs_output_observer, :errs_output_observer, :output_filter, :autogem, :rogue_gem_finder
 
     def initialize
       @options = {}
@@ -30,6 +30,7 @@ module GemInstaller
       @output_filter = GemInstaller::OutputFilter.new
       @output_filter.options = @options
       @output_filter.output_proxy = @output_proxy
+      
 
       @output_listener = GemInstaller::OutputListener.new
       @output_listener.output_filter = @output_filter
@@ -77,6 +78,10 @@ module GemInstaller
       @gem_command_manager.gem_runner_proxy = @gem_runner_proxy
       @gem_command_manager.gem_interaction_handler = @gem_interaction_handler
         
+      @rogue_gem_finder = GemInstaller::RogueGemFinder.new
+      @rogue_gem_finder.gem_command_manager = @gem_command_manager
+      @rogue_gem_finder.output_proxy = @output_proxy
+      
       @autogem = GemInstaller::Autogem.new
       @autogem.gem_command_manager = @gem_command_manager
 

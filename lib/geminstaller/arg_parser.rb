@@ -28,7 +28,7 @@ module GemInstaller
           @options[:rogue_gems] = true
         end
 
-        opts.on("-t", "--silent", "Suppress all output except fatal exceptions") do
+        opts.on("-t", "--silent", "Suppress all output except fatal exceptions, and output from rogue-gems option") do
           @options[:silent] = true
         end
 
