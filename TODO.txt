@@ -1,4 +1,3 @@
-* Make a fixtures spec - install all sample gems, uninstall them all, nothing should be installed (except sources) as shown by all_local_gems
 * remove quotes from all yaml config entries
 * --- at beginning of all yaml
 * change all yaml indentation - see rogue_gem_finder_specs
