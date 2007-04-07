@@ -104,6 +104,7 @@ module GemInstaller
 
       @app = GemInstaller::Application.new
       @app.autogem = @autogem
+      @app.rogue_gem_finder = @rogue_gem_finder
       @app.options = @options
       @app.arg_parser = @arg_parser
       @app.config_builder = @config_builder

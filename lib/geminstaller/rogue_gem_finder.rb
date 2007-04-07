@@ -14,7 +14,6 @@ module GemInstaller
           gem_from_config_version_requirement = Gem::Version::Requirement.new [gem_from_config.version]
           local_gem_version = Gem::Version.new(local_gem.version)
           version_matches = gem_from_config_version_requirement.satisfied_by?(local_gem_version)
-          p "local #{local_gem.name}, #{local_gem.version}, config #{gem_from_config.name}, #{gem_from_config.version}, name matches #{name_matches}, version matches #{version_matches}"
           if (name_matches and version_matches)
             config_match_found_for_local = true
             break
