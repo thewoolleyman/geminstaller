@@ -84,6 +84,7 @@ context "an AutoGem instance" do
   def load_path_entry(name,version,subdir)
     "#{test_gem_home_dir}/gems/#{name}-#{version}/#{subdir}"
   end
+
   teardown do
     GemInstaller::TestGemHome.uninstall_all_test_gems
   end
