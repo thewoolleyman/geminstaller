@@ -105,9 +105,10 @@ context "a GemCommandManager instance" do
     matching_gem = sample_dependent_gem
     matching_gem.install_options << '--include-dependencies'
     install_gem(matching_gem)
-    dependency_output = @gem_command_manager.dependency(sample_dependent_gem.name, sample_dependent_gem.version, sample_dependent_gem.install_options)
-    dependency_output.size.should==(1)
-    dependency_output[0].should==('stubgem (>= 1.0.0)')
+    dependency_output_gems = @gem_command_manager.dependency(sample_dependent_gem.name, sample_dependent_gem.version, sample_dependent_gem.install_options)
+    dependency_output_gems.size.should==(1)
+    dependency_output_gems[0].name.should==('stubgem')
+    dependency_output_gems[0].version.should==('>= 1.0.0')
   end
 
   specify "can list all local gems" do

@@ -25,11 +25,8 @@ module GemInstaller
       # gem_command_manager.dependency to return ruby_gems instead of a line
       matching_gem_specs = @gem_command_manager.local_matching_gem_specs(gem)
       matching_gem_specs.each do |matching_gem_spec|
-        dependency_output_lines = @gem_command_manager.dependency(matching_gem_spec.name, matching_gem_spec.version.to_s)
-        dependency_output_lines.each do |dependency_output_line|
-          name = dependency_output_line.split(' ')[0]
-          version_spec = dependency_output_line.split(/[()]/)[1]
-          dependency_gem = GemInstaller::RubyGem.new(name, :version => version_spec)
+        dependency_gems = @gem_command_manager.dependency(matching_gem_spec.name, matching_gem_spec.version.to_s)
+        dependency_gems.each do |dependency_gem|
           load_gem(dependency_gem)
         end
       end

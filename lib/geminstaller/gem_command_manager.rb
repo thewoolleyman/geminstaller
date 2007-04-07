@@ -73,7 +73,12 @@ module GemInstaller
       output_array.reject! { |line| line == "" }
       # strip leading space
       output_array.each { |line| line.strip! }
-      output_array
+      # convert into gems
+      output_gems = output_array.collect do |line|
+        name = line.split(' ')[0]
+        version_spec = line.split(/[()]/)[1]
+        GemInstaller::RubyGem.new(name, :version => version_spec)
+      end
     end
 
     def run_gem_command(gem_command,gem)
