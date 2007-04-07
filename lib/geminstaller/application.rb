@@ -1,7 +1,7 @@
 module GemInstaller
   class Application
     # we have accessors instead of just writers so that we can ensure it is assembled correctly in the dependency injector test
-    attr_accessor :config_builder, :install_processor, :output_filter, :arg_parser, :args, :options
+    attr_accessor :config_builder, :install_processor, :output_filter, :arg_parser, :args, :options, :rogue_gem_finder
     attr_writer :autogem
     
     def initialize
@@ -18,6 +18,9 @@ module GemInstaller
         gems = config.gems
         print_startup_message(gems) unless @options[:silent]
         @install_processor.process(gems)
+        if @options[:print_rogue_gems]
+          @rogue_gem_finder.print_rogue_gems(gems)
+        end
       rescue Exception => e
         message = e.message
         message += "\n"
