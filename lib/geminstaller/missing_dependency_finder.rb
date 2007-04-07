@@ -20,7 +20,7 @@ module GemInstaller
           local_matching_gem_specs = @gem_command_manager.local_matching_gem_specs(dependency_gem)
           unless local_matching_gem_specs.size > 0
             unless message_already_printed
-              @output_filter.geminstaller_output(:info, "Missing dependencies found for #{matching_gem_spec.name} (#{matching_gem_spec.version})\n")
+              @output_filter.geminstaller_output(:info, "Missing dependencies found for #{matching_gem_spec.name} (#{matching_gem_spec.version}):\n")
               message_already_printed = true
             end
             # TODO: print install options too?

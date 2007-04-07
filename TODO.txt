@@ -1,7 +1,6 @@
 * add multilevel dependency smoketests for autogem (old rails version)
 * geminstaller-output :error should print to stderr, not stdout
 * echo stdin
-* implement commandecho
 * modify rails example to try non-sudo first, then sudo
 * check gems: mongrel, mongrel_cluster, hpricot, rmagick
 * update docs for geminstaller-output/rubygems-output
@@ -22,6 +21,7 @@
 * rails example doesn't print any warning if geminstaller is not installed
 * "Installing gem" messages are duplicated if info message is specified, one from rubygems, one from geminstaller.  See todo in install_processor.rb
 * boot.rb parsed twice under webrick?
+* commandecho doesn't print regexps correctly
 - 0.3.0 release
 
 * tests failed when "partially" connected to network? (wireless at office)

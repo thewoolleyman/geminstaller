@@ -1,9 +1,10 @@
 module GemInstaller
   class GemRunnerProxy
     attr_writer :gem_runner_class, :gem_cmd_manager_class, :output_listener
-    attr_writer :options, :enhanced_stream_ui
+    attr_writer :options, :enhanced_stream_ui, :output_filter
 
     def run(args = [], stdin = [])
+      @output_filter.geminstaller_output(:commandecho,"'gem #{args.join(' ')}'\n")
       gem_runner = create_gem_runner
       # We have to manually initialize the configuration here, or else the GemCommandManager singleton
       # will initialize with the (incorrect) default args when we call GemRunner.run.

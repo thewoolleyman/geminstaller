@@ -32,11 +32,11 @@ module GemInstaller
           @options[:sudo] = true
         end
 
-        opts.on("-g=GEMINSTALLER_OUTPUT", "--geminstaller-output=GEMINSTALLER_OUTPUT", String, "Types of output to show from GemInstaller.") do |geminstaller_output_flags|
+        opts.on("-gGEMINSTALLER_OUTPUT", "--geminstaller-output=GEMINSTALLER_OUTPUT", String, "Types of output to show from GemInstaller.") do |geminstaller_output_flags|
           @unparsed_geminstaller_output_flags = geminstaller_output_flags
         end
 
-        opts.on("-r=RUBYGEMS_OUTPUT", "--rubygems-output=RUBYGEMS_OUTPUT", String, "Types of output to show from internal RubyGems command invocation.") do |rubygems_output_flags|
+        opts.on("-rRUBYGEMS_OUTPUT", "--rubygems-output=RUBYGEMS_OUTPUT", String, "Types of output to show from internal RubyGems command invocation.") do |rubygems_output_flags|
           @unparsed_rubygems_output_flags = rubygems_output_flags
         end
 

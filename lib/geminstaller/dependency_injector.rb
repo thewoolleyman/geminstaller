@@ -70,6 +70,7 @@ module GemInstaller
       @gem_runner_proxy.output_listener = @output_listener
       @gem_runner_proxy.enhanced_stream_ui = @enhanced_stream_ui
       @gem_runner_proxy.options = @options
+      @gem_runner_proxy.output_filter = @output_filter
   
       @gem_command_manager = GemInstaller::GemCommandManager.new
       @gem_command_manager.gem_source_index_proxy = @gem_source_index_proxy
