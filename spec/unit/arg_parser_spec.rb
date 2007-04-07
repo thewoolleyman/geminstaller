@@ -147,16 +147,16 @@ context "an ArgParser instance with rogue-gems option" do
     common_setup
   end
 
-  specify "specified by --rogue-gems should return rogue_gems flag as true in options hash" do
-    @args.push("--rogue-gems")
+  specify "specified by --print-rogue-gems should return rogue_gems flag as true in options hash" do
+    @args.push("--print-rogue-gems")
     @arg_parser.parse(@args)
-    @options[:rogue_gems].should==(true)
+    @options[:print_rogue_gems].should==(true)
   end
 
-  specify "specified by -R should return rogue_gems flag as true in options hash" do
-    @args.push("-R")
+  specify "specified by -p should return rogue_gems flag as true in options hash" do
+    @args.push("-p")
     @arg_parser.parse(@args)
-    @options[:rogue_gems].should==(true)
+    @options[:print_rogue_gems].should==(true)
   end
 end
 

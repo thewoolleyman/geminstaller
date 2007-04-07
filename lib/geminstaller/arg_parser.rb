@@ -24,8 +24,8 @@ module GemInstaller
           @options[:config_paths] = config_paths
         end
 
-        opts.on("-R", "--rogue-gems", "Print a report of all locally installed gems which are not specified in the geminstaller config file") do
-          @options[:rogue_gems] = true
+        opts.on("-p", "--print-rogue-gems", "Print a report of all locally installed gems which are not specified in the geminstaller config file") do
+          @options[:print_rogue_gems] = true
         end
 
         opts.on("-t", "--silent", "Suppress all output except fatal exceptions, and output from rogue-gems option") do
