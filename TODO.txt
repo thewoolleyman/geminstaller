@@ -17,7 +17,7 @@
 - 0.2.0 release
 
 * refactor enhanced_stream_ui.ask_yes_no - does it need to catch the exception?  Also review context name (no OutputProxy) and use of StringIO, and exception tests.
-* rename enhanced_stream_ui to noninteractive_stream_ui
+* rename enhanced_stream_ui to noninteractive_stream_ug
 * add multilevel dependency smoketests for autogem (old rails version)
 * refactor duplication in autogem/rogue_gem_finder using blocks
 * rubygems stdout - don't print prefix for single dot

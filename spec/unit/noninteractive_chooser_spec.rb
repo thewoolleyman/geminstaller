@@ -121,14 +121,23 @@ context "a NoninteractiveChooser instance which is passed an uninstall-formatted
     should_raise_error("stubgem", "1.0.0", ["ruby", "mswin32"])
   end
 
+  specify "should raise error if the question is not a recognized list prompt" do
+    @question = "invalid question prompt"
+    should_raise_error("stubgem", "1.0.0", ["ruby"])
+  end
+
+  specify "should raise error if valid_platforms is not specified as an array" do
+    should_raise_error("stubgem", "1.0.0", "ruby")
+  end
+
 end
 
-def should_choose(expected_choice, name, version, platform)
-  string, index = @noninteractive_chooser.choose(@question, @list, name, version, platform)
+def should_choose(expected_choice, name, version, valid_platforms)
+  string, index = @noninteractive_chooser.choose(@question, @list, name, version, valid_platforms)
   index.should==(expected_choice)
 end
 
-def should_raise_error(name, version, platform)
-  lambda{ @noninteractive_chooser.choose(@question, @list, name, version, platform) }.should_raise(GemInstaller::GemInstallerError)
+def should_raise_error(name, version, valid_platforms)
+  lambda{ @noninteractive_chooser.choose(@question, @list, name, version, valid_platforms) }.should_raise(GemInstaller::GemInstallerError)
 end
 

@@ -7,13 +7,12 @@ module GemInstaller
     end
     
     def choose(question, list, dependent_gem_name, dependent_gem_version, valid_platforms)
-      require 'pp'
       @question = question
       @list = list
       @dependent_gem_name = dependent_gem_name
       @dependent_gem_version = dependent_gem_version
       @valid_platforms = valid_platforms
-      raise GemInstaller::GemInstallerError.new("Internal GemInstaller Error, unexpected question: '#{question}'") unless
+      raise GemInstaller::GemInstallerError.new("Internal GemInstaller Error, unexpected choice prompt question: '#{question}'") unless
         install_list_type? or uninstall_list_type?
 
       raise GemInstaller::GemInstallerError.new("valid_platforms must be passed as an array.") unless 
