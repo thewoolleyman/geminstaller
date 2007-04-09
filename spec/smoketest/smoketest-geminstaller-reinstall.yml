@@ -1,9 +1,10 @@
+---
 defaults:
   install_options: --include-dependencies
   check_for_upgrade: true
 gems:
-  - name: rutils
-  - name: ruby-doom
-  - name: x10-cm17a
-    platform: <%= RUBY_PLATFORM =~ /mswin/ ? 'i386-mswin32' : 'ruby'%>
-  - name: heckle
+- name: rutils
+- name: ruby-doom
+- name: x10-cm17a
+  platform: <%= RUBY_PLATFORM =~ /mswin/ ? 'i386-mswin32' : 'ruby'%>
+- name: heckle

@@ -26,14 +26,15 @@ To use GemInstaller, edit "geminstaller.yml", and run "geminstaller" from the sa
 
 Here's an simple example geminstaller.yml:
 
-	defaults:
-	  install_options: -y
-	gems:
-	  - name: some-gem
-	    version: '0.1'
-	    install_options: -y --backtrace --source=http://gems.myreliableserver.com:8808
-	  - name: another-gem
-	    version: '0.2'
+---
+defaults:
+  install_options: -y
+gems:
+- name: some-gem
+  version: '0.1'
+  install_options: -y --backtrace --source=http://gems.myreliableserver.com:8808
+- name: another-gem
+  version: '0.2'
 
 === Using GemInstaller with Ruby on Rails or other Ruby apps:
 
@@ -80,10 +81,11 @@ You can specify the "check_for_upgrade" boolean option for any gem, or as the de
 
 Here's an example geminstaller.yml which will disable upgrade checking for all gems but one:
 
-	gems:
-	  - name: some-gem
-	  - name: my-bleeding-edge-gem
-	    check_for_upgrade: true
+---
+gems:
+- name: some-gem
+- name: my-bleeding-edge-gem
+  check_for_upgrade: true
 
 === Multiple Config Files:
 
@@ -96,10 +98,11 @@ You can also have multiple or custom-named config files, using the '--config' op
 The GemInstaller config file(s) are also run through erb, so you can embed any custom ruby code to dynamically generate portions of your config.  This can be used to have the same config file select gems differently on different platforms or environments.  For example:
 
 geminstaller-detect-platform.yml
-	gems:
-	  - name: x10-cm17a
-	    version: '> 1.0.0'
-	    platform: <%= RUBY_PLATFORM =~ /mswin/ ? 'i386-mswin32' : 'ruby'%>
+---
+gems:
+- name: x10-cm17a
+  version: '> 1.0.0'
+  platform: <%= RUBY_PLATFORM =~ /mswin/ ? 'i386-mswin32' : 'ruby'%>
 
 === A Real Working Example:
 
@@ -108,24 +111,26 @@ Here is a real working example with two config files, which use real rubygems fr
 	'geminstaller --info --config=smoketest-geminstaller.yml,smoketest-geminstaller-override.yml'
 
 smoketest-geminstaller.yml:
-	defaults:
-	  install_options: --include-dependencies
-	gems:
-	  - name: rutils
-	    version: '> 0.1.5'
-	    platform: ruby
+---
+defaults:
+  install_options: --include-dependencies
+gems:
+- name: rutils
+  version: '> 0.1.5'
+  platform: ruby
 
 smoketest-geminstaller-override.yml:
-	defaults:
-	gems:
-	  - name: rutils
-	    version: '0.1.3'
-	    platform: ruby
-	  - name: ruby-doom
-	    version: 0.8
-	  - name: x10-cm17a
-	    version: '> 1.0.0'
-	    platform: <%= RUBY_PLATFORM =~ /mswin/ ? 'i386-mswin32' : 'ruby'%>
+---
+defaults:
+gems:
+- name: rutils
+  version: '0.1.3'
+  platform: ruby
+- name: ruby-doom
+  version: 0.8
+- name: x10-cm17a
+  version: '> 1.0.0'
+  platform: <%= RUBY_PLATFORM =~ /mswin/ ? 'i386-mswin32' : 'ruby'%>
 
 === Dealing with sudo and root-owned RubyGem installations:
 

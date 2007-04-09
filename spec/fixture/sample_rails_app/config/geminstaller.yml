@@ -1,12 +1,13 @@
-# Note: To find out the dependencies for any given version of Rails, look at the
-# .../ruby/gems/x.y/specifications/rails-x.y.z.gemspec file
+---
+# Note: To find out the dependencies for any given version of Rails, 
+# use the rubygems 'gem dependency rails' command
 defaults:
   install_options: --include-dependencies
 gems:
-  - name: rake
-    version: '>= 0.7.1'
-  - name: rails
-    version: '= 1.1.6'
-  - name: mongrel
-    version: '= 1.0.1'
-    platform: <%= RUBY_PLATFORM =~ /mswin/ ? 'mswin32' : 'ruby'%>
+- name: rake
+  version: '>= 0.7.1'
+- name: rails
+  version: '= 1.1.6'
+- name: mongrel
+  version: '= 1.0.1'
+  platform: <%= RUBY_PLATFORM =~ /mswin/ ? 'mswin32' : 'ruby'%>

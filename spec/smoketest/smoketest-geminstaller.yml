@@ -1,9 +1,10 @@
+---
 defaults:
   install_options: --include-dependencies
 gems:
-  - name: rutils
-    version: '0.1.9'
-    platform: ruby
-  - name: heckle
-    version: 1.0.0
-    check_for_upgrade: true
+- name: rutils
+  version: '0.1.9'
+  platform: ruby
+- name: heckle
+  version: 1.0.0
+  check_for_upgrade: true

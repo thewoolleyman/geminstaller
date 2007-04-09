@@ -6,6 +6,7 @@
 * echo stdin
 * modify rails example to try non-sudo first, then sudo
 * check gems: mongrel, mongrel_cluster, hpricot, rmagick
+* docs should tout eating my own dog food
 * update docs for geminstaller-output/rubygems-output
 * update docs for autogem
 * update docs for rogue gems
