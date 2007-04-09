@@ -1,7 +1,4 @@
 * figure out why '> 1' must be quoted to be a valid yaml value - see yaml_loader_spec.rb
-* --- at beginning of all yaml
-* change all yaml indentation - see rogue_gem_finder_specs
-* add multilevel dependency smoketests for autogem (old rails version)
 * geminstaller-output :error should print to stderr, not stdout
 * echo stdin
 * modify rails example to try non-sudo first, then sudo
@@ -19,6 +16,7 @@
 * upload gem 
 - 0.2.0 release
 
+* add multilevel dependency smoketests for autogem (old rails version)
 * refactor duplication in autogem/rogue_gem_finder using blocks
 * rubygems stdout - don't print prefix for single dot
 * clean up regexps - no leading or trailing .*
