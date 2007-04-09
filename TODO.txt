@@ -1,4 +1,4 @@
-* remove quotes from all yaml config entries
+* figure out why '> 1' must be quoted to be a valid yaml value - see yaml_loader_spec.rb
 * --- at beginning of all yaml
 * change all yaml indentation - see rogue_gem_finder_specs
 * add multilevel dependency smoketests for autogem (old rails version)
