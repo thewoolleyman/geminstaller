@@ -1,3 +1,4 @@
+* add option to automatically create geminstaller.yml file.  Populate with -y default install_option, and boilerplate instruction text (link to website, pointer to print-rogue-gems option)
 * figure out why '> 1' must be quoted to be a valid yaml value - see yaml_loader_spec.rb
 * geminstaller-output :error should print to stderr, not stdout
 * echo stdin

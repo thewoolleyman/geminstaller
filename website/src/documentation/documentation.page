@@ -1,3 +1,18 @@
 h1. Detailed Documentation
 
-Fill this file with your own data!!!
+h2. Setup
+
+h3. Requirements
+
+Runtime Requirements:
+* None. There are no dependencies required to run GemInstaller, other than an installation of RubyGems itself
+
+Build/Test requirements:
+* GemInstaller has a geminstaller.yml file to specify it's own dependencies.  After installing the geminstaller gem (via 'gem install geminstaller'), change to the root of the geminstaller source tree, and run 'geminstaller' to auto-install the dependencies.
+
+h3. Installation
+
+*Installing Latest Release:*  Run <code>'[sudo] gem install geminstaller'</code> to install GemInstaller from RubyForge.
+
+*Installing Source Distribution:*  Run <code>'rake install_gem'</code> from the root of the GemInstaller source tree.  This assumes that Hoe and other required build/test dependencies are installed.  Note this currently won't work on windows because Hoe always tries to run sudo.  It will generate a pkg/geminstaller-version.gem file, though, which you can install with the <code>'gem install <pkgfile>'</code> command.  
+
