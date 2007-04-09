@@ -16,6 +16,7 @@
 * upload gem 
 - 0.2.0 release
 
+
 * refactor enhanced_stream_ui.ask_yes_no - does it need to catch the exception?  Also review context name (no OutputProxy) and use of StringIO, and exception tests.
 * rename enhanced_stream_ui to noninteractive_stream_ug
 * add multilevel dependency smoketests for autogem (old rails version)
@@ -28,6 +29,7 @@
 * "Installing gem" messages are duplicated if info message is specified, one from rubygems, one from geminstaller.  See todo in install_processor.rb
 * boot.rb parsed twice under webrick?
 * commandecho doesn't print regexps correctly
+* code coverage for logic paths supporting old rubygems versions
 * clean up registry - third-party first, no dependency next, alphabetized
 - 0.3.0 release
 
