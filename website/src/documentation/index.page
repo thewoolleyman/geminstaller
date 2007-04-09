@@ -8,13 +8,50 @@ h2. Basic Usage - "Hello Doom"
 * Install GemInstaller: <code>[sudo] gem install geminstaller</code>
 * Create a <code>geminstaller.yml</code> file:
 
-<code><pre>
+<pre>
 # geminstaller.yml sample config
 gems:
 - name: ruby-doom
   version: '>= 0.8'
-</pre></code>
+</pre>
 
-* Run GemInstaller from the directory containing geminstaller.yml: <code>geminstaller</code>
+* Run GemInstaller from the directory containing geminstaller.yml: <code>geminstaller</code>.  You should see a message indicating that the gem is being installed.
 * Verify that the ruby-doom gem was installed: <code>gem list ruby-doom</code>
 
+h2. Using GemInstaller with Ruby on Rails
+
+* Create geminstaller.yml in the RAILS_ROOT/config directory.  Include entries for your Rails version, and any other gems your app needs:
+
+<pre>
+# geminstaller.yml rails app config
+defaults:
+  install_options: --include-dependencies
+gems:
+- name: rails
+  version: '= 1.1.6'
+</pre>
+
+* Determine whether you run on unix and need root/sudo access to install gems.  If you do, edit your <code>sudoers</code> file to allow the current user to run the <code>'gem'</code> command via sudo without a password.  See the documentation on the GemInstaller <code>--sudo</code> option for more details (TODO: add link).
+
+* Edit your Rails <code>config/boot.rb</code> to invoke GemInstaller on startup.  The following lines should be placed right after the block which defines the RAILS_ROOT constant ("..." indicates omitted lines):
+
+<pre>
+RAILS_ROOT/config/boot.rb:
+...
+unless defined?(RAILS_ROOT)
+...
+end
+
+system "geminstaller --sudo --info --config=#{RAILS_ROOT}/config/geminstaller.yml"
+
+unless defined?(Rails::Initializer)
+...
+</pre>
+
+* Start your app: <code>ruby script/server</code>.  You should see messages indicating the gems (and dependency gems) are being installed.
+* Stop the app, and verify the gems are installed: <code>gem list rails</code>
+
+
+h2. Where to go next
+
+See the "Tutorial":documentation/tutorial.html or the "Detailed Documentation":documentation/documentation.html for examples of more GemInstaller features.
