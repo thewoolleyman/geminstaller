@@ -5,11 +5,17 @@ h1. Overview
 
 h2. What is GemInstaller?
 
-Rubygems uses a simple config file to automatically install and upgrade ruby Gems for multiple machines, platforms, and environments.  It can automatically install all required gems wherever your app runs, and ensure that multiple machines have all the required gems installed for multiple apps.
+GemInstaller provides automated management of RubyGems.  It uses a simple YAML config file to:
 
-It also has some useful features that are not (yet) present in the standard RubyGems package, such as automatically fixing missing dependency gems, and doing _some_ automated handling of multi-platform gems.
+* Automatically install the correct versions of all required gems wherever your app runs.
+* Automatically ensure installed gems and versions are consistent across multiple machines, platforms, and environments 
+* Automatically add correct versions of gems to the ruby load path when your app runs ('require_gem'/'gem')
+* Automatically reinstall missing dependency gems
+* Automatically guess at correct platform to install for multi-platform gems
+* Print YAML for "rogue gems" which are not specified in the current config, to easily bootstrap your config file, or find gems that were manually installed without GemInstaller.
+* Avoid the "works on demo, broken on production" syndrome
 
-More features are planned, such as using your GemInstaller config file to automatically perform ruby "require" statements of all your required gems.
+GemInstaller can be used from the command line, or embedded to run automatically on startup for a Rails app or any other Ruby program.
 
 h2. How do I get it?
 
@@ -17,7 +23,7 @@ GemInstaller can be "downloaded":http://rubyforge.org/frs/?group_id=1902 from Ru
 
 h2. How do I use it?
 
-See the "Quick Start Guide":documentation/index.html or the "Detailed Documentation":documentation/documentation.html.
+See the "Quick Start Guide":documentation/index.html, "Tutorial":documentation/tutorial.html,  or the "Detailed Documentation":documentation/documentation.html.
 
 h2. Who is responsible for GemInstaller?
 
