@@ -14,7 +14,6 @@ context "The geminstaller command line application" do
     
     @gem_command_manager = @registry.gem_command_manager
     @sample_gem = sample_gem
-    @gem_command_manager.uninstall_gem(@sample_gem) if @gem_command_manager.is_gem_installed?(@sample_gem)
   end
 
   specify "should print usage if --help arg is specified" do
@@ -74,9 +73,6 @@ context "The geminstaller command line application" do
   end
    
   specify "should handle a multiplatform dependency chain" do
-    @gem_command_manager.uninstall_gem(sample_dependent_depends_on_multiplatform_gem) if 
-      @gem_command_manager.is_gem_installed?(sample_dependent_depends_on_multiplatform_gem)
-    @gem_command_manager.uninstall_gem(sample_multiplatform_gem) if @gem_command_manager.is_gem_installed?(sample_multiplatform_gem)
     @application.args = ["--config=#{dir}/live_geminstaller_config_5.yml"]
     @mock_output_proxy.should_receive(:sysout).with(/GemInstaller is verifying gem installation: #{sample_dependent_depends_on_multiplatform_gem.name}.*/)
     @mock_output_proxy.should_receive(:sysout).with(/Invoking gem install for #{sample_dependent_depends_on_multiplatform_gem.name}.*/)
