@@ -93,9 +93,6 @@ context "a GemRunnerProxy instance" do
       def create_gem_runner
         return @gem_runner
       end
-      def create_output_listener
-        return @output_listener
-      end
     end
     @gem_runner_proxy.gem_runner = @mock_gem_runner
     @gem_runner_proxy.output_listener = @mock_output_listener
