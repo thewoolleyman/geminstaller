@@ -113,6 +113,31 @@ context "an application instance invoked with alternate config file location" do
   end
 end
 
+context "an application instance invoked with print-rogue-gems arg" do
+  setup do
+    application_spec_setup_common
+    @mock_arg_parser.should_receive(:parse).with(nil)
+    @mock_arg_parser.should_receive(:output).and_return(nil)
+    @options[:print_rogue_gems] = true
+  end
+
+  specify "should invoke rogue_gem_finder" do
+    
+    @mock_config_builder.should_receive(:build_config).and_return {@stub_config_local}
+    
+    gems = [@stub_gem]
+    @stub_config.should_receive(:gems).and_return(gems)
+    @mock_install_processor.should_receive(:process)
+    @mock_output_filter.should_receive(:geminstaller_output).once()
+    
+    @mock_rogue_gem_finder = mock("Mock RogueGemFinder")
+    @mock_rogue_gem_finder.should_receive(:print_rogue_gems).once().with(gems)
+    @application.rogue_gem_finder = @mock_rogue_gem_finder
+    
+    @application.run
+  end
+end
+
 def application_spec_setup_common
   @mock_arg_parser = mock("Mock Arg Parser")
   @mock_config_builder = mock("Mock Config Builder")
