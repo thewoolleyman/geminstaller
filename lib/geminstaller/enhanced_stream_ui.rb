@@ -14,11 +14,11 @@ module GemInstaller
         @outs.flush
         raise e
       end
-      super(question, default)
+      raise_unexpected_prompt_error(question)
     end
     
     def ask(question)
-      raise GemInstaller::UnexpectedPromptError.new("GemInstaller Internal Error - Unexpected prompt received from RubyGems: '#{question}'.")
+      raise_unexpected_prompt_error(question)
     end
     
     def choose_from_list(question, list)
@@ -47,6 +47,10 @@ module GemInstaller
     protected
     def raise_error(status)
       raise GemInstaller::GemInstallerError.new("RubyGems exited abnormally.  Status: #{status}\n")
+    end
+    
+    def raise_unexpected_prompt_error(question)
+      raise GemInstaller::UnexpectedPromptError.new("GemInstaller Internal Error - Unexpected prompt received from RubyGems: '#{question}'.")
     end
 
   end
