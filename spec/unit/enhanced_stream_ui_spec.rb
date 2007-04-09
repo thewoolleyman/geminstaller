@@ -22,9 +22,17 @@ context "An EnhancedStreamUI instance with an OutputProxy injected for outs and 
     @errs_output_observer.register(@mock_errs_listener)
   end
 
-  specify "will throw unexpected prompt error if there is no queued input" do
+  specify "will throw unexpected prompt error for ask" do
     question = 'question'
     lambda{ @enhanced_stream_ui.ask(question) }.should_raise(GemInstaller::UnexpectedPromptError)
+  end
+
+  specify "will throw unexpected prompt error for ask_yes_no if question is not a dependency prompt" do
+    mock_gem_interaction_handler = mock("Mock GemInteractionHandler")
+    mock_gem_interaction_handler.should_receive(:handle_ask_yes_no)
+    @enhanced_stream_ui.gem_interaction_handler = mock_gem_interaction_handler
+    question = 'question'
+    lambda{ @enhanced_stream_ui.ask_yes_no(question) }.should_raise(GemInstaller::UnexpectedPromptError)
   end
 
   specify "will force throw of GemInstaller::UnauthorizedDependencyPromptError or RubyGemsExit if intercepted by alert_error" do
