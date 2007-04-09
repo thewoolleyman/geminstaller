@@ -1,5 +1,6 @@
+---
 gems:
-  - name: <%= sample_multiplatform_gem_name %>
-    version: <%= sample_multiplatform_gem_version %>
-    platform: mswin32
-    install_options: <%= install_options_for_testing.join(' ') %>
+- name: <%= sample_multiplatform_gem_name %>
+  version: <%= sample_multiplatform_gem_version %>
+  platform: mswin32
+  install_options: <%= install_options_for_testing.join(' ') %>

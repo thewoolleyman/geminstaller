@@ -1,3 +1,4 @@
+---
 gems:
-  - name: <%= sample_gem_name %>
-    version: <%= GemInstaller::SpecUtils::sample_gem_version %>
+- name: <%= sample_gem_name %>
+  version: <%= GemInstaller::SpecUtils::sample_gem_version %>
