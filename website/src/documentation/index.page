@@ -3,4 +3,18 @@ title: Quick Start
 ---
 h1. Quick Start
 
-Fill this file with your own data!!!
+h2. Basic Usage - "Hello Doom"
+
+* Install GemInstaller: <code>[sudo] gem install geminstaller</code>
+* Create a <code>geminstaller.yml</code> file:
+
+<code><pre>
+# geminstaller.yml sample config
+gems:
+- name: ruby-doom
+  version: '>= 0.8'
+</pre></code>
+
+* Run GemInstaller from the directory containing geminstaller.yml: <code>geminstaller</code>
+* Verify that the ruby-doom gem was installed: <code>gem list ruby-doom</code>
+

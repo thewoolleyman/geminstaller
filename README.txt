@@ -127,7 +127,7 @@ gems:
   version: '0.1.3'
   platform: ruby
 - name: ruby-doom
-  version: 0.8
+  version: '>= 0.8'
 - name: x10-cm17a
   version: '> 1.0.0'
   platform: <%= RUBY_PLATFORM =~ /mswin/ ? 'i386-mswin32' : 'ruby'%>
