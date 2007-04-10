@@ -8,7 +8,8 @@ h2. Basic Usage - "Hello Doom"
 * Install GemInstaller: <code>[sudo] gem install geminstaller</code>
 * Create a <code>geminstaller.yml</code> file:
 
-<pre>
+    <pre>
+\---
 # geminstaller.yml sample config
 gems:
 - name: ruby-doom

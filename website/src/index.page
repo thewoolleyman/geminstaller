@@ -8,7 +8,7 @@ h2. What is GemInstaller?
 GemInstaller provides automated management of RubyGems.  It uses a simple YAML config file to:
 
 * Automatically install the correct versions of all required gems wherever your app runs.
-* Automatically ensure installed gems and versions are consistent across multiple machines, platforms, and environments 
+* Automatically ensure installed gems and versions are consistent across multiple applications, machines, platforms, and environments 
 * Automatically add correct versions of gems to the ruby load path when your app runs ('require_gem'/'gem')
 * Automatically reinstall missing dependency gems
 * Automatically guess at correct platform to install for multi-platform gems
