@@ -18,11 +18,6 @@ documentation/index.page:
   inMenu: true
   orderInfo: 10
 
-documentation/tutorial.page:
-  title: Tutorial
-  inMenu: true
-  orderInfo: 20
-
 documentation/documentation.page:
   title: Documentation
   inMenu: true

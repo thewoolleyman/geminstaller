@@ -33,7 +33,7 @@ gems:
   version: '= 1.1.6'
 </pre>
 
-* Determine whether you run on unix and need root/sudo access to install gems.  If you do, edit your <code>sudoers</code> file to allow the current user to run the <code>'gem'</code> command via sudo without a password.  See the documentation on the GemInstaller <code>--sudo</code> option for more details (TODO: add link).
+* Determine whether you run on unix and need root/sudo access to install gems.  If you do, edit your <code>sudoers</code> file to allow the current user to run the <code>'gem'</code> command via sudo without a password.  See the documentation on the GemInstaller "<code>--sudo</code> option":documentation.html#dealing_with_sudo for more details.
 
 * Edit your Rails <code>config/boot.rb</code> to invoke GemInstaller on startup.  The following lines should be placed right after the block which defines the RAILS_ROOT constant ("..." indicates omitted lines):
 
@@ -57,4 +57,4 @@ unless defined?(Rails::Initializer)
 
 h2. Where to go next
 
-See the "Tutorial":documentation/tutorial.html or the "Detailed Documentation":documentation/documentation.html for examples of more GemInstaller features.
+See the "Detailed Documentation":documentation/documentation.html for examples of more GemInstaller features.
