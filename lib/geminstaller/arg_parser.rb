@@ -20,35 +20,69 @@ module GemInstaller
 
         opts.separator ""
 
-        opts.on("-cCONFIGPATHS", "--config=CONFIGPATHS", String, "Comma-delimited path(s) to GemInstaller config file(s)") do |config_paths|
+        config_msg =                         "Comma-delimited path(s) to GemInstaller config file(s)."
+        geminstaller_output_msg =            "Comma-delimited list of output types to show from GemInstaller.\n" +
+        "                                       Examples:\n" + 
+        "                                         --gall\n" +
+        "                                         --geminstaller-output=error,install,commandecho\n" +
+        "                                       Default: error,install,info\n" +
+        "                                       Valid types:\n" +
+        "                                         - none:        print only fatal errors\n" +
+        "                                         - error:       print error messages\n" +
+        "                                         - install:     print install messages\n" +
+        "                                         - info:        print informational messages\n" +
+        "                                         - commandecho: print rubygems commands as they are invoked\n" +
+        "                                         - debug:       print debug messages\n" +
+        "                                         - all:         print all messages"
+        help_msg =                           "Show this message."
+        print_rogue_gems_msg =               "Print a report of all locally installed gems which are not specified\n" +
+        "                                     in the geminstaller config file."
+        rubygems_output_msg =                "Comma-delimited list of output types to show from internal:\n" +
+        "                                       RubyGems command invocation.\n" +
+        "                                       Examples:\n" + 
+        "                                         --rall\n" +
+        "                                         --rubygems-output=stderr\n" +
+        "                                       Default: stderr\n" +
+        "                                       Valid types:\n" +
+        "                                         - none:        print no output\n" +
+        "                                         - stdout:      print standard output stream\n" +
+        "                                         - stderr:      print standard error stream\n" +
+        "                                         - all:         print all output"
+        sudo_msg =                           "Perform all gem operations under sudo (as root).  Will only work on\n" +
+        "                                     correctly configured, supported systems.  See docs for more info."
+        silent_msg =                         "Suppress all output except fatal exceptions, and output from\n" +
+        "                                     rogue-gems option."
+        version_msg =                        "Show GemInstaller version."
+
+        opts.on("-cCONFIGPATHS", "--config=CONFIGPATHS", String, config_msg) do |config_paths|
           @options[:config_paths] = config_paths
         end
 
-        opts.on("-gGEMINSTALLER_OUTPUT", "--geminstaller-output=GEMINSTALLER_OUTPUT", String, "Types of output to show from GemInstaller.") do |geminstaller_output_flags|
+        opts.on("-gTYPES", "--geminstaller-output=TYPES", String, geminstaller_output_msg) do |geminstaller_output_flags|
           @unparsed_geminstaller_output_flags = geminstaller_output_flags
         end
 
-        opts.on_tail("-h", "--help", "Show this message") do
+        opts.on("-h", "--help", help_msg) do
           @output = opts.to_s
         end
 
-        opts.on("-p", "--print-rogue-gems", "Print a report of all locally installed gems which are not specified in the geminstaller config file") do
+        opts.on("-p", "--print-rogue-gems", print_rogue_gems_msg) do
           @options[:print_rogue_gems] = true
         end
 
-        opts.on("-rRUBYGEMS_OUTPUT", "--rubygems-output=RUBYGEMS_OUTPUT", String, "Types of output to show from internal RubyGems command invocation.") do |rubygems_output_flags|
+        opts.on("-rTYPES", "--rubygems-output=TYPES", String, rubygems_output_msg) do |rubygems_output_flags|
           @unparsed_rubygems_output_flags = rubygems_output_flags
         end
 
-        opts.on("-s", "--sudo", "Perform all gem operations under sudo (as root).  Will only work on correctly configured, supported systems.  See docs for more info") do
+        opts.on("-s", "--sudo", sudo_msg) do
           @options[:sudo] = true
         end
 
-        opts.on("-t", "--silent", "Suppress all output except fatal exceptions, and output from rogue-gems option") do
+        opts.on("-t", "--silent", silent_msg) do
           @options[:silent] = true
         end
 
-        opts.on_tail("-v", "--version", "Show GemInstaller version") do
+        opts.on("-v", "--version", version_msg) do
           @output = GemInstaller::version
         end
       end
