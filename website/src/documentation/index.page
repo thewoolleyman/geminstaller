@@ -57,4 +57,4 @@ unless defined?(Rails::Initializer)
 
 h2. Where to go next
 
-See the "Detailed Documentation":documentation/documentation.html for examples of more GemInstaller features.
+See the "Tutorial":documentation/tutorial.html or the "Detailed Documentation":documentation/documentation.html for examples of more GemInstaller features.
