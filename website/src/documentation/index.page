@@ -23,7 +23,8 @@ h2. Using GemInstaller with Ruby on Rails
 
 * Create geminstaller.yml in the RAILS_ROOT/config directory.  Include entries for your Rails version, and any other gems your app needs:
 
-<pre>
+    <pre>
+\---
 # geminstaller.yml rails app config
 defaults:
   install_options: --include-dependencies
@@ -36,7 +37,8 @@ gems:
 
 * Edit your Rails <code>config/boot.rb</code> to invoke GemInstaller on startup.  The following lines should be placed right after the block which defines the RAILS_ROOT constant ("..." indicates omitted lines):
 
-<pre>
+    <pre>
+\---
 RAILS_ROOT/config/boot.rb:
 ...
 unless defined?(RAILS_ROOT)

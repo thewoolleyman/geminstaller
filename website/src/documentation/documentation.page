@@ -51,7 +51,8 @@ h2. Using <code>erb</code> in config files
 
 The GemInstaller config file(s) are also run through erb, so you can embed any custom ruby code to dynamically generate portions of your config.  This can be used to have the same config file select gems differently on different platforms or environments.  Here is an example of using erb to detect the platform (which is necessary with some gems, even though GemInstaller attempts to guess at the platform.  See Automatic Platform Detection for more info TODO: add link):
 
-<pre>
+    <pre>
+\---
 # geminstaller-detect-platform.yml
 gems:
 - name: x10-cm17a
