@@ -26,6 +26,7 @@ h2. Table of Contents
 * "Using GemInstaller with Ruby on Rails or Other Ruby Apps":#using_geminstaller_with_ruby_on_rails_or_other_ruby_apps
 ** "Invoking the <code>GemInstaller</code> Class from Rails":#invoking_the_geminstaller_class_from_rails
 ** "Invoking the <code>geminstaller</code> Executable from Rails":#invoking_the_geminstaller_executable_from_rails
+** "Bootstrapping Rails with GemInstaller":#bootstrapping_rails_with_geminstaller
 ** "Using GemInstaller from Other Ruby Apps":#using_geminstaller_from_other_ruby_apps
 * "Using <code>erb</code> in config files":#using_erb_in_config_files
 * "Automatic Platform Detection":#automatic_platform_detection
@@ -217,7 +218,21 @@ GemInstaller can also be embedded in another application, such as a Rails app.  
 
 IMPORTANT NOTE: The approach you use will mainly be determined by whether you run on unix and need root/sudo access to install gems and/or gem executables.  If this is the case, you will probably have to use the second approach below, of invoking the <code>geminstaller</code> executable, rather than calling the <code>GemInstaller</code> class directly.  See "Dealing with sudo and root-owned RubyGem installations":#dealing_with_sudo section for more details.
 
-The two methods are described in the sections below.  For both of them, you need to create <code>geminstaller.yml</code> in the <code>RAILS_ROOT/config</code> directory, and invoke the GemInstaller on app startup in your boot.rb.  It should be placed right after the block which defines the RAILS_ROOT constant, as shown below ("..." indicates omitted lines):
+The two methods are described in the sections below.  For both of them, you need to create <code>geminstaller.yml</code> in the <code>RAILS_ROOT/config</code> directory.  Here's an example config file which will install (an old version of) Rails and Mongrel:
+
+<pre>
+\---
+defaults:
+  install_options: --include-dependencies
+gems:
+- name: rails
+  version: '= 1.1.6'
+- name: mongrel
+  version: '= 1.0.1'
+  platform: <%= RUBY_PLATFORM =~ /mswin/ ? 'mswin32' : 'ruby'%>
+</pre>
+
+Once you have your <code>geminstaller.yml</code> created, invoke the GemInstaller on app startup in your boot.rb.  It should be placed right after the block which defines the RAILS_ROOT constant, as shown below ("..." indicates omitted lines):
 
 h3(#invoking_the_geminstaller_class_from_rails). Invoking the <code>GemInstaller</code> Class from Rails
 
@@ -267,6 +282,24 @@ raise "GemInstaller execution failed" unless geminstaller_success
 
 unless defined?(Rails::Initializer)
 ...
+</pre>
+
+h3(#choosing_rails_geminstaller_invocation_method_based_on_platform). Choosing Rails GemInstaller Invocation Method Based On Platform
+
+If you want, you can combine both of the above methods, and programatically determine which one to use based on platform.  This approach would be useful if you develop on Windows, but deploy to unix.
+
+TODO: Add code example
+ 
+<pre>
+</pre>
+
+h3(#bootstrapping_rails_with_geminstaller). Bootstrapping Rails with GemInstaller
+
+If you don't already have Rails or Mongrel installed (you've just checked your app out or deployed onto a new machine), you obviously can't use the above boot.rb method to run GemInstaller.  In this case, you just need to run GemInstaller from the command line once to "bootstrap" and install the Rails/Mongrel gems.  This assumes you already have your <code>geminstaller.yml</code> config file in the Rails <code>config</code> dir:
+
+<pre>
+$ cd [RAILS_APP_ROOT]/config
+$ geminstaller --sudo # only use the -sudo option if necessary
 </pre>
 
 h3(#using_geminstaller_from_other_ruby_apps). Using GemInstaller from Other Ruby Apps
