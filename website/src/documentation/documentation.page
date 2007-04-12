@@ -12,6 +12,11 @@ h2. Table of Contents
 * "Using <code>erb</code> in config files":#using_erb_in_config_files
 * "Automatic Platform Detection":#automatic_platform_detection
 * "Dealing with sudo and root-owned RubyGem installations":#dealing_with_sudo 
+* "Option 1 - Use the <code>-s</code>  or <code>--sudo</code> option on the <code>geminstaller</code> executable":#option_1
+* "Option 2 - Run <code>sudo</code> or log in as root yourself":#option_2
+* "Option 3 - Make everything owned by the local user that runs geminstaller":#option_3
+* "Tips on configuring sudo":#tips_on_configuring_sudo
+
 
 h2(#setup). Setup
 
@@ -79,5 +84,55 @@ TODO: write this section
 
 h2(#dealing_with_sudo). Dealing with sudo and root-owned RubyGem installations 
 
-TODO: write this section
+If you only run geminstaller on Windows, you don't have to worry about this section :)
+
+On many unix-like systems (Mac, Linux, etc.), the root user will own the local installation of RubyGems and/or the executable directory where gem executables are installed (often /usr/local/bin).  If this is the case, then gems must be installed and uninstalled by the root user, or via the sudo command.  This presents a problem for geminstaller, which must have this same permission to automatically install gems.
+
+There are several different solutions this problem.  The solutions that are available are also determined by the way you use geminstaller (whether you call it from the executable, or use the GemInstaller classes directly from Ruby).
+
+A transparent solution to this problem is planned as an enhancement to a future release of GemInstaller.  For now, however, you will need to pick one of the following approaches below.  If you use sudo, you should also read the docs on configuring sudo.
+
+h3(#option_1). Option 1 - Use the <code>-s</code>  or <code>--sudo</code> option on the <code>geminstaller</code> executable
+
+Examples:
+<pre>
+$ geminstaller -s
+$ geminstaller --sudo
+</pre>
+
+h3(#option_2). Option 2 - Run <code>sudo</code> or log in as root yourself
+
+Example of using sudo:
+<pre>
+$ sudo geminstaller
+</pre>
+
+Examples of running geminstaller as root
+<pre>
+$ su -      # if you can log in as root on your system, OR
+$ sudo -s   # if you must use sudo to log in as root on your system 
+# geminstaller
+</pre>
+
+h3(#option_3). Option 3 - Make everything owned by the local user that runs geminstaller
+
+(replace <code><local user></code> with your username)
+<pre>
+$ cd /usr/local/lib/ruby # or wherever you have ruby installed
+$ sudo chown -R <local user> .
+</pre>
+
+h3(#tips_on_configuring_sudo). Tips on configuring sudo
+
+Sudo can be configured to not ask for a password for certain commands.  This will be useful if you want to run geminstaller against a root-owned gem repository without being prompted (such as a Rails app being deployed via Capistrano).
+
+You should consult the man or info pages on sudoers and visudo for more info (<code>man sudoers</code> or <code>info sudoers</code>).  *** Make sure you understand the security implications of this approach ***.  
+
+Here's an example of how <code>sudoers</code> might be configured to allow the local user to run the <code>'gem'</code>, <code>'ruby'</code>, and <code>'geminstaller'</code> commands via <code>sudo</code> without being prompted for a password.  Replace <code><local user></code> with your username, and replace '/usr/local/bin/' with the appropriate path if it is different on your system:
+
+<pre>
+$ sudo visudo
+add this line:
+<local user> ALL = NOPASSWD: /usr/local/bin/geminstaller, /usr/local/bin/ruby, /usr/local/bin/gem
+</pre>
 
