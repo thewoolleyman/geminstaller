@@ -12,10 +12,10 @@ h2. Table of Contents
 * "Using <code>erb</code> in config files":#using_erb_in_config_files
 * "Automatic Platform Detection":#automatic_platform_detection
 * "Dealing with sudo and root-owned RubyGem installations":#dealing_with_sudo 
-* "Option 1 - Use the <code>-s</code>  or <code>--sudo</code> option on the <code>geminstaller</code> executable":#option_1
-* "Option 2 - Run <code>sudo</code> or log in as root yourself":#option_2
-* "Option 3 - Make everything owned by the local user that runs geminstaller":#option_3
-* "Tips on configuring sudo":#tips_on_configuring_sudo
+** "Option 1 - Use the <code>-s</code>  or <code>--sudo</code> option on the <code>geminstaller</code> executable":#option_1
+** "Option 2 - Run <code>sudo</code> or log in as root yourself":#option_2
+** "Option 3 - Make everything owned by the local user that runs geminstaller":#option_3
+** "Tips on configuring sudo":#tips_on_configuring_sudo
 
 
 h2(#setup). Setup
@@ -39,6 +39,7 @@ h2(#command_line_options). Command Line Options
 h3(#command_line_options_summary). Command Line Options Summary
 
 <pre>
+$ geminstaller --help
 Usage: geminstaller [options]
 
     -c, --config=CONFIGPATHS         Comma-delimited path(s) to GemInstaller config file(s)
