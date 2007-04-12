@@ -35,7 +35,7 @@ Build/Test requirements:
 
 h3(#installation). Installation
 
-*Installing Latest Release:*  Run <code>'gem install geminstaller'</code> to install GemInstaller from RubyForge.  Run it via <code>'sudo'</code> if necessary, but first read the section on sudo (TODO: add link).
+*Installing Latest Release:*  Run <code>'gem install geminstaller'</code> to install GemInstaller from RubyForge.  Run it via <code>'sudo'</code> if necessary, but first read the section on "Dealing with sudo and root-owned RubyGem installations":#dealing_with_sudo.
 
 *Installing Source Distribution:*  Run <code>'rake install_gem'</code> from the root of the GemInstaller source tree.  This assumes that Hoe and other required build/test dependencies are installed.  Note this currently won't work on windows because Hoe always tries to run sudo.  It will generate a pkg/geminstaller-version.gem file, though, which you can install with the <code>'gem install <pkgfile>'</code> command.  
 
@@ -157,11 +157,11 @@ h2(#dealing_with_sudo). Dealing with sudo and root-owned RubyGem installations
 
 If you only run geminstaller on Windows, you don't have to worry about this section :)
 
-On many unix-like systems (Mac, Linux, etc.), the root user will own the local installation of RubyGems and/or the executable directory where gem executables are installed (often /usr/local/bin).  If this is the case, then gems must be installed and uninstalled by the root user, or via the sudo command.  This presents a problem for geminstaller, which must have this same permission to automatically install gems.
+On many unix-like systems (Mac, Linux, etc.), the root user will own the local installation of RubyGems (often /usr/local/ruby) and/or the executable directory where gem executables are installed (often /usr/local/bin).  If this is the case, then gems must be installed and uninstalled by the root user, or via the sudo command.  This presents a problem for geminstaller, which must have this same permission to automatically install gems.
 
 There are several different solutions this problem.  The solutions that are available are also determined by the way you use geminstaller (whether you call it from the executable, or use the GemInstaller classes directly from Ruby).
 
-A transparent solution to this problem is planned as an enhancement to a future release of GemInstaller.  For now, however, you will need to pick one of the following approaches below.  If you use sudo, you should also read the docs on configuring sudo.
+A transparent solution to this problem is planned for a future release of GemInstaller.  For now, however, you will need to pick one of the following approaches below.  If you use sudo, you should also read the docs on configuring sudo.
 
 h3(#option_1). Option 1 - Use the <code>-s</code>  or <code>--sudo</code> option on the <code>geminstaller</code> executable
 
