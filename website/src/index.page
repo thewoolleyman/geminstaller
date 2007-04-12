@@ -17,6 +17,8 @@ GemInstaller provides automated management of RubyGems.  It uses a simple YAML c
 
 GemInstaller can be used from the command line, or embedded to run automatically on startup for a Rails app or any other Ruby program.
 
+It has been tested on all major platforms (mac, linux, windows), and recent versions of RubyGems (0.8.x through 0.9.x).
+
 h2. How do I get it?
 
 GemInstaller can be "downloaded":http://rubyforge.org/frs/?group_id=1902 from RubyForge.

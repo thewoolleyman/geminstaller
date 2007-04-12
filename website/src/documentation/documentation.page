@@ -196,11 +196,11 @@ Defaults to false.  By default, GemInstaller will not perform any remote operati
 
 However, if you are using a non-specific version spec (for example, '>= 1.0.0), there COULD be a higher version available on the remote gem server.  If set to true, <code>check_for_upgrade</code> will force GemInstaller to check for a higher-versioned gem on the server which still matches the version specification, and install it if one is found.  
 
-h3(#fix_dependencies). <code>fix_dependencies</code> config node
+h3(#fix_dependencies_config_node). <code>fix_dependencies</code> config node
 
 Defaults to true.  Ruby Gems can depend on other gems, but the other gem might still get manually uninstalled (by using the <code>gem uninstall --ignore-dependencies GEMNAME</code>) option.  The <code>--fix_dependencies</code> option will detect these missing dependencies, and automatically fix them.  You probably always want it left as the default of true.
 
-h3(#prefer_binary_platform). <code>prefer_binary_platform</code> config node
+h3(#prefer_binary_platform_config_node). <code>prefer_binary_platform</code> config node
 
 Defaults to true.  GemInstaller automatically guesses at the correct platform for gem which have no platform specified.  Any platform which is not 'ruby' is considered a 'binary' platform.  
 
