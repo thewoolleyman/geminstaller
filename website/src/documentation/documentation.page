@@ -1,8 +1,21 @@
 h1. Detailed Documentation
 
-h2. Setup
+h2. Table of Contents
 
-h3. Requirements
+* "Setup":#setup
+** "Requirements":#requirements
+** "Installation":#installation
+* "Command Line Options":#command_line_options
+** "Command Line Options Summary":#command_line_options_summary
+** "<code>--config</code> Option":#config_option
+** "<code>--print-rogue-gems</code> Option":#print_rogue_gems_option
+* "Using <code>erb</code> in config files":#using_erb_in_config_files
+* "Automatic Platform Detection":#automatic_platform_detection
+* "Dealing with sudo and root-owned RubyGem installations":#dealing_with_sudo 
+
+h2(#setup). Setup
+
+h3(#requirements). Requirements
 
 Runtime Requirements:
 * None. There are no dependencies required to run GemInstaller, other than an installation of RubyGems itself
@@ -10,15 +23,15 @@ Runtime Requirements:
 Build/Test requirements:
 * GemInstaller has a geminstaller.yml file to specify it's own dependencies.  After installing the geminstaller gem (via 'gem install geminstaller'), change to the root of the geminstaller source tree, and run 'geminstaller' to auto-install the dependencies.
 
-h3. Installation
+h3(#installation). Installation
 
-*Installing Latest Release:*  Run <code>'[sudo] gem install geminstaller'</code> to install GemInstaller from RubyForge.
+*Installing Latest Release:*  Run <code>'gem install geminstaller'</code> to install GemInstaller from RubyForge.  Run it via <code>'sudo'</code> if necessary, but first read the section on sudo (TODO: add link).
 
 *Installing Source Distribution:*  Run <code>'rake install_gem'</code> from the root of the GemInstaller source tree.  This assumes that Hoe and other required build/test dependencies are installed.  Note this currently won't work on windows because Hoe always tries to run sudo.  It will generate a pkg/geminstaller-version.gem file, though, which you can install with the <code>'gem install <pkgfile>'</code> command.  
 
-h2. Command Line Options
+h2(#command_line_options). Command Line Options
 
-h3. Command Line Options Summary
+h3(#command_line_options_summary). Command Line Options Summary
 
 <pre>
 Usage: geminstaller [options]
@@ -35,7 +48,7 @@ Usage: geminstaller [options]
         --version                    Show version
 </pre>
 
-h3. <code>--config</code> option
+h3(#config_option). <code>--config</code> option
 
 By default, GemInstaller will look for a config file named <code>geminstaller.yml</code> in the working directory.  The <code>'--config'</code> option allows you to override this with a different file name or path.  You can also have multiple comma-delimited paths to custom-named config files.  This is useful if you have multiple projects, and want them to share a common config file, but still have project-specific overrides.  You could also have a standard set of gems across multiple systems, with additional custom gems specified by individual projects.  The last entries in the list will override the first ones.  For example: 
 
@@ -43,11 +56,11 @@ By default, GemInstaller will look for a config file named <code>geminstaller.ym
 geminstaller --config=../common-config/geminstaller-common-across-projects.yml,geminstaller-custom-for-myproject.yml
 </pre>
 
-h3. <code>--print-rogue-gems</code> option
+h3(#print_rogue_gems_option). <code>--print-rogue-gems</code> option
 
 The <code>--print-rogue-gems</code> option prints a report of all locally installed gems which are not specified in the active loaded GemInstaller config file(s).  GemInstaller, being "Narcissistic Software" (tm), considers these "rogue gems".  The output format is in YAML, so it can be cut and pasted directly into an existing config file.  This allows you to bootstrap a new system, by creating an empty config file with no gems specified, and running geminstaller with the <code>--print-rogue-gems</code> option to identify all gems which are currently installed on the system.  It can also be used to identify gems which were manually installed without being entered into a GemInstaller config.  
 
-h2. Using <code>erb</code> in config files
+h2(#using_erb_in_config_files). Using <code>erb</code> in config files
 
 The GemInstaller config file(s) are also run through erb, so you can embed any custom ruby code to dynamically generate portions of your config.  This can be used to have the same config file select gems differently on different platforms or environments.  Here is an example of using erb to detect the platform (which is necessary with some gems, even though GemInstaller attempts to guess at the platform.  See Automatic Platform Detection for more info TODO: add link):
 
@@ -60,7 +73,11 @@ gems:
   platform: <%= RUBY_PLATFORM =~ /mswin/ ? 'i386-mswin32' : 'ruby'%>
 </pre>
 
-h2. Automatic Platform Detection
+h2(#automatic_platform_detection). Automatic Platform Detection
 
-TODO: write section for Automatic Platform Detection
+TODO: write this section
+
+h2(#dealing_with_sudo). Dealing with sudo and root-owned RubyGem installations 
+
+TODO: write this section
 
