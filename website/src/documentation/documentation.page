@@ -7,8 +7,10 @@ h2. Table of Contents
 ** "Installation":#installation
 * "Command Line Options":#command_line_options
 ** "Command Line Options Summary":#command_line_options_summary
-** "<code>--config</code> Option":#config_option
-** "<code>--print-rogue-gems</code> Option":#print_rogue_gems_option
+** "<code>--config</code> option":#config_option
+** "<code>--geminstaller-output</code> option":#geminstaller_output_option
+** "<code>--rubygems-output</code> option":#rubygems_output_option
+** "<code>--print-rogue-gems</code> option":#print_rogue_gems_option
 * "Using <code>erb</code> in config files":#using_erb_in_config_files
 * "Automatic Platform Detection":#automatic_platform_detection
 * "Dealing with sudo and root-owned RubyGem installations":#dealing_with_sudo 
@@ -42,16 +44,39 @@ h3(#command_line_options_summary). Command Line Options Summary
 $ geminstaller --help
 Usage: geminstaller [options]
 
-    -c, --config=CONFIGPATHS         Comma-delimited path(s) to GemInstaller config file(s)
-    -p, --print-rogue-gems           Print a report of all locally installed gems which are not specified in the geminstaller config file
-    -t, --silent                     Suppress all output except fatal exceptions, and output from rogue-gems option
-    -s, --sudo                       Perform all gem operations under sudo (as root).  Will only work on correctly configured, supported systems.  See docs for more info
-    -g=GEMINSTALLER_OUTPUT           Types of output to show from GemInstaller.
-        --geminstaller-output
-    -r=RUBYGEMS_OUTPUT               Types of output to show from internal RubyGems command invocation.
-        --rubygems-output
-    -h, --help                       Show this message
-        --version                    Show version
+    -c, --config=CONFIGPATHS         Comma-delimited path(s) to GemInstaller config file(s).
+    -g, --geminstaller-output=TYPES  Comma-delimited list of output types to show from GemInstaller.
+                                       Examples:
+                                         --gall
+                                         --geminstaller-output=error,install,commandecho
+                                       Default: error,install,info
+                                       Valid types:
+                                         - none:        print only fatal errors
+                                         - error:       print error messages
+                                         - install:     print install messages
+                                         - info:        print informational messages
+                                         - commandecho: print rubygems commands as they are invoked
+                                         - debug:       print debug messages
+                                         - all:         print all messages
+    -h, --help                       Show this message.
+    -p, --print-rogue-gems           Print a report of all locally installed gems which are not specified
+                                     in the geminstaller config file.
+    -r, --rubygems-output=TYPES      Comma-delimited list of output types to show from internal:
+                                       RubyGems command invocation.
+                                       Examples:
+                                         --rall
+                                         --rubygems-output=stderr
+                                       Default: stderr
+                                       Valid types:
+                                         - none:        print no output
+                                         - stdout:      print standard output stream
+                                         - stderr:      print standard error stream
+                                         - all:         print all output
+    -s, --sudo                       Perform all gem operations under sudo (as root).  Will only work on
+                                     correctly configured, supported systems.  See docs for more info.
+    -t, --silent                     Suppress all output except fatal exceptions, and output from
+                                     rogue-gems option.
+    -v, --version                    Show GemInstaller version.
 </pre>
 
 h3(#config_option). <code>--config</code> option
@@ -61,6 +86,31 @@ By default, GemInstaller will look for a config file named <code>geminstaller.ym
 <pre>
 geminstaller --config=../common-config/geminstaller-common-across-projects.yml,geminstaller-custom-for-myproject.yml
 </pre>
+
+h3(#geminstaller_output_option). <code>--geminstaller-output</code> option
+
+The <code>--geminstaller-output</code> option controls what GemInstaller prints out about it's internal activity.  It is a comma-delimited list (no spaces), which can specify any of these output types:
+
+* none: Prints only fatal errors/exceptions which cause geminstaller to fail.  The same as specifying none of the other types.
+* error: Prints error messages.
+* install: Prints messages indicating when gems are going to be installed.  This may be gems which are directly specified in a GemInstaller config file, or dependency gems which are automatically installed to meet the requirments of a dependent gem.
+* info: Prints informational messages.
+* commandecho: Print rubygems commands as they are automatically invoked by GemInstaller.
+* debug: Prints debug messages
+* all: Prints all messages.  This is the same as specifying all of the other types (except 'none')
+
+This option works in conjuntion the <code>--rubygems-output</code>, which is used similarly, but controls output which is generated by RubyGems itself.
+
+h3(#rubygems_output_option). <code>--rubygems-output</code> option
+
+GemInstaller works by automatically invoking RubyGems commands.  The <code>--rubygems-output</code> option controls what types of output from RubyGems is printed out.  It is a comma-delimited list (no spaces), which can specify any of these output types:
+
+* none: Prints no output from RubyGems.  
+* stdout: Prints standard output stream from RubyGems.
+* stderr: Prints standard error stream from RubyGems.
+* all: Prints all messages.  This is the same as specifying all of the other types (except 'none')
+
+Note that sometimes, errors from RubyGems activity will still be printed even if the 'none' option is specified, usually due to some failure when building gem docs.  This is probably due to a gem directly printing to stderr or stdout.  GemInstaller does not currently capture this type of output, only messages which are directly generated by RubyGems itself.
 
 h3(#print_rogue_gems_option). <code>--print-rogue-gems</code> option
 
