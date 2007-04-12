@@ -24,31 +24,31 @@ module GemInstaller
           @options[:config_paths] = config_paths
         end
 
-        opts.on("-p", "--print-rogue-gems", "Print a report of all locally installed gems which are not specified in the geminstaller config file") do
-          @options[:print_rogue_gems] = true
-        end
-
-        opts.on("-t", "--silent", "Suppress all output except fatal exceptions, and output from rogue-gems option") do
-          @options[:silent] = true
-        end
-
-        opts.on("-s", "--sudo", "Perform all gem operations under sudo (as root).  Will only work on correctly configured, supported systems.  See docs for more info") do
-          @options[:sudo] = true
-        end
-
         opts.on("-gGEMINSTALLER_OUTPUT", "--geminstaller-output=GEMINSTALLER_OUTPUT", String, "Types of output to show from GemInstaller.") do |geminstaller_output_flags|
           @unparsed_geminstaller_output_flags = geminstaller_output_flags
-        end
-
-        opts.on("-rRUBYGEMS_OUTPUT", "--rubygems-output=RUBYGEMS_OUTPUT", String, "Types of output to show from internal RubyGems command invocation.") do |rubygems_output_flags|
-          @unparsed_rubygems_output_flags = rubygems_output_flags
         end
 
         opts.on_tail("-h", "--help", "Show this message") do
           @output = opts.to_s
         end
 
-        opts.on_tail("--version", "Show version") do
+        opts.on("-p", "--print-rogue-gems", "Print a report of all locally installed gems which are not specified in the geminstaller config file") do
+          @options[:print_rogue_gems] = true
+        end
+
+        opts.on("-rRUBYGEMS_OUTPUT", "--rubygems-output=RUBYGEMS_OUTPUT", String, "Types of output to show from internal RubyGems command invocation.") do |rubygems_output_flags|
+          @unparsed_rubygems_output_flags = rubygems_output_flags
+        end
+
+        opts.on("-s", "--sudo", "Perform all gem operations under sudo (as root).  Will only work on correctly configured, supported systems.  See docs for more info") do
+          @options[:sudo] = true
+        end
+
+        opts.on("-t", "--silent", "Suppress all output except fatal exceptions, and output from rogue-gems option") do
+          @options[:silent] = true
+        end
+
+        opts.on_tail("-v", "--version", "Show GemInstaller version") do
           @output = GemInstaller::version
         end
       end
