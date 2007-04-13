@@ -304,7 +304,7 @@ $ geminstaller --sudo # only use the -sudo option if necessary
 
 h3(#using_geminstaller_from_other_ruby_apps). Using GemInstaller from Other Ruby Apps
 
-TODO:
+If you want to automatically invoke GemInstaller from some other Ruby application, the approach will be very similar to the Rails approach shown above.  Instead of boot.rb, put the GemInstaller invocation into the class or script which is the very first one run when your application starts up.  GemInstaller (obviously) must run before any gems are loaded or referenced.
 
 h2(#using_erb_in_config_files). Using <code>erb</code> in config files
 
