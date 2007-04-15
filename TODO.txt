@@ -20,6 +20,7 @@
 * upload gem 
 - 0.2.0 release
 
+* Research what all existing gem platforms are.  See if they can all be covered in valid_platform_selector
 * Can GemInstaller handle multiple gem server sources via multiple config files?
 * Handle default gems that come with ruby/rubygems windows distro. 
 * refactor enhanced_stream_ui.ask_yes_no - does it need to catch the exception?  Also review context name (no OutputProxy) and use of StringIO, and exception tests.
