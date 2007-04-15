@@ -1,3 +1,8 @@
+* failure if no gems are specified in config
+* don't print stacktraces of errors by default, only if -gdebug is specified
+* check windows install for fjson 0.0.8, fxruby 1.6.10 - it's not selecting mswin32 platform correctly.  It always tries to install ruby platform of dependency, even though windows platform is already installed.
+* dependencies not being checked to see if they are already installed.  fxri 0.3.6 on windows, with fxruby 1.6.6 installed
+* make a doc note that order of dependencies matter.  fxri 0.3.6 on windows tried to install fxruby.  Might be fixed if platform detection worked right for windows fxruby.  Maybe should parse file, and see if another later dependency meets it (and just print error for now)
 * Just ignore sudo option on windows, rather than throwing an error
 * how to print '---' in textile?
 * how to indent but still have highlight start at first column in textile?
@@ -5,17 +10,12 @@
 * figure out why '> 1' must be quoted to be a valid yaml value - see yaml_loader_spec.rb
 * geminstaller-output :error should print to stderr, not stdout
 * echo stdin
-* modify rails example to try non-sudo first, then sudo
+* modify rails example to try non-sudo first, then sudo - or base on platform
 * check gems: mongrel, mongrel_cluster, hpricot, rmagick
 * docs should tout eating my own dog food
-* update docs for geminstaller-output/rubygems-output
 * update docs for autogem
-* update docs for rogue gems
-* write docs for fix_dependencies and prefer_binary_platform options
 * update docs with details on how to handle unmet dependencies when -y is not specified
-* document rules for automatic dependency selection - always pick binary platform-specific gem first, provide option to override
 * document option to run via capistrano
-* create basic website via rubygen
 * publish site
 * upload gem 
 - 0.2.0 release
