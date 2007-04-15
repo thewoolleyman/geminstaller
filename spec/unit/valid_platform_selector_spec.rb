@@ -9,7 +9,7 @@ context "an ValidPlatformSelector with prefer_binary_platform == true and no dep
   specify "should select RUBY_PLATFORM platform first, and default platform (ruby) last" do
     should_select_correct_valid_platforms("i686-darwin8.7.1", nil, ['686-darwin', 'ruby'])
     should_select_correct_valid_platforms("powerpc-darwin", nil, ['powerpc', 'ruby'])
-    should_select_correct_valid_platforms("i386-mswin32", nil, ['mswin', 'ruby'])
+    should_select_correct_valid_platforms("i386-mswin32", nil, ['mswin32', 'ruby'])
     should_select_correct_valid_platforms("i686-linux", nil, ['686-linux', 'ruby'])
   end
 end

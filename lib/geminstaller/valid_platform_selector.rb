@@ -28,7 +28,7 @@ module GemInstaller
       return '686-darwin' if @ruby_platform =~ /686-darwin/
       return 'cygwin' if @ruby_platform =~ /cygwin/
       return 'powerpc' if @ruby_platform =~ /powerpc/
-      return 'mswin' if @ruby_platform =~ /mswin/
+      return 'mswin32' if @ruby_platform =~ /mswin/
       return '386-linux' if @ruby_platform =~ /386-linux/
       return '486-linux' if @ruby_platform =~ /486-linux/
       return '586-linux' if @ruby_platform =~ /586-linux/
