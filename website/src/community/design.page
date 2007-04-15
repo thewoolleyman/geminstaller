@@ -4,12 +4,12 @@ These are some notes on the underlying design of GemInstaller, and the current s
 
 * GemInstaller was developed from nothing but a concept, using "Behavior-Driven Development":http://behaviour-driven.org and "Rspec":http://rspec.rubyforge.org/.
 * GemInstaller uses "Dependency Injection", an architecture which has many benefits, including testability and enabling "loose coupling and high cohesion":http://www.c2.com/cgi/wiki?CouplingAndCohesion.  I originally started with "Needle":http://rubyforge.org/projects/needle/, a Ruby Dependency Injection framework, but switched to a simple home-grown approach in other to not have a dependency on the Needle gem.  Read more about Dependency Injection here:
-** http://onestepback.org/index.cgi/Tech/Ruby/DependencyInjectionInRuby.rdoc
-** http://onestepback.org/articles/depinj/
-** http://martinfowler.com/bliki/InversionOfControl.html 
-** http://martinfowler.com/articles/injection.html
-** http://www.theserverside.com/tt/articles/article.tss?l=IOCBeginners
-** http://www.ibm.com/developerworks/edu/j-dw-java-springswing-i.html
+** "http://onestepback.org/index.cgi/Tech/Ruby/DependencyInjectionInRuby.rdoc":http://onestepback.org/index.cgi/Tech/Ruby/DependencyInjectionInRuby.rdoc
+** "http://onestepback.org/articles/depinj/":http://onestepback.org/articles/depinj/
+** "http://martinfowler.com/bliki/InversionOfControl.html":http://martinfowler.com/bliki/InversionOfControl.html 
+** "http://martinfowler.com/articles/injection.html":http://martinfowler.com/articles/injection.html
+** "http://www.theserverside.com/tt/articles/article.tss?l=IOCBeginners":http://www.theserverside.com/tt/articles/article.tss?l=IOCBeginners
+** "http://www.ibm.com/developerworks/edu/j-dw-java-springswing-i.html":http://www.ibm.com/developerworks/edu/j-dw-java-springswing-i.html
 * I'm a proponent of high code coverage.  GemInstaller maintains 100% code coverage, not counting platform- and version-specific code blocks (and I'll get around to those some day)
 * A lot of effort has gone into supporting isolated functional testing.  Every run of a spec or the spec suite creates a new sandbox installation of RubyGems, with a new test GEM_HOME.  Unfortunately, it still uses the executables from the system installation of RubyGems.  I plan on fixing that too, but that's a much trickier task than just having a different GEM_HOME.
 * The tests are flaky on Windows (but run fine on mac/linux).  The app itself runs fine, so I believe it's related to the use of the test GEM_HOME.  I plan to look at this too, eventually.
