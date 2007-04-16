@@ -1,6 +1,6 @@
 module GemInstaller
   class ValidPlatformSelector
-    attr_writer :options, :ruby_platform
+    attr_writer :options, :ruby_platform, :output_filter
     
     def select(dependent_gem_platform = nil)
       @ruby_platform ||= RUBY_PLATFORM
@@ -21,6 +21,8 @@ module GemInstaller
         # 3. it is not 'ruby'
         valid_platforms.unshift(dependent_gem_platform)
       end
+      message = "Selecting valid platform(s): RUBY_PLATFORM='#{RUBY_PLATFORM}', dependent_gem_platform='#{dependent_gem_platform}', valid_platforms='#{valid_platforms.inspect}'"
+      @output_filter.geminstaller_output(:debug,"#{message}\n")
       valid_platforms
     end
     

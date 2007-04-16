@@ -36,6 +36,7 @@ module GemInstaller
       @output_listener.output_filter = @output_filter
 
       @valid_platform_selector = GemInstaller::ValidPlatformSelector.new
+      @valid_platform_selector.output_filter = @output_filter
       @valid_platform_selector.options = @options
 
       @config_builder = GemInstaller::ConfigBuilder.new
