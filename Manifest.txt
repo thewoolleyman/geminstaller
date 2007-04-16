@@ -24,6 +24,7 @@ lib/geminstaller/gem_interaction_handler.rb
 lib/geminstaller/gem_list_checker.rb
 lib/geminstaller/gem_runner_proxy.rb
 lib/geminstaller/gem_source_index_proxy.rb
+lib/geminstaller/gem_spec_manager.rb
 lib/geminstaller/geminstaller_error.rb
 lib/geminstaller/hoe_extensions.rb
 lib/geminstaller/install_processor.rb
@@ -47,6 +48,16 @@ start_local_gem_server.sh
 test/test_all.rb
 website/config.yaml
 website/metainfo.yaml
+website/output/community/design.html
+website/output/community/index.html
+website/output/community/links.html
+website/output/css/webgen.css
+website/output/default.css
+website/output/documentation/documentation.html
+website/output/documentation/index.html
+website/output/documentation/tutorial.html
+website/output/faq.html
+website/output/index.html
 website/src/community/design.page
 website/src/community/index.page
 website/src/community/links.page
@@ -54,5 +65,6 @@ website/src/default.css
 website/src/default.template
 website/src/documentation/documentation.page
 website/src/documentation/index.page
+website/src/documentation/tutorial.page
 website/src/faq.page
 website/src/index.page
