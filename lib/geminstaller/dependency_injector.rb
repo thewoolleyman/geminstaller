@@ -74,8 +74,12 @@ module GemInstaller
       @gem_runner_proxy.options = @options
       @gem_runner_proxy.output_filter = @output_filter
   
+      @gem_spec_manager = GemInstaller::GemSpecManager.new
+      @gem_spec_manager.gem_source_index_proxy = @gem_source_index_proxy
+      @gem_spec_manager.output_filter = @output_filter
+        
       @gem_command_manager = GemInstaller::GemCommandManager.new
-      @gem_command_manager.gem_source_index_proxy = @gem_source_index_proxy
+      @gem_command_manager.gem_spec_manager = @gem_spec_manager
       @gem_command_manager.gem_runner_proxy = @gem_runner_proxy
       @gem_command_manager.gem_interaction_handler = @gem_interaction_handler
         

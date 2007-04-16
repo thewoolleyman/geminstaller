@@ -1,6 +1,6 @@
 module GemInstaller
   class GemCommandManager
-    attr_writer :gem_source_index_proxy, :gem_runner_proxy, :gem_interaction_handler
+    attr_writer :gem_spec_manager, :gem_runner_proxy, :gem_interaction_handler
     
     def list_remote_gem(gem, additional_options)
       run_args = ["list",gem.name,"--remote"]
@@ -13,8 +13,7 @@ module GemInstaller
     end
     
     def all_local_gems
-      @gem_source_index_proxy.refresh!
-      all_local_specs = @gem_source_index_proxy.search('',GemInstaller::RubyGem.default_version)
+      all_local_specs = @gem_spec_manager.search('',GemInstaller::RubyGem.default_version)
       return [] unless all_local_specs
       all_local_gems = all_local_specs.collect do |spec|
         gem = GemInstaller::RubyGem.new(spec.name, :version  => spec.version.version)
@@ -23,9 +22,8 @@ module GemInstaller
     end
     
     def local_matching_gem_specs(gem)
-      @gem_source_index_proxy.refresh!
       gem_name_regexp = /^#{gem.regexp_escaped_name}$/
-      found_gem_specs = @gem_source_index_proxy.search(gem_name_regexp,gem.version)
+      found_gem_specs = @gem_spec_manager.search(gem_name_regexp,gem.version)
       return [] unless found_gem_specs
       matching_gem_specs = found_gem_specs.select do |gem_spec|
         gem_matches_spec?(gem, gem_spec)
