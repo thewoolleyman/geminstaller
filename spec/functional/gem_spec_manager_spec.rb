@@ -13,7 +13,6 @@ context "an GemSpecManager instance" do
     GemInstaller::EmbeddedGemServer.start
   end
 
-
   specify "can list a local matching gem spec" do
     install_gem(@sample_gem)
     matching_specs = @gem_spec_manager.local_matching_gem_specs(@sample_gem)
