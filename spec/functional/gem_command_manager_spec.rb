@@ -111,23 +111,6 @@ context "a GemCommandManager instance" do
     dependency_output_gems[0].version.should==('>= 1.0.0')
   end
 
-  specify "can list all local gems" do
-    gems = [@sample_gem, @sample_multiplatform_gem]
-    gems.each do |gem|
-      install_gem(gem)
-    end
-    all_local_gems = @gem_command_manager.all_local_gems
-    local_gem_names = all_local_gems.collect do |gem|
-      gem.name
-    end
-    local_gem_versions = all_local_gems.collect do |gem|
-      gem.version
-    end
-    local_gem_names.should_include(@sample_gem.name)
-    local_gem_names.should_include(@sample_multiplatform_gem.name)
-    local_gem_versions.should_include(@sample_gem.version)
-  end
-  
   def install_gem(gem)
     @gem_command_manager.install_gem(gem)
     @gem_command_manager.is_gem_installed?(gem).should==(true)

@@ -86,6 +86,7 @@ module GemInstaller
         
       @rogue_gem_finder = GemInstaller::RogueGemFinder.new
       @rogue_gem_finder.gem_command_manager = @gem_command_manager
+      @rogue_gem_finder.gem_spec_manager = @gem_spec_manager
       @rogue_gem_finder.output_proxy = @output_proxy
       
       @autogem = GemInstaller::Autogem.new

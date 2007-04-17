@@ -12,15 +12,6 @@ module GemInstaller
       return local_matching_gem_specs(gem).size > 0
     end
     
-    def all_local_gems
-      all_local_specs = @gem_spec_manager.search('',GemInstaller::RubyGem.default_version)
-      return [] unless all_local_specs
-      all_local_gems = all_local_specs.collect do |spec|
-        gem = GemInstaller::RubyGem.new(spec.name, :version  => spec.version.version)
-      end
-      return all_local_gems
-    end
-    
     def local_matching_gem_specs(gem)
       gem_name_regexp = /^#{gem.regexp_escaped_name}$/
       found_gem_specs = @gem_spec_manager.search(gem_name_regexp,gem.version)

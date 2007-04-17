@@ -1,13 +1,13 @@
 module GemInstaller
   class RogueGemFinder
-    attr_writer :output_proxy, :gem_command_manager
+    attr_writer :output_proxy, :gem_command_manager, :gem_spec_manager
 
     def print_rogue_gems(config_gems)
       @config_gems_with_dependencies = []
       config_gems.each do |config_gem|
         process_gem(config_gem)
       end
-      all_local_gems = @gem_command_manager.all_local_gems
+      all_local_gems = @gem_spec_manager.all_local_gems
       rogue_gems = []
       all_local_gems.each do |local_gem|
         # "sources" gem is installed with rubygems distribution, so we ignore it
