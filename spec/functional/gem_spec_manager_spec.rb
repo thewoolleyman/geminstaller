@@ -14,8 +14,14 @@ context "an GemSpecManager instance" do
   end
 
 
-  specify "should act as a proxy for GemSourceIndexProxy at this point in the refactoring" do
-    
+  specify "can list a local matching gem spec" do
+    install_gem(@sample_gem)
+    matching_specs = @gem_spec_manager.local_matching_gem_specs(@sample_gem)
+    matching_specs.size.should == 1
+    matching_specs[0].name.should == @sample_gem.name
+
+    non_matching_specs = @gem_spec_manager.local_matching_gem_specs(@sample_multiplatform_gem)
+    non_matching_specs.size.should == 0
   end
 
   specify "can list all local gems" do
@@ -40,6 +46,9 @@ context "an GemSpecManager instance" do
     @gem_command_manager.is_gem_installed?(gem).should==(true)
   end
   
+  teardown do
+    GemInstaller::TestGemHome.uninstall_all_test_gems
+  end
 end
 
 

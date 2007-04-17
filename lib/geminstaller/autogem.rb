@@ -1,6 +1,6 @@
 module GemInstaller
   class Autogem
-    attr_writer :gem_command_manager
+    attr_writer :gem_command_manager, :gem_spec_manager
     def autogem(gems)
       reversed_gems = gems.reverse!
       @completed_names = []
@@ -22,7 +22,7 @@ module GemInstaller
     
     def process_gem_dependencies(gem)
       # TODO: this method is duplicated in rogue_gem_finder.  Should abstract and take a block
-      matching_gem_specs = @gem_command_manager.local_matching_gem_specs(gem)
+      matching_gem_specs = @gem_spec_manager.local_matching_gem_specs(gem)
       matching_gem_specs.each do |matching_gem_spec|
         dependency_gems = @gem_command_manager.dependency(matching_gem_spec.name, matching_gem_spec.version.to_s)
         dependency_gems.each do |dependency_gem|

@@ -91,6 +91,7 @@ module GemInstaller
       
       @autogem = GemInstaller::Autogem.new
       @autogem.gem_command_manager = @gem_command_manager
+      @autogem.gem_spec_manager = @gem_spec_manager
 
       @gem_list_checker = GemInstaller::GemListChecker.new
       @gem_list_checker.gem_command_manager = @gem_command_manager
@@ -99,6 +100,7 @@ module GemInstaller
 
       @missing_dependency_finder = GemInstaller::MissingDependencyFinder.new
       @missing_dependency_finder.gem_command_manager = @gem_command_manager
+      @missing_dependency_finder.gem_spec_manager = @gem_spec_manager
       @missing_dependency_finder.gem_arg_processor = @gem_arg_processor
       @missing_dependency_finder.output_filter = @output_filter
 

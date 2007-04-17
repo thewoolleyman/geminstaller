@@ -4,9 +4,8 @@ require File.expand_path("#{dir}/../helper/spec_helper")
 context "an RogueGemFinder instance with mock dependencies" do
   setup do
     @rogue_gem_finder = GemInstaller::RogueGemFinder.new
-    @mock_gem_command_manager = mock("Mock GemCommandManager")
+    @mock_gem_spec_manager = mock("Mock GemSpecManager")
     @mock_output_proxy = mock("Mock OutputProxy")
-    @rogue_gem_finder.gem_command_manager = @mock_gem_command_manager
     @rogue_gem_finder.gem_spec_manager = @mock_gem_spec_manager
     @rogue_gem_finder.output_proxy = @mock_output_proxy
 
@@ -16,7 +15,7 @@ context "an RogueGemFinder instance with mock dependencies" do
 
   specify "should add a specified gem to the load path" do
     @mock_gem_spec_manager.should_receive(:all_local_gems).and_return([@legit_gem, @rogue_gem])
-    @mock_gem_command_manager.should_receive(:local_matching_gem_specs).and_return([])
+    @mock_gem_spec_manager.should_receive(:local_matching_gem_specs).and_return([])
     
     expected_output = <<-STRING_END
 --- 
