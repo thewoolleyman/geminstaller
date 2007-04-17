@@ -1,6 +1,6 @@
 module GemInstaller
   class InstallProcessor
-    attr_writer :gem_list_checker, :gem_command_manager, :missing_dependency_finder, :options, :output_filter
+    attr_writer :gem_list_checker, :gem_command_manager, :gem_spec_manager, :missing_dependency_finder, :options, :output_filter
     def process(gems)
       gems.each do |gem|
         install_gem(gem)
@@ -13,7 +13,7 @@ module GemInstaller
         @gem_list_checker.verify_and_specify_remote_gem!(gem)
         already_specified = true
       end
-      gem_is_installed = @gem_command_manager.is_gem_installed?(gem)
+      gem_is_installed = @gem_spec_manager.is_gem_installed?(gem)
       if gem_is_installed 
         @output_filter.geminstaller_output(:debug,"Gem #{gem.name}, version #{gem.version} is already installed.\n")
       else

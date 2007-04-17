@@ -13,6 +13,7 @@ context "an InstallProcessor instance" do
     @missing_dependency_finder.output_filter = @mock_output_filter
 
     @gem_command_manager = @registry.gem_command_manager
+    @gem_spec_manager = @registry.gem_spec_manager
     @sample_gem = sample_gem
     @sample_dependent_gem = sample_dependent_gem
     @sample_multiplatform_gem = sample_multiplatform_gem_ruby
@@ -38,7 +39,7 @@ context "an InstallProcessor instance" do
     @mock_output_filter.should_receive(:geminstaller_output).once.with(:install,/Invoking gem install for #{@sample_gem.name}, version 1.0.0/)
 
     @install_processor.process([@sample_dependent_multilevel_gem])
-    @gem_command_manager.is_gem_installed?(@sample_gem).should==(true)
+    @gem_spec_manager.is_gem_installed?(@sample_gem).should==(true)
   end
   
   specify "should install missing dependencies in middle and bottom of a multilevel dependency chain" do
@@ -60,8 +61,8 @@ context "an InstallProcessor instance" do
     @mock_output_filter.should_receive(:geminstaller_output).once.with(:install,/Rubygems automatically installed dependency gem #{@sample_gem.name}-#{@sample_gem.version}/)
 
     @install_processor.process([@sample_dependent_multilevel_gem])
-    @gem_command_manager.is_gem_installed?(@sample_dependent_gem).should==(true)
-    @gem_command_manager.is_gem_installed?(@sample_gem).should==(true)
+    @gem_spec_manager.is_gem_installed?(@sample_dependent_gem).should==(true)
+    @gem_spec_manager.is_gem_installed?(@sample_gem).should==(true)
   end
   
   specify "should install missing dependencies at top and bottom of a multilevel dependency chain" do
@@ -78,8 +79,8 @@ context "an InstallProcessor instance" do
     @mock_output_filter.should_receive(:geminstaller_output).once.with(:install,/Installing #{@sample_gem.name} \(>= 1.0.0\)/)
 
     @install_processor.process([@sample_dependent_multilevel_gem])
-    @gem_command_manager.is_gem_installed?(@sample_dependent_multilevel_gem).should==(true)
-    @gem_command_manager.is_gem_installed?(@sample_gem).should==(true)
+    @gem_spec_manager.is_gem_installed?(@sample_dependent_multilevel_gem).should==(true)
+    @gem_spec_manager.is_gem_installed?(@sample_gem).should==(true)
   end
   
   teardown do
@@ -88,11 +89,11 @@ context "an InstallProcessor instance" do
 
   def install_gem(gem)
     @gem_command_manager.install_gem(gem)
-    @gem_command_manager.is_gem_installed?(gem).should==(true)
+    @gem_spec_manager.is_gem_installed?(gem).should==(true)
   end
   
   def uninstall_gem(gem)
     @gem_command_manager.uninstall_gem(gem)
-    @gem_command_manager.is_gem_installed?(gem).should==(false)
+    @gem_spec_manager.is_gem_installed?(gem).should==(false)
   end  
 end

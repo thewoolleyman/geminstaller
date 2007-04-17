@@ -43,7 +43,7 @@ context "an GemSpecManager instance" do
   
   def install_gem(gem)
     @gem_command_manager.install_gem(gem)
-    @gem_command_manager.is_gem_installed?(gem).should==(true)
+    @gem_spec_manager.is_gem_installed?(gem).should==(true)
   end
   
   teardown do

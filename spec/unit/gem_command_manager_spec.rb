@@ -23,7 +23,7 @@ context "a GemCommandManager instance injected with mock dependencies" do
   end
 
   specify "should be able to install a gem which is not already installed" do
-    @mock_gem_spec_manager.should_receive(:local_matching_gem_specs).once.with(@sample_gem).and_return([])
+    @mock_gem_spec_manager.should_receive(:is_gem_installed?).once.with(@sample_gem).and_return(false)
     @mock_gem_runner_proxy.should_receive(:run).once.with(:anything)
     @mock_gem_interaction_handler.should_receive(:dependent_gem=).with(@sample_gem)
     @gem_command_manager.install_gem(@sample_gem)
@@ -31,7 +31,7 @@ context "a GemCommandManager instance injected with mock dependencies" do
   
   specify "should not attempt to install a gem which is already installed" do
     error_message = "error message"
-    @mock_gem_spec_manager.should_receive(:local_matching_gem_specs).once.with(@sample_gem).and_return([@sample_gem_specification])
+    @mock_gem_spec_manager.should_receive(:is_gem_installed?).once.with(@sample_gem).and_return(true)
     @gem_command_manager.install_gem(@sample_gem)
   end
 

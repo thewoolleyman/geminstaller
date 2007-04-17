@@ -13,6 +13,7 @@ context "The geminstaller command line application" do
     @output_filter.output_proxy = @mock_output_proxy
     
     @gem_command_manager = @registry.gem_command_manager
+    @gem_spec_manager = @registry.gem_spec_manager
     @sample_gem = sample_gem
   end
 
@@ -25,14 +26,14 @@ context "The geminstaller command line application" do
   specify "should install gem if it is not already installed" do
     @application.args = geminstaller_spec_test_args
     @application.run
-    @gem_command_manager.is_gem_installed?(@sample_gem).should==(true)
+    @gem_spec_manager.is_gem_installed?(@sample_gem).should==(true)
   end
   
   specify "should handle 'current' as a valid platform" do
     @application.args = geminstaller_spec_test_args
     @sample_gem.platform = 'current'
     @application.run
-    @gem_command_manager.is_gem_installed?(@sample_gem).should==(true)
+    @gem_spec_manager.is_gem_installed?(@sample_gem).should==(true)
   end
   
   specify "should print message if gem is already installed" do
@@ -52,16 +53,16 @@ context "The geminstaller command line application" do
   
   specify "should install a platform-specific binary gem" do
     @sample_multiplatform_gem = sample_multiplatform_gem
-    @gem_command_manager.uninstall_gem(@sample_multiplatform_gem) if @gem_command_manager.is_gem_installed?(@sample_multiplatform_gem)
+    @gem_command_manager.uninstall_gem(@sample_multiplatform_gem) if @gem_spec_manager.is_gem_installed?(@sample_multiplatform_gem)
     @application.args = ["--silent","--config=#{dir}/live_geminstaller_config_2.yml"]
     @application.run
-    @gem_command_manager.is_gem_installed?(@sample_multiplatform_gem).should==(true)
+    @gem_spec_manager.is_gem_installed?(@sample_multiplatform_gem).should==(true)
   end
   
   specify "should install correctly even if install_options is not specified" do
     @application.args = ["--silent","--config=#{dir}/live_geminstaller_config_3.yml"]
     @application.run
-    @gem_command_manager.is_gem_installed?(@sample_gem).should==(true)
+    @gem_spec_manager.is_gem_installed?(@sample_gem).should==(true)
   end
   
   specify "should show error if a version specification is not met" do
@@ -69,7 +70,7 @@ context "The geminstaller command line application" do
     @mock_output_proxy.should_receive(:sysout).with(/The specified version requirement '> 1.0.0' is not met by any of the available versions: 1.0.0./)
     @mock_output_proxy.should_receive(:sysout).any_number_of_times.with(:anything)
     @application.run
-    @gem_command_manager.is_gem_installed?(@sample_gem).should==(false)
+    @gem_spec_manager.is_gem_installed?(@sample_gem).should==(false)
   end
    
   specify "should handle a multiplatform dependency chain" do
@@ -79,14 +80,14 @@ context "The geminstaller command line application" do
     @mock_output_proxy.should_receive(:sysout).with(/Rubygems automatically installed dependency gem #{sample_multiplatform_gem.name}-#{sample_multiplatform_gem.version}/)
     @mock_output_proxy.should_receive(:sysout).any_number_of_times.with(:anything)
     @application.run
-    @gem_command_manager.is_gem_installed?(sample_dependent_depends_on_multiplatform_gem).should==(true)
+    @gem_spec_manager.is_gem_installed?(sample_dependent_depends_on_multiplatform_gem).should==(true)
     expected_dependency_gem = nil
     if RUBY_PLATFORM =~ /mswin/
       expected_dependency_gem = sample_multiplatform_gem
     else
       expected_dependency_gem = sample_multiplatform_gem_ruby
     end
-    @gem_command_manager.is_gem_installed?(expected_dependency_gem).should==(true)
+    @gem_spec_manager.is_gem_installed?(expected_dependency_gem).should==(true)
   end
 
   teardown do

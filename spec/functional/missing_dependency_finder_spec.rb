@@ -9,6 +9,7 @@ context "a MissingDependencyFinder instance" do
     @mock_output_filter = mock("Mock Output Filter")
     @missing_dependency_finder.output_filter = @mock_output_filter
     @gem_command_manager = @registry.gem_command_manager
+    @gem_spec_manager = @registry.gem_spec_manager
     @sample_gem = sample_gem
     @sample_dependent_gem = sample_dependent_gem
     @sample_multiplatform_gem = sample_multiplatform_gem_ruby
@@ -69,11 +70,11 @@ context "a MissingDependencyFinder instance" do
 
   def install_gem(gem)
     @gem_command_manager.install_gem(gem)
-    @gem_command_manager.is_gem_installed?(gem).should==(true)
+    @gem_spec_manager.is_gem_installed?(gem).should==(true)
   end
   
   def uninstall_gem(gem)
     @gem_command_manager.uninstall_gem(gem)
-    @gem_command_manager.is_gem_installed?(gem).should==(false)
+    @gem_spec_manager.is_gem_installed?(gem).should==(false)
   end  
 end

@@ -8,18 +8,14 @@ module GemInstaller
       @gem_runner_proxy.run(run_args)
     end
 
-    def is_gem_installed?(gem)
-      return @gem_spec_manager.local_matching_gem_specs(gem).size > 0
-    end
-    
     def uninstall_gem(gem)
-      return if !is_gem_installed?(gem)
+      return if !@gem_spec_manager.is_gem_installed?(gem)
       @gem_interaction_handler.dependent_gem = gem
       run_gem_command('uninstall',gem)
     end
 
     def install_gem(gem)
-      return if is_gem_installed?(gem)
+      return if @gem_spec_manager.is_gem_installed?(gem)
       @gem_interaction_handler.dependent_gem = gem
       run_gem_command('install',gem)
     end

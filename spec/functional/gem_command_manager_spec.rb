@@ -15,6 +15,7 @@ context "a GemCommandManager instance" do
     @unspecified_version_sample_gem = GemInstaller::RubyGem.new(sample_gem_name,:install_options => install_options_for_testing)
     @registry = GemInstaller::create_registry
     @gem_command_manager = @registry.gem_command_manager
+    @gem_spec_manager = @registry.gem_spec_manager
 
     GemInstaller::EmbeddedGemServer.start
   end
@@ -22,8 +23,8 @@ context "a GemCommandManager instance" do
   specify "should be able to install, uninstall, and check for existence of specific versions of a gem" do
     install_gem(@sample_gem_with_extra_install_options)
   
-    @gem_command_manager.is_gem_installed?(@sample_gem).should==(true)
-    @gem_command_manager.is_gem_installed?(@nonexistent_version_sample_gem).should==(false)
+    @gem_spec_manager.is_gem_installed?(@sample_gem).should==(true)
+    @gem_spec_manager.is_gem_installed?(@nonexistent_version_sample_gem).should==(false)
   end
   
   specify "should be able to list remote gems" do
@@ -78,7 +79,7 @@ context "a GemCommandManager instance" do
     uninstall_gem(@sample_gem)
     @sample_dependent_gem.install_options << "-y"
     install_gem(@sample_dependent_gem)
-    @gem_command_manager.is_gem_installed?(@sample_gem).should==(true)
+    @gem_spec_manager.is_gem_installed?(@sample_gem).should==(true)
   end
   
   specify "should be able to automatically install a multiplatform dependency gem when a multiplatform dependent gem is installed" do
@@ -86,15 +87,15 @@ context "a GemCommandManager instance" do
     uninstall_gem(@sample_multiplatform_gem)
     @sample_dependent_multiplatform_gem.install_options << "-y"
     install_gem(@sample_dependent_multiplatform_gem)
-    @gem_command_manager.is_gem_installed?(@sample_multiplatform_gem).should==(true)
+    @gem_spec_manager.is_gem_installed?(@sample_multiplatform_gem).should==(true)
   end
   
   specify "should be able to install and uninstall a gem with the 'current' platform" do
     gem = @sample_gem
     gem.platform = 'current'
-    @gem_command_manager.is_gem_installed?(gem).should==(false)
+    @gem_spec_manager.is_gem_installed?(gem).should==(false)
     @gem_command_manager.install_gem(gem)
-    @gem_command_manager.is_gem_installed?(gem).should==(true)
+    @gem_spec_manager.is_gem_installed?(gem).should==(true)
   end
   
   specify "should be able to list dependencies based on exact name match" do
@@ -113,12 +114,12 @@ context "a GemCommandManager instance" do
 
   def install_gem(gem)
     @gem_command_manager.install_gem(gem)
-    @gem_command_manager.is_gem_installed?(gem).should==(true)
+    @gem_spec_manager.is_gem_installed?(gem).should==(true)
   end
   
   def uninstall_gem(gem)
     @gem_command_manager.uninstall_gem(gem)
-    @gem_command_manager.is_gem_installed?(gem).should==(false)
+    @gem_spec_manager.is_gem_installed?(gem).should==(false)
   end
   
   teardown do

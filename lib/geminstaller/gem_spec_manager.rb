@@ -7,6 +7,10 @@ module GemInstaller
       @gem_source_index_proxy.search(gem_pattern, version_requirement)
     end
     
+    def is_gem_installed?(gem)
+      return local_matching_gem_specs(gem).size > 0
+    end
+    
     def all_local_gems
       all_local_specs = search('',GemInstaller::RubyGem.default_version)
       return [] unless all_local_specs
