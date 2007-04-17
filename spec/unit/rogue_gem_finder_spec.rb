@@ -15,7 +15,7 @@ context "an RogueGemFinder instance with mock dependencies" do
 
   specify "should add a specified gem to the load path" do
     @mock_gem_spec_manager.should_receive(:all_local_gems).and_return([@legit_gem, @rogue_gem])
-    @mock_gem_spec_manager.should_receive(:local_matching_gem_specs).and_return([])
+    @mock_gem_spec_manager.should_receive(:local_matching_gems).and_return([])
     
     expected_output = <<-STRING_END
 --- 

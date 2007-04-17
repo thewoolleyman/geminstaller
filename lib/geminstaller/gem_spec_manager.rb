@@ -8,7 +8,7 @@ module GemInstaller
     end
     
     def is_gem_installed?(gem)
-      return local_matching_gem_specs(gem).size > 0
+      return local_matching_gems(gem).size > 0
     end
     
     def all_local_gems
@@ -20,14 +20,17 @@ module GemInstaller
       return all_local_gems
     end
     
-    def local_matching_gem_specs(gem)
+    def local_matching_gems(gem)
       gem_name_regexp = /^#{gem.regexp_escaped_name}$/
       found_gem_specs = search(gem_name_regexp,gem.version)
       return [] unless found_gem_specs
       matching_gem_specs = found_gem_specs.select do |gem_spec|
         gem_matches_spec?(gem, gem_spec)
       end
-      return matching_gem_specs
+      matching_gems = matching_gem_specs.map do |gem_spec|
+        GemInstaller::RubyGem.new(gem_spec.name, {:version => gem_spec.version.version, :platform => gem_spec.platform })
+      end
+      return matching_gems
     end
     
     def gem_matches_spec?(gem, gem_spec)

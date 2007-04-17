@@ -5,20 +5,20 @@ module GemInstaller
       # NOTE: this doesn't resolve platforms, there's currently no way to know what
       # platform should be selected for a dependency gem.  Best-effort handling
       # of ambiguous platforms on dependency gems will be handled elsewhere
-      matching_dependent_gem_specs = @gem_spec_manager.local_matching_gem_specs(dependent_gem)
+      matching_dependent_gems = @gem_spec_manager.local_matching_gems(dependent_gem)
       missing_dependencies = []
       install_options = dependent_gem.install_options
       add_include_dependency_option(install_options)
       common_args = @gem_arg_processor.strip_non_common_gem_args(install_options)
-      matching_dependent_gem_specs.each do |matching_dependent_gem_spec|
+      matching_dependent_gems.each do |matching_dependent_gem|
         message_already_printed = false
-        dependency_gems = @gem_command_manager.dependency(matching_dependent_gem_spec.name, matching_dependent_gem_spec.version.to_s, common_args)
+        dependency_gems = @gem_command_manager.dependency(matching_dependent_gem.name, matching_dependent_gem.version.to_s, common_args)
         dependency_gems.each do |dependency_gem|
           dependency_gem.install_options = install_options
-          local_matching_dependency_gem_specs = @gem_spec_manager.local_matching_gem_specs(dependency_gem)
-          unless local_matching_dependency_gem_specs.size > 0
+          local_matching_dependency_gems = @gem_spec_manager.local_matching_gems(dependency_gem)
+          unless local_matching_dependency_gems.size > 0
             unless message_already_printed
-              @output_filter.geminstaller_output(:info, "Missing dependencies found for #{matching_dependent_gem_spec.name} (#{matching_dependent_gem_spec.version}):\n")
+              @output_filter.geminstaller_output(:info, "Missing dependencies found for #{matching_dependent_gem.name} (#{matching_dependent_gem.version}):\n")
               message_already_printed = true
             end
             # TODO: print install options too?

@@ -22,9 +22,9 @@ module GemInstaller
     
     def process_gem_dependencies(gem)
       # TODO: this method is duplicated in rogue_gem_finder.  Should abstract and take a block
-      matching_gem_specs = @gem_spec_manager.local_matching_gem_specs(gem)
-      matching_gem_specs.each do |matching_gem_spec|
-        dependency_gems = @gem_command_manager.dependency(matching_gem_spec.name, matching_gem_spec.version.to_s)
+      matching_gems = @gem_spec_manager.local_matching_gems(gem)
+      matching_gems.each do |matching_gem|
+        dependency_gems = @gem_command_manager.dependency(matching_gem.name, matching_gem.version.to_s)
         dependency_gems.each do |dependency_gem|
           process_gem(dependency_gem)
         end

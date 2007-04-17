@@ -13,14 +13,14 @@ context "an GemSpecManager instance" do
     GemInstaller::EmbeddedGemServer.start
   end
 
-  specify "can list a local matching gem spec" do
+  specify "can list a local matching gem" do
     install_gem(@sample_gem)
-    matching_specs = @gem_spec_manager.local_matching_gem_specs(@sample_gem)
-    matching_specs.size.should == 1
-    matching_specs[0].name.should == @sample_gem.name
+    matching_gems = @gem_spec_manager.local_matching_gems(@sample_gem)
+    matching_gems.size.should == 1
+    matching_gems[0].name.should == @sample_gem.name
 
-    non_matching_specs = @gem_spec_manager.local_matching_gem_specs(@sample_multiplatform_gem)
-    non_matching_specs.size.should == 0
+    non_matching_gems = @gem_spec_manager.local_matching_gems(@sample_multiplatform_gem)
+    non_matching_gems.size.should == 0
   end
 
   specify "can list all local gems" do
