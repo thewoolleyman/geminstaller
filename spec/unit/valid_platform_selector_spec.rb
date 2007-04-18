@@ -1,12 +1,12 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
-context "an ValidPlatformSelector with prefer_binary_platform == true and no dependent_gem_platform passed" do
+context "a ValidPlatformSelector with prefer_binary_platform == true and no dependent_gem_platform passed" do
   setup do
     common_setup_valid_platform_selector(true)
   end
 
-  specify "should select RUBY_PLATFORM platform first, and default platform (ruby) last" do
+  specify "should select @ruby_platform platform first, and default platform (ruby) last" do
     should_select_correct_valid_platforms("i686-darwin8.7.1", nil, ['686-darwin', 'ruby'])
     should_select_correct_valid_platforms("powerpc-darwin", nil, ['powerpc', 'ruby'])
     should_select_correct_valid_platforms("i386-mswin32", nil, ['mswin32', 'ruby'])
@@ -14,8 +14,8 @@ context "an ValidPlatformSelector with prefer_binary_platform == true and no dep
   end
 end
 
-context "an ValidPlatformSelector with prefer_binary_platform == true and a dependent_gem_platform passed" do
-  specify "should select dependent_gem_platform first, RUBY_PLATFORM platform second, and default platform (ruby) last" do
+context "a ValidPlatformSelector with prefer_binary_platform == true and a dependent_gem_platform passed" do
+  specify "should select dependent_gem_platform first, @ruby_platform platform second, and default platform (ruby) last" do
     common_setup_valid_platform_selector(true)
     should_select_correct_valid_platforms("i686-darwin8.7.1", "dependent-gem-platform", ['dependent-gem-platform', '686-darwin', 'ruby'])
   end
@@ -32,28 +32,28 @@ context "an ValidPlatformSelector with prefer_binary_platform == true and a depe
     @valid_platform_selector.options = options
     @mock_output_filter = mock('Mock Output Filter')
     @valid_platform_selector.output_filter = @mock_output_filter
-    expected_message = /Selecting .* RUBY_PLATFORM='.*', dependent_gem_platform=.*ruby.*, valid_platforms=.*solaris.*ruby/m
+    expected_message = /Selecting .* @ruby_platform='.*', dependent_gem_platform=.*ruby.*, valid_platforms=.*solaris.*ruby/m
     @mock_output_filter.should_receive(:geminstaller_output).once.with(:debug, expected_message)    
     should_select_correct_valid_platforms("solaris", "ruby", ['solaris', 'ruby'])
   end
 end
 
-context "an ValidPlatformSelector with prefer_binary_platform == false and no dependent_gem_platform passed" do
+context "a ValidPlatformSelector with prefer_binary_platform == false and no dependent_gem_platform passed" do
   setup do
     common_setup_valid_platform_selector(false)
   end
 
-  specify "should select default platform (ruby) first, and RUBY_PLATFORM platform last" do
+  specify "should select default platform (ruby) first, and @ruby_platform platform last" do
     should_select_correct_valid_platforms("i686-darwin8.7.1", nil, ['ruby', '686-darwin'])
   end
 end
 
-context "an ValidPlatformSelector with prefer_binary_platform == false and a dependent_gem_platform passed" do
+context "a ValidPlatformSelector with prefer_binary_platform == false and a dependent_gem_platform passed" do
   setup do
     common_setup_valid_platform_selector(false)
   end
 
-  specify "should select dependent_gem_platform first, default platform (ruby) next, and RUBY_PLATFORM platform last" do
+  specify "should select dependent_gem_platform first, default platform (ruby) next, and @ruby_platform platform last" do
     should_select_correct_valid_platforms("i686-darwin8.7.1", "dependent-gem-platform", ['dependent-gem-platform', 'ruby', '686-darwin'])
   end
 end

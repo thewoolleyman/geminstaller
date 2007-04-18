@@ -2,7 +2,7 @@
   1. create GemSpecManager
   2. refactor is_gem_installed?, all_local_gems, local_matching_gem_specs, and gem_matches_spec from GemCommandManager to GemSpecManager.
   3. Change API of GemSpecManager to always return gems, change all references
-  4. refactor local_matching_gem_specs/gem_matches_spec to handle platforms, somehow.  Maybe take an option array of platforms to match, or a flag to use valid_platform_selector.
+  4. refactor local_matching_gem_specs/gem_matches_spec to handle platforms, somehow.  Inject ExactSpecMatcher and CustomSpecMatcher.  
 * failure if no gems are specified in config
 * don't print stacktraces of errors by default, only if -gdebug is specified
 * on rogue gems output, put a comment by gems which are auto-installed with rubygems/windows rubygems

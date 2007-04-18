@@ -21,7 +21,7 @@ module GemInstaller
         # 3. it is not 'ruby'
         valid_platforms.unshift(dependent_gem_platform)
       end
-      message = "Selecting valid platform(s): RUBY_PLATFORM='#{RUBY_PLATFORM}', dependent_gem_platform='#{dependent_gem_platform}', valid_platforms='#{valid_platforms.inspect}'"
+      message = "Selecting valid platform(s): @ruby_platform='#{@ruby_platform}', dependent_gem_platform='#{dependent_gem_platform}', valid_platforms='#{valid_platforms.inspect}'"
       @output_filter.geminstaller_output(:debug,"#{message}\n")
       valid_platforms
     end
