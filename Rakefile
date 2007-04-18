@@ -47,6 +47,7 @@ task :diff_manifest => :clean do
     next if path =~ /\.iml|\.ipr|\.iws|\.kpf|\.tmproj|\.project/
     next if path =~ /\.\/spec/
     next if path =~ /\.\/pkg/
+    next if path =~ /\.\/output/
     files << path[2..-1]
   end
   files = files.sort.join "\n"
