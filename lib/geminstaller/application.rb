@@ -16,8 +16,12 @@ module GemInstaller
         end
         config = @config_builder.build_config
         gems = config.gems
-        print_startup_message(gems) unless @options[:silent]
-        @install_processor.process(gems)
+        if gems.size == 0
+          message = "No gems found in config file.  Try the --print-rogue-gems option to help populate your config file."
+          @output_filter.geminstaller_output(:info,message + "\n")          
+        else
+          process_gems(gems)
+        end
         if @options[:print_rogue_gems]
           @rogue_gem_finder.print_rogue_gems(gems)
         end
@@ -38,6 +42,12 @@ module GemInstaller
       config = @config_builder.build_config
       gems = config.gems
       @autogem.autogem(gems)
+    end
+    
+    def process_gems(gems)
+      # TODO: silent check is unnecessary, output_filter handles it
+      print_startup_message(gems) unless @options[:silent]
+      @install_processor.process(gems)
     end
 
     def handle_args

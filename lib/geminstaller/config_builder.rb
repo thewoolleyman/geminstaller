@@ -21,6 +21,7 @@ module GemInstaller
         file_contents_erb = ERB.new(%{#{file_contents}})
         yaml = @yaml_loader.load(file_contents_erb.result)
         merged_defaults.merge!(yaml['defaults']) unless yaml['defaults'].nil?
+        next unless yaml['gems']
         yaml['gems'].each do |gem|
           gem_key = [gem['name'],gem['version'],gem['platform']].join('-')
           merged_gems[gem_key] = gem

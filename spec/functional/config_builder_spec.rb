@@ -20,6 +20,17 @@ context "a config builder with a single config file path" do
   end
 end
 
+context "a config builder with a config containing no gems" do
+  setup do
+    @test_config_file_paths = File.expand_path("#{dir}/empty_geminstaller_config.yml")
+    config_builder_spec_common_setup
+  end
+
+  specify "should not raise an error" do
+    @config.gems.size.should == 0
+  end
+end
+
 context "a config builder with multiple config file paths" do
   setup do
     @test_config_file_paths = 

@@ -34,10 +34,10 @@ context "The geminstaller command line application" do
     gem = @sample_gem
     # force ruby platform to match 'remote' gem's platform
     @valid_platform_selector.ruby_platform = gem.platform
-
+  
     # reset gem's platform to current
     gem.platform = 'current'
-
+  
     @application.args = geminstaller_spec_test_args
     @sample_gem.platform = 'current'
     @application.run
@@ -71,6 +71,12 @@ context "The geminstaller command line application" do
     @application.args = ["--silent","--config=#{dir}/live_geminstaller_config_3.yml"]
     @application.run
     @gem_spec_manager.is_gem_installed?(@sample_gem).should==(true)
+  end
+  
+  specify "should not give an error if a config file with no gems is loaded" do
+    @application.args = ["--config=#{dir}/empty_geminstaller_config.yml"]
+    @mock_output_proxy.should_receive(:sysout).any_number_of_times.with(/No gems found/m)
+    @application.run
   end
   
   specify "should show error if a version specification is not met" do
