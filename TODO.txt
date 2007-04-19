@@ -1,3 +1,4 @@
+* why does windows try to reinstall fxruby 1.6.6 when it is already installed???
 * failure if no gems are specified in config
 * don't print stacktraces of errors by default, only if -gdebug is specified
 * on rogue gems output, put a comment by gems which are auto-installed with rubygems/windows rubygems
