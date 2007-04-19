@@ -1,0 +1,7 @@
+# This config exposed some bugs in windows platform handling
+gems:
+- name: fxri
+  version: 0.3.6
+- name: fxruby
+  version: 1.6.6
+  
