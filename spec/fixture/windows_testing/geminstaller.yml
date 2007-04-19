@@ -1,4 +1,6 @@
 # This config exposed some bugs in windows platform handling
+defaults:
+  install_options: --no-ri --no-rdoc
 gems:
 - name: fxri
   version: 0.3.6
