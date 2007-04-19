@@ -15,7 +15,7 @@ module GemInstaller
         dependency_gems = @gem_command_manager.dependency(matching_dependent_gem.name, matching_dependent_gem.version.to_s, common_args)
         dependency_gems.each do |dependency_gem|
           dependency_gem.install_options = install_options
-          local_matching_dependency_gems = @gem_spec_manager.local_matching_gems(dependency_gem)
+          local_matching_dependency_gems = @gem_spec_manager.local_matching_gems(dependency_gem, false)
           unless local_matching_dependency_gems.size > 0
             unless message_already_printed
               @output_filter.geminstaller_output(:info, "Missing dependencies found for #{matching_dependent_gem.name} (#{matching_dependent_gem.version}):\n")
