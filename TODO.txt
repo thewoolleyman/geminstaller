@@ -1,8 +1,6 @@
 * why does windows try to reinstall fxruby 1.6.6 when it is already installed???
 * don't print stacktraces of errors by default, only if -gdebug is specified
 * on rogue gems output, put a comment by gems which are auto-installed with rubygems/windows rubygems
-* check windows install for fjson 0.0.8, fxruby 1.6.10 - it's not selecting mswin32 platform correctly.  It always tries to install ruby platform of dependency, even though windows platform is already installed.
-* dependencies not being checked to see if they are already installed.  fxri 0.3.6 on windows, with fxruby 1.6.6 installed, still tries to install latest ruby version of fxruby even though older windows fxruby version is installed.  CAUSE: This is because MissingDependencyFinder is not correctly identifying local_matching_dependency_gem_specs, which is due to GemCommandManager local_matching_gem_specs/gem_matches_spec not correctly identifying the installed mswin32 platforms as a matching spec to meet the fxruby dependency requirement of fxri
 * make a doc note that order of dependencies matter.  fxri 0.3.6 on windows tried to install fxruby.  Might be fixed if platform detection worked right for windows fxruby.  Maybe should parse file, and see if another later dependency meets it (and just print error for now)
 * Error on activerecord for brand-new rubygems installation - couldn't find gem.  Did a gem list --remote activerecord, then it went away (got sudo error), then happened again, then worked when I passed -gall -rall options.
 * Just ignore sudo option on windows, rather than throwing an error
