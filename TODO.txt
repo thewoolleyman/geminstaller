@@ -1,10 +1,11 @@
+* If geminstaller.yml is missing, show message directing user to use --print-rogue-gems and a link to the website.
+* Change rogue gems option to only output yaml file.  Add comments showing if it is additional gems to an existing config file (with path), or if it was created without a config file .  Populate with -y default install_option, and boilerplate instruction text (link to website, pointer to print-rogue-gems option)
 * why does windows try to reinstall fxruby 1.6.6 when it is already installed???
 * don't print stacktraces of errors by default, only if -gdebug is specified
 * on rogue gems output, put a comment by gems which are auto-installed with rubygems/windows rubygems
 * make a doc note that order of dependencies matter.  fxri 0.3.6 on windows tried to install fxruby.  Might be fixed if platform detection worked right for windows fxruby.  Maybe should parse file, and see if another later dependency meets it (and just print error for now)
 * Error on activerecord for brand-new rubygems installation - couldn't find gem.  Did a gem list --remote activerecord, then it went away (got sudo error), then happened again, then worked when I passed -gall -rall options.
 * Just ignore sudo option on windows, rather than throwing an error
-* add option to automatically create geminstaller.yml file.  Populate with -y default install_option, and boilerplate instruction text (link to website, pointer to print-rogue-gems option)
 * figure out why '> 1' must be quoted to be a valid yaml value - see yaml_loader_spec.rb
 * geminstaller-output :error should print to stderr, not stdout
 * echo stdin
