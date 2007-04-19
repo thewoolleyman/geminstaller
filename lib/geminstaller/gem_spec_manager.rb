@@ -1,6 +1,6 @@
 module GemInstaller
   class GemSpecManager
-    attr_writer :gem_source_index_proxy, :output_filter
+    attr_writer :gem_source_index_proxy, :valid_platform_selector, :output_filter
 
     def search(gem_pattern, version_requirement)
       @gem_source_index_proxy.refresh!
@@ -20,27 +20,19 @@ module GemInstaller
       return all_local_gems
     end
     
-    def local_matching_gems(gem)
+    def local_matching_gems(gem, exact_platform_match = true)
       gem_name_regexp = /^#{gem.regexp_escaped_name}$/
       found_gem_specs = search(gem_name_regexp,gem.version)
       return [] unless found_gem_specs
       matching_gem_specs = found_gem_specs.select do |gem_spec|
-        gem_matches_spec?(gem, gem_spec)
+        valid_platforms = @valid_platform_selector.select(gem.platform, exact_platform_match)
+        valid_platforms.include?(gem_spec.platform)
       end
       matching_gems = matching_gem_specs.map do |gem_spec|
         GemInstaller::RubyGem.new(gem_spec.name, {:version => gem_spec.version.version, :platform => gem_spec.platform })
       end
       return matching_gems
     end
-    
-    def gem_matches_spec?(gem, gem_spec)
-      if (gem.platform == Gem::Platform::CURRENT && gem_spec.platform = RUBY_PLATFORM) or
-         gem_spec.platform == gem.platform
-         platform_matches = true 
-      end
-      return gem_spec.name == gem.name && platform_matches
-    end
-
   end
 end
 

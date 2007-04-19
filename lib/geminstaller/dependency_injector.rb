@@ -76,6 +76,7 @@ module GemInstaller
       @gem_runner_proxy.output_filter = @output_filter
   
       @gem_spec_manager = GemInstaller::GemSpecManager.new
+      @gem_spec_manager.valid_platform_selector = @valid_platform_selector
       @gem_spec_manager.gem_source_index_proxy = @gem_source_index_proxy
       @gem_spec_manager.output_filter = @output_filter
         

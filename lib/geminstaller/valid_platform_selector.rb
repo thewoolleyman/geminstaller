@@ -2,8 +2,10 @@ module GemInstaller
   class ValidPlatformSelector
     attr_writer :options, :ruby_platform, :output_filter
     
-    def select(dependent_gem_platform = nil)
+    def select(gem_platform = nil, exact_platform_match = false)
       @ruby_platform ||= RUBY_PLATFORM
+      return [@ruby_platform] if gem_platform == Gem::Platform::CURRENT
+      return [gem_platform] if exact_platform_match
       valid_platforms = []
       valid_platforms << binary_platform_substring if binary_platform_substring
       if @options[:prefer_binary_platform] == false
@@ -13,15 +15,15 @@ module GemInstaller
         # leave binary platform first if prefer_binary_platform is false or nil
         valid_platforms << 'ruby'
       end
-      if dependent_gem_platform and 
-        !valid_platforms.include?(dependent_gem_platform)
-        # only prepend the dependent_gem_platform as the first choice if
+      if gem_platform and 
+        !valid_platforms.include?(gem_platform)
+        # only prepend the gem_platform as the first choice if
         # 1. it is not nil
         # 2. it is not already in the list
         # 3. it is not 'ruby'
-        valid_platforms.unshift(dependent_gem_platform)
+        valid_platforms.unshift(gem_platform)
       end
-      message = "Selecting valid platform(s): @ruby_platform='#{@ruby_platform}', dependent_gem_platform='#{dependent_gem_platform}', valid_platforms='#{valid_platforms.inspect}'"
+      message = "Selecting valid platform(s): @ruby_platform='#{@ruby_platform}', gem_platform='#{gem_platform}', valid_platforms='#{valid_platforms.inspect}'"
       @output_filter.geminstaller_output(:debug,"#{message}\n")
       valid_platforms
     end

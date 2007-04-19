@@ -14,6 +14,7 @@ context "The geminstaller command line application" do
     
     @gem_command_manager = @registry.gem_command_manager
     @gem_spec_manager = @registry.gem_spec_manager
+    @valid_platform_selector = @registry.valid_platform_selector
     @sample_gem = sample_gem
   end
 
@@ -30,6 +31,13 @@ context "The geminstaller command line application" do
   end
   
   specify "should handle 'current' as a valid platform" do
+    gem = @sample_gem
+    # force ruby platform to match 'remote' gem's platform
+    @valid_platform_selector.ruby_platform = gem.platform
+
+    # reset gem's platform to current
+    gem.platform = 'current'
+
     @application.args = geminstaller_spec_test_args
     @sample_gem.platform = 'current'
     @application.run

@@ -16,6 +16,7 @@ context "a GemCommandManager instance" do
     @registry = GemInstaller::create_registry
     @gem_command_manager = @registry.gem_command_manager
     @gem_spec_manager = @registry.gem_spec_manager
+    @valid_platform_selector = @registry.valid_platform_selector
 
     GemInstaller::EmbeddedGemServer.start
   end
@@ -92,6 +93,11 @@ context "a GemCommandManager instance" do
   
   specify "should be able to install and uninstall a gem with the 'current' platform" do
     gem = @sample_gem
+
+    # force ruby platform to match 'remote' gem's platform
+    @valid_platform_selector.ruby_platform = gem.platform
+
+    # reset gem's platform to current
     gem.platform = 'current'
     @gem_spec_manager.is_gem_installed?(gem).should==(false)
     @gem_command_manager.install_gem(gem)
