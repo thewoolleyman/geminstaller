@@ -28,8 +28,8 @@ lib/geminstaller/gem_spec_manager.rb
 lib/geminstaller/geminstaller_error.rb
 lib/geminstaller/hoe_extensions.rb
 lib/geminstaller/install_processor.rb
-lib/geminstaller/missing_config_error.rb
 lib/geminstaller/missing_dependency_finder.rb
+lib/geminstaller/missing_file_error.rb
 lib/geminstaller/noninteractive_chooser.rb
 lib/geminstaller/output_filter.rb
 lib/geminstaller/output_listener.rb
