@@ -64,6 +64,8 @@ module GemInstaller
         end
       end
       boilerplate << "#"
+      boilerplate << "defaults:"
+      boilerplate << "  install_options: --include-dependencies"
       return boilerplate
     end
     
