@@ -28,6 +28,7 @@ lib/geminstaller/gem_spec_manager.rb
 lib/geminstaller/geminstaller_error.rb
 lib/geminstaller/hoe_extensions.rb
 lib/geminstaller/install_processor.rb
+lib/geminstaller/missing_config_error.rb
 lib/geminstaller/missing_dependency_finder.rb
 lib/geminstaller/noninteractive_chooser.rb
 lib/geminstaller/output_filter.rb
@@ -48,6 +49,16 @@ start_local_gem_server.sh
 test/test_all.rb
 website/config.yaml
 website/metainfo.yaml
+website/output/community/design.html
+website/output/community/index.html
+website/output/community/links.html
+website/output/css/webgen.css
+website/output/default.css
+website/output/documentation/documentation.html
+website/output/documentation/index.html
+website/output/documentation/tutorial.html
+website/output/faq.html
+website/output/index.html
 website/src/community/design.page
 website/src/community/index.page
 website/src/community/links.page
