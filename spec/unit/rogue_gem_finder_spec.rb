@@ -20,9 +20,9 @@ context "an RogueGemFinder instance with mock dependencies" do
     valid_yaml = /gems/
     @mock_output_proxy.should_receive(:sysout).with(:anything)
     
-    boilerplate = /.*Rogue Gems.*/m
     output = @rogue_gem_finder.print_rogue_gems([@legit_gem])
     
+    boilerplate = /--- .# GemInstaller.*/m
     output.should_match boilerplate
   end
 end

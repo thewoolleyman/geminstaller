@@ -32,13 +32,21 @@ module GemInstaller
     
     def format_output(yaml)
       yaml_lines = yaml.split("\n")
+      yaml_doc_separator = yaml_lines.delete_at(0)
+      
       output = []
+      output.push(yaml_doc_separator)
+      
+      boilerplate_lines = [
+        "# GemInstaller"
+        ]
 
-      output.push "====== Rogue Gems - installed but not matched by GemInstaller config ======"
+      output << boilerplate_lines
+      
       yaml_lines.each do |yaml_line| 
         output.push yaml_line
       end
-      output.push "==========================================================================="
+      
       output_string = output.join("\n")
       @output_proxy.sysout output_string
       output_string
