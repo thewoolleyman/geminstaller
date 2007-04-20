@@ -17,15 +17,8 @@ context "an RogueGemFinder instance with mock dependencies" do
     @mock_gem_spec_manager.should_receive(:all_local_gems).and_return([@legit_gem, @rogue_gem])
     @mock_gem_spec_manager.should_receive(:local_matching_gems).and_return([])
     
-    expected_output = <<-STRING_END
---- 
-gems: 
-- name: rogue
-  version: 1.0.0
-STRING_END
-    
     @mock_output_proxy.should_receive(:sysout).with(/===.*Rogue Gems.*===/)
-    @mock_output_proxy.should_receive(:sysout).with(expected_output)
+    @mock_output_proxy.should_receive(:sysout).with(/gems: .- name: rogue.  version: 1.0.0/m)
     @mock_output_proxy.should_receive(:sysout).with(/====================/)
     @rogue_gem_finder.print_rogue_gems([@legit_gem])
   end
