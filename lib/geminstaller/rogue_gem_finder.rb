@@ -1,7 +1,13 @@
 module GemInstaller
   class RogueGemFinder
-    attr_writer :output_proxy, :gem_command_manager, :gem_spec_manager
+    attr_writer :output_proxy, :gem_command_manager, :gem_spec_manager, :boilerplate_lines
 
+    def initialize
+      @boilerplate_lines = [
+        "# GemInstaller"
+        ]
+    end
+    
     def print_rogue_gems(config_gems)
       @config_gems_with_dependencies = []
       config_gems.each do |config_gem|
@@ -37,11 +43,7 @@ module GemInstaller
       output = []
       output.push(yaml_doc_separator)
       
-      boilerplate_lines = [
-        "# GemInstaller"
-        ]
-
-      output << boilerplate_lines
+      output << @boilerplate_lines
       
       yaml_lines.each do |yaml_line| 
         output.push yaml_line
