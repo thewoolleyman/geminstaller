@@ -14,8 +14,7 @@ module GemInstaller
         if exit_flag_and_return_code[0]
           return exit_flag_and_return_code[1]
         end
-        config = @config_builder.build_config
-        gems = config.gems
+        gems = create_gems_from_config
         if gems.size == 0
           message = "No gems found in config file.  Try the --print-rogue-gems option to help populate your config file."
           @output_filter.geminstaller_output(:info,message + "\n")          
@@ -31,7 +30,7 @@ module GemInstaller
         @output_filter.geminstaller_output(:error,message)
         backtrace_as_string = e.backtrace.join("\n")
         @output_filter.geminstaller_output(:error,"#{backtrace_as_string}\n")
-        return 1
+        return -1
       end
       return 0
     end
@@ -40,9 +39,19 @@ module GemInstaller
       # TODO: do some validation that args only contains --config option
       # TODO: this should check exit_flag_and_return_code just like run method
       handle_args
-      config = @config_builder.build_config
-      gems = config.gems
+      gems = create_gems_from_config
       @autogem.autogem(gems)
+    end
+    
+    def create_gems_from_config
+      begin
+        config = @config_builder.build_config
+      rescue GemInstaller::MissingFileError => e
+        missing_path = e.message
+        error_message = "Error: A GemInstaller config file is missing at #{missing_path}.  You can generate one with the --print-rogue-gems option.  See the GemInstaller docs at http://geminstaller.rubyforge.org for more info."
+        raise GemInstaller::GemInstallerError.new(error_message)
+      end
+      config.gems
     end
     
     def process_gems(gems)

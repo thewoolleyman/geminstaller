@@ -3,7 +3,7 @@ module GemInstaller
     def read(file_path)
       file_contents = nil
       if !File.exist?(file_path) then
-        raise GemInstaller::MissingFileError.new("Error: File #{file_path} does not exist at #{file_path}.  Please ensure that this file exists.\n")
+        raise GemInstaller::MissingFileError.new("#{file_path}")
       end
 
       file = nil

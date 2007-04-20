@@ -1,4 +1,3 @@
-* If geminstaller.yml is missing, show message directing user to use --print-rogue-gems and a link to the website.
 * Change rogue gems option to only output yaml file.  Add comments showing if it is additional gems to an existing config file (with path), or if it was created without a config file .  Populate with -y default install_option, and boilerplate instruction text (link to website, pointer to print-rogue-gems option)
 * why does windows try to reinstall fxruby 1.6.6 when it is already installed???
 * don't print stacktraces of errors by default, only if -gdebug is specified

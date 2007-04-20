@@ -56,7 +56,7 @@ context "an application instance invoked with no args" do
     @mock_output_filter.should_receive(:geminstaller_output).once().with(:error,:anything)
     @mock_config_builder.should_receive(:build_config).and_raise(GemInstaller::GemInstallerError)
     return_code = @application.run
-    return_code.should ==(1)
+    return_code.should ==(-1)
   end
 
   specify "should print any exception message AND stacktrace" do
@@ -64,7 +64,7 @@ context "an application instance invoked with no args" do
     @mock_output_filter.should_receive(:geminstaller_output).once() # TODO: how to specify Error/stacktrace exception?
     @mock_config_builder.should_receive(:build_config).and_raise(GemInstaller::GemInstallerError)
     return_code = @application.run
-    return_code.should==(1)
+    return_code.should==(-1)
   end
 end
 
@@ -89,6 +89,23 @@ context "an application instance invoked with invalid args or help option" do
     @mock_arg_parser.should_receive(:output).and_return(arg_parser_output)
     return_code = @application.run
     return_code.should==(0)
+  end
+end
+
+context "an application instance invoked with one or more missing config files" do
+  setup do
+    application_spec_setup_common
+  end
+
+  specify "should print message and exit gracefully" do
+    expected_output = "expected output"
+    @mock_output_filter.should_receive(:geminstaller_output).with(:error,/config file is missing/m)
+    @mock_output_filter.should_receive(:geminstaller_output).once().with(:error,:anything)
+    @mock_arg_parser.should_receive(:parse).with(nil).and_return(0)
+    @mock_arg_parser.should_receive(:output).and_return('')
+    @mock_config_builder.should_receive(:build_config).and_raise(GemInstaller::MissingFileError)
+    return_code = @application.run
+    return_code.should==(-1)
   end
 end
 
