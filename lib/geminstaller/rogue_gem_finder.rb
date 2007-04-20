@@ -69,9 +69,73 @@ module GemInstaller
     end
     
     def default_preinstalled_gem_names
-      [
-        'sources'
-      ]
+      # This is the list of preinstalled gems from the Ruby windows 1-click installer, v186-25
+      # 
+      # fxri (0.3.6)
+      #     Graphical interface to the RI documentation, with search engine.
+      # 
+      # fxruby (1.6.6)
+      #     FXRuby is the Ruby binding to the FOX GUI toolkit.
+      # 
+      # hpricot (0.4)
+      #     a swift, liberal HTML parser with a fantastic library
+      # 
+      # log4r (1.0.5)
+      #     Log4r is a comprehensive and flexible logging library for Ruby.
+      # 
+      # rake (0.7.2)
+      #     Ruby based make-like utility.
+      # 
+      # sources (0.0.1)
+      #     This package provides download sources for remote gem installation
+      # 
+      # win32-clipboard (0.4.1)
+      #     A package for interacting with the Windows clipboard
+      # 
+      # win32-dir (0.3.1)
+      #     Extra constants and methods for the Dir class on Windows.
+      # 
+      # win32-eventlog (0.4.3)
+      #     Interface for the MS Windows Event Log.
+      # 
+      # win32-file (0.5.3)
+      #     Extra or redefined methods for the File class on Windows.
+      # 
+      # win32-file-stat (1.2.3)
+      #     A File::Stat class tailored to MS Windows
+      # 
+      # win32-process (0.5.1)
+      #     Adds fork, wait, wait2, waitpid, waitpid2 and a special kill method
+      # 
+      # win32-sapi (0.1.3)
+      #     An interface to the MS SAPI (Sound API) library.
+      # 
+      # win32-sound (0.4.0)
+      #     A package for playing with sound on Windows.
+      # 
+      # windows-pr (0.6.2)
+      #     Windows functions and constants predefined via Win32API
+
+      if RUBY_PLATFORM =~ /mswin/
+        return [
+          'fxri',
+          'fxruby',
+          'hpricot',
+          'log4r',
+          'rake',
+          'sources',
+          'win32-clipboard',
+          'win32-dir',
+          'win32-eventlog',
+          'win32-file',
+          'win32-file-stat',
+          'win32-process',
+          'win32-sapi',
+          'win32-sound',
+          'windows-pr'
+        ]
+      end
+      return ['sources']
     end
     
     def default_preinstalled_comment
