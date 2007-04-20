@@ -16,6 +16,10 @@ module GemInstaller
         end
         gems = create_gems_from_config
         if gems.size == 0
+          if @options[:print_rogue_gems]
+            @rogue_gem_finder.print_rogue_gems(gems)
+            return 0
+          end
           message = "No gems found in config file.  Try the --print-rogue-gems option to help populate your config file."
           @output_filter.geminstaller_output(:info,message + "\n")          
         else
@@ -36,7 +40,7 @@ module GemInstaller
     end
     
     def autogem
-      # TODO: do some validation that args only contains --config option
+      # TODO: do some validation that args only contains --config option, especially not print_rogue_gems since this would mask a missing file error
       # TODO: this should check exit_flag_and_return_code just like run method
       handle_args
       gems = create_gems_from_config
@@ -47,9 +51,11 @@ module GemInstaller
       begin
         config = @config_builder.build_config
       rescue GemInstaller::MissingFileError => e
+        # if user wants to print rogue gems and they have no config at all, don't show an error
+        return [] if @options[:print_rogue_gems] && (@config_builder.config_file_paths_array.size == 1) 
         missing_path = e.message
         error_message = "Error: A GemInstaller config file is missing at #{missing_path}.  You can generate one with the --print-rogue-gems option.  See the GemInstaller docs at http://geminstaller.rubyforge.org for more info."
-        raise GemInstaller::GemInstallerError.new(error_message)
+        raise GemInstaller::MissingFileError.new(error_message)
       end
       config.gems
     end

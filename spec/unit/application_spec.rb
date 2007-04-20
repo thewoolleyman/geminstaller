@@ -92,13 +92,12 @@ context "an application instance invoked with invalid args or help option" do
   end
 end
 
-context "an application instance invoked with one or more missing config files" do
+context "an application instance invoked with missing config file(s)" do
   setup do
     application_spec_setup_common
   end
 
   specify "should print message and exit gracefully" do
-    expected_output = "expected output"
     @mock_output_filter.should_receive(:geminstaller_output).with(:error,/config file is missing/m)
     @mock_output_filter.should_receive(:geminstaller_output).once().with(:error,:anything)
     @mock_arg_parser.should_receive(:parse).with(nil).and_return(0)
@@ -106,6 +105,20 @@ context "an application instance invoked with one or more missing config files" 
     @mock_config_builder.should_receive(:build_config).and_raise(GemInstaller::MissingFileError)
     return_code = @application.run
     return_code.should==(-1)
+  end
+  
+  specify "should still run print-rogue-gems option if it is specified and there is only a single config file" do
+    @options[:print_rogue_gems] = true
+    @mock_arg_parser.should_receive(:parse).with(nil).and_return(0)
+    @mock_arg_parser.should_receive(:output).and_return('')
+    @mock_config_builder.should_receive(:build_config).and_raise(GemInstaller::MissingFileError)
+    @mock_config_builder.should_receive(:config_file_paths_array).and_return(['single_config_file.yml'])
+    @mock_rogue_gem_finder.should_receive(:print_rogue_gems).once().with([])
+    return_code = @application.run
+    return_code.should==(0)
+  end
+
+  specify "should not run print-rogue-gems option if there is more than one missing config file" do
   end
 end
 
@@ -147,9 +160,7 @@ context "an application instance invoked with print-rogue-gems arg" do
     @mock_install_processor.should_receive(:process)
     @mock_output_filter.should_receive(:geminstaller_output).once()
     
-    @mock_rogue_gem_finder = mock("Mock RogueGemFinder")
     @mock_rogue_gem_finder.should_receive(:print_rogue_gems).once().with(gems)
-    @application.rogue_gem_finder = @mock_rogue_gem_finder
     
     @application.run
   end
@@ -162,6 +173,7 @@ def application_spec_setup_common
   @mock_install_processor = mock("Mock InstallProcessor")
   @mock_output_filter = mock("Mock Output Filter")
   @stub_gem = GemInstaller::RubyGem.new("gemname", :version => "1.0")
+  @mock_rogue_gem_finder = mock("Mock RogueGemFinder")
   @options = {}
 
   @stub_config_local = @stub_config
@@ -172,6 +184,7 @@ def application_spec_setup_common
   @application.config_builder = @mock_config_builder
   @application.install_processor = @mock_install_processor
   @application.output_filter = @mock_output_filter
+  @application.rogue_gem_finder = @mock_rogue_gem_finder
 end
 
 

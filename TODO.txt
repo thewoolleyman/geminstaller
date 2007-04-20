@@ -18,6 +18,7 @@
 * upload gem 
 - 0.2.0 release
 
+* write coverage_no_platform_specific rake task
 * On rogue gems, allow configuration of gems which are auto-installed and/or should be ignored.
 * add option to print rogue gems with no extra output, for concatenation to existing gem list
 * Research what all existing gem platforms are.  See if they can all be covered in valid_platform_selector
