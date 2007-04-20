@@ -15,6 +15,10 @@ context "a config builder with a single config file path" do
     @config.gems[1].fix_dependencies.should==(true)
   end
 
+  specify "should assign paths array to config_file_paths_array instance variable" do
+    @config_builder.config_file_paths_array.should==([@test_config_file_paths])
+  end
+
   specify "should have code coverage for default config file path" do
     GemInstaller::ConfigBuilder.default_config_file_path.should==('geminstaller.yml')
   end
@@ -83,7 +87,7 @@ end
 
 def config_builder_spec_common_setup
   dependency_injector = GemInstaller::DependencyInjector.new
-  config_builder = dependency_injector.registry.config_builder
-  config_builder.config_file_paths = @test_config_file_paths
-  @config = config_builder.build_config
+  @config_builder = dependency_injector.registry.config_builder
+  @config_builder.config_file_paths = @test_config_file_paths
+  @config = @config_builder.build_config
 end

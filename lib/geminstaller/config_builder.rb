@@ -3,6 +3,7 @@ require File.expand_path("#{dir}/requires.rb")
 
 module GemInstaller
   class ConfigBuilder
+    attr_reader :config_file_paths_array
     attr_writer :file_reader
     attr_writer :yaml_loader
     attr_writer :config_file_paths
@@ -13,10 +14,10 @@ module GemInstaller
 
     def build_config
       @config_file_paths ||= GemInstaller::ConfigBuilder.default_config_file_path
-      paths = @config_file_paths.split(",")
+      @config_file_paths_array = @config_file_paths.split(",")
       merged_defaults = {}
       merged_gems = {}
-      paths.each do |path|
+      @config_file_paths_array.each do |path|
         file_contents = @file_reader.read(path)
         file_contents_erb = ERB.new(%{#{file_contents}})
         yaml = @yaml_loader.load(file_contents_erb.result)
