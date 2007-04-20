@@ -33,7 +33,7 @@ module GemInstaller
         message += "\n"
         @output_filter.geminstaller_output(:error,message)
         backtrace_as_string = e.backtrace.join("\n")
-        @output_filter.geminstaller_output(:error,"#{backtrace_as_string}\n")
+        @output_filter.geminstaller_output(:debug,"#{backtrace_as_string}\n")
         return -1
       end
       return 0

@@ -51,9 +51,9 @@ context "an application instance invoked with no args" do
     @application.run
   end
 
-  specify "should print any exception message to stderr then exit gracefully" do
+  specify "should print any exception message to debug then exit gracefully" do
     @mock_output_filter.should_receive(:geminstaller_output).once().with(:error,/GemInstaller::GemInstallerError/)
-    @mock_output_filter.should_receive(:geminstaller_output).once().with(:error,:anything)
+    @mock_output_filter.should_receive(:geminstaller_output).once().with(:debug,:anything)
     @mock_config_builder.should_receive(:build_config).and_raise(GemInstaller::GemInstallerError)
     return_code = @application.run
     return_code.should ==(-1)
@@ -99,7 +99,7 @@ context "an application instance invoked with missing config file(s)" do
 
   specify "should print message and exit gracefully" do
     @mock_output_filter.should_receive(:geminstaller_output).with(:error,/config file is missing/m)
-    @mock_output_filter.should_receive(:geminstaller_output).once().with(:error,:anything)
+    @mock_output_filter.should_receive(:geminstaller_output).once().with(:debug,:anything)
     @mock_arg_parser.should_receive(:parse).with(nil).and_return(0)
     @mock_arg_parser.should_receive(:output).and_return('')
     @mock_config_builder.should_receive(:build_config).and_raise(GemInstaller::MissingFileError)

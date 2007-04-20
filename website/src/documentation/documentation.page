@@ -148,7 +148,9 @@ h2(#config_file). Config File
 
 The GemInstaller config file is simple YAML file.  It contains a section specifying all the gems you want to install, and their associated options/properties, and another section which contains defaults to apply to all gems.  By default, GemInstaller will look for a config file named <code>geminstaller.yml</code> in the working directory, but you can override this file name (and specify multiple config files) with the "<code>--config</code> option":#config_option.
 
-GemInstaller offers a great deal of flexibility in configuration.  By creatively using multiple config files, defaults within single config files, "<code>erb</code> in config files":#using_erb_in_config_files, and the features of YAML itself, you should be able to come up with a unified GemInstaller config approach that works for multiple applications across multiple machines, platforms, and environments, with a minimum of duplication. 
+GemInstaller offers a great deal of flexibility in configuration.  By creatively using multiple config files, defaults within single config files, "<code>erb</code> in config files":#using_erb_in_config_files, and the features of YAML itself, you should be able to come up with a unified GemInstaller config approach that works for multiple applications across multiple machines, platforms, and environments, with a minimum of duplication.
+
+NOTE: Currently, the order of gems in the config file matters.  It will install them, and any dependencies, in the order listed.  This means if you have a gem listed explicitly, but it is a dependency of an earlier gem, it won't use the options you set - it will use default/inherited options from it's dependent gem.  Perhaps a future version of GemInstaller will be smart enough to handle this better.
 
 h3(#config_file_syntax_summary). Config File Syntax Summary
 

@@ -115,7 +115,7 @@ module GemInstaller
         geminstaller_output_valid = true
         flags.each do |flag|
           unless VALID_GEMINSTALLER_OUTPUT_FLAGS.include?(flag)
-            @output = "Invalid geminstaller-output flag: #{flag}" 
+            @output = "Invalid geminstaller-output flag: #{flag}\n" 
             geminstaller_output_valid = false
           end
         end
@@ -132,7 +132,7 @@ module GemInstaller
         rubygems_output_valid = true
         flags.each do |flag|
           unless VALID_RUBYGEMS_OUTPUT_FLAGS.include?(flag)
-            @output = "Invalid rubygems-output flag: #{flag}" 
+            @output = "Invalid rubygems-output flag: #{flag}\n" 
             rubygems_output_valid = false
           end
         end

@@ -1,6 +1,4 @@
-* why does windows try to reinstall fxruby 1.6.6 when it is already installed???
-* don't print stacktraces of errors by default, only if -gdebug is specified
-* make a doc note that order of dependencies matter.  fxri 0.3.6 on windows tried to install fxruby.  Might be fixed if platform detection worked right for windows fxruby.  Maybe should parse file, and see if another later dependency meets it (and just print error for now)
+* make a doc note that order of dependencies matter.
 * Error on activerecord for brand-new rubygems installation - couldn't find gem.  Did a gem list --remote activerecord, then it went away (got sudo error), then happened again, then worked when I passed -gall -rall options.
 * Just ignore sudo option on windows, rather than throwing an error
 * figure out why '> 1' must be quoted to be a valid yaml value - see yaml_loader_spec.rb
@@ -17,6 +15,7 @@
 * upload gem 
 - 0.2.0 release
 
+* why does windows try to reinstall fxruby 1.6.6 when it is already installed???
 * Figure out how to avoid checking dependency gems multiple times if multiple dependent gems depend on them.
 * write coverage_no_platform_specific rake task (to get 100% coverage on a mac)
 * On rogue gems, allow configuration of gems which are auto-installed and/or should be ignored.
