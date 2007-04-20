@@ -11,6 +11,16 @@ context "YamlLoader instance" do
     'value'.should==(yaml['key'])
   end
 
+  specify "should load multiline yaml" do
+    yaml = @yaml_loader.load("key1: value1\nkey2: value2")
+    'value2'.should==(yaml['key2'])
+  end
+
+  specify "should allow comments after yaml" do
+    yaml = @yaml_loader.load("key1: value1 # here is a comment\nkey2: value2   # another comment")
+    'value2'.should==(yaml['key2'])
+  end
+
   specify "should raise an error if there is an error parsing the yaml" do
     @invalid_yaml_text = <<-STRING_END
     --- 
