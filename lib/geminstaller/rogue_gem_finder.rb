@@ -1,9 +1,11 @@
 module GemInstaller
   class RogueGemFinder
-    attr_writer :output_proxy, :gem_command_manager, :gem_spec_manager, :boilerplate_lines
+    attr_writer :output_proxy, :gem_command_manager, :gem_spec_manager, :boilerplate_lines, :preinstalled_gem_names, :preinstalled_comment
 
     def print_rogue_gems(config_gems, config_file_paths)
       @boilerplate_lines ||= default_boilerplate_lines(config_gems, config_file_paths)
+      @preinstalled_gem_names ||= default_preinstalled_gem_names
+      @preinstalled_comment ||= default_preinstalled_comment
       @config_gems_with_dependencies = []
       config_gems.each do |config_gem|
         process_gem(config_gem)
@@ -30,7 +32,6 @@ module GemInstaller
     end
     
     def default_boilerplate_lines(config_gems, config_file_paths)
-      
       boilerplate = []
       boilerplate <<  [
         "#",
@@ -67,6 +68,16 @@ module GemInstaller
       return boilerplate
     end
     
+    def default_preinstalled_gem_names
+      [
+        'sources'
+      ]
+    end
+    
+    def default_preinstalled_comment
+      "# NOTE: This gem may have been automatially installed with Ruby, and not actually be used by your app(s)."
+    end
+    
     def handle_output(yaml)
       yaml_lines = yaml.split("\n")
       yaml_doc_separator = yaml_lines.delete_at(0)
@@ -77,7 +88,14 @@ module GemInstaller
       output << @boilerplate_lines
       
       yaml_lines.each do |yaml_line| 
-        output.push yaml_line
+        name_parser_regexp = /- name: (.*)/
+        yaml_line =~  name_parser_regexp
+        gem_name = $1
+        preinstalled_comment = ''
+        if @preinstalled_gem_names.include?(gem_name)
+          preinstalled_comment = " " + @preinstalled_comment
+        end
+        output.push yaml_line + preinstalled_comment
       end
       
       output_string = output.join("\n")
