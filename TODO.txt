@@ -1,5 +1,3 @@
-* fill out list of preinstalled gems
-* on rogue gems output, put a comment by gems which are auto-installed with rubygems/windows rubygems
 * why does windows try to reinstall fxruby 1.6.6 when it is already installed???
 * don't print stacktraces of errors by default, only if -gdebug is specified
 * make a doc note that order of dependencies matter.  fxri 0.3.6 on windows tried to install fxruby.  Might be fixed if platform detection worked right for windows fxruby.  Maybe should parse file, and see if another later dependency meets it (and just print error for now)
