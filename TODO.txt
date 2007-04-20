@@ -6,6 +6,7 @@
 * Error on activerecord for brand-new rubygems installation - couldn't find gem.  Did a gem list --remote activerecord, then it went away (got sudo error), then happened again, then worked when I passed -gall -rall options.
 * Just ignore sudo option on windows, rather than throwing an error
 * figure out why '> 1' must be quoted to be a valid yaml value - see yaml_loader_spec.rb
+* docs: change tutorial to tutorials, write tutorial on bootstrapping geminstaller config, update quickstart to reference this
 * geminstaller-output :error should print to stderr, not stdout
 * echo stdin
 * modify rails example to try non-sudo first, then sudo - or base on platform
