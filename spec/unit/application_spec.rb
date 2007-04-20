@@ -112,8 +112,9 @@ context "an application instance invoked with missing config file(s)" do
     @mock_arg_parser.should_receive(:parse).with(nil).and_return(0)
     @mock_arg_parser.should_receive(:output).and_return('')
     @mock_config_builder.should_receive(:build_config).and_raise(GemInstaller::MissingFileError)
-    @mock_config_builder.should_receive(:config_file_paths_array).and_return(['single_config_file.yml'])
-    @mock_rogue_gem_finder.should_receive(:print_rogue_gems).once().with([])
+    single_config = ['single_config_file.yml']
+    @mock_config_builder.should_receive(:config_file_paths_array).twice.and_return(single_config)
+    @mock_rogue_gem_finder.should_receive(:print_rogue_gems).once().with([], single_config)
     return_code = @application.run
     return_code.should==(0)
   end
@@ -157,10 +158,10 @@ context "an application instance invoked with print-rogue-gems arg" do
     
     gems = [@stub_gem]
     @stub_config.should_receive(:gems).and_return(gems)
-    @mock_install_processor.should_receive(:process)
-    @mock_output_filter.should_receive(:geminstaller_output).once()
     
-    @mock_rogue_gem_finder.should_receive(:print_rogue_gems).once().with(gems)
+    paths = []
+    @mock_config_builder.should_receive(:config_file_paths_array).once.and_return(paths)
+    @mock_rogue_gem_finder.should_receive(:print_rogue_gems).once().with(gems, paths)
     
     @application.run
   end

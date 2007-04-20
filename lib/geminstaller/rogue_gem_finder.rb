@@ -2,7 +2,7 @@ module GemInstaller
   class RogueGemFinder
     attr_writer :output_proxy, :gem_command_manager, :gem_spec_manager, :boilerplate_lines
 
-    def print_rogue_gems(config_gems)
+    def print_rogue_gems(config_gems, config_file_paths)
       @boilerplate_lines ||= default_boilerplate_lines
       @config_gems_with_dependencies = []
       config_gems.each do |config_gem|
@@ -28,17 +28,17 @@ module GemInstaller
       end
       yaml = format_to_yaml(rogue_gems)
       
-      format_output(yaml)
+      handle_output(yaml)
     end
     
     def default_boilerplate_lines
       [
         "# This is a GemInstaller config file (http://geminstaller.rubyforge.org)",
-        "# It was generated using the --print-rogue-gems option"
+        "# It was generated using the geminstaller --print-rogue-gems option"
       ]
     end
     
-    def format_output(yaml)
+    def handle_output(yaml)
       yaml_lines = yaml.split("\n")
       yaml_doc_separator = yaml_lines.delete_at(0)
       

@@ -15,11 +15,11 @@ module GemInstaller
           return exit_flag_and_return_code[1]
         end
         gems = create_gems_from_config
+        if @options[:print_rogue_gems]
+          @rogue_gem_finder.print_rogue_gems(gems, @config_builder.config_file_paths_array)
+          return 0
+        end
         if gems.size == 0
-          if @options[:print_rogue_gems]
-            @rogue_gem_finder.print_rogue_gems(gems)
-            return 0
-          end
           message = "No gems found in config file.  Try the --print-rogue-gems option to help populate your config file."
           @output_filter.geminstaller_output(:info,message + "\n")          
         else

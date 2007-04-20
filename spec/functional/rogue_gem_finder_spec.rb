@@ -22,17 +22,13 @@ context "an RogueGemFinder instance" do
     # since it's parent is in the config
     @gem_command_manager.install_gem(@legit_gem)
 
-    expected_output = <<-STRING_END
---- 
-gems: 
-- name: stubgem
-  version: 1.0.0
-STRING_END
-
-    @mock_output_proxy.should_receive(:sysout).with(/===.*Rogue Gems.*===/)
-    @mock_output_proxy.should_receive(:sysout).with(expected_output)
-    @mock_output_proxy.should_receive(:sysout).with(/====================/)
-    @rogue_gem_finder.print_rogue_gems([@legit_gem])
+    @mock_output_proxy.should_receive(:sysout)
+    
+    config_file_paths = []
+    
+    output = @rogue_gem_finder.print_rogue_gems([@legit_gem], config_file_paths)
+    
+    output.should_match(/#{@rogue_gem.name}/)
   end
 
   teardown do
