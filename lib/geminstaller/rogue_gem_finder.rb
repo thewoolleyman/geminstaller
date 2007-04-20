@@ -11,8 +11,6 @@ module GemInstaller
       all_local_gems = @gem_spec_manager.all_local_gems
       rogue_gems = []
       all_local_gems.each do |local_gem|
-        # "sources" gem is installed with rubygems distribution, so we ignore it
-        next if local_gem.name == 'sources'
         config_match_found_for_local = false
         @config_gems_with_dependencies.each do |config_gem|
           name_matches = config_gem.name == local_gem.name
