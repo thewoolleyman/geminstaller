@@ -3,7 +3,7 @@ module GemInstaller
     attr_writer :output_proxy, :gem_command_manager, :gem_spec_manager, :boilerplate_lines
 
     def print_rogue_gems(config_gems, config_file_paths)
-      @boilerplate_lines ||= default_boilerplate_lines
+      @boilerplate_lines ||= default_boilerplate_lines(config_gems, config_file_paths)
       @config_gems_with_dependencies = []
       config_gems.each do |config_gem|
         process_gem(config_gem)
@@ -31,11 +31,40 @@ module GemInstaller
       handle_output(yaml)
     end
     
-    def default_boilerplate_lines
-      [
+    def default_boilerplate_lines(config_gems, config_file_paths)
+      
+      boilerplate = []
+      boilerplate <<  [
+        "#",
         "# This is a GemInstaller config file (http://geminstaller.rubyforge.org)",
-        "# It was generated using the geminstaller --print-rogue-gems option"
+        "# It was generated using the 'geminstaller --print-rogue-gems' option on #{Time.now}",
+        "#",
+        "# You can bootstrap your config by piping the output to a file: ",
+        "#   'geminstaller --print-rogue-gems > geminstaller.yml'",
+        "#",
+        "# You can then install these gems on another system by running geminstaller with this file.",
+        "#"
       ]
+      
+      if config_file_paths.size == 0
+        boilerplate << "# Since there was no config file specified, the 'gems:' section below lists all gems on your system."
+      else
+        boilerplate << "# The following config file(s) and gems were already specified:"
+        boilerplate << "#   Files:"
+        config_file_paths.each do |config_file_path|
+          boilerplate << "#     * " + config_file_path
+        end
+        boilerplate << "#   Gems:"
+        if config_gems.size > 0
+          config_gems.each do |config_gem|
+            boilerplate << "#     * #{config_gem.name} #{config_gem.version}"
+          end
+        else
+          boilerplate << "#     No Gems"
+        end
+      end
+      boilerplate << "#"
+      return boilerplate
     end
     
     def handle_output(yaml)

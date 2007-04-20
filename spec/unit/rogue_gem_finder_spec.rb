@@ -23,7 +23,7 @@ context "an RogueGemFinder instance with mock dependencies" do
     config_file_paths = []
     output = @rogue_gem_finder.print_rogue_gems([@legit_gem], config_file_paths)
     
-    boilerplate = /--- .# .*GemInstaller.*/m
+    boilerplate = /# .*GemInstaller.*/m
     output.should_match boilerplate
   end
 end
