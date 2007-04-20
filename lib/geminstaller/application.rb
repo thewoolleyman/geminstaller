@@ -38,6 +38,7 @@ module GemInstaller
     
     def autogem
       # TODO: do some validation that args only contains --config option
+      # TODO: this should check exit_flag_and_return_code just like run method
       handle_args
       config = @config_builder.build_config
       gems = config.gems
