@@ -34,7 +34,7 @@ module GemInstaller
     def default_boilerplate_lines
       [
         "# This is a GemInstaller config file (http://geminstaller.rubyforge.org)",
-        "# "
+        "# It was generated using the --print-rogue-gems option"
       ]
     end
     
