@@ -25,10 +25,16 @@ module GemInstaller
         end
         rogue_gems << local_gem unless config_match_found_for_local
       end
-      output = format_to_yaml(rogue_gems)
+      yaml = format_to_yaml(rogue_gems)
       
+      format_output(yaml)
+    end
+    
+    def format_output(yaml)
+      yaml_lines = yaml.split("\n")
       @output_proxy.sysout("====== Rogue Gems - installed but not matched by GemInstaller config ======\n")
-      @output_proxy.sysout(output)
+      formatted_yaml = yaml_lines.join("\n")
+      @output_proxy.sysout(formatted_yaml + "\n")
       @output_proxy.sysout("===========================================================================\n")
     end
     
