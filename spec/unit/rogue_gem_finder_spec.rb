@@ -16,10 +16,13 @@ context "an RogueGemFinder instance with mock dependencies" do
   specify "should print rogue gems" do
     @mock_gem_spec_manager.should_receive(:all_local_gems).and_return([@legit_gem, @rogue_gem])
     @mock_gem_spec_manager.should_receive(:local_matching_gems).and_return([])
+
+    valid_yaml = /gems/
+    @mock_output_proxy.should_receive(:sysout).with(:anything)
     
-    @mock_output_proxy.should_receive(:sysout).with(/===.*Rogue Gems.*===/)
-    @mock_output_proxy.should_receive(:sysout).with(/gems: .- name: rogue.  version: 1.0.0/m)
-    @mock_output_proxy.should_receive(:sysout).with(/====================/)
-    @rogue_gem_finder.print_rogue_gems([@legit_gem])
+    boilerplate = /.*Rogue Gems.*/m
+    output = @rogue_gem_finder.print_rogue_gems([@legit_gem])
+    
+    output.should_match boilerplate
   end
 end

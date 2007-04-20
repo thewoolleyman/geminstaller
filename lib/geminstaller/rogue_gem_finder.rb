@@ -32,10 +32,16 @@ module GemInstaller
     
     def format_output(yaml)
       yaml_lines = yaml.split("\n")
-      @output_proxy.sysout("====== Rogue Gems - installed but not matched by GemInstaller config ======\n")
-      formatted_yaml = yaml_lines.join("\n")
-      @output_proxy.sysout(formatted_yaml + "\n")
-      @output_proxy.sysout("===========================================================================\n")
+      output = []
+
+      output.push "====== Rogue Gems - installed but not matched by GemInstaller config ======"
+      yaml_lines.each do |yaml_line| 
+        output.push yaml_line
+      end
+      output.push "==========================================================================="
+      output_string = output.join("\n")
+      @output_proxy.sysout output_string
+      output_string
     end
     
     def process_gem(gem)
