@@ -13,7 +13,7 @@ context "an RogueGemFinder instance with mock dependencies" do
     @legit_gem = GemInstaller::RubyGem.new('legit', :version => '1.0.0')
   end
 
-  specify "should add a specified gem to the load path" do
+  specify "should print rogue gems" do
     @mock_gem_spec_manager.should_receive(:all_local_gems).and_return([@legit_gem, @rogue_gem])
     @mock_gem_spec_manager.should_receive(:local_matching_gems).and_return([])
     
