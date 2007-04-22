@@ -1,0 +1,7 @@
+defaults:
+  install_options: --include-dependencies
+gems: 
+- name: hpricot
+  version: "0.4"
+- name: hpricot
+  version: "0.5"
