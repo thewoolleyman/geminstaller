@@ -49,8 +49,8 @@ module GemInstaller
       @gem_source_index_proxy.gem_source_index = @gem_source_index
 
       @gem_interaction_handler = GemInstaller::GemInteractionHandler.new
-      @noninteractive_chooser = GemInstaller::NoninteractiveChooser.new
-      @gem_interaction_handler.noninteractive_chooser = @noninteractive_chooser
+      @noninteractive_chooser_class = GemInstaller::NoninteractiveChooser
+      @gem_interaction_handler.noninteractive_chooser_class = @noninteractive_chooser_class
       @gem_interaction_handler.valid_platform_selector = @valid_platform_selector
       
       @outs_output_observer = GemInstaller::OutputObserver.new
