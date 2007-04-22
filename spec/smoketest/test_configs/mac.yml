@@ -22,7 +22,8 @@
 #     * webgen >= 0.4.2
 #
 defaults:
-  install_options: --include-dependencies
+  install_options: --include-dependencies --no-ri --no-rdoc
+  fix-dependencies: false
 gems: 
 - name: ParseTree
   version: 1.6.1
@@ -74,10 +75,19 @@ gems:
   version: 0.7.4.215
 - name: daemons
   version: 1.0.5
+
+<% unless RUBY_PLATFORM =~ /mswin/ %>
+# version 1.0 of fastthread doesn't show up on windows
 - name: fastthread
   version: "1.0"
+<% end %>
+
+<% unless RUBY_PLATFORM =~ /mswin/ %>
+# ferret doesn't have a windows build for this version
 - name: ferret
   version: 0.10.13
+<% end %>
+
 - name: firebrigade_api
   version: 1.0.0
 - name: fjson
