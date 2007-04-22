@@ -1,0 +1,160 @@
+--- 
+#
+# This is a GemInstaller config file (http://geminstaller.rubyforge.org)
+# It was generated using the 'geminstaller --print-rogue-gems' option on Fri Apr 20 12:59:01 -0700 2007
+#
+# You can bootstrap your config by piping the output to a file: 
+#   'geminstaller --print-rogue-gems > geminstaller.yml'
+#
+# You can then install these gems on another system by running geminstaller with this file.
+#
+# The following config file(s) and gems were already specified:
+#   Files:
+#     * geminstaller.yml
+#   Gems:
+#     * RedCloth >= 3.0.4
+#     * cmdparse >= 2.0.2
+#     * diff-lcs >= 1.1.2
+#     * hoe >= 1.1.6
+#     * rake >= 0.7.1
+#     * rcov >= 0.7.0.1
+#     * rspec >= 0.7.5
+#     * webgen >= 0.4.2
+#
+defaults:
+  install_options: --include-dependencies
+gems: 
+- name: ParseTree
+  version: 1.6.1
+- name: RubyInline
+  version: 3.6.2
+- name: SwedishTV
+  version: 0.0.3
+- name: ZenTest
+  version: 3.4.2
+- name: ZenTest
+  version: 3.4.3
+- name: actionmailer
+  version: 1.2.5
+- name: actionmailer
+  version: 1.3.2
+- name: actionpack
+  version: 1.12.5
+- name: actionpack
+  version: 1.13.2
+- name: actionwebservice
+  version: 1.1.6
+- name: actionwebservice
+  version: 1.2.2
+- name: activerecord
+  version: 1.14.4
+- name: activerecord
+  version: 1.15.2
+- name: activesupport
+  version: 1.3.1
+- name: activesupport
+  version: 1.4.1
+- name: acts_as_searchable
+  version: 0.1.0
+- name: aws-s3
+  version: 0.3.0
+- name: builder
+  version: 2.1.1
+- name: capistrano
+  version: 1.1.0
+- name: capistrano
+  version: 1.2.0
+- name: capistrano
+  version: 1.3.1
+- name: cgi_multipart_eof_fix
+  version: "2.1"
+- name: cheat
+  version: 1.2.1
+- name: coderay
+  version: 0.7.4.215
+- name: daemons
+  version: 1.0.5
+- name: fastthread
+  version: "1.0"
+- name: ferret
+  version: 0.10.13
+- name: firebrigade_api
+  version: 1.0.0
+- name: fjson
+  version: 0.0.4
+- name: flexmock
+  version: 0.4.3
+- name: gem_plugin
+  version: 0.2.1
+- name: gem_plugin
+  version: 0.2.2
+- name: heckle
+  version: 1.0.0
+- name: heckle
+  version: 1.3.0
+- name: hpricot
+  version: "0.4"
+- name: hpricot
+  version: "0.5"
+- name: meta_project
+  version: 0.4.15
+- name: mime-types
+  version: "1.15"
+- name: mkrf
+  version: 0.1.2
+- name: money
+  version: 1.7.1
+- name: mongrel
+  version: 1.0.1
+- name: needle
+  version: 1.3.0
+- name: net-sftp
+  version: 1.1.0
+- name: net-ssh
+  version: 1.0.9
+- name: net-ssh
+  version: 1.0.10
+- name: piston
+  version: 1.3.0
+- name: rails
+  version: 1.1.6
+- name: rails
+  version: 1.2.2
+- name: rc-rest
+  version: 2.2.1
+- name: rjb
+  version: 1.0.3
+- name: rmagick
+  version: 1.15.4
+- name: ruby-doom
+  version: "0.8"
+- name: ruby2ruby
+  version: 1.1.1
+- name: rutils
+  version: 0.1.3
+- name: rutils
+  version: 0.1.9
+- name: rutils
+  version: 0.2.1
+- name: s3-ruby
+  version: 0.1.0
+- name: s33r
+  version: 0.5.2
+- name: sources # NOTE: This gem may have been automatially installed with Ruby, and not actually be used by your app(s).
+  version: 0.0.1
+- name: sqlite3-ruby
+  version: 1.1.0
+- name: syntax
+  version: 1.0.0
+- name: termios
+  version: 0.9.4
+- name: tinderbox
+  version: 1.0.0
+- name: win32-process
+  version: 0.5.2
+- name: windows-pr
+  version: 0.6.3
+- name: x10-cm17a
+  version: 1.0.1
+- name: xml-simple
+  version: 1.0.11
