@@ -167,4 +167,4 @@ gems:
 - name: x10-cm17a
   version: 1.0.1
 - name: xml-simple
-  version: 1.0.11
+  version: 1.0.11==== ORIGINAL VERSION spec/smoketest/test_configs/mac.yml 117730323263037
