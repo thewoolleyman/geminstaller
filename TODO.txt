@@ -2,10 +2,9 @@
 * Error on activerecord for brand-new rubygems installation - couldn't find gem.  Did a gem list --remote activerecord, then it went away (got sudo error), then happened again, then worked when I passed -gall -rall options.
 * docs: change tutorial to tutorials, write tutorial on bootstrapping geminstaller config, update quickstart to reference this
 * geminstaller-output :error should print to stderr, not stdout
-* echo stdin
 * modify rails example to try non-sudo first, then sudo - or base on platform
 * check gems: mongrel, mongrel_cluster, hpricot, rmagick
-* docs should tout eating my own dog food
+* docs should indicate that I eat my own dog food
 * update docs for autogem
 * update docs with details on how to handle unmet dependencies when -y is not specified
 * document option to run via capistrano
@@ -13,6 +12,7 @@
 * upload gem 
 - 0.2.0 release
 
+* echo stdin, lists presented for debug output levels
 * Just ignore sudo option on windows, rather than throwing an error
 * why does windows try to reinstall fxruby 1.6.6 when it is already installed???
 * Figure out how to avoid checking dependency gems multiple times if multiple dependent gems depend on them.
