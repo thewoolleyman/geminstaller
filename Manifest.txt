@@ -56,6 +56,6 @@ website/src/default.css
 website/src/default.template
 website/src/documentation/documentation.page
 website/src/documentation/index.page
-website/src/documentation/tutorial.page
+website/src/documentation/tutorials.page
 website/src/faq.page
 website/src/index.page
