@@ -134,8 +134,11 @@ gems:
   version: 2.2.1
 - name: rjb
   version: 1.0.3
+<% unless RUBY_PLATFORM =~ /mswin/ %>
+# rmagick doesn't have a windows build for this version
 - name: rmagick
   version: 1.15.4
+<% end %>
 - name: ruby-doom
   version: "0.8"
 - name: ruby2ruby
@@ -156,15 +159,21 @@ gems:
   version: 1.1.0
 - name: syntax
   version: 1.0.0
+<% unless RUBY_PLATFORM =~ /mswin/ %>
+# termios doesn't have a windows build for this version
 - name: termios
   version: 0.9.4
+<% end %>
 - name: tinderbox
   version: 1.0.0
 - name: win32-process
   version: 0.5.2
 - name: windows-pr
   version: 0.6.3
+<% unless RUBY_PLATFORM =~ /mswin/ %>
+# x10-cm17a doesn't have a windows build for this version
 - name: x10-cm17a
   version: 1.0.1
+<% end %>
 - name: xml-simple
-  version: 1.0.11==== ORIGINAL VERSION spec/smoketest/test_configs/mac.yml 117730323263037
+  version: 1.0.11
