@@ -1,0 +1,8 @@
+---
+defaults:
+  install_options: --include-dependencies --no-ri --no-rdoc
+  fix-dependencies: false
+gems:
+- name: rutils
+  version: '0.1.9'
+  platform: ruby
