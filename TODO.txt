@@ -1,7 +1,5 @@
 * make a doc note that order of dependencies matter.
 * Error on activerecord for brand-new rubygems installation - couldn't find gem.  Did a gem list --remote activerecord, then it went away (got sudo error), then happened again, then worked when I passed -gall -rall options.
-* Just ignore sudo option on windows, rather than throwing an error
-* figure out why '> 1' must be quoted to be a valid yaml value - see yaml_loader_spec.rb
 * docs: change tutorial to tutorials, write tutorial on bootstrapping geminstaller config, update quickstart to reference this
 * geminstaller-output :error should print to stderr, not stdout
 * echo stdin
@@ -15,6 +13,7 @@
 * upload gem 
 - 0.2.0 release
 
+* Just ignore sudo option on windows, rather than throwing an error
 * why does windows try to reinstall fxruby 1.6.6 when it is already installed???
 * Figure out how to avoid checking dependency gems multiple times if multiple dependent gems depend on them.
 * write coverage_no_platform_specific rake task (to get 100% coverage on a mac)
@@ -39,6 +38,7 @@
 * clean up registry - third-party first, no dependency next, alphabetized
 - 0.3.0 release
 
+* understand why '> 1' must be quoted to be a valid yaml value - see yaml_loader_spec.rb
 * tests failed when "partially" connected to network? (wireless at office)
 * tests fail with timeouts intermittently on windows
 * add more tests for dependencies to geminstaller_spec
