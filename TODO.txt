@@ -1,3 +1,4 @@
+* Fastthread = only shows version 0.6.2 on windows, rubygems 0.9 ???
 * version_specifier exception for version not found should print normal error message with gem command echoed
 * make a doc note that order of dependencies matter.
 * Error on activerecord for brand-new rubygems installation - couldn't find gem.  Did a gem list --remote activerecord, then it went away (got sudo error), then happened again, then worked when I passed -gall -rall options.
