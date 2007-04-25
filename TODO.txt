@@ -14,6 +14,8 @@
 * upload gem 
 - 0.2.0 release
 
+* geminstaller_spec autogem spec must have the GemRunner "initialized" or else the stub gem in test_gem_home won't be found by autogem.
+* fix_dependencies=true takes FOREVER on windows
 * echo stdin, lists presented for debug output levels
 * Just ignore sudo option on windows, rather than throwing an error
 * why does windows try to reinstall fxruby 1.6.6 when it is already installed???

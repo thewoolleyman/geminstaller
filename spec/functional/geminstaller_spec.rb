@@ -127,16 +127,31 @@ context "The geminstaller command line application created via GemInstaller.run 
 end
 
 context "The GemInstaller.autogem method" do
+  setup do
+    GemInstaller::TestGemHome.use
+    GemInstaller::EmbeddedGemServer.start
+    @registry = GemInstaller::create_registry
+    @gem_spec_manager = @registry.gem_spec_manager
+    @gem_runner_proxy = @registry.gem_runner_proxy
+  end
+
   specify "should add a specified gem to the load path" do
     # Clear out loaded specs in rubygems, otherwise the gem call won't do anything
     Gem.instance_eval { @loaded_specs.clear if @loaded_specs }
     expected_load_path_entry = "#{test_gem_home_dir}/gems/#{sample_gem_name}-#{sample_gem_version}/lib"
     expected_load_path_entry_bin = "#{test_gem_home_dir}/gems/#{sample_gem_name}-#{sample_gem_version}/bin"
     GemInstaller.run(geminstaller_spec_test_args)
+    @gem_spec_manager.is_gem_installed?(sample_gem).should==(true)
     $:.delete(expected_load_path_entry)
     $:.delete(expected_load_path_entry_bin)
     $:.should_not_include(expected_load_path_entry)
     $:.should_not_include(expected_load_path_entry_bin)
+
+    # These lines are required or else the GemInstaller.autogem command can't find the stubgem in the
+    # test gem home.  I'm not sure why.
+    runner = Gem::GemRunner.new(:command_manager => Gem::CommandManager)
+    runner.do_configuration(['list'])    
+
     added_gems = GemInstaller.autogem(geminstaller_spec_live_config_path)
     added_gems[0].should ==(sample_gem)
     $:.should_include(expected_load_path_entry)

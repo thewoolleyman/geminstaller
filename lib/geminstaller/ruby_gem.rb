@@ -16,7 +16,7 @@ module GemInstaller
       end
       @install_options = opts[:install_options] ||= []
       @check_for_upgrade = opts[:check_for_upgrade] == true ? true : false
-      @fix_dependencies = opts[:fix_dependencies] == false ? false : true
+      @fix_dependencies = opts[:fix_dependencies] == true ? true : false
       @prefer_binary_platform = opts[:prefer_binary_platorm] == false ? false : true
     end
 

@@ -12,7 +12,7 @@ context "a config builder with a single config file path" do
     @config.gems[0].check_for_upgrade.should==(true)
     @config.gems[0].fix_dependencies.should==(false)
     @config.gems[1].check_for_upgrade.should==(false)
-    @config.gems[1].fix_dependencies.should==(true)
+    @config.gems[1].fix_dependencies.should==(false)
   end
 
   specify "should assign paths array to config_file_paths_array instance variable" do

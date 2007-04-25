@@ -23,6 +23,7 @@ context "an InstallProcessor instance" do
     GemInstaller::EmbeddedGemServer.start
     # ensure all gems are installed to start
     [@sample_gem, @sample_dependent_gem, @sample_dependent_multilevel_gem].each do |gem|
+      gem.fix_dependencies = true
       install_gem(gem)
     end
   end
