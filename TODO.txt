@@ -1,8 +1,7 @@
-* Fastthread = only shows version 0.6.2 on windows, rubygems 0.9 ???
+* docs: change references of default fix_dependencies
 * version_specifier exception for version not found should print normal error message with gem command echoed
 * make a doc note that order of dependencies matter.
-* Error on activerecord for brand-new rubygems installation - couldn't find gem.  Did a gem list --remote activerecord, then it went away (got sudo error), then happened again, then worked when I passed -gall -rall options.
-* docs: change tutorial to tutorials, write tutorial on bootstrapping geminstaller config, update quickstart to reference this
+* docs: write tutorial on bootstrapping geminstaller config, update quickstart to reference this
 * geminstaller-output :error should print to stderr, not stdout
 * modify rails example to try non-sudo first, then sudo - or base on platform
 * check gems: mongrel, mongrel_cluster, hpricot, rmagick
@@ -14,6 +13,8 @@
 * upload gem 
 - 0.2.0 release
 
+* Error on activerecord for brand-new rubygems installation - couldn't find gem.  Did a gem list --remote activerecord, then it went away (got sudo error), then happened again, then worked when I passed -gall -rall options.
+* Fastthread = only shows version 0.6.2 on windows, rubygems 0.9 ???
 * geminstaller_spec autogem spec must have the GemRunner "initialized" or else the stub gem in test_gem_home won't be found by autogem.
 * fix_dependencies=true takes FOREVER on windows
 * echo stdin, lists presented for debug output levels
