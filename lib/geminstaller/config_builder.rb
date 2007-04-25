@@ -19,6 +19,8 @@ module GemInstaller
       merged_gems = {}
       @config_file_paths_array.each do |path|
         file_contents = @file_reader.read(path)
+        next unless file_contents
+        next if file_contents.empty?
         file_contents_erb = ERB.new(%{#{file_contents}})
         yaml = @yaml_loader.load(file_contents_erb.result)
         merged_defaults.merge!(yaml['defaults']) unless yaml['defaults'].nil?

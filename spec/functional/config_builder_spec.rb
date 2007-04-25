@@ -82,6 +82,18 @@ context "a config builder with multiple config file paths and no default entries
   end
   
   specify "should successfully assemble a config object" do
+    #TODO: finish this spec
+  end
+end
+
+context "a config builder with an empty config file" do
+  setup do
+    @test_config_file_paths = File.expand_path("#{dir}/test_empty_file.yml")
+    config_builder_spec_common_setup
+  end
+  
+  specify "should return a default config" do
+    @config.gems.should == []
   end
 end
 
