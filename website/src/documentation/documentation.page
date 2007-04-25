@@ -128,7 +128,9 @@ GemInstaller works by automatically invoking RubyGems commands.  The <code>--rub
 
 h3(#print_rogue_gems_option). <code>--print-rogue-gems</code> option
 
-The <code>--print-rogue-gems</code> option prints a report of all locally installed gems which are not specified in the active loaded GemInstaller config file(s).  GemInstaller, being "Narcissistic Software" (tm), considers these "rogue gems".  The output format is in YAML, so it can be cut and pasted directly into an existing config file.  This allows you to bootstrap a new system, by creating an empty config file with no gems specified, and running geminstaller with the <code>--print-rogue-gems</code> option to identify all gems which are currently installed on the system.  It can also be used to identify gems which were manually installed without being entered into a GemInstaller config.  
+The <code>--print-rogue-gems</code> option prints a report of all locally installed gems which are not specified in the active loaded GemInstaller config file(s).  GemInstaller, being "Narcissistic Software" (tm), considers these "rogue gems".  The output format is in YAML, so it can be cut and pasted or piped directly into a new or existing config file.  This allows you to bootstrap a new system, by creating an empty config file with no gems specified, and running geminstaller with the <code>--print-rogue-gems</code> option to identify all gems which are currently installed on the system.  It can also be used to identify gems which were manually installed without being entered into a GemInstaller config.
+
+Some gems are automatically installed with RubyGems itself.  The 'sources' gem always exists, and the Ruby Windows One Click Installer installs several windows-specific gems.  The <code>--print-rogue-gems</code> option will include these gems, but will mark them with a comment indicating that they may have been automatically installed by RubyGems.  
 
 h3(#sudo_option). <code>--sudo</code> option
 

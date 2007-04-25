@@ -1,7 +1,26 @@
 h1. Tutorials
 
-These are tutorials which show how to use the various features of GemInstaller.  If you'd like to see a tutorial on a topic, you submit a request on the mailing list.
+These are tutorials which show how to use the various features of GemInstaller.  They are mostly brief, only showing the commands you need to type.
 
-* "Tutorial One":#setup
+If anything is unclear, or if you'd like to see a tutorial on a topic, please submit a request on the mailing list.
 
-h2(#setup). Tutorial One
+* "Installing GemInstaller":#installing_geminstaller
+* "Bootstrapping your GemInstaller Config with the <code>--print-rogue-gems</code> option":#bootstrapping_your_geminstaller_config
+
+h2(#installing_geminstaller). Installing GemInstaller
+
+<pre>
+$ gem install geminstaller
+   - OR, if you get a permission error -
+$ sudo gem install geminstaller 
+</pre>
+
+h2(#bootstrapping_your_geminstaller_config). Bootstrapping your GemInstaller Config with the <code>--print-rogue-gems</code> option
+
+You may have no idea what gems your app uses, or you might just want to create a GemInstaller config file with all the gems currently on your system, in order to install the same gems on a different system.  This tutorial will show you how to use the <code>--print-rogue-gems</code> option to automatically create a GemInstaller config file.
+
+<pre>
+$ geminstaller --print-rogue-gems > geminstaller.yml
+</pre>
+
+TODO: finish
