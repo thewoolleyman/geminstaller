@@ -36,8 +36,6 @@ h2. Table of Contents
 ** "Option 3 - Make everything owned by the local user that runs geminstaller":#option_3
 ** "Tips on configuring sudo":#tips_on_configuring_sudo
 
-TODO: bold all filenames
-
 h2(#setup). Setup
 
 h3(#requirements). Requirements
@@ -46,7 +44,7 @@ Runtime Requirements:
 * None. There are no dependencies required to run GemInstaller, other than an installation of RubyGems itself
 
 Build/Test requirements:
-* GemInstaller has a geminstaller.yml file to specify it's own dependencies.  After installing the geminstaller gem (via 'gem install geminstaller'), change to the root of the geminstaller source tree, and run 'geminstaller' to auto-install the dependencies.
+* GemInstaller has a *geminstaller.yml* file to specify it's own dependencies.  After installing the geminstaller gem (via 'gem install geminstaller'), change to the root of the geminstaller source tree, and run 'geminstaller' to auto-install the dependencies.
 
 h3(#installation). Installation
 
@@ -146,7 +144,7 @@ Sometimes, errors from RubyGems activity will still be printed even if the <code
 
 h2(#config_file). Config File
 
-The GemInstaller config file is simple YAML file.  It contains a section specifying all the gems you want to install, and their associated options/properties, and another section which contains defaults to apply to all gems.  By default, GemInstaller will look for a config file named <code>geminstaller.yml</code> in the working directory, but you can override this file name (and specify multiple config files) with the "<code>--config</code> option":#config_option.
+The GemInstaller config file is simple YAML file.  It contains a section specifying all the gems you want to install, and their associated options/properties, and another section which contains defaults to apply to all gems.  By default, GemInstaller will look for a config file named *<code>geminstaller.yml</code>* in the working directory, but you can override this file name (and specify multiple config files) with the "<code>--config</code> option":#config_option.
 
 GemInstaller offers a great deal of flexibility in configuration.  By creatively using multiple config files, defaults within single config files, "<code>erb</code> in config files":#using_erb_in_config_files, and the features of YAML itself, you should be able to come up with a unified GemInstaller config approach that works for multiple applications across multiple machines, platforms, and environments, with a minimum of duplication.
 
@@ -206,7 +204,7 @@ However, if you are using a non-specific version spec (for example, '>= 1.0.0), 
 
 h3(#fix_dependencies_config_node). <code>fix_dependencies</code> config node
 
-Defaults to true.  Ruby Gems can depend on other gems, but the other gem might still get manually uninstalled (by using the <code>gem uninstall --ignore-dependencies GEMNAME</code>) option.  The <code>--fix_dependencies</code> option will detect these missing dependencies, and automatically fix them.  You probably always want it left as the default of true.
+Defaults to false.  Ruby Gems can depend on other gems, but the other gem might still get manually uninstalled (by using the <code>gem uninstall --ignore-dependencies GEMNAME</code>) option.  The <code>--fix_dependencies</code> option will detect these missing dependencies, and automatically fix them.  You shouldn't need this unless you go around uninstalling gems with the <code>--ignore-dependencies</code> option.  WARNING: This option can GREATLY increase the time it takes to run GemInstaller, especially if you have a lot of gems in your config, and especially on Windows.  You probably always want it left as the default of false unless you suspect that some dependencies have been uninstalled.
 
 h3(#prefer_binary_platform_config_node). <code>prefer_binary_platform</code> config node
 
@@ -234,7 +232,7 @@ gems:
   platform: <%= RUBY_PLATFORM =~ /mswin/ ? 'mswin32' : 'ruby'%>
 </pre>
 
-Once you have your <code>geminstaller.yml</code> created, invoke the GemInstaller on app startup in your boot.rb.  It should be placed right after the block which defines the RAILS_ROOT constant, as shown below ("..." indicates omitted lines):
+Once you have your *<code>geminstaller.yml</code>* created, invoke the GemInstaller on app startup in your boot.rb.  It should be placed right after the block which defines the RAILS_ROOT constant, as shown below ("..." indicates omitted lines):
 
 h3(#invoking_the_geminstaller_class_from_rails). Invoking the <code>GemInstaller</code> Class from Rails
 
@@ -244,7 +242,7 @@ The <code>begin ... rescue</code> block below is optional.  Include it if you DO
 
 TODO: add begin/rescue code after it is tested
 
-RAILS_ROOT/config/boot.rb:
+*RAILS_ROOT/config/boot.rb*:
 <pre>
 ...
 unless defined?(RAILS_ROOT)
@@ -269,7 +267,7 @@ If you want to abort Rails startup if GemInstaller fails, you can capture the re
 
 TODO: add success check to rails sample app and test
 
-RAILS_ROOT/config/boot.rb:
+*RAILS_ROOT/config/boot.rb*:
 <pre>
 ...
 unless defined?(RAILS_ROOT)
