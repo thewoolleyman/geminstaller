@@ -1,3 +1,4 @@
+* print-rogue-gems fails when piped to geminstaller.yml.  
 * version_specifier exception for version not found should print normal error message with gem command echoed
 * docs: write tutorial on bootstrapping geminstaller config, update quickstart to reference this
 * geminstaller-output :error should print to stderr, not stdout
