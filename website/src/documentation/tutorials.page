@@ -23,4 +23,11 @@ You may have no idea what gems your app uses, or you might just want to create a
 $ geminstaller --print-rogue-gems > geminstaller.yml
 </pre>
 
+That was easy, wasn't it?  This config file should specify the exact versions for all of the gems which are currently installed on your system.
+
+Gotchas/Notes:
+
+# If you generated the file on a unix/mac system with compiled gems and then try to run it on a different platform (like windows) which does not have a compiler, you may get errors.  The "<code>prefer_binary_platform</code> config node":documentation.html#prefer_binary_platform_config_node will try to guess at the correct platform, but if a binary version of the gem does not exist for your platform, or if <code>prefer_binary_platform</code> fails to guess the right platform, you may still fail.
+# The <code>--print-rogue-gems</code> option generates *exact* version specifications.  This means that you won't ever get any gem upgrades by running GemInstaller with the standard generated file.  This may be good (an upgrade can never break your app unexpectedly).  However, you may wish to modify some of the version specifications to allow for upgrades.  If you do this, remember to set the "<code>check_for_upgrade</code> config node":documentation.html#check_for_upgrade_config_node to true, but be aware that this will cause GemInstaller to check the remote gem server for upgrades each time it runs, and cause it to run slow or fail if the server is unavailable.    
+
 TODO: finish

@@ -6,6 +6,7 @@
 * docs should indicate that I eat my own dog food
 * update docs for autogem
 * update docs with details on how to handle unmet dependencies when -y is not specified
+* tutorial: using common or shared config files
 * document option to run via capistrano
 * publish site
 * upload gem 
