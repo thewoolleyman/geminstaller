@@ -8,6 +8,7 @@
 * update docs with details on how to handle unmet dependencies when -y is not specified
 * tutorial: using common or shared config files
 * document option to run via capistrano
+* crossreference front page, tutorials, and docs
 * publish site
 * upload gem 
 - 0.2.0 release
