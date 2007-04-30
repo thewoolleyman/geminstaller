@@ -8,8 +8,9 @@ module GemInstaller
   end 
   
   def self.autogem(config_paths=nil)
+    config_paths_string = parse_config_paths(config_paths)
     args = []
-    args = ["--config=#{config_paths}"] if config_paths
+    args = ["--config=#{config_paths_string}"] if config_paths_string
     app = create_application(args)
     app.autogem
   end
@@ -28,5 +29,11 @@ module GemInstaller
   def self.create_registry
     dependency_injector = GemInstaller::DependencyInjector.new
     dependency_injector.registry
+  end
+  
+  def self.parse_config_paths(config_paths)
+    return nil unless config_paths
+    return config_paths unless config_paths.respond_to? :join
+    return config_paths.join(',')
   end
 end
