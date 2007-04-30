@@ -11,19 +11,27 @@ unless defined?(RAILS_ROOT)
   RAILS_ROOT = root_path
 end
 
-if RUBY_PLATFORM =~ /mswin/
-  # this is the Rails GemInstaller setup if you DON'T require root access to install gems
-  require "rubygems"
-  require "geminstaller"
+# Begin GemInstaller config - see http://geminstaller.rubyforge.org
+require "rubygems"
+require "geminstaller"
+use_sudo = true # set this flag to false if you don't need root access to install gems
+if RUBY_PLATFORM =~ /mswin/ or !use_sudo
+  # GemInstaller can be invoked from Ruby if you DON'T require root access to install gems
   args = ["--config=#{RAILS_ROOT}/config/geminstaller.yml"]
   GemInstaller.run(args)
 else
-  # this is the Rails GemInstaller setup if you DO require root access to install gems
+  # GemInstaller must be invoked via the executable if you DO require root access to install gems
   system "geminstaller --sudo --config=#{RAILS_ROOT}/config/geminstaller.yml"
 end
 
-# this will allow you to debug against a local checkout of geminstaller - make sure the gem is not installed
-#system "ruby /Users/woolley/workspace/geminstaller/bin/geminstaller --sudo --config=#{RAILS_ROOT}/config/geminstaller.yml"
+# The 'autogem' method will automatically add all gems in the GemInstaller config to your load path, using the 'gem'
+# or 'require_gem' command.  If you want to use other config file path(s), pass them as an array or comma-delimited list.
+# Note that only the *first* version of any given gem will be loaded.
+GemInstaller.autogem("#{RAILS_ROOT}/config/geminstaller.yml")
+
+# The following line will allow you to debug against a local checkout of geminstaller - make sure the geminstaller gem is not installed
+#system "ruby /my/path/to/geminstaller/bin/geminstaller --sudo --config=#{RAILS_ROOT}/config/geminstaller.yml"
+# End GemInstaller config
 
 unless defined?(Rails::Initializer)
   if File.directory?("#{RAILS_ROOT}/vendor/rails")
