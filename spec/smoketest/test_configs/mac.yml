@@ -91,7 +91,7 @@ gems:
 - name: firebrigade_api
   version: 1.0.0
 - name: fjson
-  version: 0.0.4
+  version: 0.1.0
 - name: flexmock
   version: 0.4.3
 - name: gem_plugin
