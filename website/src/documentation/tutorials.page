@@ -18,6 +18,8 @@ $ gem install geminstaller
 $ sudo gem install geminstaller 
 </pre>
 
+See also: Docs on "installation":documentation.html#installation.
+
 h2(#bootstrapping_your_geminstaller_config). Bootstrapping your GemInstaller Config with the <code>--print-rogue-gems</code> option
 
 You may have no idea what gems your app uses, or you might just want to create a GemInstaller config file with all the gems currently on your system, in order to install the same gems on a different system.  This tutorial will show you how to use the <code>--print-rogue-gems</code> option to automatically create a GemInstaller config file.
@@ -33,8 +35,33 @@ Gotchas/Notes:
 # If you generated the file on a unix/mac system with compiled gems and then try to run it on a different platform (like windows) which does not have a compiler, you may get errors.  The "<code>prefer_binary_platform</code> config node":documentation.html#prefer_binary_platform_config_node will try to guess at the correct platform, but if a binary version of the gem does not exist for your platform, or if <code>prefer_binary_platform</code> fails to guess the right platform, you may still fail.
 # The <code>--print-rogue-gems</code> option generates *exact* version specifications.  This means that you won't ever get any gem upgrades by running GemInstaller with the standard generated file.  This may be good (an upgrade can never break your app unexpectedly).  However, you may wish to modify some of the version specifications to allow for upgrades.  If you do this, remember to set the "<code>check_for_upgrade</code> config node":documentation.html#check_for_upgrade_config_node to true, but be aware that this will cause GemInstaller to check the remote gem server for upgrades each time it runs, and cause it to run slow or fail if the server is unavailable.    
 
+See also: Docs on "<code>--print-rogue-gems</code> option":documentation.html#print_rogue_gems_option, "<code>prefer_binary_platform</code> config node":documentation.html#prefer_binary_platform_config_node, and "<code>check_for_upgrade</code> config node":documentation.html#check_for_upgrade_config_node
+
 h2(#using_the_autogem_option_to_automatically_require_gems). Using the <code>autogem</code> Option to Automatically Require Gems option
 
-GemInstaller can automatically run the RubyGems 'gem' method to automatically add all of the gems in your GemInstaller config file(s) to the load path.  
+GemInstaller can automatically run the RubyGems 'gem' or 'require_gem' method to automatically add all of the gems in your GemInstaller config file(s) to the load path.  Here's an example.
 
+First, create a simple *<code>geminstaller.yml</code>* file:
+<pre>
+\---
+gems:
+- name: ruby-doom
+  version: '= 0.8'
+</pre>
 
+Now, we'll use <code>irb</code> to test autogem, and verify that it can add the ruby-doom gem to the load path:
+<pre>
+$ irb
+irb(main):001:0> require 'rubygems'
+=> true
+irb(main):002:0> require 'geminstaller'
+=> true
+irb(main):003:0> GemInstaller.autogem(['geminstaller.yml'])
+=> autogem returns the gem object(s) as it's return value...
+irb(main):004:0> $:
+=> ["/usr/local/lib/ruby/gems/1.8/gems/ruby-doom-0.8/lib", ...]
+</pre>
+
+Note that you could have passed a comma-delimited string instead of an array as the argument, or no argument at all if you wanted to simply use the <code>geminstaller.yml</code> file in the current directory.
+
+See also:  Docs on "Automatically Requiring Gems with the <code>autogem</code> Method":documentation.html#automatically_requiring_gems_with_the_autogem_method

@@ -392,14 +392,17 @@ h2(#automatically_requiring_gems_with_the_autogem_method). Automatically Requiri
 
 GemInstaller provides a <code>GemInstaller.autogem</code> class method which will automatically invoke RubyGems' 'gem' method to add all of the gems in your GemInstaller config file(s) to the load path.  On RubyGems versions 0.8.x, the 'require_gem' method is used instead.  
 
-To use it, invoke the <autogem>autogem</code> method, and pass an array containing the path(s) to the GemInstaller config files containing the gems to load:
+To use it, invoke the <autogem>autogem</code> method, and pass an array or comma-delimited string containing the path(s) to the GemInstaller config files specifying the gems to load:
 
 *requires.rb*
 <pre>
 ...
 GemInstaller.require(['/path/to/one/geminstaller.yml','/path/to/another/geminstaller.yml'])
+...
 </pre>
 
 Alternately, you are not required to pass a parameter of config files if you invoke the command from a ruby file which is in the same directory as a default-named <code>'geminstaller.yml'</code> file.
+
+*IMPORTANT NOTE*: The RubyGems <code>'gem'</code> and <code>'require_gem'</code> commands will only load a single version of any given gem onto the load path.  Because of this, the GemInstaller autogem command will only process the first version that it finds of any given gem.
 
 For more info on the RubyGems 'gem and 'require_gem' commands, see "Using Explicit Versions":http://docs.rubygems.org/read/chapter/4#page71 in the RubyGems docs.
