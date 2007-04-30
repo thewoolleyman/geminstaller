@@ -1,9 +1,7 @@
 * version_specifier exception for version not found should print normal error message with gem command echoed
-* docs: write tutorial on bootstrapping geminstaller config, update quickstart to reference this
 * geminstaller-output :error should print to stderr, not stdout
 * modify rails example to try non-sudo first, then sudo - or base on platform
 * docs should indicate that I eat my own dog food
-* update docs for autogem
 * update docs with details on how to handle unmet dependencies when -y is not specified
 * tutorial: using common or shared config files
 * document option to run via capistrano
