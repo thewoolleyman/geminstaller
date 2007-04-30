@@ -3,6 +3,7 @@
 * modify rails example to try non-sudo first, then sudo - or base on platform
 * docs should indicate that I eat my own dog food
 * update docs with details on how to handle unmet dependencies when -y is not specified
+* tutorial: rails
 * tutorial: using common or shared config files
 * document option to run via capistrano
 * crossreference front page, tutorials, and docs
