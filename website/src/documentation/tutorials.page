@@ -6,6 +6,9 @@ If anything is unclear, or if you'd like to see a tutorial on a topic, please su
 
 * "Installing GemInstaller":#installing_geminstaller
 * "Bootstrapping your GemInstaller Config with the <code>--print-rogue-gems</code> option":#bootstrapping_your_geminstaller_config
+* "Using the <code>autogem</code> Option to Automatically Require Gems":#using_the_autogem_option_to_automatically_require_gems
+* "Integrating GemInstaller into Ruby on Rails" TODO: finish this
+* "Using Common or Shared Config Files" TODO: finish this
 
 h2(#installing_geminstaller). Installing GemInstaller
 
@@ -30,4 +33,8 @@ Gotchas/Notes:
 # If you generated the file on a unix/mac system with compiled gems and then try to run it on a different platform (like windows) which does not have a compiler, you may get errors.  The "<code>prefer_binary_platform</code> config node":documentation.html#prefer_binary_platform_config_node will try to guess at the correct platform, but if a binary version of the gem does not exist for your platform, or if <code>prefer_binary_platform</code> fails to guess the right platform, you may still fail.
 # The <code>--print-rogue-gems</code> option generates *exact* version specifications.  This means that you won't ever get any gem upgrades by running GemInstaller with the standard generated file.  This may be good (an upgrade can never break your app unexpectedly).  However, you may wish to modify some of the version specifications to allow for upgrades.  If you do this, remember to set the "<code>check_for_upgrade</code> config node":documentation.html#check_for_upgrade_config_node to true, but be aware that this will cause GemInstaller to check the remote gem server for upgrades each time it runs, and cause it to run slow or fail if the server is unavailable.    
 
-TODO: finish
+h2(#using_the_autogem_option_to_automatically_require_gems). Using the <code>autogem</code> Option to Automatically Require Gems option
+
+GemInstaller can automatically run the RubyGems 'gem' method to automatically add all of the gems in your GemInstaller config file(s) to the load path.  
+
+

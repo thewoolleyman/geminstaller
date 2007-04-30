@@ -35,6 +35,7 @@ h2. Table of Contents
 ** "Option 2 - Run <code>sudo</code> or log in as root yourself":#option_2
 ** "Option 3 - Make everything owned by the local user that runs geminstaller":#option_3
 ** "Tips on configuring sudo":#tips_on_configuring_sudo
+* "Automatically Requiring Gems with the <code>autogem</code> Method":#automatically_requiring_gems_with_the_autogem_method
 
 h2(#setup). Setup
 
@@ -387,3 +388,18 @@ add this line:
 <local user> ALL = NOPASSWD: /usr/local/bin/geminstaller, /usr/local/bin/ruby, /usr/local/bin/gem
 </pre>
 
+h2(#automatically_requiring_gems_with_the_autogem_method). Automatically Requiring Gems with the <code>autogem</code> Method
+
+GemInstaller provides a <code>GemInstaller.autogem</code> class method which will automatically invoke RubyGems' 'gem' method to add all of the gems in your GemInstaller config file(s) to the load path.  On RubyGems versions 0.8.x, the 'require_gem' method is used instead.  
+
+To use it, invoke the <autogem>autogem</code> method, and pass an array containing the path(s) to the GemInstaller config files containing the gems to load:
+
+*requires.rb*
+<pre>
+...
+GemInstaller.require(['/path/to/one/geminstaller.yml','/path/to/another/geminstaller.yml'])
+</pre>
+
+Alternately, you are not required to pass a parameter of config files if you invoke the command from a ruby file which is in the same directory as a default-named <code>'geminstaller.yml'</code> file.
+
+For more info on the RubyGems 'gem and 'require_gem' commands, see "Using Explicit Versions":http://docs.rubygems.org/read/chapter/4#page71 in the RubyGems docs.
