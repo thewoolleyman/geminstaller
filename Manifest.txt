@@ -16,6 +16,7 @@ lib/geminstaller/config.rb
 lib/geminstaller/config_builder.rb
 lib/geminstaller/dependency_injector.rb
 lib/geminstaller/enhanced_stream_ui.rb
+lib/geminstaller/exact_match_list_command.rb
 lib/geminstaller/file_reader.rb
 lib/geminstaller/gem_arg_processor.rb
 lib/geminstaller/gem_command_line_proxy.rb
