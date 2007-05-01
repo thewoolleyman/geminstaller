@@ -11,6 +11,7 @@ context "config YAML containing a single gem" do
           install_options: -y
           check_for_upgrade: true
           fix_dependencies: false
+          no_autogem: true
     STRING_END
     @yaml = YAML.load(@yaml_text)
     @config = GemInstaller::Config.new(@yaml)
@@ -24,6 +25,7 @@ context "config YAML containing a single gem" do
     gem.install_options.should==(["-y"])
     gem.check_for_upgrade.should==(true)
     gem.fix_dependencies.should==(false)
+    gem.no_autogem.should==(true)
   end
 end
 

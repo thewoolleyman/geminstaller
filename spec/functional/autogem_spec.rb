@@ -20,6 +20,17 @@ context "an AutoGem instance" do
     path_should_include_entries(sample_gem)
   end
   
+  specify "should not add a specified gem to the load path if the no_autogem property is set" do
+    @sample_gem_with_no_autogem = sample_gem
+    @sample_gem_with_no_autogem.no_autogem = true
+    delete_existing_path_entries(@sample_gem_with_no_autogem)
+    added_gems = @autogem.autogem([@sample_gem_with_no_autogem])
+    added_gems.size.should == 0
+    load_path_entries(@sample_gem_with_no_autogem).each do |entry|
+      $:.should_not_include(entry)
+    end
+  end
+  
   specify "should add same specified gem to the load path again in a separate spec (verifies that Gem.loaded specs and load path are cleaned up between specs)" do
     delete_existing_path_entries(sample_gem)
     added_gems = @autogem.autogem([sample_gem])

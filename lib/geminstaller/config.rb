@@ -36,12 +36,18 @@ module GemInstaller
           fix_dependencies = @default_fix_dependencies
         end
 
+        no_autogem = gem_def['no_autogem']
+        if no_autogem.nil? && defined? @default_no_autogem then
+          no_autogem = @default_no_autogem
+        end
+
         gem = GemInstaller::RubyGem.new(
           name, 
           :version => version, 
           :platform => platform, 
           :install_options => install_options_array, 
           :check_for_upgrade => check_for_upgrade,
+          :no_autogem => no_autogem,
           :fix_dependencies => fix_dependencies)
         gems << gem
       end
@@ -57,6 +63,7 @@ module GemInstaller
       @default_install_options_string = defaults['install_options']
       @default_check_for_upgrade = defaults['check_for_upgrade']
       @default_fix_dependencies = defaults['fix_dependencies']
+      @default_no_autogem = defaults['no_autogem']
     end
   end
 end

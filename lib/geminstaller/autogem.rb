@@ -12,7 +12,7 @@ module GemInstaller
     end
     
     def process_gem(gem)
-      unless @completed_names.index(gem.name)
+      unless @completed_names.index(gem.name) or gem.no_autogem
         invoke_require_gem_command(gem.name, gem.version)
         @completed_names << gem.name
         @completed_gems << gem

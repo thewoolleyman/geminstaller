@@ -14,6 +14,7 @@ required_gems = [
   'hoe', 
   'rubyforge']
 
+no_autogem = 'heckle'
 
 is_windows = RUBY_PLATFORM =~ /mswin/ ? true : false
 
@@ -56,9 +57,14 @@ required_gems.each do |gem|
   $:.each do |path_element|
     found = path_element =~ /gem/
     break if found
+    break if path_element =~ /#{no_autogem}/
   end
   raise "required gem #{gem} not found in load path: #{$:}" unless found
 end
 
+$:.each do |path_element|
+  raise "gem with no_autogem #{no_autogem} should not be in load path: #{$:}" if path_element =~ /#{no_autogem}/
+end
+
 print "\n\n"
-print "SUCCESS! FANFARE! All gems were successfully added to the load path!\n\n"
+print "SUCCESS! FANFARE! All gems were successfully added to the load path, except the one that shouldn't be!\n\n"
