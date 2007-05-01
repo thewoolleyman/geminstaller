@@ -1,7 +1,6 @@
 * version_specifier exception for version not found should print normal error message with gem command echoed
 * geminstaller-output :error should print to stderr, not stdout
 * modify rails example to try non-sudo first, then sudo - or base on platform
-* newlines printed between dots when "updating" message is included in error message
 * docs should indicate that I eat my own dog food
 * update docs with details on how to handle unmet dependencies when -y is not specified
 * tutorial: rails
@@ -12,6 +11,8 @@
 * upload gem 
 - 0.2.0 release
 
+* Verify compatibility with RubyGems trunk - especially Gem::ListCommand vs. Gem::Commands::ListCommand
+* newlines printed between dots when "updating" message is included in error message
 * Error on activerecord for brand-new rubygems installation - couldn't find gem.  Did a gem list --remote activerecord, then it went away (got sudo error), then happened again, then worked when I passed -gall -rall options.
 * Fastthread = only shows version 0.6.2 on windows, rubygems 0.9 ???
 * geminstaller_spec autogem spec must have the GemRunner "initialized" or else the stub gem in test_gem_home won't be found by autogem.
