@@ -16,7 +16,12 @@ module GemInstaller
       
     def output(source, type, message)
       message = format_rubygems_message(type,message) if source == :rubygems
-      @output_proxy.sysout(message)
+      if (source == :geminstaller and type == :error)
+        @output_proxy.syserr(message)
+        
+      else
+        @output_proxy.sysout(message)
+      end
     end
     
     def format_rubygems_message(type, message)

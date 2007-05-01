@@ -44,5 +44,11 @@ context "An output filter" do
     @output_filter.geminstaller_output(:info, @message)
   end
 
+  specify "should use error stream if geminstaller output type is error" do
+    @options[:geminstaller_output] = [:error]
+    @mock_output_proxy.should_receive(:syserr).with(@message)
+    @output_filter.geminstaller_output(:error, @message)
+  end
+
 
 end

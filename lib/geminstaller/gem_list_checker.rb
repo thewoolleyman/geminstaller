@@ -36,7 +36,7 @@ module GemInstaller
       # if a future RubyGems release allows specification/searching of the platform, because then we won't need noninteractive_chooser
       
       version_list = available_versions(gem)
-      specified_version = @version_specifier.specify(gem.version, version_list)
+      specified_version = @version_specifier.specify(gem.version, version_list, gem.name)
       gem.version = specified_version
     end
 

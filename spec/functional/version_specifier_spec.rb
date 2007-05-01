@@ -33,6 +33,14 @@ context "a VersionSpecifier instance" do
     lambda { @version_specifier.specify("!= 2", '2') }.should_raise(GemInstaller::GemInstallerError)
   end
   
+  specify "should include name of gem in error message, if it is specified" do    
+    begin
+      @version_specifier.specify("!= 2", '2', 'gem_name')
+    rescue GemInstaller::GemInstallerError => e
+      e.message.should_match(/gem_name/)
+    end
+  end
+
   def should_specify(version_requirement, available_versions, expected_specified_version)
     specified_version = @version_specifier.specify(version_requirement, available_versions)
     specified_version.should==(expected_specified_version)
