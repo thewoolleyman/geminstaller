@@ -10,6 +10,7 @@
 - 0.2.0 release
 
 * Verify compatibility with RubyGems trunk - especially Gem::ListCommand vs. Gem::Commands::ListCommand
+* use rspec context_setup
 * newlines printed between dots when "updating" message is included in error message
 * Error on activerecord for brand-new rubygems installation - couldn't find gem.  Did a gem list --remote activerecord, then it went away (got sudo error), then happened again, then worked when I passed -gall -rall options.
 * Fastthread = only shows version 0.6.2 on windows, rubygems 0.9 ???
