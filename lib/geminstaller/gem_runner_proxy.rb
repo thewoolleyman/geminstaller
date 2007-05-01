@@ -1,6 +1,6 @@
 module GemInstaller
   class GemRunnerProxy
-    attr_writer :gem_runner_class, :gem_cmd_manager_class, :output_listener
+    attr_writer :gem_runner_class, :gem_cmd_manager_class, :output_listener, :exact_match_list_command
     attr_writer :options, :enhanced_stream_ui, :output_filter
 
     def run(args = [], stdin = [])
@@ -9,7 +9,9 @@ module GemInstaller
       # We have to manually initialize the configuration here, or else the GemCommandManager singleton
       # will initialize with the (incorrect) default args when we call GemRunner.run.
       gem_runner.do_configuration(args)
-      @gem_cmd_manager_class.instance.ui = @enhanced_stream_ui
+      gem_cmd_manager = @gem_cmd_manager_class.instance
+      gem_cmd_manager.ui = @enhanced_stream_ui
+      gem_cmd_manager.register_command @exact_match_list_command
       
       exit_status = nil
       begin

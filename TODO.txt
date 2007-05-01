@@ -1,4 +1,3 @@
-* find how to make rubygems find based on exact match, pass option through to gem.
 * version_specifier exception for version not found should print normal error message with gem command echoed
 * geminstaller-output :error should print to stderr, not stdout
 * modify rails example to try non-sudo first, then sudo - or base on platform

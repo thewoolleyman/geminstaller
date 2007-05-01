@@ -67,6 +67,7 @@ module GemInstaller
 
       @gem_runner_class = Gem::GemRunner
       @gem_cmd_manager_class = Gem::CommandManager
+      @exact_match_list_command = GemInstaller::ExactMatchListCommand.new
       @gem_runner_proxy = GemInstaller::GemRunnerProxy.new
       @gem_runner_proxy.gem_runner_class = @gem_runner_class
       @gem_runner_proxy.gem_cmd_manager_class = @gem_cmd_manager_class
@@ -74,6 +75,7 @@ module GemInstaller
       @gem_runner_proxy.enhanced_stream_ui = @enhanced_stream_ui
       @gem_runner_proxy.options = @options
       @gem_runner_proxy.output_filter = @output_filter
+      @gem_runner_proxy.exact_match_list_command = @exact_match_list_command
   
       @gem_spec_manager = GemInstaller::GemSpecManager.new
       @gem_spec_manager.valid_platform_selector = @valid_platform_selector
