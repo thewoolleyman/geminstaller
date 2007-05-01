@@ -1,3 +1,5 @@
+* change "node" to "property" in docs for config
+* add no-autogem config property, to prevent a gem from being added to load path
 * modify rails example to try non-sudo first, then sudo - or base on platform
 * docs should indicate that I eat my own dog food
 * update docs with details on how to handle unmet dependencies when -y is not specified
@@ -39,6 +41,7 @@
 * boot.rb parsed twice under webrick?
 * commandecho doesn't print regexps correctly
 * code coverage for logic paths supporting old rubygems versions
+* spec_utils - use extend+include ClassAndInstanceMethods approach
 * clean up registry - third-party first, no dependency next, alphabetized
 - 0.3.0 release
 
