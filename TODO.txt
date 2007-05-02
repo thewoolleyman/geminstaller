@@ -40,8 +40,11 @@
 * code coverage for logic paths supporting old rubygems versions
 * spec_utils - use extend+include ClassAndInstanceMethods approach
 * clean up registry - third-party first, no dependency next, alphabetized
+* review/clean up ri/rdoc
+* Better errors for invalid yaml (unsupported keys)
 - 0.3.0 release
 
+* patch hoe to install_gem without sudo on windows
 * understand why '> 1' must be quoted to be a valid yaml value - see yaml_loader_spec.rb
 * tests failed when "partially" connected to network? (wireless at office)
 * tests fail with timeouts intermittently on windows
