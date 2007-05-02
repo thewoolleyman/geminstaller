@@ -14,8 +14,8 @@ end
 # Begin GemInstaller config - see http://geminstaller.rubyforge.org
 require "rubygems"
 require "geminstaller"
-config_paths = "#{File.expand_path(RAILS_ROOT)}/config/geminstaller.yml"
-args = "--config #{config_paths}"
+config_paths = "#{File.expand_path(RAILS_ROOT)}/config/geminstaller.yml" # path(s) to your GemInstaller config file(s)
+args = "--config #{config_paths}" # arguments which will be passed to GemInstaller
 use_sudo = true # default is true, set this flag to false if you don't need root access to install gems
 abort_on_error = true # default is true, set this flag to false if you don't want GemInstaller errors to abort Rails startup
 GemInstaller.run_from_app(args, use_sudo, abort_on_error)
