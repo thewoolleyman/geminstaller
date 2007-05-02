@@ -22,6 +22,7 @@ h2. Table of Contents
 ** "<code>install_options</code> config property":#install_options_config_property
 ** "<code>check_for_upgrade</code> config property":#check_for_upgrade_config_property
 ** "<code>fix_dependencies</code> config property":#fix_dependencies_config_property
+** "<code>no_autogem</code> config property":#no_autogem_config_property
 ** "<code>prefer_binary_platform</code> config property":#prefer_binary_platform_config_property
 * "Using GemInstaller with Ruby on Rails or Other Ruby Apps":#using_geminstaller_with_ruby_on_rails_or_other_ruby_apps
 ** "Invoking the <code>GemInstaller</code> Class from Rails":#invoking_the_geminstaller_class_from_rails
@@ -171,6 +172,7 @@ gems:
   install_options: [ any valid option for the RubyGems 'gem' command ]
   check_for_upgrade: [ true | false ]
   fix_dependencies: [ true | false ]
+  no_autogem: [ true | false ]
   prefer_binary_platform: [ true | false ]
 - name: [ another gem name ]
 - name: [ yet another gem name ]
@@ -208,6 +210,10 @@ However, if you are using a non-specific version spec (for example, '>= 1.0.0), 
 h3(#fix_dependencies_config_property). <code>fix_dependencies</code> config property
 
 Defaults to false.  Ruby Gems can depend on other gems, but the other gem might still get manually uninstalled (by using the <code>gem uninstall --ignore-dependencies GEMNAME</code>) option.  The <code>--fix_dependencies</code> option will detect these missing dependencies, and automatically fix them.  You shouldn't need this unless you go around uninstalling gems with the <code>--ignore-dependencies</code> option.  WARNING: This option can GREATLY increase the time it takes to run GemInstaller, especially if you have a lot of gems in your config, and especially on Windows.  You probably always want it left as the default of false unless you suspect that some dependencies have been uninstalled.
+
+h3(#no_autogem_config_property). <code>no_autogem</code> config property
+
+Defaults to false.  This option will prevent the <code>autogem</code> command from automatically requiring a gem.  If you only want to require a few gems, you could set the default for this property to true, and only enable it (by setting a false value) for specific gems.  For more details see "Automatically Requiring Gems with the <code>autogem</code> Method":#automatically_requiring_gems_with_the_autogem_method.
 
 h3(#prefer_binary_platform_config_property). <code>prefer_binary_platform</code> config property
 
@@ -392,7 +398,9 @@ h2(#automatically_requiring_gems_with_the_autogem_method). Automatically Requiri
 
 GemInstaller provides a <code>GemInstaller.autogem</code> class method which will automatically invoke RubyGems' 'gem' method to add all of the gems in your GemInstaller config file(s) to the load path.  On RubyGems versions 0.8.x, the 'require_gem' method is used instead.  
 
-To use it, invoke the <autogem>autogem</code> method, and pass an array or comma-delimited string containing the path(s) to the GemInstaller config files specifying the gems to load:
+If there are some gems you don't want to auto-require, you can set the '<code>no_autogem: true</code> config config property in the GemInstaller config file.  This can be set for individual gems, or as a default.
+
+To use it, invoke the <code>autogem</code> method, and pass an array or comma-delimited string containing the path(s) to the GemInstaller config files specifying the gems to load:
 
 *requires.rb*
 <pre>
