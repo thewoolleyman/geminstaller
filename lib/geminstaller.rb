@@ -36,4 +36,25 @@ module GemInstaller
     return config_paths unless config_paths.respond_to? :join
     return config_paths.join(',')
   end
+  
+  def self.run_from_app(args = "", use_sudo = true, abort_on_error = true)
+    if RUBY_PLATFORM =~ /mswin/ or !use_sudo
+      # GemInstaller can be invoked from Ruby if you DON'T require root access to install gems
+      begin
+        args_array = args.split(' ')
+        GemInstaller.run(args_array)
+      rescue Exception => e
+        # Abort App startup if GemInstaller failed (optional)
+        raise e if abort_on_error
+      end
+    else
+      # GemInstaller must be invoked via the executable if you DO require root access to install gems
+      command = "geminstaller --sudo #{args}"
+      result = system(command)
+      # Abort App startup if GemInstaller failed (optional)
+      if abort_on_error
+        raise "GemInstaller failed, return code = #{$?}, command = #{command}" unless result and $? == 0
+      end
+    end
+  end
 end
