@@ -20,7 +20,7 @@ if RUBY_PLATFORM =~ /mswin/ or !use_sudo
   # GemInstaller can be invoked from Ruby if you DON'T require root access to install gems
   begin
     args_array = args.split(' ')
-    GemInstaller.run(args)
+    GemInstaller.run(args_array)
   rescue Exception => e
     # Abort Rails startup if GemInstaller failed (optional)
     raise e
