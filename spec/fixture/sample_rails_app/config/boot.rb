@@ -15,7 +15,8 @@ end
 require "rubygems"
 require "geminstaller"
 use_sudo = true # set this flag to false if you don't need root access to install gems
-args = "--config #{File.expand_path(RAILS_ROOT)}/config/geminstaller.yml"
+config_paths = "#{File.expand_path(RAILS_ROOT)}/config/geminstaller.yml"
+args = "--config #{config_paths}"
 if RUBY_PLATFORM =~ /mswin/ or !use_sudo
   # GemInstaller can be invoked from Ruby if you DON'T require root access to install gems
   begin
