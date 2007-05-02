@@ -21,7 +21,10 @@ if RUBY_PLATFORM =~ /mswin/ or !use_sudo
   GemInstaller.run(args)
 else
   # GemInstaller must be invoked via the executable if you DO require root access to install gems
-  system "geminstaller --sudo --config=#{RAILS_ROOT}/config/geminstaller.yml"
+  command = "geminstaller --sudo --config=#{RAILS_ROOT}/config/geminstaller.yml"
+  result = system(command)
+  # Abort Rails startup if GemInstaller failed (optional)
+  raise "GemInstaller failed, return code = #{$?}, command = #{command}" unless result and $? == 0
 end
 
 # The 'autogem' method will automatically add all gems in the GemInstaller config to your load path, using the 'gem'
