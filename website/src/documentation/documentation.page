@@ -16,13 +16,13 @@ h2. Table of Contents
 ** "Unsuppressible Output":#unsuppressible_output
 * "Config File":#config_file
 ** "Config File Syntax Summary":#config_file_syntax_summary
-** "<code>name</code> config node":#name_config_node
-** "<code>version</code> config node":#version_config_node
-** "<code>platform</code> config node":#platform_config_node
-** "<code>install_options</code> config node":#install_options_config_node
-** "<code>check_for_upgrade</code> config node":#check_for_upgrade_config_node
-** "<code>fix_dependencies</code> config node":#fix_dependencies_config_node
-** "<code>prefer_binary_platform</code> config node":#prefer_binary_platform_config_node
+** "<code>name</code> config property":#name_config_property
+** "<code>version</code> config property":#version_config_property
+** "<code>platform</code> config property":#platform_config_property
+** "<code>install_options</code> config property":#install_options_config_property
+** "<code>check_for_upgrade</code> config property":#check_for_upgrade_config_property
+** "<code>fix_dependencies</code> config property":#fix_dependencies_config_property
+** "<code>prefer_binary_platform</code> config property":#prefer_binary_platform_config_property
 * "Using GemInstaller with Ruby on Rails or Other Ruby Apps":#using_geminstaller_with_ruby_on_rails_or_other_ruby_apps
 ** "Invoking the <code>GemInstaller</code> Class from Rails":#invoking_the_geminstaller_class_from_rails
 ** "Invoking the <code>geminstaller</code> Executable from Rails":#invoking_the_geminstaller_executable_from_rails
@@ -155,7 +155,7 @@ NOTE: Currently, the order of gems in the config file matters.  It will install 
 
 h3(#config_file_syntax_summary). Config File Syntax Summary
 
-This is an example config file template showing all the valid nodes:
+This is an example config file template showing all the valid properties:
 
 <pre>
 \---
@@ -177,13 +177,13 @@ gems:
   (etc...)
 </pre>
 
-All nodes are optional, except for the gem name.  If a default is specified, it will be used unless the gem specifically overrides it.
+All properties are optional, except for the gem name.  If a default is specified, it will be used unless the gem specifically overrides it.
 
-h3(#name_config_node). <code>name</code> config node
+h3(#name_config_property). <code>name</code> config property
 
 Required, no default.  This is the name of the gem to install.  GemInstaller always does an exact match on the name, a substring will not match.  
 
-h3(#version_config_node). <code>version</code> config node
+h3(#version_config_property). <code>version</code> config property
 
 Defaults to '> 0'.  This is the version specification used to select a gem.  The highest version which meets the specification will be installed.  GemInstaller always does an exact match on the name, a substring will not match.
 
@@ -191,25 +191,25 @@ You should enclose the version specification in single quotes.  This is not alwa
 
 There are many different options for version specifications.  For more info, see the section on "Specifying Versions":http://rubygems.org/read/chapter/16 in the RubyGems User Guide.
 
-h3(#platform_config_node). <code>platform</code> config node
+h3(#platform_config_property). <code>platform</code> config property
 
-Defaults to 'ruby'.  This is the platform for the gem.  This must match a platform which is valid and available for the gem name and version specification.  See the sections on "Automatic Platform Detection":#automatic_platform_detection and the "<code>prefer_binary_platform</code> config node":#prefer_binary_platform for more info on how platforms are handled.
+Defaults to 'ruby'.  This is the platform for the gem.  This must match a platform which is valid and available for the gem name and version specification.  See the sections on "Automatic Platform Detection":#automatic_platform_detection and the "<code>prefer_binary_platform</code> config property":#prefer_binary_platform for more info on how platforms are handled.
 
-h3(#install_options_config_node). <code>install_options</code> config node
+h3(#install_options_config_property). <code>install_options</code> config property
 
-Defaults to empty string.  The <code>install_options</code> config node can contain any option which is valid to pass to the RubyGems <code>'gem install'</code> command.  These options will be passed on when GemInstaller internally invokes RubyGems.  Type <code>gem install --help</code> to list the options.  
+Defaults to empty string.  The <code>install_options</code> config property can contain any option which is valid to pass to the RubyGems <code>'gem install'</code> command.  These options will be passed on when GemInstaller internally invokes RubyGems.  Type <code>gem install --help</code> to list the options.  
 
-h3(#check_for_upgrade_config_node). <code>check_for_upgrade</code> config node
+h3(#check_for_upgrade_config_property). <code>check_for_upgrade</code> config property
 
 Defaults to false.  By default, GemInstaller will not perform any remote operations unless they are necessary to install a required gem.  In other words, if there is a local gem which meets the specs, nothing will be done.  This allows GemInstaller to still run normally when you are not connected to a network.  
 
 However, if you are using a non-specific version spec (for example, '>= 1.0.0), there COULD be a higher version available on the remote gem server.  If set to true, <code>check_for_upgrade</code> will force GemInstaller to check for a higher-versioned gem on the server which still matches the version specification, and install it if one is found.  
 
-h3(#fix_dependencies_config_node). <code>fix_dependencies</code> config node
+h3(#fix_dependencies_config_property). <code>fix_dependencies</code> config property
 
 Defaults to false.  Ruby Gems can depend on other gems, but the other gem might still get manually uninstalled (by using the <code>gem uninstall --ignore-dependencies GEMNAME</code>) option.  The <code>--fix_dependencies</code> option will detect these missing dependencies, and automatically fix them.  You shouldn't need this unless you go around uninstalling gems with the <code>--ignore-dependencies</code> option.  WARNING: This option can GREATLY increase the time it takes to run GemInstaller, especially if you have a lot of gems in your config, and especially on Windows.  You probably always want it left as the default of false unless you suspect that some dependencies have been uninstalled.
 
-h3(#prefer_binary_platform_config_node). <code>prefer_binary_platform</code> config node
+h3(#prefer_binary_platform_config_property). <code>prefer_binary_platform</code> config property
 
 Defaults to true.  GemInstaller automatically guesses at the correct platform for gem which have no platform specified.  Any platform which is not 'ruby' is considered a 'binary' platform.  
 
@@ -332,7 +332,7 @@ The "correct" platform can be determined in a few ways.  The easiest way is to l
 
 However, GemInstaller may not always guess right, especially for uncommon platforms, or gems which do not have a standard platform string specified.  In these cases, the <code>'platform'</code> property for a gems can be specified in the geminstaller config file.  If you know what platform you want for a specific gem, and you only run GemInstaller on one platform, you can hardcode this value.  Even if you run GemInstaller on multiple platforms (and therefore can't hardcode the platform string), you can use <code>erb</code> to programatically pick the correct platform.  See "Using <code>erb</code> in config files":#using_erb_in_config_files for an example.
 
-See the section on the "<code>prefer_binary_platform</code> config node":#prefer_binary_platform for more info.
+See the section on the "<code>prefer_binary_platform</code> config property":#prefer_binary_platform for more info.
 
 h2(#dealing_with_sudo). Dealing with sudo and root-owned RubyGem installations 
 
