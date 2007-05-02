@@ -31,7 +31,7 @@ if (ARGV.include?("-s") or ARGV.include?("--sudo"))
   args.reject! {|arg| arg == "-s" || arg == "--sudo"}
   geminstaller_executable = File.join(File.expand_path(dir), 'geminstaller')
   cmd = "sudo ruby #{geminstaller_executable} #{args.join(' ')}"
-  system(cmd)
+  exit system(cmd)
 else
-  GemInstaller.run
+  exit GemInstaller.run
 end

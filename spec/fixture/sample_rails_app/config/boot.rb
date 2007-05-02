@@ -15,13 +15,19 @@ end
 require "rubygems"
 require "geminstaller"
 use_sudo = true # set this flag to false if you don't need root access to install gems
+config_paths = ["#{File.expand_path(RAILS_ROOT)}/config/geminstaller.yml"]
 if RUBY_PLATFORM =~ /mswin/ or !use_sudo
   # GemInstaller can be invoked from Ruby if you DON'T require root access to install gems
-  args = ["--config=#{RAILS_ROOT}/config/geminstaller.yml"]
-  GemInstaller.run(args)
+  begin
+    args = ['--config'] << config_paths
+    GemInstaller.run(args)
+  rescue Exception => e
+    # Abort Rails startup if GemInstaller failed (optional)
+    raise e
+  end
 else
   # GemInstaller must be invoked via the executable if you DO require root access to install gems
-  command = "geminstaller --sudo --config=#{RAILS_ROOT}/config/geminstaller.yml"
+  command = "geminstaller --sudo --config=#{config_paths.join(',')}"
   result = system(command)
   # Abort Rails startup if GemInstaller failed (optional)
   raise "GemInstaller failed, return code = #{$?}, command = #{command}" unless result and $? == 0
