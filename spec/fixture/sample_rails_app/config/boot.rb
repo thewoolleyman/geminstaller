@@ -16,8 +16,8 @@ require "rubygems"
 require "geminstaller"
 config_paths = "#{File.expand_path(RAILS_ROOT)}/config/geminstaller.yml"
 args = "--config #{config_paths}"
-use_sudo = true # set this flag to false if you don't need root access to install gems
-abort_on_error = true
+use_sudo = true # default is true, set this flag to false if you don't need root access to install gems
+abort_on_error = true # default is true, set this flag to false if you don't want GemInstaller errors to abort Rails startup
 GemInstaller.run_from_app(args, use_sudo, abort_on_error)
 
 # The 'autogem' method will automatically add all gems in the GemInstaller config to your load path, using the 'gem'
