@@ -38,22 +38,37 @@ module GemInstaller
   end
   
   def self.run_from_app(args = "", use_sudo = true, abort_on_error = true)
+    args = args.join(' ') if args.respond_to? :join
     if RUBY_PLATFORM =~ /mswin/ or !use_sudo
       # GemInstaller can be invoked from Ruby if you DON'T require root access to install gems
       begin
         args_array = args.split(' ')
         GemInstaller.run(args_array)
       rescue Exception => e
-        # Abort App startup if GemInstaller failed (optional)
-        raise e if abort_on_error
+        if abort_on_error
+          error = GemInstaller::GemInstallerError.new("GemInstaller.run failed, args = '#{args}'.  Original exception message: '#{e.message}'")
+          error.set_backtrace(e.backtrace)
+          raise error 
+        end
       end
     else
       # GemInstaller must be invoked via the executable if you DO require root access to install gems
       command = "geminstaller --sudo #{args}"
       result = system(command)
-      # Abort App startup if GemInstaller failed (optional)
       if abort_on_error
-        raise "GemInstaller failed, return code = #{$?}, command = #{command}" unless result and $? == 0
+        raise GemInstaller::GemInstallerError.new("GemInstaller executable failed, return code = #{$?}, command = '#{command}'.  Original exception message: '#{e.message}'") unless result and $? == 0
+      end
+    end
+  end
+
+  def self.autogem_from_app(config_paths = nil, abort_on_error = true)
+    begin
+      GemInstaller.autogem(config_paths)
+    rescue Exception => e
+      if abort_on_error
+        error = GemInstaller::GemInstallerError.new("GemInstaller.autogem failed, config_paths = '#{config_paths}'.  Original exception message: '#{e.message}'")
+        error.set_backtrace(e.backtrace)
+        raise error 
       end
     end
   end
