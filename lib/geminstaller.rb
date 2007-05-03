@@ -2,9 +2,24 @@ dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/geminstaller/requires.rb")
 
 module GemInstaller
-  def self.run(args = [])
-    app = create_application(args)
-    app.run
+  def self.run(args = [], geminstaller_executable = 'geminstaller')
+    # recursively call script with sudo, if --sudo option is specified
+    if (args.include?("-s") or args.include?("--sudo"))
+      # TODO: this sudo support seems like a hack, but I don't have a better idea right now.  Ideally, we would
+      # invoke rubygems from the command line inside geminstaller.  However, we can't do that becase rubygems
+      # currently doesn't provide a way to specify platform from the command line - it always pops up the list
+      # for multi-platform gems, and we have to extend/hack rubygems to manage that.
+      # Feel free to comment or improve it, this seems to work for now...
+      args_without_sudo = args.dup
+      args_without_sudo.reject! {|arg| arg == "-s" || arg == "--sudo"}
+      cmd = "sudo ruby #{geminstaller_executable} #{args_without_sudo.join(' ')}"
+      result = system(cmd)
+      return 1 unless result
+      return $?.exitstatus
+    else
+      app = create_application(args)
+      app.run
+    end
   end 
   
   def self.autogem(config_paths=nil)
