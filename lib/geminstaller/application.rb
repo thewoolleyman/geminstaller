@@ -29,22 +29,31 @@ module GemInstaller
           @rogue_gem_finder.print_rogue_gems(gems)
         end
       rescue Exception => e
-        message = e.message
-        message += "\n"
-        @output_filter.geminstaller_output(:error,message)
-        backtrace_as_string = e.backtrace.join("\n")
-        @output_filter.geminstaller_output(:debug,"#{backtrace_as_string}\n")
+        handle_exception(e)
         return -1
       end
       return 0
     end
     
     def autogem
-      # TODO: do some validation that args only contains --config option, especially not print_rogue_gems since this would mask a missing file error
-      # TODO: this should check exit_flag_and_return_code just like run method
-      handle_args
-      gems = create_gems_from_config
-      @autogem.autogem(gems)
+      begin
+        # TODO: do some validation that args only contains --config option, especially not print_rogue_gems since this would mask a missing file error
+        # TODO: this should check exit_flag_and_return_code just like run method
+        handle_args
+        gems = create_gems_from_config
+        return @autogem.autogem(gems)
+      rescue Exception => e
+        handle_exception(e)
+        return -1
+      end
+    end
+    
+    def handle_exception(e)
+      message = e.message
+      message += "\n"
+      @output_filter.geminstaller_output(:error,message)
+      backtrace_as_string = e.backtrace.join("\n")
+      @output_filter.geminstaller_output(:debug,"#{backtrace_as_string}\n")
     end
     
     def create_gems_from_config

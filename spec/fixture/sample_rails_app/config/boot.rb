@@ -18,15 +18,14 @@ require "geminstaller"
 config_paths = "#{File.expand_path(RAILS_ROOT)}/config/geminstaller.yml" # path(s) to your GemInstaller config file(s)
 args = "--config #{config_paths}" # arguments which will be passed to GemInstaller
 use_sudo = true # default is true, set this flag to false if you don't need root access to install gems, it is ignored on windows
-abort_on_error = true # default is true, set this flag to false if you don't want GemInstaller errors to abort Rails startup
 
 # The 'install' method will auto-install gems as specified by the args and config
-GemInstaller.install(args, use_sudo, abort_on_error)
+GemInstaller.install(args, use_sudo)
 
 # The 'autogem' method will automatically add all gems in the GemInstaller config to your load path, using the 'gem'
 # or 'require_gem' command.  If you want to use other config file path(s), pass them as an array or comma-delimited list.
 # Note that only the *first* version of any given gem will be loaded.
-GemInstaller.autogem(config_paths, abort_on_error)
+GemInstaller.autogem(config_paths)
 
 # The following line will allow you to debug against a local checkout of geminstaller - make sure the geminstaller gem is not installed
 #system "ruby /my/path/to/geminstaller/bin/geminstaller --sudo #{args}"
