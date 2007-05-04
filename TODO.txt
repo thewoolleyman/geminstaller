@@ -1,3 +1,4 @@
+* another review of how failures are handled in rails invocation
 * change default error return code to 1 from -1
 * update autogem docs to reflect abort_on_error flag
 * docs should indicate that I eat my own dog food

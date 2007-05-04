@@ -21,4 +21,10 @@ rescue LoadError
 end
 
 geminstaller_executable ||= File.join(File.expand_path(dir), 'geminstaller')
+
+if ARGV.include?('--geminstaller-exec-path')
+  print "geminstaller_exec_path=#{geminstaller_executable}"
+  exit 0
+end
+
 exit GemInstaller.run(ARGV, geminstaller_executable)

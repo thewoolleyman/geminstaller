@@ -15,12 +15,16 @@ end
 require "rubygems"
 require "geminstaller"
 
-config_paths = "#{File.expand_path(RAILS_ROOT)}/config/geminstaller.yml" # path(s) to your GemInstaller config file(s)
-args = "--config #{config_paths}" # arguments which will be passed to GemInstaller
-use_sudo = true # default is true, set this flag to false if you don't need root access to install gems, it is ignored on windows
+config_paths = "#{File.expand_path(RAILS_ROOT)}/config/geminstaller.yml" # Path(s) to your GemInstaller config file(s)
+args = "--config #{config_paths}" # Arguments which will be passed to GemInstaller
+
+# This will use sudo by default on all non-windows platforms, but requires an entry in your
+# sudoers file to avoid having to type a password.  It can be omitted if you don't want to use sudo.
+# See http://geminstaller.rubyforge.org/documentation/documentation.html#dealing_with_sudo
+args += " --sudo" unless RUBY_PLATFORM =~ /mswin/ 
 
 # The 'install' method will auto-install gems as specified by the args and config
-GemInstaller.install(args, use_sudo)
+GemInstaller.run(args)
 
 # The 'autogem' method will automatically add all gems in the GemInstaller config to your load path, using the 'gem'
 # or 'require_gem' command.  If you want to use other config file path(s), pass them as an array or comma-delimited list.

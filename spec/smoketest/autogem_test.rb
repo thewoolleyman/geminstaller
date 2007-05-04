@@ -42,7 +42,12 @@ print "Geminstaller command complete.  Now testing GemInstaller.autogem() comman
 require 'rubygems'
 require 'geminstaller'
 begin
-  GemInstaller::autogem("#{config_files}")
+  result = GemInstaller::autogem("#{config_files}")
+  unless result[0].name == "x10-cm17a"
+    # TODO: better test for all gems
+    print "FAILURE, GemInstaller.autogem did not return the expected gems, gems were: #{result.join(' ')}\n"
+    exit 1
+  end
 rescue Exception => e
   # ruby-doom fails with require-gem on rubygems 0.8
   if Gem::RubyGemsVersion.index('0.8') == 0

@@ -94,6 +94,7 @@ module GemInstaller
       
       @autogem = GemInstaller::Autogem.new
       @autogem.gem_command_manager = @gem_command_manager
+      @autogem.gem_source_index_proxy = @gem_source_index_proxy
       @autogem.gem_spec_manager = @gem_spec_manager
 
       @gem_list_checker = GemInstaller::GemListChecker.new

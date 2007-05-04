@@ -1,7 +1,8 @@
 module GemInstaller
   class Autogem
-    attr_writer :gem_command_manager, :gem_spec_manager
+    attr_writer :gem_command_manager, :gem_spec_manager, :gem_source_index_proxy
     def autogem(gems)
+      @gem_source_index_proxy.refresh!
       reversed_gems = gems.reverse!
       @completed_names = []
       @completed_gems = []

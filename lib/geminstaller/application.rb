@@ -43,6 +43,7 @@ module GemInstaller
         gems = create_gems_from_config
         return @autogem.autogem(gems)
       rescue Exception => e
+        p e
         handle_exception(e)
         return -1
       end
