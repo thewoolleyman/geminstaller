@@ -65,16 +65,19 @@ module GemInstaller
   
   def self.find_geminstaller_executable
     possible_locations = [
-      'ruby geminstaller',
+      'ruby -S geminstaller',
       'ruby /usr/local/bin/geminstaller',
       'ruby /usr/bin/geminstaller',
-      'ruby ./bin/geminstaller',
       'ruby ./bin/geminstaller'
       ]
     path_key = 'geminstaller_exec_path='
     possible_locations.each do |possible_location|
       cmd = "#{possible_location} --geminstaller-exec-path"
+
+      $stderr_backup = $stderr.dup
+      $stderr.reopen("/dev/null", "w")
       io = IO.popen(cmd)
+      $stderr = $stderr_backup.dup
       output = io.read
       next unless output =~ /#{path_key}/
       path = output.sub(path_key,'')
