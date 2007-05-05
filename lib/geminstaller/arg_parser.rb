@@ -83,7 +83,7 @@ module GemInstaller
         end
 
         opts.on("-v", "--version", version_msg) do
-          @output = GemInstaller::version
+          @output = "#{GemInstaller::version}\n"
         end
       end
 
