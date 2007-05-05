@@ -169,7 +169,7 @@ context "an ArgParser instance with version option" do
   specify "should return version" do
     @arg_parser.parse(@args)
     output = @arg_parser.output
-    output.should==("#{GemInstaller.version}")
+    output.should match(/#{GemInstaller.version}/)
   end
 end
 
