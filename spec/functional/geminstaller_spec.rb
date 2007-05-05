@@ -157,7 +157,11 @@ context "The GemInstaller.autogem method" do
 
     # These lines are required or else the GemInstaller.autogem command can't find the stubgem in the
     # test gem home.  I'm not sure why.
-    runner = Gem::GemRunner.new(:command_manager => Gem::CommandManager)
+    if Gem::RubyGemsVersion.index('0.8') == 0
+      runner = Gem::GemRunner.new()
+    else
+      runner = Gem::GemRunner.new(:command_manager => Gem::CommandManager)
+    end
     runner.do_configuration(['list'])    
 
     added_gems = GemInstaller.autogem([geminstaller_spec_live_config_path,geminstaller_spec_live_config_2_path])
