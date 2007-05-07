@@ -44,4 +44,29 @@ context "an RogueGemFinder instance with mock dependencies" do
     boilerplate = /# .*GemInstaller.*/m
     output.should_match boilerplate
   end
+
+  specify "should print message if passed an existing config with gems already specified" do
+    @mock_gem_spec_manager.should_receive(:all_local_gems).and_return([@rogue_gem])
+    @mock_gem_spec_manager.should_receive(:local_matching_gems).and_return([])
+
+    @mock_output_proxy.should_receive(:sysout).with(:anything)
+
+    config_file_paths = ['my_config.yaml']
+    output = @rogue_gem_finder.print_rogue_gems([@legit_gem], config_file_paths)
+    
+    boilerplate = /# .*already specified.*/m
+    output.should_match boilerplate
+  end
+
+  specify "should print message if passed an existing config with np gems already specified" do
+    @mock_gem_spec_manager.should_receive(:all_local_gems).and_return([@rogue_gem])
+
+    @mock_output_proxy.should_receive(:sysout).with(:anything)
+
+    config_file_paths = ['my_config.yaml']
+    output = @rogue_gem_finder.print_rogue_gems([], config_file_paths)
+    
+    boilerplate = /# .*already specified.*/m
+    output.should_match boilerplate
+  end
 end
