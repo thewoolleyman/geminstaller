@@ -1,6 +1,9 @@
 <% config = File.open("#{RAILS_ROOT}/config/geminstaller.yml")
    config_lines = config.read.gsub!("\n","<br/>") %>
+<hr/>
 <h2>geminstaller.yml</h2>
 <h2><%= config_lines %></h2>
+<hr/>
 <h2>Load Path: </h2>
 <h2><%= $:.join("\n") %></h2>
+<hr/>
