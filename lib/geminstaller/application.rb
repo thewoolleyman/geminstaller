@@ -25,9 +25,6 @@ module GemInstaller
         else
           process_gems(gems)
         end
-        if @options[:print_rogue_gems]
-          @rogue_gem_finder.print_rogue_gems(gems)
-        end
       rescue Exception => e
         handle_exception(e)
         return -1
@@ -43,7 +40,6 @@ module GemInstaller
         gems = create_gems_from_config
         return @autogem.autogem(gems)
       rescue Exception => e
-        p e
         handle_exception(e)
         return -1
       end

@@ -173,6 +173,11 @@ context "The GemInstaller.autogem method" do
     $:.should_include(@expected_load_path_entry_2_bin)
   end
 
+  specify "should handle exceptions" do
+    result = GemInstaller.autogem(['bogus_config_path'])
+    result.should ==(-1)
+  end
+
   teardown do
     GemInstaller::TestGemHome.uninstall_all_test_gems
   end
