@@ -6,17 +6,23 @@ module GemInstaller
     args = args.split(' ') unless args.respond_to? :join
     # recursively call script with sudo, if --sudo option is specified
     if platform_supports_sudo? and (args.include?("-s") or args.include?("--sudo"))
-      reinvoke_with_sudo(args, geminstaller_executable)
+      result = reinvoke_with_sudo(args, geminstaller_executable)
+      if result != 0 and (args.include?("-e") or args.include?("--exceptions"))
+        message = "Error: GemInstaller failed while being invoked with --sudo option.  See prior output for error, and use '--geminstaller-output=all --rubygems-output=all' options to get more details."
+        raise GemInstaller::GemInstallerError.new(message)
+      end
+      return result
     else
       app = create_application(args)
       app.run
     end
   end 
   
-  def self.autogem(config_paths=nil)
+  def self.autogem(config_paths = nil, exceptions = false)
     config_paths_string = parse_config_paths(config_paths)
     args = []
     args = ["--config=#{config_paths_string}"] if config_paths_string
+    args += ["--exceptions"] if exceptions
     app = create_application(args)
     app.autogem
   end
@@ -58,6 +64,8 @@ module GemInstaller
     args_without_sudo = args.dup
     args_without_sudo.reject! {|arg| arg == "-s" || arg == "--sudo"}
     cmd = "sudo ruby #{geminstaller_executable} #{args_without_sudo.join(' ')}"
+    # TODO: this eats any output.  There currently is no standard way to get a return code AND stdin AND stdout.
+    # Some non-standard packages like Open4 handle this.  
     result = system(cmd)
     return 1 unless result
     return $?.exitstatus

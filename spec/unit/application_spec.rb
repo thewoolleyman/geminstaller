@@ -66,6 +66,14 @@ context "an application instance invoked with no args" do
     return_code = @application.run
     return_code.should==(-1)
   end
+
+  specify ", with --exceptions option, should raise any exception" do
+    @options[:exceptions] = true
+    @mock_output_filter.should_receive(:geminstaller_output).once().with(:error,/GemInstaller::GemInstallerError/)
+    @mock_output_filter.should_receive(:geminstaller_output).once() # TODO: how to specify Error/stacktrace exception?
+    @mock_config_builder.should_receive(:build_config).and_raise(GemInstaller::GemInstallerError)
+    lambda { @application.run }.should_raise(GemInstaller::GemInstallerError)
+  end
 end
 
 context "an application instance invoked with invalid args or help option" do

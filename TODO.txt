@@ -1,3 +1,5 @@
+* sudo reinvokation swallows messages - look at re-implementing open4
+* Informational message for autogem
 * another review of how failures are handled in rails invocation
 * change default error return code to 1 from -1
 * update autogem docs to reflect abort_on_error flag
@@ -11,6 +13,7 @@
 * upload gem 
 - 0.2.0 release
 
+* better test coverage for --sudo and --exception options
 * Verify compatibility with RubyGems trunk - especially Gem::ListCommand vs. Gem::Commands::ListCommand
 * use rspec context_setup
 * split out geminstaller_spec into application_spec and geminstaller_spec.  Fix reference in docs / design

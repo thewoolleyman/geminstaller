@@ -142,6 +142,18 @@ context "an ArgParser instance with silent option" do
   end
 end
 
+context "an ArgParser instance with exceptions option" do
+  setup do
+    common_setup
+    @args.push("--exceptions")
+  end
+
+  specify "should return exceptions flag as true in options hash" do
+    @arg_parser.parse(@args)
+    @options[:exceptions].should==(true)
+  end
+end
+
 context "an ArgParser instance with rogue-gems option" do
   setup do
     common_setup

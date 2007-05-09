@@ -51,6 +51,7 @@ module GemInstaller
       @output_filter.geminstaller_output(:error,message)
       backtrace_as_string = e.backtrace.join("\n")
       @output_filter.geminstaller_output(:debug,"#{backtrace_as_string}\n")
+      raise e if @options[:exceptions]
     end
     
     def create_gems_from_config

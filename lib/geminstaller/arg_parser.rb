@@ -10,6 +10,7 @@ module GemInstaller
       raise GemInstaller::GemInstallerError.new("Args must be passed as an array.") unless args.nil? or args.respond_to? :shift
       args = ARGV if args.nil? || args == []
 
+      @options[:exceptions] = false
       @options[:silent] = false
       @options[:sudo] = false
       @options[:geminstaller_output] = [:error,:install,:info]
@@ -21,6 +22,8 @@ module GemInstaller
         opts.separator ""
 
         config_msg =                         "Comma-delimited path(s) to GemInstaller config file(s)."
+        exceptions_msg =                     "Raise any exceptions, rather than just printing them and exiting\n" +
+        "                                     with a non-zero return code."
         geminstaller_output_msg =            "Comma-delimited list of output types to show from GemInstaller.\n" +
         "                                       Examples:\n" + 
         "                                         --gall\n" +
@@ -56,6 +59,10 @@ module GemInstaller
 
         opts.on("-cCONFIGPATHS", "--config=CONFIGPATHS", String, config_msg) do |config_paths|
           @options[:config_paths] = config_paths
+        end
+
+        opts.on("-e", "--exceptions", exceptions_msg) do
+          @options[:exceptions] = true
         end
 
         opts.on("-gTYPES", "--geminstaller-output=TYPES", String, geminstaller_output_msg) do |geminstaller_output_flags|
