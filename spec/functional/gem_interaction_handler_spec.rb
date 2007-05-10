@@ -13,7 +13,7 @@ context "a GemInteractionHandler instance with a non-multiplatform dependent gem
       @gem_interaction_handler.handle_ask_yes_no(question)
     rescue GemInstaller::UnauthorizedDependencyPromptError => error
       expected_error_message = /RubyGems is prompting to install a required dependency/m
-      error.message.should_match(expected_error_message)
+      error.message.should match(expected_error_message)
     end
   end
 

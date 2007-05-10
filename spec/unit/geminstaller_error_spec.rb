@@ -12,6 +12,6 @@ context "an GemInstallerError" do
     error = GemInstaller::GemInstallerError.new
     descriptive_exit_message = error.descriptive_exit_message(message, command, args, listener)
     expected_error_message = /message.*Gem command was:.*command arg1 arg2.*Gem command output was:.*msg1.*msg2/m
-    descriptive_exit_message.should_match(expected_error_message)
+    descriptive_exit_message.should match(expected_error_message)
   end
 end

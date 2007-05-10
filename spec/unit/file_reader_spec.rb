@@ -14,7 +14,7 @@ context "A nonexistent file" do
   specify "should return an error message" do
     file_reader = GemInstaller::FileReader.new
     testfile_path = File.expand_path("missing_file.txt")
-    lambda { file_reader.read(testfile_path) }.should_raise GemInstaller::MissingFileError
+    lambda { file_reader.read(testfile_path) }.should raise_error(GemInstaller::MissingFileError)
   end
 end
 
@@ -27,7 +27,7 @@ context "An unopenable file" do
       end
     }
     testfile_path = File.expand_path("#{dir}/testfile.txt")
-    lambda { file_reader.read(testfile_path) }.should_raise GemInstaller::GemInstallerError
+    lambda { file_reader.read(testfile_path) }.should raise_error(GemInstaller::GemInstallerError)
   end
 end
 
@@ -40,6 +40,6 @@ context "A file that cannot be read" do
       end
     }
     testfile_path = File.expand_path("#{dir}/testfile.txt")
-    lambda { file_reader.read(testfile_path) }.should_raise GemInstaller::GemInstallerError
+    lambda { file_reader.read(testfile_path) }.should raise_error(GemInstaller::GemInstallerError)
   end
 end

@@ -44,15 +44,15 @@ context "a GemListChecker instance" do
   
   specify "should raise error from verify_and_specify_remote_gem! if there is no match found" do
     @sample_gem.name = "bogusname"
-    should_raise_error
+    should raise_error
   end
   
   teardown do
     GemInstaller::TestGemHome.uninstall_all_test_gems
   end
 
-  def should_raise_error
-    lambda { invoke_method }.should_raise(GemInstaller::GemInstallerError)
+  def should raise_error
+    lambda { invoke_method }.should raise_error(GemInstaller::GemInstallerError)
   end
   
   def should_not_raise_error

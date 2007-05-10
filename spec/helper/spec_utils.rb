@@ -114,8 +114,8 @@ module GemInstaller::SpecUtils
         rescue GemInstaller::GemInstallerError => error
           raise error
         end
-        }.should_raise GemInstaller::GemInstallerError
-        error.message.should_match(message_regex)
+        }.should raise_error(GemInstaller::GemInstallerError)
+        error.message.should match(message_regex)
     end
   end
 end

@@ -15,7 +15,7 @@ gems:
 - name: RedCloth
   version: '>= 3.0.4'
 - name: rspec
-  version: '= 0.7.5.1'
+  version: '= 0.9.3'
 - name: cmdparse
   version: '>= 2.0.2'
 - name: webgen

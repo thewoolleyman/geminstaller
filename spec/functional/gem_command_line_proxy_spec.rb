@@ -13,7 +13,7 @@ context "a gem command line proxy" do
     args = ['list','--remote']
     args += install_options_for_testing
     output = @gem_command_line_proxy.run(args)
-    output.should_be_an_instance_of(Array)
+    output.should be_an_instance_of(Array)
     expected_output = [
       "*** REMOTE GEMS ***",
       "stubgem (1.0.0)",
@@ -21,22 +21,22 @@ context "a gem command line proxy" do
       "stubgem-multiplatform (1.0.1, 1.0.0)",
       "    Multiplatform stub gem for testing geminstaller"]
     expected_output.each do |expected_output_line|
-      output.should_include(expected_output_line)
+      output.should include(expected_output_line)
     end
   end
   
   specify "should raise exception on nonzero return code" do
     args = ['--invalid-option']
-    # TODO: patch rspec to accept an exception instance for should_raise expectection parameter
+    # TODO: patch rspec to accept an exception instance for.should raise expectection parameter
     exception = nil
     begin
       @gem_command_line_proxy.run(args)
     rescue GemInstaller::GemInstallerError => e
       exception = e
     end
-    exception.should_be_an_instance_of(GemInstaller::GemInstallerError)
+    exception.should be_an_instance_of(GemInstaller::GemInstallerError)
     expected_error_message = "Error: gem command failed.*?ERROR:  Invalid option: --invalid-option.  See 'gem --help'.*"
-    exception.message.should_match(/#{expected_error_message}/m)
+    exception.message.should match(/#{expected_error_message}/m)
   end
 
   # This causes ruby to hang while waiting for input  
@@ -44,7 +44,7 @@ context "a gem command line proxy" do
   #   args = ['install','stubgem-multiplatform','--version','1.0.1','-y','--backtrace']
   #   args += install_options_for_testing
   #   output = @gem_command_line_proxy.run(args)
-  #   output.should_be_an_instance_of(Array)
+  #   output.should be_an_instance_of(Array)
   # end
 
   teardown do

@@ -51,7 +51,7 @@ context "a GemCommandManager instance" do
     rescue GemInstaller::UnauthorizedDependencyPromptError => error
       exception = error
       expected_error_message = /RubyGems is prompting to install a required dependency.*Gem command was:.*install dependent-stubgem.*Gem command output was:.*Install required dependency stubgem/m
-      error.message.should_match(expected_error_message)
+      error.message.should match(expected_error_message)
     end
     exception.class.should==(GemInstaller::UnauthorizedDependencyPromptError)
   end

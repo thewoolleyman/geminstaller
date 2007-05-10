@@ -35,6 +35,6 @@ context "an OutputListener" do
   end
 
   specify "should raise error if invalid stream is specified" do
-    lambda { @output_listener.notify('foo',:invalid_stream) }.should_raise(GemInstaller::GemInstallerError)
+    lambda { @output_listener.notify('foo',:invalid_stream) }.should raise_error(GemInstaller::GemInstallerError)
   end
 end

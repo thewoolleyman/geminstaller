@@ -34,7 +34,7 @@ context "an ArgParser instance with args which are not nil and are not passed as
   end
 
   specify "should raise exception" do
-    lambda { @arg_parser.parse(@args) }.should_raise(GemInstaller::GemInstallerError)
+    lambda { @arg_parser.parse(@args) }.should raise_error(GemInstaller::GemInstallerError)
   end
 end
 
@@ -86,7 +86,7 @@ context "an ArgParser instance with geminstaller-output option" do
     invalid = "invalid"
     @args.push("-g",invalid)
     @arg_parser.parse(@args)
-    @arg_parser.output.should_match(/Invalid geminstaller-output flag: #{invalid}/)
+    @arg_parser.output.should match(/Invalid geminstaller-output flag: #{invalid}/)
     @options[:geminstaller_output].should == @geminstaller_output_default
   end
 end
@@ -112,7 +112,7 @@ context "an ArgParser instance with rubygems-output option" do
     invalid = "invalid"
     @args.push("-r",invalid)
     @arg_parser.parse(@args)
-    @arg_parser.output.should_match(/Invalid rubygems-output flag: #{invalid}/)
+    @arg_parser.output.should match(/Invalid rubygems-output flag: #{invalid}/)
     @options[:rubygems_output].should == @rubygems_output_default
   end
 end
@@ -126,7 +126,7 @@ context "an ArgParser instance with rubygems-output option and silent option set
     @args.push("--silent")
     @args.push("--rubygems-output","stderr,stdout")
     @arg_parser.parse(@args)
-    @arg_parser.output.should_match(/The rubygems-output or geminstaller-output option cannot be specified if the silent option is true/)
+    @arg_parser.output.should match(/The rubygems-output or geminstaller-output option cannot be specified if the silent option is true/)
   end
 end
 
@@ -193,7 +193,7 @@ context "an ArgParser instance with sudo option" do
 
   specify "should return error message (sudo is not yet supported when GemInstaller is invoked programatically)" do
     @arg_parser.parse(@args)
-    @arg_parser.output.should_match(/The sudo option is not .* supported.*/)
+    @arg_parser.output.should match(/The sudo option is not .* supported.*/)
   end
 end
 
@@ -209,7 +209,7 @@ end
 def verify_usage_output
   @arg_parser.parse(@args)
   output = @arg_parser.output
-  output.should_match(/Usage: geminstaller.*/)
+  output.should match(/Usage: geminstaller.*/)
 end
 
 

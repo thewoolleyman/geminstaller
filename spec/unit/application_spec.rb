@@ -1,14 +1,14 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
-context "an application instance invoked with no args" do
+describe "an application instance invoked with no args" do
   setup do
     application_spec_setup_common
     @mock_arg_parser.should_receive(:parse).with(nil)
     @mock_arg_parser.should_receive(:output).and_return(nil)
   end
 
-  specify "should install a gem which is specified in the config and print startup message" do
+  it "should install a gem which is specified in the config and print startup message" do
     @mock_config_builder.should_receive(:build_config).and_return {@stub_config_local}
     
     gems = [@stub_gem]
@@ -72,7 +72,7 @@ context "an application instance invoked with no args" do
     @mock_output_filter.should_receive(:geminstaller_output).once().with(:error,/GemInstaller::GemInstallerError/)
     @mock_output_filter.should_receive(:geminstaller_output).once() # TODO: how to specify Error/stacktrace exception?
     @mock_config_builder.should_receive(:build_config).and_raise(GemInstaller::GemInstallerError)
-    lambda { @application.run }.should_raise(GemInstaller::GemInstallerError)
+    lambda { @application.run }.should raise_error(GemInstaller::GemInstallerError)
   end
 end
 

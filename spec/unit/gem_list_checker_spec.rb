@@ -16,7 +16,7 @@ context "a GemListChecker instance with mock dependencies" do
     stub_remote_list = ['stubgem (1.0.0)', 'stubgem (unexpected_version)']
     @mock_gem_command_manager.should_receive(:list_remote_gem).and_return(stub_remote_list)
     
-    lambda{ @gem_list_checker.find_remote_matching_gem(@sample_gem) }.should_raise(GemInstaller::GemInstallerError)
+    lambda{ @gem_list_checker.find_remote_matching_gem(@sample_gem) }.should raise_error(GemInstaller::GemInstallerError)
   end
 end
 

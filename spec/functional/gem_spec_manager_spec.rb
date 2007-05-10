@@ -56,9 +56,9 @@ context "an GemSpecManager instance" do
     local_gem_versions = all_local_gems.collect do |gem|
       gem.version
     end
-    local_gem_names.should_include(@sample_gem.name)
-    local_gem_names.should_include(@sample_multiplatform_gem.name)
-    local_gem_versions.should_include(@sample_gem.version)
+    local_gem_names.should include(@sample_gem.name)
+    local_gem_names.should include(@sample_multiplatform_gem.name)
+    local_gem_versions.should include(@sample_gem.version)
   end
   
   def install_gem(gem)

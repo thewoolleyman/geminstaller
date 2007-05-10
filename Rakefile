@@ -62,4 +62,11 @@ task :update_manifest do
   system('rake diff_manifest | patch -p0 Manifest.txt')
 end
 
+require 'rake'
+require 'spec/rake/spectask'
+
+desc "Run all specs"
+task :all_specs do
+end
+
 # vim: syntax=Ruby

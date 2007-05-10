@@ -71,7 +71,7 @@ context "a NoninteractiveChooser instance which is passed an install-formatted l
       end
       list_regexp = @list[0..4].join(".*")
       dependent_gem_regexp = Regexp.escape('"stubgem-nomatch 1.0.0 (solaris or mvs)"')
-      e.message.should_match(/.*Unable to select gem from list.*#{dependent_gem_regexp}.*#{list_regexp}/m)
+      e.message.should match(/.*Unable to select gem from list.*#{dependent_gem_regexp}.*#{list_regexp}/m)
     end
   end
 end
@@ -138,6 +138,6 @@ def should_choose(expected_choice, name, version, valid_platforms)
 end
 
 def should_raise_error(name, version, valid_platforms)
-  lambda{ @noninteractive_chooser.choose(@question, @list, name, version, valid_platforms) }.should_raise(GemInstaller::GemInstallerError)
+  lambda{ @noninteractive_chooser.choose(@question, @list, name, version, valid_platforms) }.should raise_error(GemInstaller::GemInstallerError)
 end
 

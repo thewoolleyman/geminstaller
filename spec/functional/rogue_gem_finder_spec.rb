@@ -28,7 +28,7 @@ context "an RogueGemFinder instance" do
     
     output = @rogue_gem_finder.print_rogue_gems([@legit_gem], config_file_paths)
     
-    output.should_match(/#{@rogue_gem.name}/)
+    output.should match(/#{@rogue_gem.name}/)
   end
 
   teardown do

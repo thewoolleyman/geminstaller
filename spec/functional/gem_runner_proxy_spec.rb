@@ -17,7 +17,7 @@ context "a GemRunnerProxy instance" do
 
     output = @gem_runner_proxy.run(gem_runner_args)
     expected_output = /#{sample_multiplatform_gem_name} \(#{sample_multiplatform_gem_version}, #{sample_multiplatform_gem_version_low}\)/m
-    output.join("\n").should_match(expected_output)
+    output.join("\n").should match(expected_output)
   end
 
   specify "should not throw an error if there is an normal rubygems exit via terminate_interaction" do
@@ -25,7 +25,7 @@ context "a GemRunnerProxy instance" do
   
     output = @gem_runner_proxy.run(gem_runner_args)
     expected_output = /Usage:/m
-    output.join("\n").should_match(expected_output)
+    output.join("\n").should match(expected_output)
   end
 
   specify "should return error output if there is an abnormal exit" do
@@ -35,7 +35,7 @@ context "a GemRunnerProxy instance" do
       @gem_runner_proxy.run(gem_runner_args)
     rescue GemInstaller::GemInstallerError => error
       expected_error_message = /Gem command was:.*gem bogus_command.*Gem command output was:.*Unknown command bogus_command/m
-      error.message.should_match(expected_error_message)
+      error.message.should match(expected_error_message)
     end
   end
 
@@ -48,7 +48,7 @@ context "a GemRunnerProxy instance" do
       @gem_runner_proxy.run(['install'])
     rescue GemInstaller::GemInstallerError => error
       expected_error_message = /unexpected dependency error message.*Gem command was:.*install.*Gem command output was:.*Install required dependency/m
-      error.message.should_match(expected_error_message)
+      error.message.should match(expected_error_message)
     end
   end
 
@@ -61,7 +61,7 @@ context "a GemRunnerProxy instance" do
       @gem_runner_proxy.run(['install'])
     rescue GemInstaller::GemInstallerError => error
       expected_error_message = /Gem command was:.*install.*Gem command output was:.*#{unexpected_prompt}/m
-      error.message.should_match(expected_error_message)
+      error.message.should match(expected_error_message)
     end
   end
 
@@ -71,7 +71,7 @@ context "a GemRunnerProxy instance" do
 
     @gem_interaction_handler.dependent_gem = sample_multiplatform_gem
     output = @gem_runner_proxy.run(gem_runner_args)
-    output.join("\n").should_match(/Successfully installed #{sample_multiplatform_gem_name}-#{sample_multiplatform_gem_version}-mswin32/m)
+    output.join("\n").should match(/Successfully installed #{sample_multiplatform_gem_name}-#{sample_multiplatform_gem_version}-mswin32/m)
   end
   
   teardown do

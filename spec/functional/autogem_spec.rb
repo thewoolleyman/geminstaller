@@ -27,7 +27,7 @@ context "an AutoGem instance" do
     added_gems = @autogem.autogem([@sample_gem_with_no_autogem])
     added_gems.size.should == 0
     load_path_entries(@sample_gem_with_no_autogem).each do |entry|
-      $:.should_not_include(entry)
+      $:.should_not include(entry)
     end
   end
   
@@ -47,8 +47,8 @@ context "an AutoGem instance" do
     added_gems.each do |added_gem|
       added_gem_names << added_gem.name
     end
-    added_gem_names.should_include(sample_dependent_gem.name)
-    added_gem_names.should_include(sample_gem.name)
+    added_gem_names.should include(sample_dependent_gem.name)
+    added_gem_names.should include(sample_gem.name)
     
     path_should_include_entries(sample_dependent_gem)
     path_should_include_entries(sample_gem)
@@ -64,9 +64,9 @@ context "an AutoGem instance" do
     added_gems.each do |added_gem|
       added_gem_names << added_gem.name
     end
-    added_gem_names.should_include(sample_dependent_multilevel_gem.name)
-    added_gem_names.should_include(sample_dependent_gem.name)
-    added_gem_names.should_include(sample_gem.name)
+    added_gem_names.should include(sample_dependent_multilevel_gem.name)
+    added_gem_names.should include(sample_dependent_gem.name)
+    added_gem_names.should include(sample_gem.name)
     
     path_should_include_entries(sample_dependent_multilevel_gem)
     path_should_include_entries(sample_dependent_gem)
@@ -75,14 +75,14 @@ context "an AutoGem instance" do
 
   def path_should_include_entries(gem)
     load_path_entries(gem).each do |entry|
-      $:.should_include(entry)
+      $:.should include(entry)
     end
   end
 
   def delete_existing_path_entries(gem)
     load_path_entries(gem).each do |entry|
       $:.delete(entry)
-      $:.should_not_include(entry)
+      $:.should_not include(entry)
     end
   end
 

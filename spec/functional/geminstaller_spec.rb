@@ -118,7 +118,7 @@ context "The geminstaller command line application created via GemInstaller.run 
 
   specify "should run successfully" do
     result = GemInstaller.run(geminstaller_spec_test_args)
-    result.should_equal(0)
+    result.should equal(0)
   end
 
   teardown do
@@ -147,10 +147,10 @@ context "The GemInstaller.autogem method" do
     $:.delete(@expected_load_path_entry_bin)
     $:.delete(@expected_load_path_entry_2)
     $:.delete(@expected_load_path_entry_2_bin)
-    $:.should_not_include(@expected_load_path_entry)
-    $:.should_not_include(@expected_load_path_entry_bin)
-    $:.should_not_include(@expected_load_path_entry_2)
-    $:.should_not_include(@expected_load_path_entry_2_bin)
+    $:.should_not include(@expected_load_path_entry)
+    $:.should_not include(@expected_load_path_entry_bin)
+    $:.should_not include(@expected_load_path_entry_2)
+    $:.should_not include(@expected_load_path_entry_2_bin)
   end
 
   specify "should add a specified gem to the load path" do
@@ -165,12 +165,12 @@ context "The GemInstaller.autogem method" do
     runner.do_configuration(['list'])    
 
     added_gems = GemInstaller.autogem([geminstaller_spec_live_config_path,geminstaller_spec_live_config_2_path])
-    added_gems.should_include(sample_gem)
-    added_gems.should_include(sample_multiplatform_gem)
-    $:.should_include(@expected_load_path_entry)
-    $:.should_include(@expected_load_path_entry_bin)
-    $:.should_include(@expected_load_path_entry_2)
-    $:.should_include(@expected_load_path_entry_2_bin)
+    added_gems.should include(sample_gem)
+    added_gems.should include(sample_multiplatform_gem)
+    $:.should include(@expected_load_path_entry)
+    $:.should include(@expected_load_path_entry_bin)
+    $:.should include(@expected_load_path_entry_2)
+    $:.should include(@expected_load_path_entry_2_bin)
   end
 
   specify "should handle exceptions" do

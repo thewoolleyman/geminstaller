@@ -19,7 +19,7 @@ context "test_gem_home_spec: the TestGemHome class" do
     # make sure rubygems dirs, including source_index, were created
     entries = Dir.entries("#{@test_gem_home_dir}")
     ["bin", "cache", "doc", "gems", "lib", "specifications","source_cache"].each do |expected_subdir|
-      entries.should_include(expected_subdir)
+      entries.should include(expected_subdir)
     end
   end
 end

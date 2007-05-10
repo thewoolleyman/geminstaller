@@ -29,15 +29,15 @@ context "a VersionSpecifier instance" do
 #  end
 
   specify "should throw an error if no matching versions are found" do    
-    lambda { @version_specifier.specify("> 2", '2, 1') }.should_raise(GemInstaller::GemInstallerError)
-    lambda { @version_specifier.specify("!= 2", '2') }.should_raise(GemInstaller::GemInstallerError)
+    lambda { @version_specifier.specify("> 2", '2, 1') }.should raise_error(GemInstaller::GemInstallerError)
+    lambda { @version_specifier.specify("!= 2", '2') }.should raise_error(GemInstaller::GemInstallerError)
   end
   
   specify "should include name of gem in error message, if it is specified" do    
     begin
       @version_specifier.specify("!= 2", '2', 'gem_name')
     rescue GemInstaller::GemInstallerError => e
-      e.message.should_match(/gem_name/)
+      e.message.should match(/gem_name/)
     end
   end
 

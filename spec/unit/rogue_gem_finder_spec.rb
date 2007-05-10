@@ -25,7 +25,7 @@ context "an RogueGemFinder instance with mock dependencies" do
     output = @rogue_gem_finder.print_rogue_gems([@legit_gem], config_file_paths)
     
     boilerplate = /# .*GemInstaller.*/m
-    output.should_match boilerplate
+    output.should match(boilerplate)
   end
 
   specify "should print message if gem is a preinstalled gem" do
@@ -42,7 +42,7 @@ context "an RogueGemFinder instance with mock dependencies" do
     output = @rogue_gem_finder.print_rogue_gems([@legit_gem], config_file_paths)
     
     boilerplate = /# .*GemInstaller.*/m
-    output.should_match boilerplate
+    output.should match(boilerplate)
   end
 
   specify "should print message if passed an existing config with gems already specified" do
@@ -55,7 +55,7 @@ context "an RogueGemFinder instance with mock dependencies" do
     output = @rogue_gem_finder.print_rogue_gems([@legit_gem], config_file_paths)
     
     boilerplate = /# .*already specified.*/m
-    output.should_match boilerplate
+    output.should match(boilerplate)
   end
 
   specify "should print message if passed an existing config with np gems already specified" do
@@ -67,6 +67,6 @@ context "an RogueGemFinder instance with mock dependencies" do
     output = @rogue_gem_finder.print_rogue_gems([], config_file_paths)
     
     boilerplate = /# .*already specified.*/m
-    output.should_match boilerplate
+    output.should match(boilerplate)
   end
 end
