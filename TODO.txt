@@ -1,4 +1,6 @@
-* sudo reinvokation swallows messages - look at re-implementing open4
+* Ensure all regexp mock expectations for stdout include begin-of-line match (or else recursive failure will pass)
+* Rspec mocks are not working with regexp expectations - see geminstaller_spec - should_print_error.....
+* sudo reinvokation swallows messages - add option to redirect stderr to stdout
 * Informational message for autogem
 * another review of how failures are handled in rails invocation
 * change default error return code to 1 from -1
@@ -9,8 +11,9 @@
 * tutorial: using common or shared config files
 * document option to run via capistrano
 * crossreference front page, tutorials, and docs
+* rename rspec stuff - context -> describe
 * publish site
-* upload gem 
+* upload gem
 - 0.2.0 release
 
 * better test coverage for --sudo and --exception options

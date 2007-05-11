@@ -154,6 +154,18 @@ context "an ArgParser instance with exceptions option" do
   end
 end
 
+context "an ArgParser instance with redirect-stderr-to-stdout option" do
+  setup do
+    common_setup
+    @args.push("--redirect-stderr-to-stdout")
+  end
+
+  specify "should return redirect_stderr_to_stdout flag as true in options hash" do
+    @arg_parser.parse(@args)
+    @options[:redirect_stderr_to_stdout].should==(true)
+  end
+end
+
 context "an ArgParser instance with rogue-gems option" do
   setup do
     common_setup

@@ -53,10 +53,30 @@ context "The geminstaller command line application" do
     @application.run
   end
   
-  specify "should print error if --sudo option is specified (it's only supported if geminstaller is invoked via bin/geminstaller, which strips out the option)" do
+  specify "should print error if --sudo option is specified (it's only supported if geminstaller is invoked via GemInstaller class, which strips out the option)" do
     @application.args = ["--sudo","--config=#{geminstaller_spec_live_config_path}"]
-    @mock_output_proxy.should_receive(:syserr).with(/The sudo option is not .* supported.*/)
+    @mock_output_proxy.should_receive(:syserr).once().with(/^The sudo option is not .* supported/)
     @application.run
+  end
+  
+  specify "should allow redirection of stderr to stdout" do
+    begin
+      @application.args = ["--config=bogus_config_file.yml","--redirect-stderr-to-stdout"]
+      @original_stdout = $stdout
+      @mock_stdout = MockStdout.new
+      $stdout = @mock_stdout
+      @original_stderr = $stderr
+      @mock_stderr = MockStderr.new
+      $stderr = @mock_stderr
+      @output_proxy = @registry.output_proxy
+      @output_filter.output_proxy = @output_proxy
+      @application.run
+      @mock_stdout.out.should match(/^Error/)
+      @mock_stderr.err.should ==(nil)
+    ensure
+      $stdout = @original_stdout
+      $stderr = @original_stderr
+    end
   end
   
   specify "should install a platform-specific binary gem" do

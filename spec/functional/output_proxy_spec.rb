@@ -1,26 +1,6 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
-class MockStderr
-  attr_reader :err
-  def write(out)
-  end
-  
-  def print(err)
-    @err = err
-  end
-end
-
-class MockStdout
-  attr_reader :out
-  def write(out)
-  end
-  
-  def print(out)
-    @out = out
-  end
-end
-
 context "The output proxy" do
   setup do
     @output_proxy = GemInstaller::OutputProxy.new
@@ -30,6 +10,8 @@ context "The output proxy" do
     @original_stderr = $stderr
     @mock_stderr = MockStderr.new
     $stderr = @mock_stderr
+    @options = {}
+    @output_proxy.options = @options
   end
 
   specify "should proxy to stdout and stderr" do
@@ -39,6 +21,14 @@ context "The output proxy" do
     @output_proxy.syserr(syserr)
     @mock_stdout.out.should==(sysout)
     @mock_stderr.err.should==(syserr)
+  end
+  
+  specify "should support option to redirect stderr to stdout" do
+    syserr = "err!"
+    @options[:redirect_stderr_to_stdout] = true
+    @output_proxy.syserr(syserr)
+    @mock_stdout.out.should==(syserr)
+    @mock_stderr.err.should==(nil)
   end
   
   specify "should allow default output stream to be set for output method" do

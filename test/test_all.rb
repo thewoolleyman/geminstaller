@@ -24,7 +24,7 @@ retval = 1
 begin
   retval = $behaviour_runner.run(args, false)
 ensure
-  server_was_stopped = GemInstaller::EmbeddedGemServer.stop
+  $server_was_stopped = GemInstaller::EmbeddedGemServer.stop
   GemInstaller::TestGemHome.reset
 end
 retval ||= 0

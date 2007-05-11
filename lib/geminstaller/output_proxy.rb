@@ -13,7 +13,11 @@ module GemInstaller
 
     def syserr(err)
       return if silent?
-      $stderr.print err
+      if @options[:redirect_stderr_to_stdout]
+        $stdout.print err
+      else
+        $stderr.print err
+      end
     end
     
     # TODO: should remove this, make callers explicitly choose.

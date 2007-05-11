@@ -119,3 +119,23 @@ module GemInstaller::SpecUtils
     end
   end
 end
+
+class MockStderr
+  attr_reader :err
+  def write(out)
+  end
+  
+  def print(err)
+    @err = err
+  end
+end
+
+class MockStdout
+  attr_reader :out
+  def write(out)
+  end
+  
+  def print(out)
+    @out = out
+  end
+end

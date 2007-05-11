@@ -13,3 +13,8 @@ if RUBY_PLATFORM.index('mswin')
 end
 
 include GemInstaller::SpecUtils::ClassMethods
+
+at_exit do
+  GemInstaller::EmbeddedGemServer.stop unless $server_was_stopped
+  GemInstaller::TestGemHome.reset
+end

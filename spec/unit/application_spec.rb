@@ -7,7 +7,7 @@ describe "an application instance invoked with no args" do
     @mock_arg_parser.should_receive(:parse).with(nil)
     @mock_arg_parser.should_receive(:output).and_return(nil)
   end
-
+  
   it "should install a gem which is specified in the config and print startup message" do
     @mock_config_builder.should_receive(:build_config).and_return {@stub_config_local}
     

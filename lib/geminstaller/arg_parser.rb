@@ -11,6 +11,7 @@ module GemInstaller
       args = ARGV if args.nil? || args == []
 
       @options[:exceptions] = false
+      @options[:redirect_stderr_to_stdout] = false
       @options[:silent] = false
       @options[:sudo] = false
       @options[:geminstaller_output] = [:error,:install,:info]
@@ -24,6 +25,8 @@ module GemInstaller
         config_msg =                         "Comma-delimited path(s) to GemInstaller config file(s)."
         exceptions_msg =                     "Raise any exceptions, rather than just printing them and exiting\n" +
         "                                     with a non-zero return code."
+        redirect_stderr_to_stdout_msg =      "Redirect all STDERR output to STDOUT.  Useful to get all output when\n" +
+        "                                     invoking GemInstaller via system()."
         geminstaller_output_msg =            "Comma-delimited list of output types to show from GemInstaller.\n" +
         "                                       Examples:\n" + 
         "                                         --gall\n" +
@@ -63,6 +66,10 @@ module GemInstaller
 
         opts.on("-e", "--exceptions", exceptions_msg) do
           @options[:exceptions] = true
+        end
+
+        opts.on("-d", "--redirect-stderr-to-stdout", redirect_stderr_to_stdout_msg) do
+          @options[:redirect_stderr_to_stdout] = true
         end
 
         opts.on("-gTYPES", "--geminstaller-output=TYPES", String, geminstaller_output_msg) do |geminstaller_output_flags|
