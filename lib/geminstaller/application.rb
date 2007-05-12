@@ -69,7 +69,7 @@ module GemInstaller
     
     def process_gems(gems)
       # TODO: silent check is unnecessary, output_filter handles it
-      print_startup_message(gems) unless @options[:silent]
+      print_startup_message(gems)
       @install_processor.process(gems)
     end
 
