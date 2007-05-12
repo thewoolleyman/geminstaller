@@ -7,7 +7,7 @@ If anything is unclear, or if you'd like to see a tutorial on a topic, please su
 * "Installing GemInstaller":#installing_geminstaller
 * "Bootstrapping your GemInstaller Config with the <code>--print-rogue-gems</code> option":#bootstrapping_your_geminstaller_config
 * "Using the <code>autogem</code> Option to Automatically Require Gems":#using_the_autogem_option_to_automatically_require_gems
-* "Integrating GemInstaller into Ruby on Rails" TODO: finish this
+* "Integrating GemInstaller into Ruby on Rails":#integrating_geminstaller_into_ruby_on_rails TODO: finish this
 * "Using Common or Shared Config Files" TODO: finish this
 
 h2(#installing_geminstaller). Installing GemInstaller

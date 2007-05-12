@@ -17,6 +17,7 @@ require "geminstaller"
 
 # Path(s) to your GemInstaller config file(s)
 config_paths = "#{File.expand_path(RAILS_ROOT)}/config/geminstaller.yml" 
+
 # Arguments which will be passed to GemInstaller
 args = "--config #{config_paths}" 
 
@@ -37,9 +38,6 @@ GemInstaller.run(args)
 # or 'require_gem' command.  If you want to use other config file path(s), pass them as an array or comma-delimited list.
 # Note that only the *first* version of any given gem will be loaded.
 GemInstaller.autogem(config_paths, exceptions)
-
-# The following line will allow you to debug against a local checkout of geminstaller - make sure the geminstaller gem is not installed
-#system "ruby /my/path/to/geminstaller/bin/geminstaller --sudo #{args}"
 ############# End GemInstaller config
 
 unless defined?(Rails::Initializer)

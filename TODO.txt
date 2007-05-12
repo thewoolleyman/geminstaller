@@ -1,4 +1,4 @@
-* update autogem docs to reflect abort_on_error flag
+* update autogem docs to reflect exceptions flag
 * docs should indicate that I eat my own dog food
 * update docs with details on how to handle unmet dependencies when -y is not specified
 * tutorial: rails

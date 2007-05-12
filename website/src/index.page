@@ -30,3 +30,8 @@ See the "Quick Start Guide":documentation/index.html, "Tutorials":documentation/
 h2. Who is responsible for GemInstaller?
 
 GemInstaller was created by "Chad Woolley":http://www.thewoolleyweb.com.
+
+h2. Known Bugs
+
+As of right now (pre-release), the only known major bug is related to auto-installing the Rails or Mongrel gems via boot.rb during startup of Mongrel or Webrick.  The simple workaround is to just restart Rails anytime GemInstaller auto-installs a Rails/Mongrel upgrade during app startup.  Researching and fixing this problem is a top priority.  If you find any other bugs, please "report them":http://rubyforge.org/tracker/?group_id=1902!
+
