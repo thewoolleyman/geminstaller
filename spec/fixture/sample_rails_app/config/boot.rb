@@ -18,13 +18,12 @@ require "geminstaller"
 # Path(s) to your GemInstaller config file(s)
 config_paths = "#{File.expand_path(RAILS_ROOT)}/config/geminstaller.yml" 
 
-# Arguments which will be passed to GemInstaller
+# Arguments which will be passed to GemInstaller (you can add any extra ones)
 args = "--config #{config_paths}" 
 
 # The 'exceptions' flag determines whether errors encountered while running GemInstaller
 # should raise exceptions (and abort Rails), or just return a nonzero return code
-exceptions = true 
-args += " --exceptions" if exceptions
+args += " --exceptions"
 
 # This will use sudo by default on all non-windows platforms, but requires an entry in your
 # sudoers file to avoid having to type a password.  It can be omitted if you don't want to use sudo.
@@ -35,9 +34,8 @@ args += " --sudo" unless RUBY_PLATFORM =~ /mswin/
 GemInstaller.run(args)
 
 # The 'autogem' method will automatically add all gems in the GemInstaller config to your load path, using the 'gem'
-# or 'require_gem' command.  If you want to use other config file path(s), pass them as an array or comma-delimited list.
-# Note that only the *first* version of any given gem will be loaded.
-GemInstaller.autogem(config_paths, exceptions)
+# or 'require_gem' command.  Note that only the *first* version of any given gem will be loaded.
+GemInstaller.autogem(args)
 ############# End GemInstaller config
 
 unless defined?(Rails::Initializer)

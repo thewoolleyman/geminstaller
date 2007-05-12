@@ -1,5 +1,4 @@
-* autogem should take args like run, and ignore unused args - used are config, silent, and geminstaller_output
-* verify autogem and run args can be passed as string or array
+* update autogem docs to reflect that it now takes args like run
 * update autogem docs to reflect exceptions flag
 * docs should indicate that I eat my own dog food
 * update docs with details on how to handle unmet dependencies when -y is not specified
@@ -11,6 +10,7 @@
 * publish site
 * upload gem
 ================ 0.2.0 release ===================
+* autogem and run args can be passed as string or array
 * tell rspec not to alphabetize my specs, or figure out how to not run testgemhome in the middle and have it set up test gem home twice
 * better test coverage for --sudo and --exception options
 * Verify compatibility with RubyGems trunk - especially Gem::ListCommand vs. Gem::Commands::ListCommand

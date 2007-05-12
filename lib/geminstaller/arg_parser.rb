@@ -58,7 +58,7 @@ module GemInstaller
         "                                     correctly configured, supported systems.  See docs for more info."
         silent_msg =                         "Suppress all output except fatal exceptions, and output from\n" +
         "                                     rogue-gems option."
-        version_msg =                        "Show GemInstaller version."
+        version_msg =                        "Show GemInstaller version and exit."
 
         opts.on("-cCONFIGPATHS", "--config=CONFIGPATHS", String, config_msg) do |config_paths|
           @options[:config_paths] = config_paths

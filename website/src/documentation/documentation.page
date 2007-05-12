@@ -99,7 +99,7 @@ Usage: geminstaller [options]
                                      correctly configured, supported systems.  See docs for more info.
     -t, --silent                     Suppress all output except fatal exceptions, and output from
                                      rogue-gems option.
-    -v, --version                    Show GemInstaller version.
+    -v, --version                    Show GemInstaller version and exit.
 </pre>
 
 h3(#config_option). <code>--config</code> option

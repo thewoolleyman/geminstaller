@@ -35,8 +35,10 @@ module GemInstaller
     def autogem
       begin
         # TODO: do some validation that args only contains --config option, especially not print_rogue_gems since this would mask a missing file error
-        # TODO: this should check exit_flag_and_return_code just like run method
-        handle_args
+        exit_flag_and_return_code = handle_args
+        if exit_flag_and_return_code[0]
+          return exit_flag_and_return_code[1]
+        end
         gems = create_gems_from_config
         message = "GemInstaller is automatically requiring gems: "
         print_startup_message(gems, message)

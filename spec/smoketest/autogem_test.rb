@@ -42,7 +42,7 @@ print "Geminstaller command complete.  Now testing GemInstaller.autogem() comman
 require 'rubygems'
 require 'geminstaller'
 begin
-  result = GemInstaller::autogem("#{config_files}")
+  result = GemInstaller::autogem("--config=#{config_files}")
   unless result[0].name == "x10-cm17a"
     # TODO: better test for all gems
     print "FAILURE, GemInstaller.autogem did not return the expected gems, gems were: #{result.join(' ')}\n"

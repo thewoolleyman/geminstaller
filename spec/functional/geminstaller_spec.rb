@@ -184,7 +184,29 @@ describe "The GemInstaller.autogem method" do
     end
     runner.do_configuration(['list'])    
 
-    added_gems = GemInstaller.autogem([geminstaller_spec_live_config_path,geminstaller_spec_live_config_2_path])
+    added_gems = GemInstaller.autogem("--config=#{geminstaller_spec_live_config_path},#{geminstaller_spec_live_config_2_path} --exceptions")
+    added_gems.should be_a_kind_of(Array)
+    added_gems.should include(sample_gem)
+    added_gems.should include(sample_multiplatform_gem)
+    $:.should include(@expected_load_path_entry)
+    $:.should include(@expected_load_path_entry_bin)
+    $:.should include(@expected_load_path_entry_2)
+    $:.should include(@expected_load_path_entry_2_bin)
+  end
+
+  it "should handle ignored args like sudo" do
+    # These lines are required or else the GemInstaller.autogem command can't find the stubgem in the
+    # test gem home.  I'm not sure why.
+    if Gem::RubyGemsVersion.index('0.8') == 0
+      runner = Gem::GemRunner.new()
+    else
+      runner = Gem::GemRunner.new(:command_manager => Gem::CommandManager)
+    end
+    runner.do_configuration(['list'])
+
+    args_that_should_be_ignored_by_autogem = '-d -p -rall -s'
+    added_gems = GemInstaller.autogem("--config=#{geminstaller_spec_live_config_path},#{geminstaller_spec_live_config_2_path} -e -gall #{args_that_should_be_ignored_by_autogem}")
+    added_gems.should be_a_kind_of(Array)
     added_gems.should include(sample_gem)
     added_gems.should include(sample_multiplatform_gem)
     $:.should include(@expected_load_path_entry)
@@ -194,7 +216,7 @@ describe "The GemInstaller.autogem method" do
   end
 
   it "should handle exceptions" do
-    result = GemInstaller.autogem(['bogus_config_path'])
+    result = GemInstaller.autogem('-cbogus_config_path')
     result.should ==(1)
   end
 
