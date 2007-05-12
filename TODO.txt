@@ -1,4 +1,5 @@
-* take options to autogem, silent, and geminstaller_output
+* autogem should take args like run, and ignore unused args - used are config, silent, and geminstaller_output
+* verify autogem and run args can be passed as string or array
 * update autogem docs to reflect exceptions flag
 * docs should indicate that I eat my own dog food
 * update docs with details on how to handle unmet dependencies when -y is not specified
