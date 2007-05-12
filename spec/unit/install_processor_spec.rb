@@ -1,13 +1,13 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
-context "an InstallProcessor instance with no options passed" do
-  setup do
+describe "an InstallProcessor instance with no options passed" do
+  before(:each) do
     install_processor_spec_setup_common
     @sample_gem.fix_dependencies = false
   end
 
-  specify "should install a gem" do
+  it "should install a gem" do
     @mock_gem_spec_manager.should_receive(:is_gem_installed?).once.with(@sample_gem).and_return(false)
     @mock_gem_list_checker.should_receive(:verify_and_specify_remote_gem!).once.with(@sample_gem)
     @mock_gem_command_manager.should_receive(:install_gem).once.with(@sample_gem).and_return([])
@@ -16,14 +16,14 @@ context "an InstallProcessor instance with no options passed" do
     @install_processor.process([@sample_gem])
   end  
 
-  specify "should not install a gem which is already installed" do
+  it "should not install a gem which is already installed" do
     @sample_gem.check_for_upgrade = false
     @mock_gem_spec_manager.should_receive(:is_gem_installed?).once.with(@sample_gem).and_return(true)
     @mock_output_filter.should_receive(:geminstaller_output).once.with(:debug,/^Gem #{@sample_gem.name}, version 1.0.0 is already installed./).and_return([])
     @install_processor.process([@sample_gem])
   end
 
-  specify "should verify and specify gem if check_for_upgrade is specified" do
+  it "should verify and specify gem if check_for_upgrade is specified" do
     @sample_gem.check_for_upgrade = true
     @mock_gem_list_checker.should_receive(:verify_and_specify_remote_gem!).once.with(@sample_gem)
     @mock_gem_spec_manager.should_receive(:is_gem_installed?).once.with(@sample_gem).and_return(true)
@@ -32,14 +32,14 @@ context "an InstallProcessor instance with no options passed" do
   end
 end
 
-context "an InstallProcessor instance invoked with info option passed" do
-  setup do
+describe "an InstallProcessor instance invoked with info option passed" do
+  before(:each) do
     install_processor_spec_setup_common
     @sample_gem.fix_dependencies = false
     @options[:info] = true
   end
 
-  specify "should show info message for a gem which is already installed" do
+  it "should show info message for a gem which is already installed" do
     @sample_gem.check_for_upgrade = false
     @mock_gem_spec_manager.should_receive(:is_gem_installed?).once.with(@sample_gem).and_return(true)
     @mock_output_filter.should_receive(:geminstaller_output).once().with(:debug,/^Gem .*, version .*is already installed/)

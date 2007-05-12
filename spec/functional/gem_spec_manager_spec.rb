@@ -1,8 +1,8 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
-context "an GemSpecManager instance" do
-  setup do
+describe "an GemSpecManager instance" do
+  before(:each) do
     GemInstaller::TestGemHome.use
     @sample_gem = sample_gem
     @sample_multiplatform_gem = sample_multiplatform_gem
@@ -14,13 +14,13 @@ context "an GemSpecManager instance" do
     GemInstaller::EmbeddedGemServer.start
   end
 
-  specify "should return true for is_gem_installed? if a gem is installed and false if it is not" do
+  it "should return true for is_gem_installed? if a gem is installed and false if it is not" do
     @gem_spec_manager.is_gem_installed?(@sample_gem).should==(false)
     @gem_command_manager.install_gem(@sample_gem)
     @gem_spec_manager.is_gem_installed?(@sample_gem).should==(true)
   end
 
-  specify "can list a local matching gem" do
+  it "can list a local matching gem" do
     install_gem(@sample_gem)
     matching_gems = @gem_spec_manager.local_matching_gems(@sample_gem)
     matching_gems.size.should == 1
@@ -30,7 +30,7 @@ context "an GemSpecManager instance" do
     non_matching_gems.size.should == 0
   end
   
-  specify "should select multiple valid platforms when listing local matching gems with exact_platform_match == false" do
+  it "should select multiple valid platforms when listing local matching gems with exact_platform_match == false" do
     gem1 = @sample_multiplatform_gem
     gem2 = @sample_multiplatform_gem_ruby
     exact_platform_match = false
@@ -44,7 +44,7 @@ context "an GemSpecManager instance" do
     matching_gems.size.should == 2
   end
   
-  specify "can list all local gems" do
+  it "can list all local gems" do
     gems = [@sample_gem, @sample_multiplatform_gem]
     gems.each do |gem|
       install_gem(gem)
@@ -66,7 +66,7 @@ context "an GemSpecManager instance" do
     @gem_spec_manager.is_gem_installed?(gem).should==(true)
   end
   
-  teardown do
+  after(:each) do
     GemInstaller::TestGemHome.uninstall_all_test_gems
   end
 end

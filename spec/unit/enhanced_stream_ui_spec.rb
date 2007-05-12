@@ -1,9 +1,9 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
-context "An EnhancedStreamUI instance with an OutputProxy injected for outs and errs" do
+describe "An EnhancedStreamUI instance with an OutputProxy injected for outs and errs" do
   
-  setup do
+  before(:each) do
     # Can't use an rspec mock here, because you can't mock the 'puts' method
     stub_in_stream = StringIO.new("1")
     stub_out_stream = StringIO.new("","w")
@@ -22,12 +22,12 @@ context "An EnhancedStreamUI instance with an OutputProxy injected for outs and 
     @errs_output_observer.register(@mock_errs_listener)
   end
 
-  specify "will throw unexpected prompt error for ask" do
+  it "will throw unexpected prompt error for ask" do
     question = 'question'
     lambda{ @enhanced_stream_ui.ask(question) }.should raise_error(GemInstaller::UnexpectedPromptError)
   end
 
-  specify "will throw unexpected prompt error for ask_yes_no if question is not a dependency prompt" do
+  it "will throw unexpected prompt error for ask_yes_no if question is not a dependency prompt" do
     mock_gem_interaction_handler = mock("Mock GemInteractionHandler")
     mock_gem_interaction_handler.should_receive(:handle_ask_yes_no)
     @enhanced_stream_ui.gem_interaction_handler = mock_gem_interaction_handler
@@ -35,7 +35,7 @@ context "An EnhancedStreamUI instance with an OutputProxy injected for outs and 
     lambda{ @enhanced_stream_ui.ask_yes_no(question) }.should raise_error(GemInstaller::UnexpectedPromptError)
   end
 
-  specify "will force throw of GemInstaller::UnauthorizedDependencyPromptError or RubyGemsExit if intercepted by alert_error" do
+  it "will force throw of GemInstaller::UnauthorizedDependencyPromptError or RubyGemsExit if intercepted by alert_error" do
     begin
       raise GemInstaller::UnauthorizedDependencyPromptError.new
     rescue StandardError => error
@@ -49,13 +49,13 @@ context "An EnhancedStreamUI instance with an OutputProxy injected for outs and 
     end
   end
 
-  specify "can listen to error stream" do
+  it "can listen to error stream" do
     statement = 'statement'
     @mock_errs_listener.should_receive(:notify).once.with('ERROR:  ' + statement + "\n", :stderr)
     @enhanced_stream_ui.alert_error(statement)
   end
   
-  specify "will stop listening to streams if listeners are unregistered" do
+  it "will stop listening to streams if listeners are unregistered" do
     statement = 'statement'
     @mock_errs_listener.should_receive(:notify).once.with('ERROR:  ' + statement + "\n", :stderr)
     @mock_outs_listener.should_receive(:notify).once.with(statement + "\n", :stdout)
@@ -71,19 +71,19 @@ context "An EnhancedStreamUI instance with an OutputProxy injected for outs and 
     
   end
   
-  specify "will raise exception on terminate_interaction! (instead of exiting)" do
+  it "will raise exception on terminate_interaction! (instead of exiting)" do
     lambda{ @enhanced_stream_ui.terminate_interaction!(0) }.should raise_error(GemInstaller::GemInstallerError)
   end
 
-  specify "will raise RubyGemsExit on terminate_interaction and status == 0 (instead of exiting)" do
+  it "will raise RubyGemsExit on terminate_interaction and status == 0 (instead of exiting)" do
     lambda{ @enhanced_stream_ui.terminate_interaction(0) }.should raise_error(GemInstaller::RubyGemsExit)
   end
 
-  specify "will raise exception on terminate_interaction and status != 0 (instead of exiting)" do
+  it "will raise exception on terminate_interaction and status != 0 (instead of exiting)" do
     lambda{ @enhanced_stream_ui.terminate_interaction(1) }.should raise_error(GemInstaller::GemInstallerError)
   end
   
-  specify "will call gem_interaction_handler when ask_yes_no is called" do
+  it "will call gem_interaction_handler when ask_yes_no is called" do
     mock_gem_interaction_handler = mock("mock_gem_interaction_handler")
     @enhanced_stream_ui.gem_interaction_handler = mock_gem_interaction_handler
     question = 'question'

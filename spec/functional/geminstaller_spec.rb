@@ -1,8 +1,8 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
-context "The geminstaller command line application" do
-  setup do
+describe "The geminstaller command line application" do
+  before(:each) do
     GemInstaller::TestGemHome.use
     GemInstaller::EmbeddedGemServer.start
     
@@ -18,19 +18,19 @@ context "The geminstaller command line application" do
     @sample_gem = sample_gem
   end
 
-  specify "should print usage if --help arg is specified" do
+  it "should print usage if --help arg is specified" do
     @application.args = ["--help"]
     @mock_output_proxy.should_receive(:sysout).with(/^Usage.*/)
     @application.run
   end
   
-  specify "should install gem if it is not already installed" do
+  it "should install gem if it is not already installed" do
     @application.args = geminstaller_spec_test_args
     @application.run
     @gem_spec_manager.is_gem_installed?(@sample_gem).should==(true)
   end
   
-  specify "should handle 'current' as a valid platform" do
+  it "should handle 'current' as a valid platform" do
     gem = @sample_gem
     # force ruby platform to match 'remote' gem's platform
     @valid_platform_selector.ruby_platform = gem.platform
@@ -44,7 +44,7 @@ context "The geminstaller command line application" do
     @gem_spec_manager.is_gem_installed?(@sample_gem).should==(true)
   end
   
-  specify "should print message if gem is already installed" do
+  it "should print message if gem is already installed" do
     @gem_command_manager.install_gem(@sample_gem)
     args = ["--geminstaller-output=debug","--config=#{geminstaller_spec_live_config_path}"]
     @application.args = args
@@ -53,13 +53,13 @@ context "The geminstaller command line application" do
     @application.run
   end
   
-  specify "should print error if --sudo option is specified (it's only supported if geminstaller is invoked via GemInstaller class, which strips out the option)" do
+  it "should print error if --sudo option is specified (it's only supported if geminstaller is invoked via GemInstaller class, which strips out the option)" do
     @application.args = ["--sudo","--config=#{geminstaller_spec_live_config_path}"]
     @mock_output_proxy.should_receive(:syserr).once().with(/^The sudo option is not .* supported/)
     @application.run
   end
   
-  specify "should allow redirection of stderr to stdout" do
+  it "should allow redirection of stderr to stdout" do
     begin
       @application.args = ["--config=bogus_config_file.yml","--redirect-stderr-to-stdout"]
       @original_stdout = $stdout
@@ -79,7 +79,7 @@ context "The geminstaller command line application" do
     end
   end
   
-  specify "should install a platform-specific binary gem" do
+  it "should install a platform-specific binary gem" do
     @sample_multiplatform_gem = sample_multiplatform_gem
     @gem_command_manager.uninstall_gem(@sample_multiplatform_gem) if @gem_spec_manager.is_gem_installed?(@sample_multiplatform_gem)
     @application.args = ["--silent","--config=#{dir}/live_geminstaller_config_2.yml"]
@@ -87,19 +87,19 @@ context "The geminstaller command line application" do
     @gem_spec_manager.is_gem_installed?(@sample_multiplatform_gem).should==(true)
   end
   
-  specify "should install correctly even if install_options is not specified" do
+  it "should install correctly even if install_options is not specified" do
     @application.args = ["--silent","--config=#{dir}/live_geminstaller_config_3.yml"]
     @application.run
     @gem_spec_manager.is_gem_installed?(@sample_gem).should==(true)
   end
   
-  specify "should not give an error if a config file with no gems is loaded" do
+  it "should not give an error if a config file with no gems is loaded" do
     @application.args = ["--config=#{dir}/empty_geminstaller_config.yml"]
     @mock_output_proxy.should_receive(:sysout).any_number_of_times.with(/No gems found/m)
     @application.run
   end
   
-  specify "should show error if a version specification is not met" do
+  it "should show error if a version specification is not met" do
     @application.args = ["--config=#{dir}/live_geminstaller_config_4.yml"]
     @mock_output_proxy.should_receive(:syserr).with(/^The specified version requirement '> 1.0.0' for gem 'stubgem' is not met by any of the available versions: 1.0.0./)
     @mock_output_proxy.should_receive(:sysout).any_number_of_times.with(:anything)
@@ -107,7 +107,7 @@ context "The geminstaller command line application" do
     @gem_spec_manager.is_gem_installed?(@sample_gem).should==(false)
   end
    
-  specify "should handle a multiplatform dependency chain" do
+  it "should handle a multiplatform dependency chain" do
     @application.args = ["--config=#{dir}/live_geminstaller_config_5.yml"]
     @mock_output_proxy.should_receive(:sysout).with(/^GemInstaller is verifying gem installation: #{sample_dependent_depends_on_multiplatform_gem.name}.*/)
     @mock_output_proxy.should_receive(:sysout).with(/^Invoking gem install for #{sample_dependent_depends_on_multiplatform_gem.name}.*/)
@@ -124,30 +124,30 @@ context "The geminstaller command line application" do
     @gem_spec_manager.is_gem_installed?(expected_dependency_gem).should==(true)
   end
 
-  teardown do
+  after(:each) do
     GemInstaller::TestGemHome.uninstall_all_test_gems
   end
    
 end
 
-context "The geminstaller command line application created via GemInstaller.run method" do
-  setup do
+describe "The geminstaller command line application created via GemInstaller.run method" do
+  before(:each) do
     GemInstaller::TestGemHome.use
     GemInstaller::EmbeddedGemServer.start
   end
 
-  specify "should run successfully" do
+  it "should run successfully" do
     result = GemInstaller.run(geminstaller_spec_test_args)
     result.should equal(0)
   end
 
-  teardown do
+  after(:each) do
     GemInstaller::TestGemHome.uninstall_all_test_gems
   end
 end
 
-context "The GemInstaller.autogem method" do
-  setup do
+describe "The GemInstaller.autogem method" do
+  before(:each) do
     GemInstaller::TestGemHome.use
     GemInstaller::EmbeddedGemServer.start
     @registry = GemInstaller::create_registry
@@ -173,7 +173,7 @@ context "The GemInstaller.autogem method" do
     $:.should_not include(@expected_load_path_entry_2_bin)
   end
 
-  specify "should add a specified gem to the load path" do
+  it "should add a specified gem to the load path" do
 
     # These lines are required or else the GemInstaller.autogem command can't find the stubgem in the
     # test gem home.  I'm not sure why.
@@ -193,12 +193,12 @@ context "The GemInstaller.autogem method" do
     $:.should include(@expected_load_path_entry_2_bin)
   end
 
-  specify "should handle exceptions" do
+  it "should handle exceptions" do
     result = GemInstaller.autogem(['bogus_config_path'])
     result.should ==(1)
   end
 
-  teardown do
+  after(:each) do
     GemInstaller::TestGemHome.uninstall_all_test_gems
   end
 end

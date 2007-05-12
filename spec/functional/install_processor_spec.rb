@@ -1,8 +1,8 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
-context "an InstallProcessor instance" do
-  setup do
+describe "an InstallProcessor instance" do
+  before(:each) do
     GemInstaller::TestGemHome.use
     @registry = GemInstaller::create_registry
     @install_processor = @registry.install_processor
@@ -28,7 +28,7 @@ context "an InstallProcessor instance" do
     end
   end
 
-  specify "should install a missing dependency at the bottom of a multilevel dependency chain" do
+  it "should install a missing dependency at the bottom of a multilevel dependency chain" do
     # uninstall the dependency
     @sample_gem.install_options << '--ignore-dependencies'
     uninstall_gem(@sample_gem)
@@ -43,7 +43,7 @@ context "an InstallProcessor instance" do
     @gem_spec_manager.is_gem_installed?(@sample_gem).should==(true)
   end
   
-  specify "should install missing dependencies in middle and bottom of a multilevel dependency chain" do
+  it "should install missing dependencies in middle and bottom of a multilevel dependency chain" do
     # uninstall the dependencies
     [@sample_gem, @sample_dependent_gem].each do |gem|
       gem.install_options << '--ignore-dependencies'
@@ -66,7 +66,7 @@ context "an InstallProcessor instance" do
     @gem_spec_manager.is_gem_installed?(@sample_gem).should==(true)
   end
   
-  specify "should install missing dependencies at top and bottom of a multilevel dependency chain" do
+  it "should install missing dependencies at top and bottom of a multilevel dependency chain" do
     # uninstall the gems
     [@sample_gem, @sample_dependent_multilevel_gem].each do |gem|
       gem.install_options << '--ignore-dependencies'
@@ -84,7 +84,7 @@ context "an InstallProcessor instance" do
     @gem_spec_manager.is_gem_installed?(@sample_gem).should==(true)
   end
   
-  teardown do
+  after(:each) do
     GemInstaller::TestGemHome.uninstall_all_test_gems
   end
 

@@ -1,8 +1,8 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
-context "an GemInstallerError" do
-  specify "should format a descriptive exit message based on message, command, and args" do
+describe "an GemInstallerError" do
+  it "should format a descriptive exit message based on message, command, and args" do
     message = "message"
     command = "command"
     args = ['arg1', 'arg2']

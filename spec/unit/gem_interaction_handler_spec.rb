@@ -1,15 +1,15 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
-context "a GemInteractionHandler instance with mock dependencies" do
-  setup do
+describe "a GemInteractionHandler instance with mock dependencies" do
+  before(:each) do
     @gem_interaction_handler = GemInstaller::GemInteractionHandler.new
     @dependent_gem = sample_dependent_gem
     @gem_interaction_handler.dependent_gem = @dependent_gem
     @mock_noninteractive_chooser = mock("Mock NoninteractiveChooser")
   end
 
-  specify "should pass only the specified platform when given a list for a dependent gem which has a platform specified" do
+  it "should pass only the specified platform when given a list for a dependent gem which has a platform specified" do
     question = "question"
     list = ["item"]
     @mock_noninteractive_chooser.should_receive(:dependent_gem?).with(@dependent_gem.name, list).and_return(true)
@@ -18,7 +18,7 @@ context "a GemInteractionHandler instance with mock dependencies" do
     @gem_interaction_handler.handle_choose_from_list(question, list, @mock_noninteractive_chooser)
   end
 
-  specify "should call valid_platform_selector when given a list for a gem which is not the dependent gem" do
+  it "should call valid_platform_selector when given a list for a gem which is not the dependent gem" do
     question = "question"
     list = ["item", "item"]
     valid_platform_list = ["valid-platform-1", "valid-platform-2"]

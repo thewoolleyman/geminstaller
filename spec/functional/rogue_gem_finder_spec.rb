@@ -1,8 +1,8 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
-context "an RogueGemFinder instance" do
-  setup do
+describe "an RogueGemFinder instance" do
+  before(:each) do
     GemInstaller::TestGemHome.use
     GemInstaller::EmbeddedGemServer.start
     @registry = GemInstaller::create_registry
@@ -16,7 +16,7 @@ context "an RogueGemFinder instance" do
     @rogue_gem_finder.output_proxy = @mock_output_proxy
   end
 
-  specify "should return yaml for all locally installed gems which are not matched by one of the config gems passed in" do
+  it "should return yaml for all locally installed gems which are not matched by one of the config gems passed in" do
     @gem_command_manager.install_gem(@rogue_gem)
     # legit gem will also install a dependency, which should be detected as a valid gem in the config,
     # since it's parent is in the config
@@ -31,7 +31,7 @@ context "an RogueGemFinder instance" do
     output.should match(/#{@rogue_gem.name}/)
   end
 
-  teardown do
+  after(:each) do
     GemInstaller::TestGemHome.uninstall_all_test_gems
   end
 end

@@ -2,14 +2,14 @@ dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 require File.expand_path("#{dir}/../../lib/geminstaller/requires.rb")
 
-context "test_gem_home_spec: the TestGemHome class" do
+describe "test_gem_home_spec: the TestGemHome class" do
   include FileUtils
   
-  setup do
+  before(:each) do
     @test_gem_home_dir = test_gem_home_dir
   end
   
-  specify "should delete and recreate a test gem home" do
+  it "should delete and recreate a test gem home" do
     # remove dir if it exists
     GemInstaller::TestGemHome.reset
 

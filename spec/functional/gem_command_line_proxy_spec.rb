@@ -1,15 +1,15 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
-context "a gem command line proxy" do
+describe "a gem command line proxy" do
 
-  setup do
+  before(:each) do
     GemInstaller::TestGemHome.use
     GemInstaller::EmbeddedGemServer.start
     @gem_command_line_proxy = GemInstaller::GemCommandLineProxy.new
   end
   
-  specify "should return expected remote list output as an array of lines" do
+  it "should return expected remote list output as an array of lines" do
     args = ['list','--remote']
     args += install_options_for_testing
     output = @gem_command_line_proxy.run(args)
@@ -25,7 +25,7 @@ context "a gem command line proxy" do
     end
   end
   
-  specify "should raise exception on nonzero return code" do
+  it "should raise exception on nonzero return code" do
     args = ['--invalid-option']
     # TODO: patch rspec to accept an exception instance for.should raise expectection parameter
     exception = nil
@@ -47,7 +47,7 @@ context "a gem command line proxy" do
   #   output.should be_an_instance_of(Array)
   # end
 
-  teardown do
+  after(:each) do
     GemInstaller::TestGemHome.uninstall_all_test_gems
   end
 end

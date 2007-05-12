@@ -1,11 +1,11 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
-context "Dependency Injector" do
-  setup do
+describe "Dependency Injector" do
+  before(:each) do
   end
 
-  specify "should successfully assemble an application object" do
+  it "should successfully assemble an application object" do
     dependency_injector = GemInstaller::DependencyInjector.new
     application = dependency_injector.registry.app
     application.should_not be_nil

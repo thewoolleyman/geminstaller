@@ -2,7 +2,7 @@ dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
 describe "an application instance invoked with no args" do
-  setup do
+  before(:each) do
     application_spec_setup_common
     @mock_arg_parser.should_receive(:parse).with(nil)
     @mock_arg_parser.should_receive(:output).and_return(nil)
@@ -18,7 +18,7 @@ describe "an application instance invoked with no args" do
     @application.run
   end
 
-  specify "should install multiple gems which are specified in the config and print startup message" do
+  it "should install multiple gems which are specified in the config and print startup message" do
     @mock_config_builder.should_receive(:build_config).and_return {@stub_config_local}
     
     @stub_gem2 = GemInstaller::RubyGem.new("gemname2")
@@ -29,7 +29,7 @@ describe "an application instance invoked with no args" do
     @application.run
   end
 
-  specify "should not install a gem which is already installed" do
+  it "should not install a gem which is already installed" do
     @mock_config_builder.should_receive(:build_config).and_return {@stub_config_local}
     
     @stub_gem.check_for_upgrade = false
@@ -40,7 +40,7 @@ describe "an application instance invoked with no args" do
     @application.run
   end
 
-  specify "should verify and specify gem if check_for_upgrade is specified" do
+  it "should verify and specify gem if check_for_upgrade is specified" do
     @mock_config_builder.should_receive(:build_config).and_return {@stub_config_local}
     
     @stub_gem.check_for_upgrade = true
@@ -51,7 +51,7 @@ describe "an application instance invoked with no args" do
     @application.run
   end
 
-  specify "should print any exception message to debug then exit gracefully" do
+  it "should print any exception message to debug then exit gracefully" do
     @mock_output_filter.should_receive(:geminstaller_output).once().with(:error,/^GemInstaller::GemInstallerError/)
     @mock_output_filter.should_receive(:geminstaller_output).once().with(:debug,:anything)
     @mock_config_builder.should_receive(:build_config).and_raise(GemInstaller::GemInstallerError)
@@ -59,7 +59,7 @@ describe "an application instance invoked with no args" do
     return_code.should ==(1)
   end
 
-  specify "should print any exception message AND stacktrace" do
+  it "should print any exception message AND stacktrace" do
     @mock_output_filter.should_receive(:geminstaller_output).once().with(:error,/^GemInstaller::GemInstallerError/)
     @mock_output_filter.should_receive(:geminstaller_output).once() # TODO: how to specify Error/stacktrace exception?
     @mock_config_builder.should_receive(:build_config).and_raise(GemInstaller::GemInstallerError)
@@ -67,7 +67,7 @@ describe "an application instance invoked with no args" do
     return_code.should==(1)
   end
 
-  specify ", with --exceptions option, should raise any exception" do
+  it ", with --exceptions option, should raise any exception" do
     @options[:exceptions] = true
     @mock_output_filter.should_receive(:geminstaller_output).once().with(:error,/^GemInstaller::GemInstallerError/)
     @mock_output_filter.should_receive(:geminstaller_output).once() # TODO: how to specify Error/stacktrace exception?
@@ -76,12 +76,12 @@ describe "an application instance invoked with no args" do
   end
 end
 
-context "an application instance invoked with invalid args or help option" do
-  setup do
+describe "an application instance invoked with invalid args or help option" do
+  before(:each) do
     application_spec_setup_common
   end
 
-  specify "should print any arg parser error output then exit gracefully" do
+  it "should print any arg parser error output then exit gracefully" do
     arg_parser_output = "arg parser output"
     @mock_output_filter.should_receive(:geminstaller_output).with(:error,/^arg parser output/)
     @mock_arg_parser.should_receive(:parse).with(nil).and_return(1)
@@ -90,7 +90,7 @@ context "an application instance invoked with invalid args or help option" do
     return_code.should==(1)
   end
 
-  specify "should print any arg parser non-error output then exit gracefully" do
+  it "should print any arg parser non-error output then exit gracefully" do
     arg_parser_output = "arg parser output"
     @mock_output_filter.should_receive(:geminstaller_output).with(:info,/^arg parser output/)
     @mock_arg_parser.should_receive(:parse).with(nil).and_return(0)
@@ -100,12 +100,12 @@ context "an application instance invoked with invalid args or help option" do
   end
 end
 
-context "an application instance invoked with missing config file(s)" do
-  setup do
+describe "an application instance invoked with missing config file(s)" do
+  before(:each) do
     application_spec_setup_common
   end
 
-  specify "should print message and exit gracefully" do
+  it "should print message and exit gracefully" do
     @mock_output_filter.should_receive(:geminstaller_output).with(:error,/^Error: A GemInstaller config file is missing/m)
     @mock_output_filter.should_receive(:geminstaller_output).once().with(:debug,:anything)
     @mock_arg_parser.should_receive(:parse).with(nil).and_return(0)
@@ -115,7 +115,7 @@ context "an application instance invoked with missing config file(s)" do
     return_code.should==(1)
   end
   
-  specify "should still run print-rogue-gems option if it is specified and there is only a single config file" do
+  it "should still run print-rogue-gems option if it is specified and there is only a single config file" do
     @options[:print_rogue_gems] = true
     @mock_arg_parser.should_receive(:parse).with(nil).and_return(0)
     @mock_arg_parser.should_receive(:output).and_return('')
@@ -127,17 +127,17 @@ context "an application instance invoked with missing config file(s)" do
     return_code.should==(0)
   end
 
-  specify "should not run print-rogue-gems option if there is more than one missing config file" do
+  it "should not run print-rogue-gems option if there is more than one missing config file" do
   end
 end
 
-context "an application instance invoked with alternate config file location" do
-  setup do
+describe "an application instance invoked with alternate config file location" do
+  before(:each) do
     application_spec_setup_common
     @mock_output_filter.should_receive(:geminstaller_output).with(:info,:anything)
   end
 
-  specify "should use the alternate config file location" do
+  it "should use the alternate config file location" do
     config_paths = 'config_paths'
     @mock_arg_parser.should_receive(:parse).with(nil)
     @options[:config_paths] = config_paths
@@ -152,15 +152,15 @@ context "an application instance invoked with alternate config file location" do
   end
 end
 
-context "an application instance invoked with print-rogue-gems arg" do
-  setup do
+describe "an application instance invoked with print-rogue-gems arg" do
+  before(:each) do
     application_spec_setup_common
     @mock_arg_parser.should_receive(:parse).with(nil)
     @mock_arg_parser.should_receive(:output).and_return(nil)
     @options[:print_rogue_gems] = true
   end
 
-  specify "should invoke rogue_gem_finder" do
+  it "should invoke rogue_gem_finder" do
     
     @mock_config_builder.should_receive(:build_config).and_return {@stub_config_local}
     

@@ -1,8 +1,8 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
-context "config YAML containing a single gem" do
-  setup do
+describe "config YAML containing a single gem" do
+  before(:each) do
     @yaml_text = <<-STRING_END
       gems:
         - name: mygem
@@ -17,7 +17,7 @@ context "config YAML containing a single gem" do
     @config = GemInstaller::Config.new(@yaml)
   end
 
-  specify "should be parsed into a corresponding gem object" do
+  it "should be parsed into a corresponding gem object" do
     gem = @config.gems[0]
     gem.name.should==('mygem')
     gem.version.should==('> 0.1.2.3')
@@ -29,8 +29,8 @@ context "config YAML containing a single gem" do
   end
 end
 
-context "config YAML with only name and version specified" do
-  setup do
+describe "config YAML with only name and version specified" do
+  before(:each) do
     @yaml_text = <<-STRING_END
     # COMMENT 
     gems:
@@ -41,15 +41,15 @@ context "config YAML with only name and version specified" do
     @config = GemInstaller::Config.new(@yaml)
   end
 
-  specify "should not raise error on nil platform, install_options, or check_for_upgrade" do
+  it "should not raise error on nil platform, install_options, or check_for_upgrade" do
     gem = @config.gems[0]
     gem.name.should==('mygem')
     gem.version.should==('0.1.2.3')
   end
 end
 
-context "config YAML containing two gems with the same name but different versions" do
-  setup do
+describe "config YAML containing two gems with the same name but different versions" do
+  before(:each) do
     @yaml_text = <<-STRING_END
       gems:
         - name: mygem
@@ -63,7 +63,7 @@ context "config YAML containing two gems with the same name but different versio
     @config = GemInstaller::Config.new(@yaml)
   end
 
-  specify "should be parsed into a corresponding gem objects" do
+  it "should be parsed into a corresponding gem objects" do
     gem = @config.gems[0]
     gem.name.should==('mygem')
     gem.version.should==('1.1')
@@ -77,8 +77,8 @@ context "config YAML containing two gems with the same name but different versio
   end
 end
 
-context "config YAML containing default install_options" do
-  setup do
+describe "config YAML containing default install_options" do
+  before(:each) do
     @yaml_text = <<-STRING_END
       defaults:
           install_options: -y
@@ -91,7 +91,7 @@ context "config YAML containing default install_options" do
     @config = GemInstaller::Config.new(@yaml)
   end
 
-  specify "should propogate default install_options into gem object" do
+  it "should propogate default install_options into gem object" do
     gem = @config.gems[0]
     gem.name.should==('mygem')
     gem.version.should==('1.1')
@@ -100,8 +100,8 @@ context "config YAML containing default install_options" do
   end
 end
 
-context "config YAML containing neither default install_options nor gem-specific install options" do
-  setup do
+describe "config YAML containing neither default install_options nor gem-specific install options" do
+  before(:each) do
     @yaml_text = <<-STRING_END
       gems:
         - name: mygem
@@ -111,7 +111,7 @@ context "config YAML containing neither default install_options nor gem-specific
     @config = GemInstaller::Config.new(@yaml)
   end
 
-  specify "should have no install_options set on gem object" do
+  it "should have no install_options set on gem object" do
     gem = @config.gems[0]
     gem.name.should==('mygem')
     gem.version.should==('1.1')

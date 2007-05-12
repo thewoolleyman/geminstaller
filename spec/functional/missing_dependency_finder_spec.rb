@@ -1,8 +1,8 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
-context "a MissingDependencyFinder instance" do
-  setup do
+describe "a MissingDependencyFinder instance" do
+  before(:each) do
     GemInstaller::TestGemHome.use
     @registry = GemInstaller::create_registry
     @missing_dependency_finder = @registry.missing_dependency_finder
@@ -24,7 +24,7 @@ context "a MissingDependencyFinder instance" do
     end
   end
 
-  specify "should return all missing dependencies, and inherit install_options from dependent, and force --include-dependencies option if not already set" do
+  it "should return all missing dependencies, and inherit install_options from dependent, and force --include-dependencies option if not already set" do
     # uninstall the dependencies
     [@sample_gem, @sample_multiplatform_gem].each do |gem|
       gem.install_options << '--ignore-dependencies'
@@ -51,7 +51,7 @@ context "a MissingDependencyFinder instance" do
     missing_dependencies[0].install_options.should include('-y')
   end
 
-  specify "should find a missing dependency at the bottom of a multilevel dependency chain" do
+  it "should find a missing dependency at the bottom of a multilevel dependency chain" do
     # uninstall the dependencies
     @sample_gem.install_options << '--ignore-dependencies'
     uninstall_gem(@sample_gem)
@@ -64,7 +64,7 @@ context "a MissingDependencyFinder instance" do
     dependencies[0].name.should==("stubgem")    
   end
   
-  teardown do
+  after(:each) do
     GemInstaller::TestGemHome.uninstall_all_test_gems
   end
 

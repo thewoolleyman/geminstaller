@@ -1,8 +1,8 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
-context "an RogueGemFinder instance with mock dependencies" do
-  setup do
+describe "an RogueGemFinder instance with mock dependencies" do
+  before(:each) do
     @rogue_gem_finder = GemInstaller::RogueGemFinder.new
     @mock_gem_spec_manager = mock("Mock GemSpecManager")
     @mock_output_proxy = mock("Mock OutputProxy")
@@ -14,7 +14,7 @@ context "an RogueGemFinder instance with mock dependencies" do
     @legit_gem = GemInstaller::RubyGem.new('legit', :version => '1.0.0')
   end
 
-  specify "should print rogue gems" do
+  it "should print rogue gems" do
     @mock_gem_spec_manager.should_receive(:all_local_gems).and_return([@legit_gem, @rogue_gem])
     @mock_gem_spec_manager.should_receive(:local_matching_gems).and_return([])
 
@@ -28,7 +28,7 @@ context "an RogueGemFinder instance with mock dependencies" do
     output.should match(boilerplate)
   end
 
-  specify "should print message if gem is a preinstalled gem" do
+  it "should print message if gem is a preinstalled gem" do
     @mock_gem_spec_manager.should_receive(:all_local_gems).and_return([@rogue_gem])
     @mock_gem_spec_manager.should_receive(:local_matching_gems).and_return([])
 
@@ -45,7 +45,7 @@ context "an RogueGemFinder instance with mock dependencies" do
     output.should match(boilerplate)
   end
 
-  specify "should print message if passed an existing config with gems already specified" do
+  it "should print message if passed an existing config with gems already specified" do
     @mock_gem_spec_manager.should_receive(:all_local_gems).and_return([@rogue_gem])
     @mock_gem_spec_manager.should_receive(:local_matching_gems).and_return([])
 
@@ -58,7 +58,7 @@ context "an RogueGemFinder instance with mock dependencies" do
     output.should match(boilerplate)
   end
 
-  specify "should print message if passed an existing config with np gems already specified" do
+  it "should print message if passed an existing config with np gems already specified" do
     @mock_gem_spec_manager.should_receive(:all_local_gems).and_return([@rogue_gem])
 
     @mock_output_proxy.should_receive(:sysout).with(:anything)

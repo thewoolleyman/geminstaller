@@ -1,8 +1,8 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
-context "a GemCommandManager instance" do
-  setup do
+describe "a GemCommandManager instance" do
+  before(:each) do
     GemInstaller::TestGemHome.use
     extra_install_options = install_options_for_testing
     extra_install_options << "-y" << "--backtrace"
@@ -21,14 +21,14 @@ context "a GemCommandManager instance" do
     GemInstaller::EmbeddedGemServer.start
   end
 
-  specify "should be able to install, uninstall, and check for existence of specific versions of a gem" do
+  it "should be able to install, uninstall, and check for existence of specific versions of a gem" do
     install_gem(@sample_gem_with_extra_install_options)
   
     @gem_spec_manager.is_gem_installed?(@sample_gem).should==(true)
     @gem_spec_manager.is_gem_installed?(@nonexistent_version_sample_gem).should==(false)
   end
   
-  specify "should be able to list remote gems" do
+  it "should be able to list remote gems" do
     list_options = ["--source=#{embedded_gem_server_url}"]
     @sample_gem.name = 'stubgem-multiplatform'
     list = @gem_command_manager.list_remote_gem(@sample_gem,list_options)
@@ -40,7 +40,7 @@ context "a GemCommandManager instance" do
     list.should==(expected_list)
   end
   
-  specify "should raise an error if attempting to install a gem with dependencies without -y option" do
+  it "should raise an error if attempting to install a gem with dependencies without -y option" do
     # ensure dependency gem is uninstalled
     @gem_command_manager.uninstall_gem(@sample_gem)
     sample_dependent_gem = @sample_dependent_gem.dup
@@ -56,14 +56,14 @@ context "a GemCommandManager instance" do
     exception.class.should==(GemInstaller::UnauthorizedDependencyPromptError)
   end
   
-  specify "should be able to install and uninstall similarly named gems without a prompt (using exact name matching)" do
+  it "should be able to install and uninstall similarly named gems without a prompt (using exact name matching)" do
     gems = [@sample_gem, @sample_multiplatform_gem]
     gems.each do |gem|
       install_gem(gem)
     end
   end
   
-  specify "should be able to install two gems with the same version but different platforms" do
+  it "should be able to install two gems with the same version but different platforms" do
     @sample_multiplatform_gem_for_another_platform = sample_multiplatform_gem.dup
     @sample_multiplatform_gem_for_another_platform.platform = 'ruby'
     uninstall_gem(@sample_multiplatform_gem)
@@ -74,7 +74,7 @@ context "a GemCommandManager instance" do
     end
   end
   
-  specify "should be able to automatically install a dependency gem when dependent gem is installed" do
+  it "should be able to automatically install a dependency gem when dependent gem is installed" do
     @sample_dependency_gem = sample_gem
     uninstall_gem(@sample_dependent_gem)
     uninstall_gem(@sample_gem)
@@ -83,7 +83,7 @@ context "a GemCommandManager instance" do
     @gem_spec_manager.is_gem_installed?(@sample_gem).should==(true)
   end
   
-  specify "should be able to automatically install a multiplatform dependency gem when a multiplatform dependent gem is installed" do
+  it "should be able to automatically install a multiplatform dependency gem when a multiplatform dependent gem is installed" do
     uninstall_gem(@sample_dependent_multiplatform_gem)
     uninstall_gem(@sample_multiplatform_gem)
     @sample_dependent_multiplatform_gem.install_options << "-y"
@@ -91,7 +91,7 @@ context "a GemCommandManager instance" do
     @gem_spec_manager.is_gem_installed?(@sample_multiplatform_gem).should==(true)
   end
   
-  specify "should be able to install and uninstall a gem with the 'current' platform" do
+  it "should be able to install and uninstall a gem with the 'current' platform" do
     gem = @sample_gem
 
     # force ruby platform to match 'remote' gem's platform
@@ -104,7 +104,7 @@ context "a GemCommandManager instance" do
     @gem_spec_manager.is_gem_installed?(gem).should==(true)
   end
   
-  specify "should be able to list dependencies based on exact name match" do
+  it "should be able to list dependencies based on exact name match" do
     nonmatching_gem = sample_dependent_multiplatform_gem
     nonmatching_gem.install_options << '--include-dependencies'
     install_gem(nonmatching_gem)
@@ -128,7 +128,7 @@ context "a GemCommandManager instance" do
     @gem_spec_manager.is_gem_installed?(gem).should==(false)
   end
   
-  teardown do
+  after(:each) do
     GemInstaller::TestGemHome.uninstall_all_test_gems
   end
 end

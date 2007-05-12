@@ -1,8 +1,8 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
-context "an AutoGem instance" do
-  setup do
+describe "an AutoGem instance" do
+  before(:each) do
     GemInstaller::TestGemHome.use
     GemInstaller::EmbeddedGemServer.start
     @registry = GemInstaller::create_registry
@@ -13,14 +13,14 @@ context "an AutoGem instance" do
     Gem.instance_eval { @loaded_specs.clear if @loaded_specs }
   end
 
-  specify "should add a specified gem to the load path" do
+  it "should add a specified gem to the load path" do
     delete_existing_path_entries(sample_gem)
     added_gems = @autogem.autogem([sample_gem])
     added_gems[0].should ==(sample_gem)
     path_should_include_entries(sample_gem)
   end
   
-  specify "should not add a specified gem to the load path if the no_autogem property is set" do
+  it "should not add a specified gem to the load path if the no_autogem property is set" do
     @sample_gem_with_no_autogem = sample_gem
     @sample_gem_with_no_autogem.no_autogem = true
     delete_existing_path_entries(@sample_gem_with_no_autogem)
@@ -31,14 +31,14 @@ context "an AutoGem instance" do
     end
   end
   
-  specify "should add same specified gem to the load path again in a separate spec (verifies that Gem.loaded specs and load path are cleaned up between specs)" do
+  it "should add same specified gem to the load path again in a separate spec (verifies that Gem.loaded specs and load path are cleaned up between specs)" do
     delete_existing_path_entries(sample_gem)
     added_gems = @autogem.autogem([sample_gem])
     added_gems[0].should ==(sample_gem)
     path_should_include_entries(sample_gem)
   end
 
-  specify "should add a dependent gem and it's dependency to the load path" do
+  it "should add a dependent gem and it's dependency to the load path" do
     delete_existing_path_entries(sample_dependent_gem)
     delete_existing_path_entries(sample_gem)
     
@@ -54,7 +54,7 @@ context "an AutoGem instance" do
     path_should_include_entries(sample_gem)
   end
 
-  specify "should add all gems in a multilevel dependency chain to the load path" do
+  it "should add all gems in a multilevel dependency chain to the load path" do
     delete_existing_path_entries(sample_dependent_multilevel_gem)
     delete_existing_path_entries(sample_dependent_gem)
     delete_existing_path_entries(sample_gem)
@@ -96,7 +96,7 @@ context "an AutoGem instance" do
     "#{test_gem_home_dir}/gems/#{name}-#{version}/#{subdir}"
   end
 
-  teardown do
+  after(:each) do
     GemInstaller::TestGemHome.uninstall_all_test_gems
   end
 end

@@ -1,27 +1,27 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
-context "YamlLoader instance" do
-  setup do
+describe "YamlLoader instance" do
+  before(:each) do
     @yaml_loader = GemInstaller::YamlLoader.new
   end
 
-  specify "should load yaml" do
+  it "should load yaml" do
     yaml = @yaml_loader.load('key: value')
     'value'.should==(yaml['key'])
   end
 
-  specify "should load multiline yaml" do
+  it "should load multiline yaml" do
     yaml = @yaml_loader.load("key1: value1\nkey2: value2")
     'value2'.should==(yaml['key2'])
   end
 
-  specify "should allow comments after yaml" do
+  it "should allow comments after yaml" do
     yaml = @yaml_loader.load("key1: value1 # here is a comment\nkey2: value2   # another comment")
     'value2'.should==(yaml['key2'])
   end
 
-  specify "should raise an error if there is an error parsing the yaml" do
+  it "should raise an error if there is an error parsing the yaml" do
     @invalid_yaml_text = <<-STRING_END
     --- 
     -1: 1  
@@ -32,7 +32,7 @@ context "YamlLoader instance" do
     proc_should_raise_with_message(/Error: Received error while attempting to parse YAML.*/) { @yaml_loader.load(@invalid_yaml_text) }
   end
 
-  specify "should handle value of '> 1' even if it is not surrounded by quotes or followed by a newline" do
+  it "should handle value of '> 1' even if it is not surrounded by quotes or followed by a newline" do
     # TODO: make this pass, otherwise people must enclose version specs in quotes
     
     # key == '1'

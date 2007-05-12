@@ -1,8 +1,8 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
-context "The sample gem fixtures install and uninstall methods" do
-  specify "should be consistent" do
+describe "The sample gem fixtures install and uninstall methods" do
+  it "should be consistent" do
     GemInstaller::TestGemHome.use
     GemInstaller::EmbeddedGemServer.start
     @registry = GemInstaller::create_registry
@@ -21,7 +21,7 @@ context "The sample gem fixtures install and uninstall methods" do
     all_local_gems[0].name.should == 'sources'
   end
 
-  teardown do
+  after(:each) do
     GemInstaller::TestGemHome.uninstall_all_test_gems
   end
 end

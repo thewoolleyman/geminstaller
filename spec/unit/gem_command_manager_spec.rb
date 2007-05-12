@@ -1,8 +1,8 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
-context "a GemCommandManager instance injected with mock dependencies" do
-  setup do
+describe "a GemCommandManager instance injected with mock dependencies" do
+  before(:each) do
     sample_gem_name = "sample-gem"
     install_options = ["--source", "http://gemhost"]
     version = "1.0"
@@ -22,14 +22,14 @@ context "a GemCommandManager instance injected with mock dependencies" do
     
   end
 
-  specify "should be able to install a gem which is not already installed" do
+  it "should be able to install a gem which is not already installed" do
     @mock_gem_spec_manager.should_receive(:is_gem_installed?).once.with(@sample_gem).and_return(false)
     @mock_gem_runner_proxy.should_receive(:run).once.with(:anything)
     @mock_gem_interaction_handler.should_receive(:dependent_gem=).with(@sample_gem)
     @gem_command_manager.install_gem(@sample_gem)
   end
   
-  specify "should not attempt to install a gem which is already installed" do
+  it "should not attempt to install a gem which is already installed" do
     error_message = "error message"
     @mock_gem_spec_manager.should_receive(:is_gem_installed?).once.with(@sample_gem).and_return(true)
     @gem_command_manager.install_gem(@sample_gem)
