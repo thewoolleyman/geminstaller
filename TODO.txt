@@ -1,5 +1,3 @@
-* Ensure all regexp mock expectations for stdout include begin-of-line match (or else recursive failure will pass)
-* Rspec mocks are not working with regexp expectations - see geminstaller_spec - should_print_error.....
 * sudo reinvokation swallows messages - add option to redirect stderr to stdout
 * Informational message for autogem
 * another review of how failures are handled in rails invocation
