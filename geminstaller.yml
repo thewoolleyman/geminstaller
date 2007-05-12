@@ -24,6 +24,9 @@ gems:
 - name: win32-process
   version: '>= 0.5.0'
   platform: 'mswin32'
+- name: win32console
+  version: '>= 1.0.8'
+  platform: 'i386-mswin32'
 - name: win32-open3
   version: '>= 0.2.5'
   platform: 'mswin32'
