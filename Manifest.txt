@@ -7,7 +7,6 @@ Rakefile
 TODO.txt
 bin/geminstaller
 geminstaller.yml
-lib/dev_runner.rb
 lib/geminstaller.rb
 lib/geminstaller/application.rb
 lib/geminstaller/arg_parser.rb
