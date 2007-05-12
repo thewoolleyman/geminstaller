@@ -27,8 +27,7 @@ h2. Table of Contents
 ** "<code>no_autogem</code> config property":#no_autogem_config_property
 ** "<code>prefer_binary_platform</code> config property":#prefer_binary_platform_config_property
 * "Using GemInstaller with Ruby on Rails or Other Ruby Apps":#using_geminstaller_with_ruby_on_rails_or_other_ruby_apps
-** "Invoking the <code>GemInstaller</code> Class from Rails":#invoking_the_geminstaller_class_from_rails
-** "Invoking the <code>geminstaller</code> Executable from Rails":#invoking_the_geminstaller_executable_from_rails
+** "Invoking <code>GemInstaller</code> from Rails":#invoking_geminstaller_from_rails
 ** "Bootstrapping Rails with GemInstaller":#bootstrapping_rails_with_geminstaller
 ** "Using GemInstaller from Other Ruby Apps":#using_geminstaller_from_other_ruby_apps
 * "Using <code>erb</code> in config files":#using_erb_in_config_files
@@ -240,11 +239,11 @@ This option determines whether the 'ruby' platform, or a 'binary' platform will 
 
 h2(#using_geminstaller_with_ruby_on_rails_or_other_ruby_apps). Using GemInstaller with Ruby on Rails or Other Ruby Apps
 
-GemInstaller can also be embedded in another application, such as a Rails app.  This is done by invoking the GemInstaller class or the geminstaller executable directly from Ruby. 
+GemInstaller can also be embedded in another application, such as a Rails app.  This is done by invoking the GemInstaller class or the geminstaller executable directly from Ruby.  This section only contains a brief explanation, see the tutorial on "Integrating GemInstaller into Ruby on Rails":#integrating_geminstaller_into_ruby_on_rails for detailed explanation.
 
-IMPORTANT NOTE: The approach you use will mainly be determined by whether you run on unix and need root/sudo access to install gems and/or gem executables.  If this is the case, you will probably have to use the second approach below, of invoking the <code>geminstaller</code> executable, rather than calling the <code>GemInstaller</code> class directly.  See "Dealing with sudo and root-owned RubyGem installations":#dealing_with_sudo section for more details.
+IMPORTANT NOTE: You need to know whether you run on unix and need root/sudo access to install gems and/or gem executables.  See "Dealing with sudo and root-owned RubyGem installations":#dealing_with_sudo section for more details.
 
-The two methods are described in the sections below.  For both of them, you need to create <code>geminstaller.yml</code> in the <code>RAILS_ROOT/config</code> directory.  Here's an example config file which will install (an old version of) Rails and Mongrel:
+First, you need to create <code>geminstaller.yml</code> in the <code>RAILS_ROOT/config</code> directory (See also "Bootstrapping your GemInstaller Config with the <code>--print-rogue-gems</code> option":#bootstrapping_your_geminstaller_config).  Here's an example config file which will install (an old version of) Rails and Mongrel:
 
 <pre>
 \---
@@ -258,15 +257,10 @@ gems:
   platform: <%= RUBY_PLATFORM =~ /mswin/ ? 'mswin32' : 'ruby'%>
 </pre>
 
+h3(#invoking_geminstaller_from_rails). Invoking <code>GemInstaller</code> from Rails
+
 Once you have your *<code>geminstaller.yml</code>* created, invoke the GemInstaller on app startup in your boot.rb.  It should be placed right after the block which defines the RAILS_ROOT constant, as shown below ("..." indicates omitted lines):
 
-h3(#invoking_the_geminstaller_class_from_rails). Invoking the <code>GemInstaller</code> Class from Rails
-
-This is the Rails GemInstaller setup to use if you NEVER require root access to install gems.  It calls the <code>GemInstaller</code> class directly in the same interpreter, not via the executable.  This means there are not separate ruby/shell/cmd processed, and allows exceptions from GemInstaller to be captured and handled directly.
-
-The <code>begin ... rescue</code> block below is optional.  Include it if you DON'T want GemInstaller exceptions to prevent Rails app startup.  Omit it if you DO want GemInstaller exceptions to prevent Rails app startup.
-
-TODO: add begin/rescue code after it is tested
 
 *RAILS_ROOT/config/boot.rb*:
 <pre>
@@ -275,49 +269,40 @@ unless defined?(RAILS_ROOT)
 ...
 end
 
-# this is the Rails GemInstaller setup if you DON'T require root access to install gems
+############# Begin GemInstaller config - see http://geminstaller.rubyforge.org
 require "rubygems"
 require "geminstaller"
-args = ["--info","--config=#{RAILS_ROOT}/config/geminstaller.yml"]
+
+# Path(s) to your GemInstaller config file(s)
+config_paths = "#{File.expand_path(RAILS_ROOT)}/config/geminstaller.yml" 
+
+# Arguments which will be passed to GemInstaller
+args = "--config #{config_paths}" 
+
+# The 'exceptions' flag determines whether errors encountered while running GemInstaller
+# should raise exceptions (and abort Rails), or just return a nonzero return code
+exceptions = true 
+args += " --exceptions" if exceptions
+
+# This will use sudo by default on all non-windows platforms, but requires an entry in your
+# sudoers file to avoid having to type a password.  It can be omitted if you don't want to use sudo.
+# See http://geminstaller.rubyforge.org/documentation/documentation.html#dealing_with_sudo
+args += " --sudo" unless RUBY_PLATFORM =~ /mswin/ 
+
+# The 'install' method will auto-install gems as specified by the args and config
 GemInstaller.run(args)
 
-unless defined?(Rails::Initializer)
-...
-</pre>
-
-h3(#invoking_the_geminstaller_executable_from_rails). Invoking the <code>geminstaller</code> Executable from Rails
-
-This is the Rails GemInstaller setup to use if you DO require root access to install gems.  It calls the <code>geminstaller</code> executable via the Ruby <code>'system'</code> command with the <code>'--sudo'</code> option.  This means there will be a separate shell/cmd process spawned through <code>sudo</code>.  Make sure that sudo will not prompt you for a password, using one of the approaches described in the "Dealing with sudo and root-owned RubyGem installations":#dealing_with_sudo section.
-
-If you want to abort Rails startup if GemInstaller fails, you can capture the result of the <code>system</code> call.  Also, there are other alternatives to the <code>system</code> command, such as <code>IO.popen</code> and backticks.  Consult your favorite Ruby documentation for more info.
-
-TODO: add success check to rails sample app and test
-
-*RAILS_ROOT/config/boot.rb*:
-<pre>
-...
-unless defined?(RAILS_ROOT)
-...
-end
-
-# this is the Rails GemInstaller setup if you DO require root access to install gems
-geminstaller_success = system "geminstaller --sudo --info --config=#{RAILS_ROOT}/config/geminstaller.yml"
-
-# add this line if you want Rails app startup to abort if GemInstaller fails
-raise "GemInstaller execution failed" unless geminstaller_success
+# The 'autogem' method will automatically add all gems in the GemInstaller config to your load path, using the 'gem'
+# or 'require_gem' command.  If you want to use other config file path(s), pass them as an array or comma-delimited list.
+# Note that only the *first* version of any given gem will be loaded.
+GemInstaller.autogem(config_paths, exceptions)
+############# End GemInstaller config
 
 unless defined?(Rails::Initializer)
 ...
 </pre>
 
-h3(#choosing_rails_geminstaller_invocation_method_based_on_platform). Choosing Rails GemInstaller Invocation Method Based On Platform
-
-If you want, you can combine both of the above methods, and programatically determine which one to use based on platform.  This approach would be useful if you develop on Windows, but deploy to unix.
-
-TODO: Add code example
- 
-<pre>
-</pre>
+As you can see, this example contains several comments which are hopefully self-explanatory.  See the "Command Line Options Summary":#command_line_options_summary, especially the "<code>--config</code>":#config_option, "<code>--exceptions</code>":#exceptions_option, and "<code>--sudo</code>":#sudo_option options for more details, as well as the "Integrating GemInstaller into Ruby on Rails":#integrating_geminstaller_into_ruby_on_rails tutorial.
 
 h3(#bootstrapping_rails_with_geminstaller). Bootstrapping Rails with GemInstaller
 
@@ -401,7 +386,7 @@ h3(#tips_on_configuring_sudo). Tips on configuring sudo
 
 Sudo can be configured to not ask for a password for certain commands.  This will be useful if you want to run geminstaller against a root-owned gem repository without being prompted (such as a Rails app being deployed via Capistrano).
 
-You should consult the man or info pages on sudoers and visudo for more info (<code>man sudoers</code> or <code>info sudoers</code>).  *** Make sure you understand the security implications of this approach ***.  
+You should consult the man or info pages on sudoers and visudo for more info (<code>man sudoers</code> or <code>info sudoers</code>).  _*Make sure you understand the security implications of this approach*_.  
 
 Here's an example of how <code>sudoers</code> might be configured to allow the local user to run the <code>'gem'</code>, <code>'ruby'</code>, and <code>'geminstaller'</code> commands via <code>sudo</code> without being prompted for a password.  Replace <code><local user></code> with your username, and replace '/usr/local/bin/' with the appropriate path if it is different on your system:
 
