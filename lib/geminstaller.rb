@@ -63,6 +63,7 @@ module GemInstaller
     geminstaller_executable ||= find_geminstaller_executable
     args_without_sudo = args.dup
     args_without_sudo.reject! {|arg| arg == "-s" || arg == "--sudo"}
+    args_without_sudo << '--redirect-stderr-to-stdout'
     cmd = "sudo ruby #{geminstaller_executable} #{args_without_sudo.join(' ')}"
     # TODO: this eats any output.  There currently is no standard way to get a return code AND stdin AND stdout.
     # Some non-standard packages like Open4 handle this, but not synchronously.  The Simplest Thing That Could
