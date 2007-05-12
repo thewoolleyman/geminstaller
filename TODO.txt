@@ -7,7 +7,6 @@
 * tutorial: different configs for different environments - test (rspec) vs. dev (capistrano) vs. demo/staging/prod
 * document option to run via capistrano
 * crossreference front page, tutorials, and docs
-* rename rspec stuff - context -> describe
 * publish site
 * upload gem
 - 0.2.0 release

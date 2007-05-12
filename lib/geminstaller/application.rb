@@ -38,6 +38,8 @@ module GemInstaller
         # TODO: this should check exit_flag_and_return_code just like run method
         handle_args
         gems = create_gems_from_config
+        message = "GemInstaller is automatically requiring gems: "
+        print_startup_message(gems, message)
         return @autogem.autogem(gems)
       rescue Exception => e
         handle_exception(e)
@@ -68,8 +70,8 @@ module GemInstaller
     end
     
     def process_gems(gems)
-      # TODO: silent check is unnecessary, output_filter handles it
-      print_startup_message(gems)
+      message = "GemInstaller is verifying gem installation: "
+      print_startup_message(gems, message)
       @install_processor.process(gems)
     end
 
@@ -89,8 +91,7 @@ module GemInstaller
       return [false, 0]
     end
 
-    def print_startup_message(gems)
-      message = "GemInstaller is verifying gem installation: "
+    def print_startup_message(gems, message)
       gems.each_with_index do |gem, index|
         gem_info = "#{gem.name} #{gem.version}"
         message += gem_info 
