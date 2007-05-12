@@ -27,7 +27,7 @@ module GemInstaller
         end
       rescue Exception => e
         handle_exception(e)
-        return -1
+        return 1
       end
       return 0
     end
@@ -41,7 +41,7 @@ module GemInstaller
         return @autogem.autogem(gems)
       rescue Exception => e
         handle_exception(e)
-        return -1
+        return 1
       end
     end
     

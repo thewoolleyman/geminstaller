@@ -105,17 +105,17 @@ module GemInstaller
         opts.parse!(args)
       rescue(OptionParser::InvalidOption)
         @output << opts.to_s
-        return -1
+        return 1
       end
       
       if @options[:silent] and (@unparsed_geminstaller_output_flags or @unparsed_rubygems_output_flags)
         @output = "The rubygems-output or geminstaller-output option cannot be specified if the silent option is true."
-        return -1
+        return 1
       end
 
       if (@options[:sudo])
         @output = "The sudo option is not (yet) supported when invoking GemInstaller programatically.  It is only supported when using the command line 'geminstaller' executable.  See the docs for more info."
-        return -1
+        return 1
       end
       
       # TODO: remove duplication

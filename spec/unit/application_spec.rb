@@ -56,7 +56,7 @@ describe "an application instance invoked with no args" do
     @mock_output_filter.should_receive(:geminstaller_output).once().with(:debug,:anything)
     @mock_config_builder.should_receive(:build_config).and_raise(GemInstaller::GemInstallerError)
     return_code = @application.run
-    return_code.should ==(-1)
+    return_code.should ==(1)
   end
 
   specify "should print any exception message AND stacktrace" do
@@ -64,7 +64,7 @@ describe "an application instance invoked with no args" do
     @mock_output_filter.should_receive(:geminstaller_output).once() # TODO: how to specify Error/stacktrace exception?
     @mock_config_builder.should_receive(:build_config).and_raise(GemInstaller::GemInstallerError)
     return_code = @application.run
-    return_code.should==(-1)
+    return_code.should==(1)
   end
 
   specify ", with --exceptions option, should raise any exception" do
@@ -84,10 +84,10 @@ context "an application instance invoked with invalid args or help option" do
   specify "should print any arg parser error output then exit gracefully" do
     arg_parser_output = "arg parser output"
     @mock_output_filter.should_receive(:geminstaller_output).with(:error,/^arg parser output/)
-    @mock_arg_parser.should_receive(:parse).with(nil).and_return(-1)
+    @mock_arg_parser.should_receive(:parse).with(nil).and_return(1)
     @mock_arg_parser.should_receive(:output).and_return(arg_parser_output)
     return_code = @application.run
-    return_code.should==(-1)
+    return_code.should==(1)
   end
 
   specify "should print any arg parser non-error output then exit gracefully" do
@@ -112,7 +112,7 @@ context "an application instance invoked with missing config file(s)" do
     @mock_arg_parser.should_receive(:output).and_return('')
     @mock_config_builder.should_receive(:build_config).and_raise(GemInstaller::MissingFileError)
     return_code = @application.run
-    return_code.should==(-1)
+    return_code.should==(1)
   end
   
   specify "should still run print-rogue-gems option if it is specified and there is only a single config file" do

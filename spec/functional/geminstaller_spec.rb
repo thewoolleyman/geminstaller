@@ -195,7 +195,7 @@ context "The GemInstaller.autogem method" do
 
   specify "should handle exceptions" do
     result = GemInstaller.autogem(['bogus_config_path'])
-    result.should ==(-1)
+    result.should ==(1)
   end
 
   teardown do

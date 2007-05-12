@@ -1,6 +1,4 @@
-* sudo reinvokation swallows messages - add option to redirect stderr to stdout
 * Informational message for autogem
-* another review of how failures are handled in rails invocation
 * change default error return code to 1 from -1
 * update autogem docs to reflect abort_on_error flag
 * docs should indicate that I eat my own dog food
@@ -15,6 +13,7 @@
 * upload gem
 - 0.2.0 release
 
+* tell rspec not to alphabetize my specs, or figure out how to not run testgemhome in the middle and have it set up test gem home twice
 * better test coverage for --sudo and --exception options
 * Verify compatibility with RubyGems trunk - especially Gem::ListCommand vs. Gem::Commands::ListCommand
 * use rspec context_setup
