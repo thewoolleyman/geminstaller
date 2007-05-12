@@ -14,7 +14,7 @@ describe "an application instance invoked with no args" do
     gems = [@stub_gem]
     @stub_config.should_receive(:gems).and_return(gems)
     @mock_install_processor.should_receive(:process).once.with(gems)
-    @mock_output_filter.should_receive(:geminstaller_output).once().with(:info,/GemInstaller is verifying gem installation: gemname 1.0/)
+    @mock_output_filter.should_receive(:geminstaller_output).once().with(:info,/^GemInstaller is verifying gem installation: gemname 1.0/)
     @application.run
   end
 
@@ -25,7 +25,7 @@ describe "an application instance invoked with no args" do
     gems = [@stub_gem, @stub_gem2]
     @stub_config.should_receive(:gems).and_return(gems)
     @mock_install_processor.should_receive(:process).once.with(gems)
-    @mock_output_filter.should_receive(:geminstaller_output).once().with(:info,/GemInstaller is verifying gem installation: gemname 1.0, gemname2 > 0.0.0/)
+    @mock_output_filter.should_receive(:geminstaller_output).once().with(:info,/^GemInstaller is verifying gem installation: gemname 1.0, gemname2 > 0.0.0/)
     @application.run
   end
 
@@ -36,7 +36,7 @@ describe "an application instance invoked with no args" do
     gems = [@stub_gem]
     @stub_config.should_receive(:gems).and_return(gems)
     @mock_install_processor.should_receive(:process).once.with(gems)
-    @mock_output_filter.should_receive(:geminstaller_output).once().with(:info,/GemInstaller is verifying gem installation/)
+    @mock_output_filter.should_receive(:geminstaller_output).once().with(:info,/^GemInstaller is verifying gem installation/)
     @application.run
   end
 
@@ -47,12 +47,12 @@ describe "an application instance invoked with no args" do
     gems = [@stub_gem]
     @stub_config.should_receive(:gems).and_return(gems)
     @mock_install_processor.should_receive(:process).once.with(gems)
-    @mock_output_filter.should_receive(:geminstaller_output).once().with(:info,/GemInstaller is verifying gem installation/)
+    @mock_output_filter.should_receive(:geminstaller_output).once().with(:info,/^GemInstaller is verifying gem installation/)
     @application.run
   end
 
   specify "should print any exception message to debug then exit gracefully" do
-    @mock_output_filter.should_receive(:geminstaller_output).once().with(:error,/GemInstaller::GemInstallerError/)
+    @mock_output_filter.should_receive(:geminstaller_output).once().with(:error,/^GemInstaller::GemInstallerError/)
     @mock_output_filter.should_receive(:geminstaller_output).once().with(:debug,:anything)
     @mock_config_builder.should_receive(:build_config).and_raise(GemInstaller::GemInstallerError)
     return_code = @application.run
@@ -60,7 +60,7 @@ describe "an application instance invoked with no args" do
   end
 
   specify "should print any exception message AND stacktrace" do
-    @mock_output_filter.should_receive(:geminstaller_output).once().with(:error,/GemInstaller::GemInstallerError/)
+    @mock_output_filter.should_receive(:geminstaller_output).once().with(:error,/^GemInstaller::GemInstallerError/)
     @mock_output_filter.should_receive(:geminstaller_output).once() # TODO: how to specify Error/stacktrace exception?
     @mock_config_builder.should_receive(:build_config).and_raise(GemInstaller::GemInstallerError)
     return_code = @application.run
@@ -69,7 +69,7 @@ describe "an application instance invoked with no args" do
 
   specify ", with --exceptions option, should raise any exception" do
     @options[:exceptions] = true
-    @mock_output_filter.should_receive(:geminstaller_output).once().with(:error,/GemInstaller::GemInstallerError/)
+    @mock_output_filter.should_receive(:geminstaller_output).once().with(:error,/^GemInstaller::GemInstallerError/)
     @mock_output_filter.should_receive(:geminstaller_output).once() # TODO: how to specify Error/stacktrace exception?
     @mock_config_builder.should_receive(:build_config).and_raise(GemInstaller::GemInstallerError)
     lambda { @application.run }.should raise_error(GemInstaller::GemInstallerError)
@@ -83,7 +83,7 @@ context "an application instance invoked with invalid args or help option" do
 
   specify "should print any arg parser error output then exit gracefully" do
     arg_parser_output = "arg parser output"
-    @mock_output_filter.should_receive(:geminstaller_output).with(:error,/arg parser output/)
+    @mock_output_filter.should_receive(:geminstaller_output).with(:error,/^arg parser output/)
     @mock_arg_parser.should_receive(:parse).with(nil).and_return(-1)
     @mock_arg_parser.should_receive(:output).and_return(arg_parser_output)
     return_code = @application.run
@@ -92,7 +92,7 @@ context "an application instance invoked with invalid args or help option" do
 
   specify "should print any arg parser non-error output then exit gracefully" do
     arg_parser_output = "arg parser output"
-    @mock_output_filter.should_receive(:geminstaller_output).with(:info,/arg parser output/)
+    @mock_output_filter.should_receive(:geminstaller_output).with(:info,/^arg parser output/)
     @mock_arg_parser.should_receive(:parse).with(nil).and_return(0)
     @mock_arg_parser.should_receive(:output).and_return(arg_parser_output)
     return_code = @application.run
@@ -106,7 +106,7 @@ context "an application instance invoked with missing config file(s)" do
   end
 
   specify "should print message and exit gracefully" do
-    @mock_output_filter.should_receive(:geminstaller_output).with(:error,/config file is missing/m)
+    @mock_output_filter.should_receive(:geminstaller_output).with(:error,/^Error: A GemInstaller config file is missing/m)
     @mock_output_filter.should_receive(:geminstaller_output).once().with(:debug,:anything)
     @mock_arg_parser.should_receive(:parse).with(nil).and_return(0)
     @mock_arg_parser.should_receive(:output).and_return('')

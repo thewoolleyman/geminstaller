@@ -34,16 +34,16 @@ context "a MissingDependencyFinder instance" do
     @sample_dependent_multiplatform_gem.install_options << '--rdoc'
     @sample_dependent_multiplatform_gem.install_options << '-y'
   
-    @mock_output_filter.should_receive(:geminstaller_output).once.with(:info, /Missing dependencies found for #{@sample_dependent_gem.name} \(1.0.0\)/m)
-    @mock_output_filter.should_receive(:geminstaller_output).once.with(:info, /  #{@sample_gem.name} \(>= 1.0.0\)/)
+    @mock_output_filter.should_receive(:geminstaller_output).once.with(:info, /^Missing dependencies found for #{@sample_dependent_gem.name} \(1.0.0\)/m)
+    @mock_output_filter.should_receive(:geminstaller_output).once.with(:info, /^  #{@sample_gem.name} \(>= 1.0.0\)/)
     missing_dependencies = @missing_dependency_finder.find(@sample_dependent_gem)
     missing_dependencies[0].name.should==(@sample_gem.name)
     missing_dependencies[0].version.should==('>= 1.0.0')
     missing_dependencies[0].install_options.should include('--no-test')
     missing_dependencies[0].install_options.should include('--include-dependencies')
   
-    @mock_output_filter.should_receive(:geminstaller_output).once.with(:info, /Missing dependencies found for #{@sample_dependent_multiplatform_gem.name} \(1.0.0\)/)
-    @mock_output_filter.should_receive(:geminstaller_output).once.with(:info, /  #{@sample_multiplatform_gem.name} \(>= 1.0.0\)/)
+    @mock_output_filter.should_receive(:geminstaller_output).once.with(:info, /^Missing dependencies found for #{@sample_dependent_multiplatform_gem.name} \(1.0.0\)/)
+    @mock_output_filter.should_receive(:geminstaller_output).once.with(:info, /^  #{@sample_multiplatform_gem.name} \(>= 1.0.0\)/)
     missing_dependencies = @missing_dependency_finder.find(@sample_dependent_multiplatform_gem)
     missing_dependencies[0].name.should==(@sample_multiplatform_gem.name)
     missing_dependencies[0].version.should==('>= 1.0.0')
@@ -56,8 +56,8 @@ context "a MissingDependencyFinder instance" do
     @sample_gem.install_options << '--ignore-dependencies'
     uninstall_gem(@sample_gem)
 
-    @mock_output_filter.should_receive(:geminstaller_output).once.with(:info, /Missing dependencies found for #{@sample_dependent_gem.name} \(1.0.0\)/m)
-    @mock_output_filter.should_receive(:geminstaller_output).once.with(:info, /  #{@sample_gem.name} \(>= 1.0.0\)/)
+    @mock_output_filter.should_receive(:geminstaller_output).once.with(:info, /^Missing dependencies found for #{@sample_dependent_gem.name} \(1.0.0\)/m)
+    @mock_output_filter.should_receive(:geminstaller_output).once.with(:info, /^  #{@sample_gem.name} \(>= 1.0.0\)/)
 
     dependencies = @missing_dependency_finder.find(@sample_dependent_multilevel_gem)
     dependencies.size.should==(1)
