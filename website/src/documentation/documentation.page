@@ -172,24 +172,25 @@ NOTE: Currently, the order of gems in the config file matters.  It will install 
 
 h3(#config_file_syntax_summary). Config File Syntax Summary
 
-This is an example config file template showing all the valid properties:
+This is an example config file template showing all the valid properties (boolean defaults capitalized):
 
 <pre>
 \---
 defaults:
   install_options: [ any valid option for the RubyGems 'gem install' command ]
-  check_for_upgrade: [ true | false ]
-  fix_dependencies: [ true | false ]
-  prefer_binary_platform:  [ true | false ]
+  check_for_upgrade: [ true | FALSE ]
+  fix_dependencies: [ true | FALSE ]
+  no_autogem: [ true | FALSE ]
+  prefer_binary_platform:  [ TRUE | false ]
 gems:
 - name: [ gem name ]
   version: '[ any valid version specification for this gem, e.g. >= 1.0.0 ]'
   platform: [ any valid platform for this Gem and version specification ]
   install_options: [ any valid option for the RubyGems 'gem' command ]
-  check_for_upgrade: [ true | false ]
-  fix_dependencies: [ true | false ]
-  no_autogem: [ true | false ]
-  prefer_binary_platform: [ true | false ]
+  check_for_upgrade: [ true | FALSE ]
+  fix_dependencies: [ true | FALSE ]
+  no_autogem: [ true | FALSE ]
+  prefer_binary_platform: [ TRUE | false ]
 - name: [ another gem name ]
 - name: [ yet another gem name ]
   (etc...)
