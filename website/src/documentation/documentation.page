@@ -8,6 +8,8 @@ h2. Table of Contents
 * "Command Line Options":#command_line_options
 ** "Command Line Options Summary":#command_line_options_summary
 ** "<code>--config</code> option":#config_option
+** "<code>--exceptions</code> option":#exceptions_option
+** "<code>--redirect-stderr-to-stdout</code> option":#redirect_stderr_to_stdout_option
 ** "<code>--geminstaller-output</code> option":#geminstaller_output_option
 ** "<code>--rubygems-output</code> option":#rubygems_output_option
 ** "<code>--print-rogue-gems</code> option":#print_rogue_gems_option
@@ -63,6 +65,10 @@ $ geminstaller --help
 Usage: geminstaller [options]
 
     -c, --config=CONFIGPATHS         Comma-delimited path(s) to GemInstaller config file(s).
+    -e, --exceptions                 Raise any exceptions, rather than just printing them and exiting
+                                     with a non-zero return code.
+    -d, --redirect-stderr-to-stdout  Redirect all STDERR output to STDOUT.  Useful to get all output when
+                                     invoking GemInstaller via system().
     -g, --geminstaller-output=TYPES  Comma-delimited list of output types to show from GemInstaller.
                                        Examples:
                                          --gall
@@ -104,6 +110,16 @@ By default, GemInstaller will look for a config file named <code>geminstaller.ym
 <pre>
 geminstaller --config=../common-config/geminstaller-common-across-projects.yml,geminstaller-custom-for-myproject.yml
 </pre>
+
+h3(#exceptions_option). <code>--exceptions</code> option
+
+By default, GemInstaller will not throw exceptions for errors when invoked via <code>GemInstaller.run</code> or <code>GemInstaller.autogem</code>.  This is so that any GemInstaller errors will not abort startup of Rails or any other app other apps.  However, if you do want errors to abort startup of Rails or your app, you can set this option.
+
+h3(#redirect_stderr_to_stdout_option). <code>--redirect-stderr-to-stdout</code> option
+
+Currently, the GemInstaller <code>--sudo</code> option works by recursively re-invoking the <code>geminstaller</code> executable via <code>system()</code>.  This option is automatically added in this case to ensure that errors that would normally go to <code>stderr</code> are printed to <code>stdout</code>.  There are other solutions to this problem, but as of Ruby 1.8.5, there is no _easy_ way to make a system call which will give a return code AND show both stderr and stdout _synchronously_.  GemInstaller does not have and will not have any third-party runtime dependencies, so I needed to roll my own solution, and this was The Simplest Thing That Could Possibly Work.
+
+When RubyGems supports platform specification from the command line, I won't have to select platforms programatically via stdin, and I'll be able to invoke <code>gem</code> directly via sudo.  Until then, though, there must be this recursive hackishness to handle sudo.
 
 h3(#geminstaller_output_option). <code>--geminstaller-output</code> option
 
