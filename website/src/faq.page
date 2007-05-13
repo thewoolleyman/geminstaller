@@ -3,4 +3,5 @@ title: FAQ
 ---
 h1. Frequently Asked Questions
 
-Nothing here yet.  "Ask a question":community/index.html!!!
+Q: Why don't the tests/specs run on Windows?<br/>
+A: Dunno, something with the process handling on windows.  The manual application tests under spec/smoketest/ work on windows, though.
