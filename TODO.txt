@@ -1,4 +1,3 @@
-* wildcard platform matching not working for windows - win32console 1.0.8 i386-mswin32 not selected by platform 'mswin32'
 * docs should indicate that I eat my own dog food
 * update docs with details on how to handle unmet dependencies when -y is not specified
 * tutorial: rails
