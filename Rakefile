@@ -33,7 +33,10 @@ end
 
 task :coverage do
   rm_rf "coverage"
-  sh "rcov test/test_all.rb"
+  # TODO: better way to ensure dir exists?
+  mkdir "website/output"
+  mkdir "website/output/community"
+  sh "rcov -o website/output/community/coverage test/test_all.rb"
 end
 
 desc "Diff the manifest"

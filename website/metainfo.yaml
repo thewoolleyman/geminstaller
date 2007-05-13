@@ -49,6 +49,12 @@ community/rubyforge.html:
   title: Rubyforge
   orderInfo: 40
 
+community/coverage:
+  url: coverage/index.html
+  inMenu: true
+  title: Coverage
+  orderInfo: 50
+
 download.html:
   url: http://rubyforge.org/frs/?group_id=1902
   inMenu: true
