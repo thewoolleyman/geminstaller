@@ -1,3 +1,6 @@
+---
+title: Design
+---
 h1. Design Notes
 
 These are some notes on the underlying design of GemInstaller, and the current state of development:
@@ -19,4 +22,4 @@ These are some notes on the underlying design of GemInstaller, and the current s
 *** Smoke Tests: There are some tests under /spec/smoketests which I run manually.  These are really coarse grained scripts, and don't use Rspec or Test::Unit.  They hit the live rubygems.org gem repository, and install/uninstall actual gems.  They are used as a periodic check to ensure that my "Test Gem Home" fixture approach is not masking any real-life bugs.
 * I'm a proponent of high code coverage.  I check periodically to ensure I maintain close to 100% code coverage, not counting platform- and version-specific code blocks (and I'll get around to those some day).  Also, the sudo recursive invocation stuff still needs some tests, but that's a bit tricky to automate.
 * The tests are flaky on Windows (but run fine on mac/linux).  The app itself runs fine, so I believe it's something related to spawning processes for the test GEM_HOME and EmbeddedGemServer.  I plan to look at this too, eventually.
-* I also started GemInstaller as an exercise to help me learn Ruby better.  If you see me doing anything obviously dumb or inefficient, please let me know  - some of them I already know about, but haven't fixed :)
+* One of my motivations for creating GemInstaller was as an exercise to help me learn Ruby better.  If you see me doing anything obviously dumb or inefficient in the code or design, please let me know. Some of them I already know about, but haven't fixed, most I'm probably not aware of :)

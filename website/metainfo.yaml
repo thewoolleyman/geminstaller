@@ -45,7 +45,7 @@ community/links.page:
   inMenu: true
   orderInfo: 30
 
-code/design.page:
+code/index.page:
   title: Design
   inMenu: true
   orderInfo: 10

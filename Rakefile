@@ -67,7 +67,7 @@ end
 
 desc "Run Webgen to generate website"
 task :webgen do
-  rm_rf "website/output"
+#  rm_rf "website/output"
   sh "webgen -d website"
 end
 
