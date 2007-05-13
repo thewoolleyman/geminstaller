@@ -6,6 +6,10 @@ documentation:
   title: Documentation
   orderInfo: 20
 
+download.page:
+  inMenu: true
+  orderInfo: 30
+
 faq.page:
   inMenu: true
   orderInfo: 40
@@ -60,11 +64,5 @@ community/coverage:
   inMenu: true
   title: Coverage
   orderInfo: 50
-
-download.html:
-  url: http://rubyforge.org/frs/?group_id=1902
-  inMenu: true
-  title: Download
-  orderInfo: 30
 
 
