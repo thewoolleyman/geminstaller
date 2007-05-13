@@ -33,9 +33,8 @@ end
 
 task :coverage do
   rm_rf "coverage"
-  # TODO: better way to ensure dir exists?
-  mkdir "website/output"
-  mkdir "website/output/community"
+  rm_rf "website/output/community/coverage"
+  sh "mkdir -p website/output/community"
   sh "rcov -o website/output/community/coverage test/test_all.rb"
 end
 
@@ -63,6 +62,23 @@ end
 desc "Update the manifest"
 task :update_manifest do
   system('rake diff_manifest | patch -p0 Manifest.txt')
+end
+
+desc "Run Webgen to generate website"
+task :webgen do
+  rm_rf "website/output"
+  sh "webgen -d website"
+end
+
+desc "Move ri docs to website"
+task :website_rdocs => :docs do
+  rm_rf "website/output/documentation/rdoc"
+  sh "mkdir -p website/output/documentation/"
+  mv "doc", "website/output/documentation/rdoc"
+end
+
+desc "Generate ri locally for testing"
+task :website => [:webgen, :docs, :coverage] do
 end
 
 # vim: syntax=Ruby

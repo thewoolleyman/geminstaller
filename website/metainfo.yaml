@@ -43,6 +43,12 @@ community/links.page:
   orderInfo: 30
 
 ---
+documentation/rdoc:
+  url: rdoc/index.html
+  inMenu: true
+  title: Rdoc
+  orderInfo: 40
+
 community/rubyforge.html:
   url: http://rubyforge.org/projects/geminstaller/
   inMenu: true
