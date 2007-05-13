@@ -18,6 +18,10 @@ community:
   title: Community
   orderInfo: 50
 
+code:
+  title: Code
+  orderInfo: 60
+
 documentation/index.page:
   inMenu: true
   orderInfo: 10
@@ -36,33 +40,33 @@ community/index.page:
   inMenu: true
   orderInfo: 10
 
-community/design.page:
-  title: Design
-  inMenu: true
-  orderInfo: 20
-
 community/links.page:
   title: Links
   inMenu: true
   orderInfo: 30
 
----
-documentation/rdoc:
-  url: rdoc/index.html
+code/design.page:
+  title: Design
   inMenu: true
-  title: Rdoc
-  orderInfo: 40
+  orderInfo: 10
 
+---
 community/rubyforge.html:
   url: http://rubyforge.org/projects/geminstaller/
   inMenu: true
   title: Rubyforge
   orderInfo: 40
 
-community/coverage:
+code/rdoc:
+  url: rdoc/index.html
+  inMenu: true
+  title: Rdoc
+  orderInfo: 20
+
+code/coverage:
   url: coverage/index.html
   inMenu: true
   title: Coverage
-  orderInfo: 50
+  orderInfo: 30
 
 
