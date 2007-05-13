@@ -82,4 +82,11 @@ desc "Generate ri locally for testing"
 task :website => [:webgen, :docs, :coverage] do
 end
 
+desc 'Publish website to RubyForge'
+task :publish_website => [:clean, :website] do
+  host = "thewoolleyman@rubyforge.org"
+  remote_dir = "/var/www/gforge-projects/geminstaller/geminstaller"
+  local_dir = 'website/output'
+  sh %{rsync -av --delete #{local_dir}/ #{host}:#{remote_dir}}
+end
 # vim: syntax=Ruby
