@@ -4,4 +4,4 @@ title: FAQ
 h1. Frequently Asked Questions
 
 Q: Why don't the tests/specs run on Windows?<br/>
-A: Dunno, something with the process handling on windows.  The manual application tests under spec/smoketest/ work on windows, though.
+A: Dunno, something with the process handling on windows for TestGemHome and EmbeddedGemServer.  The manual application tests under spec/smoketest/ work on windows, though.
