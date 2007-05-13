@@ -13,7 +13,8 @@ GemInstaller provides automated management of RubyGems.  It uses a simple YAML c
 * Automatically reinstall missing dependency gems
 * Automatically guess at correct platform to install for multi-platform gems
 * Print YAML for "rogue gems" which are not specified in the current config, to easily bootstrap your config file, or find gems that were manually installed without GemInstaller.
-* Avoid the "works on demo, broken on production" syndrome
+* Allow for common configs to be reused across projects or environments by supporting multiple config files and defaults with overrides.
+* Avoid the "works on demo, breaks on production" syndrome
 
 GemInstaller can be used from the command line, or embedded to run automatically on startup for a Rails app or any other Ruby program.
 

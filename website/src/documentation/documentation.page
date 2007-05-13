@@ -276,13 +276,12 @@ require "geminstaller"
 # Path(s) to your GemInstaller config file(s)
 config_paths = "#{File.expand_path(RAILS_ROOT)}/config/geminstaller.yml" 
 
-# Arguments which will be passed to GemInstaller
+# Arguments which will be passed to GemInstaller (you can add any extra ones)
 args = "--config #{config_paths}" 
 
 # The 'exceptions' flag determines whether errors encountered while running GemInstaller
 # should raise exceptions (and abort Rails), or just return a nonzero return code
-exceptions = true 
-args += " --exceptions" if exceptions
+args += " --exceptions"
 
 # This will use sudo by default on all non-windows platforms, but requires an entry in your
 # sudoers file to avoid having to type a password.  It can be omitted if you don't want to use sudo.
@@ -293,9 +292,8 @@ args += " --sudo" unless RUBY_PLATFORM =~ /mswin/
 GemInstaller.run(args)
 
 # The 'autogem' method will automatically add all gems in the GemInstaller config to your load path, using the 'gem'
-# or 'require_gem' command.  If you want to use other config file path(s), pass them as an array or comma-delimited list.
-# Note that only the *first* version of any given gem will be loaded.
-GemInstaller.autogem(config_paths, exceptions)
+# or 'require_gem' command.  Note that only the *first* version of any given gem will be loaded.
+GemInstaller.autogem(args)
 ############# End GemInstaller config
 
 unless defined?(Rails::Initializer)
@@ -402,16 +400,17 @@ GemInstaller provides a <code>GemInstaller.autogem</code> class method which wil
 
 If there are some gems you don't want to auto-require, you can set the '<code>no_autogem: true</code> config config property in the GemInstaller config file.  This can be set for individual gems, or as a default.
 
-To use it, invoke the <code>autogem</code> method, and pass an array or comma-delimited string containing the path(s) to the GemInstaller config files specifying the gems to load:
+To use it, invoke the <code>autogem</code> method, and pass a string of arguments, just like the GemInstaller command line, but it ignores arguments which are not applicable (such as -r or -s):
 
-*requires.rb*
 <pre>
 ...
-GemInstaller.require(['/path/to/one/geminstaller.yml','/path/to/another/geminstaller.yml'])
+GemInstaller.autogem('--config=/path/to/one/geminstaller.yml,/path/to/another/geminstaller.yml')
 ...
 </pre>
 
-Alternately, you are not required to pass a parameter of config files if you invoke the command from a ruby file which is in the same directory as a default-named <code>'geminstaller.yml'</code> file.
+Alternately, you are not required to pass any args if you invoke the command from a ruby file which is in the same directory as a default-named <code>'geminstaller.yml'</code> file.
+
+You can also use the "--exceptions" argument to cause <code>autogem</code> to throw an exception if it encounters any error.  This is useful if you want to abort your application startup if any gems failed to load.
 
 *IMPORTANT NOTE*: The RubyGems <code>'gem'</code> and <code>'require_gem'</code> commands will only load a single version of any given gem onto the load path.  Because of this, the GemInstaller autogem command will only process the first version that it finds of any given gem.
 

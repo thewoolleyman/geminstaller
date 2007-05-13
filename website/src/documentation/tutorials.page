@@ -56,12 +56,14 @@ irb(main):001:0> require 'rubygems'
 => true
 irb(main):002:0> require 'geminstaller'
 => true
-irb(main):003:0> GemInstaller.autogem(['geminstaller.yml'])
+irb(main):003:0> GemInstaller.autogem('--config=geminstaller.yml')
 => autogem returns the gem object(s) as it's return value...
-irb(main):004:0> $:
+irb(main):004:0> $: # Now verify the gem was added to the load path
 => ["/usr/local/lib/ruby/gems/1.8/gems/ruby-doom-0.8/lib", ...]
 </pre>
 
-Note that you could have passed a comma-delimited string instead of an array as the argument, or no argument at all if you wanted to simply use the <code>geminstaller.yml</code> file in the current directory.
+Note that <code>autogem</code> takes arguments in the same format as the GemInstaller command line and <code>run</code> method, but it ignores arguments which are not applicable (such as -r or -s).  You could also specify no argument at all if you wanted to simply use the default <code>geminstaller.yml</code> file in the current directory.  If you don't want a certain gem to be loaded, you can set the <code>no-autogem</code> property to true for that gem in your config file.
+
+You can also put a call to <code>autogem</code> during your application startup to automatically load all the correct gem versions which are specified by your config file.  See "Integrating GemInstaller into Ruby on Rails":#integrating_geminstaller_into_ruby_on_rails for an example.
 
 See also:  Docs on "Automatically Requiring Gems with the <code>autogem</code> Method":documentation.html#automatically_requiring_gems_with_the_autogem_method
