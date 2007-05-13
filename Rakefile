@@ -79,7 +79,7 @@ task :website_rdocs => :docs do
 end
 
 desc "Generate ri locally for testing"
-task :website => [:webgen, :docs, :coverage] do
+task :website => [:webgen, :website_rdocs, :coverage] do
 end
 
 desc 'Publish website to RubyForge'
