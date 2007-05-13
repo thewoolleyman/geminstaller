@@ -34,9 +34,9 @@ end
 
 task :coverage do
   rm_rf "coverage"
-  rm_rf "website/output/community/coverage"
-  sh "mkdir -p website/output/community"
-  sh "rcov -o website/output/community/coverage test/test_all.rb"
+  rm_rf "website/output/code/coverage"
+  sh "mkdir -p website/output/code"
+  sh "rcov -o website/output/code/coverage test/test_all.rb"
 end
 
 desc "Diff the manifest"
@@ -73,9 +73,9 @@ end
 
 desc "Move ri docs to website"
 task :website_rdocs => :docs do
-  rm_rf "website/output/documentation/rdoc"
-  sh "mkdir -p website/output/documentation/"
-  mv "doc", "website/output/documentation/rdoc"
+  rm_rf "website/output/code/rdoc"
+  sh "mkdir -p website/output/code/"
+  mv "doc", "website/output/code/rdoc"
 end
 
 desc "Generate ri locally for testing"
