@@ -9,7 +9,7 @@ describe "a ValidPlatformSelector with prefer_binary_platform == true and no gem
   it "should select @ruby_platform platform first, and default platform (ruby) last" do
     should_select_correct_valid_platforms("i686-darwin8.7.1", nil, ['686-darwin', 'ruby'])
     should_select_correct_valid_platforms("powerpc-darwin", nil, ['powerpc', 'ruby'])
-    should_select_correct_valid_platforms("i386-mswin32", nil, ['mswin32', 'ruby'])
+    should_select_correct_valid_platforms("i386-mswin32", nil, ['i386-mswin32', 'mswin32', 'ruby'])
     should_select_correct_valid_platforms("i686-linux", nil, ['686-linux', 'ruby'])
   end
 end
@@ -18,6 +18,11 @@ describe "a ValidPlatformSelector with prefer_binary_platform == true and a gem_
   it "should select gem_platform first, @ruby_platform platform second, and default platform (ruby) last" do
     common_setup_valid_platform_selector(true)
     should_select_correct_valid_platforms("i686-darwin8.7.1", "gem-platform", ['gem-platform', '686-darwin', 'ruby'])
+  end
+
+  it "should select correct platforms for various gem platforms" do
+    common_setup_valid_platform_selector(true)
+    should_select_correct_valid_platforms("i386-mswin32", "mswin32", ['i386-mswin32', 'mswin32', 'ruby'])
   end
 
   it "should not duplicate dependent gem platform if it is already in the list (or if it is ruby, which will always be in the list)" do
