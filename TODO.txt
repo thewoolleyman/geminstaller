@@ -2,9 +2,8 @@
 * docs should indicate that I eat my own dog food
 * update docs with details on how to handle unmet dependencies when -y is not specified
 * tutorial: rails
-* tutorial: using common or shared config files
-* tutorial: different configs for different environments - test (rspec) vs. dev (capistrano) vs. demo/staging/prod
-* document option to run via capistrano
+* tutorial: using common or shared config files, with different configs for different environments - test (rspec) vs. dev (capistrano) vs. demo/staging/prod
+* tutorial: running via capistrano
 * crossreference front page, tutorials, and docs
 * put mongrel/rails startup bug in tracker, add link in "known bugs" section on home page.
 * publish site

@@ -7,8 +7,9 @@ If anything is unclear, or if you'd like to see a tutorial on a topic, please su
 * "Installing GemInstaller":#installing_geminstaller
 * "Bootstrapping your GemInstaller Config with the <code>--print-rogue-gems</code> option":#bootstrapping_your_geminstaller_config
 * "Using the <code>autogem</code> Option to Automatically Require Gems":#using_the_autogem_option_to_automatically_require_gems
-* "Integrating GemInstaller into Ruby on Rails":#integrating_geminstaller_into_ruby_on_rails TODO: finish this
-* "Using Common or Shared Config Files" TODO: finish this
+* "Integrating GemInstaller into Ruby on Rails":#integrating_geminstaller_into_ruby_on_rails
+* "Using Common or Shared Config Files":#using_common_or_shared_config_files
+* "Running GemInstaller from Capistrano":#running_geminstaller_from_capistrano
 
 h2(#installing_geminstaller). Installing GemInstaller
 
@@ -67,3 +68,27 @@ Note that <code>autogem</code> takes arguments in the same format as the GemInst
 You can also put a call to <code>autogem</code> during your application startup to automatically load all the correct gem versions which are specified by your config file.  See "Integrating GemInstaller into Ruby on Rails":#integrating_geminstaller_into_ruby_on_rails for an example.
 
 See also:  Docs on "Automatically Requiring Gems with the <code>autogem</code> Method":documentation.html#automatically_requiring_gems_with_the_autogem_method
+
+
+
+
+h2(#integrating_geminstaller_into_ruby_on_rails). Integrating GemInstaller into Ruby on Rails
+
+TODO: Write this, for now see docs on "Using GemInstaller with Ruby on Rails or Other Ruby Apps":documentation.html#using_geminstaller_with_ruby_on_rails_or_other_ruby_apps. 
+
+See also: Docs on "Using GemInstaller with Ruby on Rails or Other Ruby Apps":documentation.html#using_geminstaller_with_ruby_on_rails_or_other_ruby_apps. 
+
+
+h2(#using_common_or_shared_config_files). Using Common or Shared Config Files
+
+TODO: Write this, for now see docs on the "<code>--config</code>":documentation.html#config_option option. 
+
+See also: Docs on the "<code>--config</code>":documentation.html#config_option option. 
+
+
+h2(#running_geminstaller_from_capistrano). Running GemInstaller from Capistrano
+
+TODO: Write this, for now see docs on  "Using GemInstaller from Other Ruby Apps":documentation.html#using_geminstaller_from_other_ruby_apps
+
+See also: Docs on "Using GemInstaller from Other Ruby Apps":documentation.html#using_geminstaller_from_other_ruby_apps.
+

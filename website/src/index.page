@@ -34,5 +34,5 @@ GemInstaller was created by "Chad Woolley":http://www.thewoolleyweb.com.
 
 h2. Known Bugs
 
-Currently (version 0.0.2), the only _major_ known bug is related to auto-installing the Rails or Mongrel gems via boot.rb during startup of Mongrel or Webrick.  The simple workaround is to just restart Rails anytime GemInstaller auto-installs a Rails/Mongrel gem upgrade during app startup.  Researching and fixing this problem is a top priority.  I bet there's another bug or twoo, so please "report them if you find them":http://rubyforge.org/tracker/?group_id=1902!
+Currently (as of version 0.0.2), the only _major_ known bug is related to auto-installing the Rails or Mongrel gems via boot.rb during startup of Mongrel or Webrick.  The simple workaround is to run GemInstaller manually or just restart Rails anytime GemInstaller auto-installs a Rails/Mongrel gem upgrade during app startup.  For Rails and other deployable apps, you can also "run GemInstaller from Capistrano":documentation/tutorials.html#running_geminstaller_from_capistrano to avoid this problem in demo/production environments.  Researching and fixing this problem is a top priority.  I bet there's another bug or twoo, so please "report them if you find them":http://rubyforge.org/tracker/?group_id=1902!
 
