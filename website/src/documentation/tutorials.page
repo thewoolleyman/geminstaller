@@ -74,21 +74,222 @@ See also:  Docs on "Automatically Requiring Gems with the <code>autogem</code> M
 
 h2(#integrating_geminstaller_into_ruby_on_rails). Integrating GemInstaller into Ruby on Rails
 
-TODO: Write this, for now see docs on "Using GemInstaller with Ruby on Rails or Other Ruby Apps":documentation.html#using_geminstaller_with_ruby_on_rails_or_other_ruby_apps. 
+GemInstaller can be configured to automatically install all gems in the config file, and add them to the load path when Rails boots.  This means that you can check out and run your application anywhere, without having to worry about manually ensuring that the required dependency gems are installed.  This works with Webrick and Mongrel.
+
+IMPORTANT NOTE:  Currently, there is a bug with installing Mongrel and Rails gems on Rails startup.  See "Known Bugs":../index.html#known_bugs for details.
+
+First, you need a Rails app.  I'll let you handle this step on your own.  See the "Rails documentation":http://www.rubyonrails.org/docs for details.
+
+Next, you need a *<code>geminstaller.yml</code>* config file.  Create this under the Rails <code>config</code> directory.  For details, see the documentation on the "config file":documentation.html#config_file and the tutorial on "bootstrapping your GemInstaller config with the <code>--print-rogue-gems</code> option":#bootstrapping_your_geminstaller_config.  Here's an example config which contains only entries for Mongrel and Rails, and ruby-doom:
+
+*RAILS_ROOT/config/geminstaller.yml*:
+<pre>
+\---
+defaults:
+  install_options: --include-dependencies
+gems:
+- name: ruby-doom
+  version: '= 0.8'
+- name: rails
+  version: '= 1.1.6'
+- name: mongrel
+  version: '= 1.0.1'
+  platform: <%= RUBY_PLATFORM =~ /mswin/ ? 'mswin32' : 'ruby'%>
+</pre>
+
+Once you have your *<code>geminstaller.yml</code>* created, the last step is to add calls to <code>GemInstaller.run</code> and <code>GemInstaller.autogem</code> in your boot.rb.  They should be placed right after the block which defines the RAILS_ROOT constant, as shown below ("..." indicates omitted lines):
+
+
+*RAILS_ROOT/config/boot.rb*:
+<pre>
+...
+unless defined?(RAILS_ROOT)
+...
+end
+
+############# Begin GemInstaller config - see http://geminstaller.rubyforge.org
+require "rubygems"
+require "geminstaller"
+
+# Path(s) to your GemInstaller config file(s)
+config_paths = "#{File.expand_path(RAILS_ROOT)}/config/geminstaller.yml" 
+
+# Arguments which will be passed to GemInstaller (you can add any extra ones)
+args = "--config #{config_paths}" 
+
+# The 'exceptions' flag determines whether errors encountered while running GemInstaller
+# should raise exceptions (and abort Rails), or just return a nonzero return code
+args += " --exceptions"
+
+# This will use sudo by default on all non-windows platforms, but requires an entry in your
+# sudoers file to avoid having to type a password.  It can be omitted if you don't want to use sudo.
+# See http://geminstaller.rubyforge.org/documentation/documentation.html#dealing_with_sudo
+args += " --sudo" unless RUBY_PLATFORM =~ /mswin/ 
+
+# The 'install' method will auto-install gems as specified by the args and config
+GemInstaller.run(args)
+
+# The 'autogem' method will automatically add all gems in the GemInstaller config to your load path, using the 'gem'
+# or 'require_gem' command.  Note that only the *first* version of any given gem will be loaded.
+GemInstaller.autogem(args)
+############# End GemInstaller config
+
+unless defined?(Rails::Initializer)
+...
+</pre>
+
+This example also has configurable variables which illustrate the common option arguments you can control.  The <code>--exceptions</code> argument will cause GemInstaller to raise an exception if errors occur, and thus abort Rails startup.  The <code>--sudo</code> argument causes GemInstaller to be run via sudo.
+
+Now, all you need to do is start Rails.  You can use Webrick with <code>ruby script/server</code>, or Mongrel with <code>mongrel_rails start</code>.  You should see the message from Geminstaller that the gems are being installed:
+
+<pre>
+$ ruby script/server
+GemInstaller is verifying gem installation: mongrel = 1.0.1, rails = 1.1.6, ruby-doom = 0.8
+GemInstaller is automatically requiring gems: mongrel = 1.0.1, rails = 1.1.6, ruby-doom = 0.8
+./script/../config/boot.rb:55:Warning: require_gem is obsolete.  Use gem instead.
+=> Booting WEBrick...
+GemInstaller is verifying gem installation: mongrel = 1.0.1, rails = 1.1.6, ruby-doom = 0.8
+GemInstaller is automatically requiring gems: mongrel = 1.0.1, rails = 1.1.6, ruby-doom = 0.8
+=> Rails application started on http://0.0.0.0:3000
+=> Ctrl-C to shutdown server; call with --help for options
+[2007-05-13 22:41:37] INFO  WEBrick 1.3.1
+[2007-05-13 22:41:37] INFO  ruby 1.8.5 (2006-08-25) [i686-darwin8.7.1]
+[2007-05-13 22:41:37] INFO  WEBrick::HTTPServer#start: pid=2519 port=3000
+</pre>
+
+If that worked, good!  If not, carefully read the error message.  If it was a RubyGems failure (as opposed to a bug in GemInstaller), the "<code>gem</code>" command that GemInstaller tried to execute should be echoed as part of the error message.  Cut and paste this command onto the command line, and see if you get the same error.  If you do, then resolve it and the problem should go away under GemInstaller as well.
+
+For extra credit, we can write a simple Rails controller to verify that the correct gems are getting added to the load path by the <code>autogem</code> command.  First, create the Rails app and a controller:
+
+<pre>
+$ rails geminstaller_example
+$ ruby script/generate controller GemInstallerExample
+</pre>
+
+Next, create the Rails app.  You need...
+
+...an action:
+*RAILS_ROOT/app/controllers/gem_installer_example_controller.rb*
+<pre>
+class GemInstallerExampleController < ApplicationController
+  def index
+  end
+end
+</pre>
+
+...a sample rhtml page which will show your config and load path:
+*RAILS_ROOT/app/views/gem_installer/index.rhtml*
+<pre>
+<% config = File.open("#{RAILS_ROOT}/config/geminstaller.yml")
+   config_lines = config.read.gsub!("\n","<br/>") %>
+<hr/>
+<h2>geminstaller.yml</h2>
+<h2><%= config_lines %></h2>
+<hr/>
+<h2>Load Path: </h2>
+<h2><%= $:.join("\n") %></h2>
+<hr/>
+</pre>
+
+...a default route to your page:
+*RAILS_ROOT/config/routes.rb*
+<pre>
+...
+# Put the following line as the first route in the routes.rb file:
+map.connect '', :controller => "gem_installer_example"
+...
+</pre>
+
+...a GemInstaller config file:
+*RAILS_ROOT/config/geminstaller.yml*:
+<pre>
+\---
+defaults:
+  install_options: --include-dependencies
+gems:
+- name: ruby-doom
+  version: '= 0.8'
+</pre>
+
+...the modifications to boot.rb (comments and local variables omitted here for brevity):
+<pre>
+...
+unless defined?(RAILS_ROOT)
+...
+end
+
+############# Begin GemInstaller config - see http://geminstaller.rubyforge.org
+require "rubygems"
+require "geminstaller"
+config_paths = "#{File.expand_path(RAILS_ROOT)}/config/geminstaller.yml" 
+args = "--config #{config_paths}" 
+args += " --exceptions"
+args += " --sudo" unless RUBY_PLATFORM =~ /mswin/ 
+GemInstaller.run(args)
+GemInstaller.autogem(args)
+############# End GemInstaller config
+
+unless defined?(Rails::Initializer)
+...
+</pre>
+
+...and delete the public/index.html file:
+<pre>
+$ rm public/index.html
+</pre>
+
+Now, you should be able to start the example Rails app and navigate to <code>http://localhost:3000</code> to view your config file and load path with the gems auto-required:
+
+<pre>
+$ ... cd to root of your rails app ...
+$ mongrel_rails start
+</pre>
+
+...open http://localhost:3000, and you should see something like this:
+<pre>
+_____________________________
+geminstaller.yml
+/---
+defaults:
+install_options: --include-dependencies
+gems:
+- name: ruby-doom
+version: '= 0.8'
+_____________________________
+Load Path:
+...
+(lots of load path stuff omitted)
+...
+(here's our gem!)
+/usr/local/lib/ruby/gems/1.8/gems/ruby-doom-0.8/lib /usr/local/lib/ruby/gems/1.8/gems/sources-0.0.1/bin</pre>
+...
+(more stuff omitted)
+...
+</pre>
+
+That's about it!
 
 See also: Docs on "Using GemInstaller with Ruby on Rails or Other Ruby Apps":documentation.html#using_geminstaller_with_ruby_on_rails_or_other_ruby_apps. 
 
 
 h2(#using_common_or_shared_config_files). Using Common or Shared Config Files
 
-TODO: Write this, for now see docs on the "<code>--config</code>":documentation.html#config_option option. 
+GemInstaller supports multiple config files, with the last config files in the list overriding the previous ones.  This means you could do any of the following:
+
+* Have a common config file across all your projects, which is shared via an svn:external, and a custom config file to override or add gems which are not in the common config.
+* Have a common config file across all development machines, shared on a windows share or NFS mounted drive, with machine- or platform-specific gems listed in local config files.
+* Have config files that are specific to certain environments such as development and test, which will not be included when GemInstaller is run in a demo or production environment.
+
+TODO: Finish writing examples of this, for now see docs on the "<code>--config</code>":documentation.html#config_option option. 
 
 See also: Docs on the "<code>--config</code>":documentation.html#config_option option. 
 
 
 h2(#running_geminstaller_from_capistrano). Running GemInstaller from Capistrano
 
-TODO: Write this, for now see docs on  "Using GemInstaller from Other Ruby Apps":documentation.html#using_geminstaller_from_other_ruby_apps
+GemInstaller can be hooked in as a capistrano task.  This is a way to avoid having the boot.rb hacks run in demo or production, and possibly cause problems with app startup in these environments.  It also is a way to avoid the current bug with Rails and Mongrel gems not being loaded correctly if they are upgraded during the app startup process.
+
+TODO: Finish writing this, for now see docs on  "Using GemInstaller from Other Ruby Apps":documentation.html#using_geminstaller_from_other_ruby_apps
 
 See also: Docs on "Using GemInstaller from Other Ruby Apps":documentation.html#using_geminstaller_from_other_ruby_apps.
 
