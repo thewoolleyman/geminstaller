@@ -6,7 +6,7 @@ h1. Design Notes
 These are some notes on the underlying design of GemInstaller, and the current state of development:
 
 * GemInstaller was developed from nothing but a concept, using "Behavior-Driven Development":http://behaviour-driven.org and "Rspec":http://rspec.rubyforge.org/.
-* GemInstaller uses "Dependency Injection", an architecture which has many benefits, including testability and enabling "loose coupling and high cohesion":http://www.c2.com/cgi/wiki?CouplingAndCohesion.  I originally started with "Needle":http://rubyforge.org/projects/needle/, a Ruby Dependency Injection framework, but switched to a simple home-grown approach in other to not have a dependency on the Needle gem.  Read more about Dependency Injection here:
+* GemInstaller uses "Dependency Injection", an architecture which has many benefits, including testability and enabling "loose coupling and high cohesion":http://www.c2.com/cgi/wiki?CouplingAndCohesion.  I originally started with "Needle":http://rubyforge.org/projects/needle/, a Ruby Dependency Injection framework, but switched to a simple home-grown approach in order to not have a dependency on the Needle gem.  Read more about Dependency Injection here:
 ** "http://onestepback.org/index.cgi/Tech/Ruby/DependencyInjectionInRuby.rdoc":http://onestepback.org/index.cgi/Tech/Ruby/DependencyInjectionInRuby.rdoc
 ** "http://onestepback.org/articles/depinj/":http://onestepback.org/articles/depinj/
 ** "http://martinfowler.com/bliki/InversionOfControl.html":http://martinfowler.com/bliki/InversionOfControl.html 
