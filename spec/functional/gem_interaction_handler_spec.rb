@@ -55,13 +55,13 @@ describe "a GemInteractionHandler instance with a non-multiplatform dependency g
   end
 
   it "should choose dependent gem platform if it is specified and the list is for the dependent gem, even if other matches exist" do
-    @dependent_gem.platform = "mswin32"
+    @dependent_gem.platform = "i386-mswin32"
     @gem_interaction_handler.dependent_gem = @dependent_gem
     list = ["#{@dependent_gem.name} #{@dependent_gem.version} (#{GemInstaller::RubyGem.default_platform})"]
     list << "#{@dependent_gem.name} #{@dependent_gem.version} (i386-mswin32)"
     list << "#{@dependent_gem.name} #{@dependent_gem.version} (#{@dependent_gem.platform})"
     list << 'Cancel'
-    should_choose_properly(list, 2)
+    should_choose_properly(list, 1)
   end
 
 end
