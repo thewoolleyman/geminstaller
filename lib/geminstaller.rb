@@ -29,7 +29,7 @@ module GemInstaller
   end
 
   def self.version
-    "0.0.2"
+    "0.2.0"
   end
 
   def self.create_application(args = [], registry = nil)
