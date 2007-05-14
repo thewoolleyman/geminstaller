@@ -1,3 +1,5 @@
+* upload gem
+================ 0.2.0 release ===================
 * docs should indicate that I eat my own dog food
 * update docs with details on how to handle unmet dependencies when -y is not specified
 * tutorial: rails
@@ -6,9 +8,7 @@
 * crossreference front page, tutorials, and docs
 * put mongrel/rails startup bug in tracker, add link in "known bugs" section on home page.
 * links - rspec, rubygems
-* publish site
-* upload gem
-================ 0.2.0 release ===================
+================ 0.2.0 finishing website ===================
 * make valid_platform_selector use data from tattle
 * autogem and run args can be passed as string or array
 * tell rspec not to alphabetize my specs, or figure out how to not run testgemhome in the middle and have it set up test gem home twice
