@@ -3,6 +3,7 @@
 * docs - clean up sudo section.  Should be clearer about sudoers entry, and make sure that NOPASSWD is the last entry.
 * Faq - mention sudo
 * Faq - mention Zed's questions
+* design - dependency management is good.  Maven got it right, if not for the jelly...
 ================ 0.2.1 release ===================
 * update docs with details on how to handle unmet dependencies when -y is not specified
 * tutorial: using common or shared config files, with different configs for different environments - test (rspec) vs. dev (capistrano) vs. demo/staging/prod
@@ -89,3 +90,4 @@
 * Add support, syntax, and options for uninstalling gems - completely, or down to highest specified version.
 * add feature to automatically warn if there is a more recent version of the gem available and check_for_upgrade == false.  Use "gem outdated" command
 * auto-generate geminstaller.yml files (possibly by parsing source, or based on all gems installed locally)
+================ 0.later.1 Unprioritized ===================
