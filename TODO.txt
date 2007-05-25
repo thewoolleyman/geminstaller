@@ -1,13 +1,15 @@
-* Allow array of gems to be passed instead of config files
+* Allow array or eval'able string of gems to be passed as an arg or instead of args
 =============== 0.2.1
 * Modify environment.rb for rails, not boot.rb.  Fix all doc references.
-* Catch permission errors, and print descriptive instructions on how to handle sudo.  "Uh Oh!  A gem installation failed because it did not have permission to write to the filesystem.  If you want to have automated GemInstaller goodness, you'll have to fix this.  Don't worry, it's easy.  You have three basic choices: ..."
+* Catch permission errors, and print descriptive instructions on how to handle sudo.  "Uh Oh!  A gem installation failed because it did not have permission to write to the filesystem.  If you want to have automated GemInstaller goodness, you'll have to fix this.  Don't worry, it's easy!  You have three basic choices: ..."
 * docs - clean up sudo section.  Should be clearer about sudoers entry, and make sure that NOPASSWD is the last entry.
 * Faq - mention sudo
 * Faq - mention Zed's questions
 * design - dependency management is good.  Maven got it right, if not for the jelly...
 * search for config/geminstaller.yml by default
 ================ 0.2.2 release ===================
+* Rename API: autogem -> gem, run -> install
+================ 0.3.0 release =====================
 * update docs with details on how to handle unmet dependencies when -y is not specified
 * tutorial: using common or shared config files, with different configs for different environments - test (rspec) vs. dev (capistrano) vs. demo/staging/prod
 * tutorial: running via capistrano
@@ -15,7 +17,7 @@
 * put mongrel/rails startup bug in tracker, add link in "known bugs" section on home page.
 * links - rspec, rubygems
 * Set up cruise
-================ 0.2.3 finishing website ===================
+================ 0.3.1 finishing website ===================
 * make valid_platform_selector use data from tattle
 * autogem and run args can be passed as string or array
 * tell rspec not to alphabetize my specs, or figure out how to not run testgemhome in the middle and have it set up test gem home twice
