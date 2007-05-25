@@ -4,6 +4,7 @@
 * Faq - mention sudo
 * Faq - mention Zed's questions
 * design - dependency management is good.  Maven got it right, if not for the jelly...
+* search for config/geminstaller.yml by default
 ================ 0.2.1 release ===================
 * update docs with details on how to handle unmet dependencies when -y is not specified
 * tutorial: using common or shared config files, with different configs for different environments - test (rspec) vs. dev (capistrano) vs. demo/staging/prod
