@@ -1,4 +1,5 @@
-* Allow array or eval'able string of gems to be passed as an arg or instead of args
+* Allow array or eval'able string of gems to be passed as --gems arg or instead of args
+* Add @options[:gems], should be parsed from 
 =============== 0.2.1
 * Modify environment.rb for rails, not boot.rb.  Fix all doc references.
 * Catch permission errors, and print descriptive instructions on how to handle sudo.  "Uh Oh!  A gem installation failed because it did not have permission to write to the filesystem.  If you want to have automated GemInstaller goodness, you'll have to fix this.  Don't worry, it's easy!  You have three basic choices: ..."
