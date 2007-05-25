@@ -9,6 +9,7 @@ module GemInstaller
     def parse(args = [])
       raise GemInstaller::GemInstallerError.new("Args must be passed as an array.") unless args.nil? or args.respond_to? :shift
       args = ARGV if args.nil? || args == []
+      # check to see if args is an array of (nothing but) gems here...  if so, set args as [@options[:gems] and return
 
       @options[:exceptions] = false
       @options[:redirect_stderr_to_stdout] = false
