@@ -8,6 +8,7 @@
 * crossreference front page, tutorials, and docs
 * put mongrel/rails startup bug in tracker, add link in "known bugs" section on home page.
 * links - rspec, rubygems
+* Set up cruise
 ================ 0.2.0 finishing website ===================
 * make valid_platform_selector use data from tattle
 * autogem and run args can be passed as string or array
