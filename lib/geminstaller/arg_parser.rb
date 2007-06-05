@@ -11,6 +11,7 @@ module GemInstaller
       args = ARGV if args.nil? || args == []
       # check to see if args is an array of (nothing but) gems here...  if so, set args as [@options[:gems] and return
 
+      raise GemInstaller::GemInstallerError.new("Error: An array of options to be populated must be injected prior to calling GemInstaller::ArgParser.parse") unless @options
       @options[:exceptions] = false
       @options[:redirect_stderr_to_stdout] = false
       @options[:silent] = false
