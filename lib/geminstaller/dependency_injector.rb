@@ -66,11 +66,7 @@ module GemInstaller
       @enhanced_stream_ui.gem_interaction_handler = @gem_interaction_handler
 
       @gem_runner_class = Gem::GemRunner
-      if RUBYGEMS_VERSION_CHECKER.less_than?('0.9.4')
-        @gem_cmd_manager_class = Gem::CmdManager
-      else
-        @gem_cmd_manager_class = Gem::CommandManager
-      end
+      @gem_cmd_manager_class = Gem::CommandManager
       @exact_match_list_command = GemInstaller::ExactMatchListCommand.new
       @gem_runner_proxy = GemInstaller::GemRunnerProxy.new
       @gem_runner_proxy.gem_runner_class = @gem_runner_class
