@@ -11,7 +11,7 @@ module GemInstaller
       gem_runner.do_configuration(args)
       gem_cmd_manager = @gem_cmd_manager_class.instance
       gem_cmd_manager.ui = @enhanced_stream_ui
-      gem_cmd_manager.register_command @exact_match_list_command
+      gem_cmd_manager.commands[:list] = @exact_match_list_command
       
       exit_status = nil
       begin
@@ -27,8 +27,7 @@ module GemInstaller
     end
     
     def create_gem_runner
-      rubygems_version = Gem::RubyGemsVersion
-      if rubygems_version.index('0.8') == 0
+      if Gem::RubyGemsVersion.index('0.8') == 0
         @gem_runner_class.new()
       else
         @gem_runner_class.new(:command_manager => @gem_cmd_manager_class)

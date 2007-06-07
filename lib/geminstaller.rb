@@ -19,7 +19,7 @@ module GemInstaller
     end
   end 
   
-  def self.autogem(args = [])
+  def self.autogem(args = [])Å
     args_copy = args.dup
     args_copy = args_copy.split(' ') unless args.respond_to? :join
     # TODO: should explicitly remove all args not applicable to autogem (anything but config, silent, and geminstaller_output)
@@ -29,7 +29,7 @@ module GemInstaller
   end
 
   def self.version
-    "0.3.0"
+    "0.2.1"
   end
 
   def self.create_application(args = [], registry = nil)

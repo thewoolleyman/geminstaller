@@ -1,14 +1,31 @@
 dir = File.dirname(__FILE__)
 
+
 # requires for rubygems
 require 'rubygems'
+
+# backward compability and version-checking stuff - must be required before it is used
+require 'rubygems/rubygems_version'
+require File.expand_path("#{dir}/rubygems_version_checker")
+require File.expand_path("#{dir}/backward_compatibility")
+
 require 'rubygems/doc_manager'
 require 'rubygems/config_file'
-require 'rubygems/cmd_manager'
+if RUBYGEMS_VERSION_CHECKER.less_than?('0.9.4')
+  require 'rubygems/cmd_manager'
+else
+  require 'rubygems/command_manager'
+end
 require 'rubygems/gem_runner'
 require 'rubygems/remote_installer'
 require 'rubygems/installer'
 require 'rubygems/validator'
+
+# these are order-dependent.  Any better way???
+unless RUBYGEMS_VERSION_CHECKER.less_than?('0.9.4')
+  require 'rubygems/commands/query_command'
+  require 'rubygems/commands/list_command'
+end
 
 # third party libs
 require 'erb'

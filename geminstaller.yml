@@ -2,6 +2,7 @@
 # GemInstaller config file which specifies the actual build, test, and doc dependencies for GemInstaller itself.
 defaults:
   install_options: --include-dependencies
+  fix_dependencies: true
 gems:
 - name: diff-lcs
   version: '>= 1.1.2'

@@ -11,6 +11,7 @@ lib/geminstaller.rb
 lib/geminstaller/application.rb
 lib/geminstaller/arg_parser.rb
 lib/geminstaller/autogem.rb
+lib/geminstaller/backward_compatibility.rb
 lib/geminstaller/config.rb
 lib/geminstaller/config_builder.rb
 lib/geminstaller/dependency_injector.rb
@@ -40,6 +41,7 @@ lib/geminstaller/rogue_gem_finder.rb
 lib/geminstaller/ruby_gem.rb
 lib/geminstaller/rubygems_exit.rb
 lib/geminstaller/rubygems_extensions.rb
+lib/geminstaller/rubygems_version_checker.rb
 lib/geminstaller/unauthorized_dependency_prompt_error.rb
 lib/geminstaller/unexpected_prompt_error.rb
 lib/geminstaller/valid_platform_selector.rb
