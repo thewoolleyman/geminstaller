@@ -19,7 +19,7 @@ module GemInstaller
     end
   end 
   
-  def self.autogem(args = [])Å
+  def self.autogem(args = [])
     args_copy = args.dup
     args_copy = args_copy.split(' ') unless args.respond_to? :join
     # TODO: should explicitly remove all args not applicable to autogem (anything but config, silent, and geminstaller_output)
