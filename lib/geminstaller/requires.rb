@@ -1,14 +1,14 @@
 dir = File.dirname(__FILE__)
 
 
-# requires for rubygems
+# require for rubygems package
 require 'rubygems'
 
 # backward compability and version-checking stuff - must be required before it is used
 require 'rubygems/rubygems_version'
 require File.expand_path("#{dir}/rubygems_version_checker")
-require File.expand_path("#{dir}/backward_compatibility")
 
+# requires for rubygems internal classes
 require 'rubygems/doc_manager'
 require 'rubygems/config_file'
 if RUBYGEMS_VERSION_CHECKER.less_than?('0.9.4')
@@ -26,6 +26,9 @@ unless RUBYGEMS_VERSION_CHECKER.less_than?('0.9.4')
   require 'rubygems/commands/query_command'
   require 'rubygems/commands/list_command'
 end
+
+# backward compability support for prior rubygems versions 
+require File.expand_path("#{dir}/backward_compatibility")
 
 # third party libs
 require 'erb'

@@ -5,3 +5,5 @@ module GemInstaller
     end
   end
 end
+
+RUBYGEMS_VERSION_CHECKER = GemInstaller::RubyGemsVersionChecker.new
