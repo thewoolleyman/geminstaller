@@ -18,7 +18,7 @@ GemInstaller provides automated management of RubyGems.  It uses a simple YAML c
 
 GemInstaller can be used from the command line, or embedded to run automatically on startup for a Rails app or any other Ruby program.
 
-It has been tested on all major platforms (mac, linux, windows), and recent versions of RubyGems (0.8.x through 0.9.x).
+It has been tested on all major platforms (mac, linux, windows), and recent versions of RubyGems (0.8.x through 0.9.4).
 
 h2. How do I get it?
 
@@ -36,3 +36,7 @@ h2(#known_bugs). Known Bugs
 
 Currently (as of version 0.0.2), the only _major_ known bug is related to auto-installing the Rails or Mongrel gems via boot.rb during startup of Mongrel or Webrick.  The simple workaround is to run GemInstaller manually or just restart Rails anytime GemInstaller auto-installs a Rails/Mongrel gem upgrade during app startup.  For Rails and other deployable apps, you can also "run GemInstaller from Capistrano":documentation/tutorials.html#running_geminstaller_from_capistrano to avoid this problem in demo/production environments.  Researching and fixing this problem is a top priority.  I bet there's another bug or twoo, so please "report them if you find them":http://rubyforge.org/tracker/?group_id=1902!
 
+h2(#history). History
+
+* 0.2.1 - RubyGems release 0.9.4 had some major refactoring done to the internals, which broke GemInstaller 0.2.0.  GemInstaller 0.2.1 is a patch release to fix this.  I did limited testing on 0.9.4 and 0.9.0.  Please let me know if anything is broken on any version of RubyGems.
+* 0.2.0 - Initial release.  Yay!
