@@ -1,6 +1,4 @@
-* Verify compatibility with RubyGems trunk - especially Gem::ListCommand vs. Gem::Commands::ListCommand
-* changes on website
-=============== 0.2.1
+* Fix broken doc links Jean-Michel reported
 * Allow array or eval'able string of gems to be passed as --gems arg or instead of args
 * Add @options[:gems], should be parsed from 
 =============== 0.2.4
