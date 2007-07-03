@@ -48,7 +48,8 @@ describe "an AutoGem instance" do
       added_gem_names << added_gem.name
     end
     added_gem_names.should include(sample_dependent_gem.name)
-    added_gem_names.should include(sample_gem.name)
+    # RubyGems automatically added sample_gem to the path (as verified below), but
+    # it's not in our array of gems we processed.
     
     path_should_include_entries(sample_dependent_gem)
     path_should_include_entries(sample_gem)
@@ -65,8 +66,6 @@ describe "an AutoGem instance" do
       added_gem_names << added_gem.name
     end
     added_gem_names.should include(sample_dependent_multilevel_gem.name)
-    added_gem_names.should include(sample_dependent_gem.name)
-    added_gem_names.should include(sample_gem.name)
     
     path_should_include_entries(sample_dependent_multilevel_gem)
     path_should_include_entries(sample_dependent_gem)
