@@ -78,7 +78,7 @@ task :website_rdocs => :docs do
   mv "doc", "website/output/code/rdoc"
 end
 
-desc "Generate ri locally for testing"
+desc "Generate website, including rdoc and coverage"
 task :website => [:webgen, :website_rdocs, :coverage] do
 end
 
