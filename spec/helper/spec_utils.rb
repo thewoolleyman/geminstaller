@@ -16,7 +16,7 @@ module GemInstaller::SpecUtils
     end
   
     def rubygems_dist_dir
-      File.expand_path(File.dirname(__FILE__) + "/../fixture/rubygems_dist/rubygems-0.9.2")
+      File.expand_path(File.dirname(__FILE__) + "/../fixture/rubygems_dist/rubygems-0.9.4")
     end
   
     def test_rubygems_config_file
