@@ -1,7 +1,6 @@
-* Fix broken doc links Jean-Michel reported
 * Allow array or eval'able string of gems to be passed as --gems arg or instead of args
 * Add @options[:gems], should be parsed from 
-=============== 0.2.4
+=============== 0.2.6
 * Understand environment.rb vs boot.rb.  Add doc references.
 * Catch permission errors, and print descriptive instructions on how to handle sudo.  "Uh Oh!  A gem installation failed because it did not have permission to write to the filesystem.  If you want to have automated GemInstaller goodness, you'll have to fix this.  Don't worry, it's easy!  You have three basic choices: ..."
 * docs - clean up sudo section.  Should be clearer about sudoers entry, and make sure that NOPASSWD is the last entry.
@@ -10,7 +9,7 @@
 * design - dependency management is good.  Maven got it right, if not for the jelly...
 * search for config/geminstaller.yml by default
 * Investigate gem_plugin.  Plugin for mongrel???
-================ 0.2.5 release ===================
+================ 0.2.8 release ===================
 * Rename API: autogem -> gem, run -> install
 ================ 0.3.0 release =====================
 * update docs with details on how to handle unmet dependencies when -y is not specified
