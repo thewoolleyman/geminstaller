@@ -53,7 +53,7 @@ describe "an application instance invoked with no args" do
 
   it "should print any exception message to debug then exit gracefully" do
     @mock_output_filter.should_receive(:geminstaller_output).once().with(:error,/^GemInstaller::GemInstallerError/)
-    @mock_output_filter.should_receive(:geminstaller_output).once().with(:debug,:anything)
+    @mock_output_filter.should_receive(:geminstaller_output).once().with(:debug,anything())
     @mock_config_builder.should_receive(:build_config).and_raise(GemInstaller::GemInstallerError)
     return_code = @application.run
     return_code.should ==(1)
@@ -107,7 +107,7 @@ describe "an application instance invoked with missing config file(s)" do
 
   it "should print message and exit gracefully" do
     @mock_output_filter.should_receive(:geminstaller_output).with(:error,/^Error: A GemInstaller config file is missing/m)
-    @mock_output_filter.should_receive(:geminstaller_output).once().with(:debug,:anything)
+    @mock_output_filter.should_receive(:geminstaller_output).once().with(:debug,anything())
     @mock_arg_parser.should_receive(:parse).with(nil).and_return(0)
     @mock_arg_parser.should_receive(:output).and_return('')
     @mock_config_builder.should_receive(:build_config).and_raise(GemInstaller::MissingFileError)
@@ -134,7 +134,7 @@ end
 describe "an application instance invoked with alternate config file location" do
   before(:each) do
     application_spec_setup_common
-    @mock_output_filter.should_receive(:geminstaller_output).with(:info,:anything)
+    @mock_output_filter.should_receive(:geminstaller_output).with(:info,anything())
   end
 
   it "should use the alternate config file location" do

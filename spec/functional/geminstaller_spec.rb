@@ -49,7 +49,7 @@ describe "The geminstaller command line application" do
     args = ["--geminstaller-output=debug","--config=#{geminstaller_spec_live_config_path}"]
     @application.args = args
     @mock_output_proxy.should_receive(:sysout).with(/^Gem .* is already installed/)
-    @mock_output_proxy.should_receive(:sysout).any_number_of_times.with(:anything)
+    @mock_output_proxy.should_receive(:sysout).any_number_of_times.with(anything())
     @application.run
   end
   
@@ -102,7 +102,7 @@ describe "The geminstaller command line application" do
   it "should show error if a version specification is not met" do
     @application.args = ["--config=#{dir}/live_geminstaller_config_4.yml"]
     @mock_output_proxy.should_receive(:syserr).with(/^The specified version requirement '> 1.0.0' for gem 'stubgem' is not met by any of the available versions: 1.0.0./)
-    @mock_output_proxy.should_receive(:sysout).any_number_of_times.with(:anything)
+    @mock_output_proxy.should_receive(:sysout).any_number_of_times.with(anything())
     @application.run
     @gem_spec_manager.is_gem_installed?(@sample_gem).should==(false)
   end
@@ -112,7 +112,7 @@ describe "The geminstaller command line application" do
     @mock_output_proxy.should_receive(:sysout).with(/^GemInstaller is verifying gem installation: #{sample_dependent_depends_on_multiplatform_gem.name}.*/)
     @mock_output_proxy.should_receive(:sysout).with(/^Invoking gem install for #{sample_dependent_depends_on_multiplatform_gem.name}.*/)
     @mock_output_proxy.should_receive(:sysout).with(/^Rubygems automatically installed dependency gem #{sample_multiplatform_gem.name}-#{sample_multiplatform_gem.version}/)
-    @mock_output_proxy.should_receive(:sysout).any_number_of_times.with(:anything)
+    @mock_output_proxy.should_receive(:sysout).any_number_of_times.with(anything())
     @application.run
     @gem_spec_manager.is_gem_installed?(sample_dependent_depends_on_multiplatform_gem).should==(true)
     expected_dependency_gem = nil

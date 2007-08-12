@@ -90,7 +90,7 @@ def common_setup_valid_platform_selector(prefer_binary_platform)
   @valid_platform_selector.options = options
   @mock_output_filter = mock('Mock Output Filter')
   @valid_platform_selector.output_filter = @mock_output_filter
-  @mock_output_filter.should_receive(:geminstaller_output).any_number_of_times.with(:anything,:anything)    
+  @mock_output_filter.should_receive(:geminstaller_output).any_number_of_times.with(anything(),anything())    
 end
 
 def should_select_correct_valid_platforms(ruby_platform, gem_platform, expected_valid_platforms)
