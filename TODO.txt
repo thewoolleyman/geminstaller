@@ -1,3 +1,4 @@
+* tell rspec not to alphabetize my specs, or figure out how to not run testgemhome in the middle and have it set up test gem home twice
 * Allow array or eval'able string of gems to be passed as --gems arg or instead of args
 * Add @options[:gems], should be parsed from 
 =============== 0.2.6
@@ -22,7 +23,6 @@
 ================ 0.3.1 finishing website ===================
 * make valid_platform_selector use data from tattle
 * autogem and run args can be passed as string or array
-* tell rspec not to alphabetize my specs, or figure out how to not run testgemhome in the middle and have it set up test gem home twice
 * better test coverage for --sudo and --exception options
 * use rspec context_setup
 * split out geminstaller_spec into application_spec and geminstaller_spec.  Fix reference in docs / design
