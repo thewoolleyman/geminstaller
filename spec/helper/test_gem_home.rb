@@ -9,6 +9,10 @@ module GemInstaller
     include GemInstaller::SpecUtils
     @@initialized = false
     
+    def self.initialized?
+      @@initialized
+    end
+    
     def self.init_dir
       @rubygems_installer = GemInstaller::RubyGemsInstaller.new
       @rubygems_installer.install_dir = test_gem_home_dir

@@ -11,7 +11,7 @@ describe "test_gem_home_spec: the TestGemHome class" do
   
   it "should delete and recreate a test gem home" do
     # remove dir if it exists
-    GemInstaller::TestGemHome.reset
+    GemInstaller::TestGemHome.reset unless GemInstaller::TestGemHome.initialized?
 
     # use should create dir
     GemInstaller::TestGemHome.use
