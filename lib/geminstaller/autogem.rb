@@ -12,7 +12,6 @@ module GemInstaller
     end
     
     def process_gem(gem)
-      p "Autogem#process_gem, gem: #{gem.name} - #{gem.version}"
       unless @completed_names.index(gem.name) or gem.no_autogem
         invoke_require_gem_command(gem.name, gem.version)
         @completed_names << gem.name
