@@ -3,6 +3,7 @@ module GemInstaller
     @@gem_server_pid = nil
     def self.start
       return if @@gem_server_pid
+      print "Starting embedded gem server at #{embedded_gem_dir}...\n"
       Gem.clear_paths
       cmd_args = "--dir=#{embedded_gem_dir} --port=#{embedded_gem_server_port}"
       if windows?

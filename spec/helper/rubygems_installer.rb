@@ -4,7 +4,7 @@ module GemInstaller
     attr_writer :rubygems_dist_dir
     
     def install
-      puts "Installing RubyGems..."
+      print "Installing RubyGems...\n"
       install_dir = File.expand_path(@install_dir)
       rubygems_dist_dir = File.expand_path(@rubygems_dist_dir)
       ENV['GEM_HOME'] = "#{install_dir}"
@@ -14,6 +14,7 @@ module GemInstaller
         `#{setup_cmd} --quiet setup`
         `#{setup_cmd} --quiet install`
       end
+      print "Installed RubyGems at #{install_dir}\n"
     end
   end
 end
