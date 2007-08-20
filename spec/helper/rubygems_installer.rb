@@ -9,6 +9,7 @@ module GemInstaller
       ENV['GEM_HOME'] = "#{install_dir}"
       setup_cmd = "ruby setup.rb"
       Dir.chdir("#{rubygems_dist_dir}") do
+        # TODO: use IO.popen to capture output, so it doesn't spam the tests
         `#{setup_cmd} config --prefix=#{install_dir}`
         `#{setup_cmd} setup`
         `#{setup_cmd} install`
