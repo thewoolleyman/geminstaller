@@ -1,3 +1,4 @@
+* Figure out how to suppress webrick messages from embedded gem server
 * Allow array or eval'able string of gems to be passed as --gems arg or instead of args
 * Add @options[:gems], should be parsed from command line
 =============== 0.2.6
@@ -10,7 +11,7 @@
 * search for config/geminstaller.yml by default
 * Investigate gem_plugin.  Plugin for mongrel???
 ================ 0.2.8 release ===================
-* Rename API: deprecate 'autogem' and rename to 'loadgems'; change current 'run' to 'install'; add new 'run' which automatically calls both 'install' and 'gem', add 'no-loadgems' option (only applicable when invoked programatically) to supress automatic 'loadgems'
+* Rename API: deprecate 'autogem' and rename to 'loadgems'; change current 'run' to 'install'; add new 'run' which automatically calls both 'install' and 'gem', add 'no-loadgems' option (only applicable when invoked programatically) to supress automatic 'loadgems
 ================ 0.3.0 release =====================
 * update docs with details on how to handle unmet dependencies when -y is not specified
 * tutorial: using common or shared config files, with different configs for different environments - test (rspec) vs. dev (capistrano) vs. demo/staging/prod
