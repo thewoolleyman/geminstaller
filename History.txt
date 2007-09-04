@@ -1,4 +1,6 @@
 == 0.x.y / yyyy-mm-dd
+
+== 0.2.3 / 2007-08-03
 * remove Autogem#process_gem debug statement
 * Don't reset test_gem_home in test_gem_home_spec, shaves about 18 seconds off suite
 * Suppress output of rubygems installation during tests with --quiet flag
