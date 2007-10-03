@@ -21,7 +21,7 @@ gems:
 
 h2. Using GemInstaller with Ruby on Rails
 
-* Create geminstaller.yml in the RAILS_ROOT/config directory.  Include entries for your Rails version, and any other gems your app needs (Note: If you are too lazy to make your config file manually, or don't know what gems you need, see the tutorial on "Bootstrapping your GemInstaller Config with the <code>--print-rogue-gems</code> option":tutorials#bootstrapping_your_geminstaller_config):
+* Create geminstaller.yml in the RAILS_ROOT/config directory.  Include entries for your Rails version, and any other gems your app needs (Note: If you are too lazy to make your config file manually, or don't know what gems you need, see the tutorial on "Bootstrapping your GemInstaller Config with the <code>--print-rogue-gems</code> option":tutorials.html#bootstrapping_your_geminstaller_config):
 
     <pre>
 \---
