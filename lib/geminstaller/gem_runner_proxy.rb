@@ -35,10 +35,19 @@ module GemInstaller
     end
         
     def raise_error_with_output(exit_error, args, listener)
-      gem_command_output = listener.read!
       error_class = exit_error.class
-      descriptive_exit_message = exit_error.descriptive_exit_message(exit_error.message, 'gem', args, gem_command_output)
+      error_message = exit_error.message
+      gem_command_output = listener.read!
+      if gem_command_output.join('') =~ /Errno::EACCES/
+        error_message = access_error_message + "\n" + error_message
+        error_class = GemInstaller::GemInstallerAccessError
+      end      
+      descriptive_exit_message = exit_error.descriptive_exit_message(error_message, 'gem', args, gem_command_output)
       raise error_class.new(descriptive_exit_message)
+    end
+    
+    def access_error_message
+      "You don't have permission to install a gem.\nThis is not a problem with GemInstaller.\nYou probably want use the --sudo option or run GemInstaller as sudo,\nor install your gems to a non-root-owned location.\nSee http://geminstaller.rubyforge.org/documentation/documentation.html#dealing_with_sudo\n"
     end
   end
 end

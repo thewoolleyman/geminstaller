@@ -65,6 +65,20 @@ describe "a GemRunnerProxy instance" do
     end
   end
 
+  it "returns custom error output if there was an access error" do
+    use_mocks
+    error_message = "error message"
+    @mock_gem_runner.should_receive(:run).and_raise(GemInstaller::GemInstallerError.new(error_message))
+    access_error = 'Errno::EACCES'
+    @mock_output_listener.should_receive(:read!).and_return([access_error])
+    begin
+      @gem_runner_proxy.run(['install'])
+    rescue GemInstaller::GemInstallerAccessError => error
+      expected_error_message = /don't have permission.*Gem command was:.*install.*Gem command output was:.*#{access_error}/m
+      error.message.should match(expected_error_message)
+    end
+  end
+
   it "should choose from list" do
     gem_runner_args = ["install", "#{sample_multiplatform_gem_name}", "--remote"]
     gem_runner_args += install_options_for_testing

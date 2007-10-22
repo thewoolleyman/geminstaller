@@ -1,11 +1,10 @@
-* Dynamically detect posix platform and check if gem repo is completely writeable.  Ignorable prompt?
 =============== Unfiled =============
+* Dynamically detect posix platform and check if gem repo is completely writeable.  Ignorable prompt?
 * Figure out how to suppress webrick messages from embedded gem server
 * Allow array or eval'able string of gems to be passed as --gems arg or instead of args
 * Add @options[:gems], should be parsed from command line
 =============== 0.2.6
 * Understand environment.rb vs boot.rb (bottom line: env is not processed before Initializer, so can't be used to load rails gems).  Add doc references.
-* Catch permission errors, and print descriptive instructions on how to handle sudo.  "You don't have permission to install this gem.  This is not a problem with GemInstaller.  You probably want use the --sudo option or run as sudo.  See <link> for more details."
 * docs - clean up sudo section.  Should be clearer about sudoers entry, and make sure that NOPASSWD is the last entry.
 * Faq - mention sudo
 * Faq - mention Zed's questions
