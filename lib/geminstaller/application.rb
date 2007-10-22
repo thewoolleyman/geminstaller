@@ -99,7 +99,7 @@ module GemInstaller
         message += gem_info 
         message += ", " if index + 1 < gems.size
       end
-      @output_filter.geminstaller_output(:info,message + "\n")
+      @output_filter.geminstaller_output(:debug,message + "\n")
     end
   end
 end

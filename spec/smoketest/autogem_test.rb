@@ -8,13 +8,13 @@ use_sudo = true
 required_gems = [
   'ruby-doom-0.8', 
   'rutils-0.1.3', 
-  'rutils-0.1.9', 
   'x10-cm17a-1.0.1', 
-  'heckle-1.0.0', 
+  'heckle-1.0.0',
   'hoe', 
   'rubyforge']
 
-no_autogem = 'heckle'
+no_autogem = /x10-cm17a/
+not_toplevel = /(hoe|rubyforge)/
 
 is_windows = RUBY_PLATFORM =~ /mswin/ ? true : false
 
@@ -41,12 +41,24 @@ print "\n\n"
 print "Geminstaller command complete.  Now testing GemInstaller.autogem() command.\n"
 require 'rubygems'
 require 'geminstaller'
+require 'pp'
 begin
-  result = GemInstaller::autogem("--config=#{config_files}")
-  unless result[0].name == "x10-cm17a"
-    # TODO: better test for all gems
-    print "FAILURE, GemInstaller.autogem did not return the expected gems, gems were: #{result.join(' ')}\n"
-    exit 1
+  loaded_gems = GemInstaller::autogem("--config=#{config_files}")
+  required_gems.each do |required_gem|
+    found, skip = nil
+    loaded_gems.each do | loaded_gem|
+      found = required_gem =~ /#{loaded_gem.name}/
+      break if found
+      skip = true if required_gem =~ no_autogem
+      skip = true if required_gem =~ not_toplevel
+    end
+    unless found || skip
+      print "FAILURE, GemInstaller.autogem did not return the expected gem #{required_gem}, gems were:\n"
+      loaded_gems.each do |loaded_gem|
+        print "#{loaded_gem.name}\n"
+      end
+      exit 1
+    end
   end
 rescue Exception => e
   # ruby-doom fails with require-gem on rubygems 0.8
@@ -57,14 +69,17 @@ rescue Exception => e
   end
 end
 
-required_gems.each do |gem|
-  found = nil
+required_gems.each do |required_gem|
+  found, skip = nil
   $:.each do |path_element|
-    found = path_element =~ /gem/
+    found = path_element =~ /#{required_gem}/
     break if found
-    break if path_element =~ /#{no_autogem}/
+    skip = true if required_gem =~ no_autogem
   end
-  raise "required gem #{gem} not found in load path: #{$:}" unless found
+  unless found || skip
+    print "FAILURE, GemInstaller.autogem did not put required gem #{required_gem} on load path: #{$:}" 
+    exit 1
+  end
 end
 
 $:.each do |path_element|

@@ -44,6 +44,16 @@ describe "The geminstaller command line application" do
     @gem_spec_manager.is_gem_installed?(@sample_gem).should==(true)
   end
   
+  it "should print startup message in debug mode" do
+    @gem_command_manager.install_gem(@sample_gem)
+    args = ["--geminstaller-output=debug","--config=#{geminstaller_spec_live_config_path}"]
+    @application.args = args
+    @mock_output_proxy.should_receive(:sysout).with(/^GemInstaller is verifying gem installation: #{sample_gem_name}.*/)
+    @mock_output_proxy.should_receive(:sysout).any_number_of_times.with(anything())
+    @application.run
+  end
+  
+
   it "should print message if gem is already installed" do
     @gem_command_manager.install_gem(@sample_gem)
     args = ["--geminstaller-output=debug","--config=#{geminstaller_spec_live_config_path}"]
@@ -59,7 +69,7 @@ describe "The geminstaller command line application" do
     @application.run
   end
   
-  it "should allow redirection of stderr to stdout" do
+  it "redirects stderr to stdout" do
     begin
       @application.args = ["--config=bogus_config_file.yml","--redirect-stderr-to-stdout"]
       @original_stdout = $stdout
@@ -109,7 +119,6 @@ describe "The geminstaller command line application" do
    
   it "should handle a multiplatform dependency chain" do
     @application.args = ["--config=#{dir}/live_geminstaller_config_5.yml"]
-    @mock_output_proxy.should_receive(:sysout).with(/^GemInstaller is verifying gem installation: #{sample_dependent_depends_on_multiplatform_gem.name}.*/)
     @mock_output_proxy.should_receive(:sysout).with(/^Invoking gem install for #{sample_dependent_depends_on_multiplatform_gem.name}.*/)
     @mock_output_proxy.should_receive(:sysout).with(/^Rubygems automatically installed dependency gem #{sample_multiplatform_gem.name}-#{sample_multiplatform_gem.version}/)
     @mock_output_proxy.should_receive(:sysout).any_number_of_times.with(anything())

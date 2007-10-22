@@ -6,6 +6,5 @@ gems:
   version: '0.1.9'
   platform: ruby
 - name: heckle
-  no_autogem: true
   version: 1.0.0
   check_for_upgrade: true

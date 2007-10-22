@@ -43,6 +43,7 @@ module GemInstaller
       @config_builder = GemInstaller::ConfigBuilder.new
       @config_builder.file_reader = @file_reader
       @config_builder.yaml_loader = @yaml_loader
+      @config_builder.output_filter = @output_filter
 
       @gem_source_index = Gem::SourceIndex.new
       @gem_source_index_proxy = GemInstaller::GemSourceIndexProxy.new

@@ -19,6 +19,8 @@ module GemInstaller
       @options[:geminstaller_output] = [:error,:install,:info]
       @options[:rubygems_output] = [:stderr]
       @output = ""
+      @unparsed_geminstaller_output_flags = nil
+      @unparsed_rubygems_output_flags = nil
       opts = OptionParser.new do |opts|
         opts.banner = "Usage: geminstaller [options]"
 

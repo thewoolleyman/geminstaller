@@ -1,7 +1,30 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
-describe "a config builder with a single config file path" do
+describe GemInstaller::ConfigBuilder, "with no config file path set and no default config files existing" do
+  before(:each) do
+    config_builder_spec_fixture
+    @config_builder = GemInstaller::ConfigBuilder.new(['not_there.yml'])
+  end
+
+  it "raises exception" do
+    proc{ @config_builder.build_config }.should raise_error(GemInstaller::MissingFileError)
+  end
+end
+
+describe GemInstaller::ConfigBuilder, "with no config file path set and run from dir containing geminstaller.yml" do
+  before(:each) do
+    File.should be_exists("#{FileUtils.pwd}/geminstaller.yml")
+    config_builder_spec_fixture
+    @config_builder.build_config
+  end
+
+  it "should assign paths array to config_file_paths_array instance variable" do
+    @config_builder.config_file_paths_array.should==(['geminstaller.yml','config/geminstaller.yml'])
+  end
+end
+
+describe GemInstaller::ConfigBuilder, "with a single config file path" do
   before(:each) do
     @test_config_file_paths = File.expand_path("#{dir}/test_geminstaller_config.yml")
     config_builder_spec_common_setup
@@ -19,12 +42,9 @@ describe "a config builder with a single config file path" do
     @config_builder.config_file_paths_array.should==([@test_config_file_paths])
   end
 
-  it "should have code coverage for default config file path" do
-    GemInstaller::ConfigBuilder.default_config_file_path.should==('geminstaller.yml')
-  end
 end
 
-describe "a config builder with a config containing no gems" do
+describe GemInstaller::ConfigBuilder, "with a config containing no gems" do
   before(:each) do
     @test_config_file_paths = File.expand_path("#{dir}/empty_geminstaller_config.yml")
     config_builder_spec_common_setup
@@ -35,7 +55,7 @@ describe "a config builder with a config containing no gems" do
   end
 end
 
-describe "a config builder with multiple config file paths" do
+describe GemInstaller::ConfigBuilder, "with multiple config file paths" do
   before(:each) do
     @test_config_file_paths = 
       File.expand_path("#{dir}/test_geminstaller_config.yml") + "," + 
@@ -73,7 +93,7 @@ describe "a config builder with multiple config file paths" do
   end
 end
 
-describe "a config builder with multiple config file paths and no default entries in the override file" do
+describe GemInstaller::ConfigBuilder, "with multiple config file paths and no default entries in the override file" do
   before(:each) do
     @test_config_file_paths = 
       File.expand_path("#{dir}/test_geminstaller_config.yml") + "," + 
@@ -86,7 +106,7 @@ describe "a config builder with multiple config file paths and no default entrie
   end
 end
 
-describe "a config builder with an empty config file" do
+describe GemInstaller::ConfigBuilder, "with an empty config file" do
   before(:each) do
     @test_config_file_paths = File.expand_path("#{dir}/test_empty_file.yml")
     config_builder_spec_common_setup
@@ -97,9 +117,13 @@ describe "a config builder with an empty config file" do
   end
 end
 
-def config_builder_spec_common_setup
+def config_builder_spec_fixture
   dependency_injector = GemInstaller::DependencyInjector.new
   @config_builder = dependency_injector.registry.config_builder
-  @config_builder.config_file_paths = @test_config_file_paths
+  @config_builder.config_file_paths = @test_config_file_paths if @test_config_file_paths
+end
+
+def config_builder_spec_common_setup
+  config_builder_spec_fixture
   @config = @config_builder.build_config
 end

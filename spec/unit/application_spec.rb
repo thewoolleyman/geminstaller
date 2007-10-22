@@ -14,7 +14,7 @@ describe "an application instance invoked with no args" do
     gems = [@stub_gem]
     @stub_config.should_receive(:gems).and_return(gems)
     @mock_install_processor.should_receive(:process).once.with(gems)
-    @mock_output_filter.should_receive(:geminstaller_output).once().with(:info,/^GemInstaller is verifying gem installation: gemname 1.0/)
+    @mock_output_filter.should_receive(:geminstaller_output).once().with(:debug,/^GemInstaller is verifying gem installation: gemname 1.0/)
     @application.run
   end
 
@@ -25,7 +25,7 @@ describe "an application instance invoked with no args" do
     gems = [@stub_gem, @stub_gem2]
     @stub_config.should_receive(:gems).and_return(gems)
     @mock_install_processor.should_receive(:process).once.with(gems)
-    @mock_output_filter.should_receive(:geminstaller_output).once().with(:info,/^GemInstaller is verifying gem installation: gemname 1.0, gemname2 > 0.0.0/)
+    @mock_output_filter.should_receive(:geminstaller_output).once().with(:debug,/^GemInstaller is verifying gem installation: gemname 1.0, gemname2 > 0.0.0/)
     @application.run
   end
 
@@ -36,7 +36,7 @@ describe "an application instance invoked with no args" do
     gems = [@stub_gem]
     @stub_config.should_receive(:gems).and_return(gems)
     @mock_install_processor.should_receive(:process).once.with(gems)
-    @mock_output_filter.should_receive(:geminstaller_output).once().with(:info,/^GemInstaller is verifying gem installation/)
+    @mock_output_filter.should_receive(:geminstaller_output).once().with(:debug,/^GemInstaller is verifying gem installation/)
     @application.run
   end
 
@@ -47,7 +47,7 @@ describe "an application instance invoked with no args" do
     gems = [@stub_gem]
     @stub_config.should_receive(:gems).and_return(gems)
     @mock_install_processor.should_receive(:process).once.with(gems)
-    @mock_output_filter.should_receive(:geminstaller_output).once().with(:info,/^GemInstaller is verifying gem installation/)
+    @mock_output_filter.should_receive(:geminstaller_output).once().with(:debug,/^GemInstaller is verifying gem installation/)
     @application.run
   end
 
@@ -134,7 +134,7 @@ end
 describe "an application instance invoked with alternate config file location" do
   before(:each) do
     application_spec_setup_common
-    @mock_output_filter.should_receive(:geminstaller_output).with(:info,anything())
+    @mock_output_filter.should_receive(:geminstaller_output).with(:debug,anything())
   end
 
   it "should use the alternate config file location" do
