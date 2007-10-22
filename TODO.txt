@@ -4,13 +4,12 @@
 * Allow array or eval'able string of gems to be passed as --gems arg or instead of args
 * Add @options[:gems], should be parsed from command line
 =============== 0.2.6
-* Understand environment.rb vs boot.rb.  Add doc references.
-* Catch permission errors, and print descriptive instructions on how to handle sudo.  "Uh Oh!  A gem installation failed because it did not have permission to write to the filesystem.  If you want to have automated GemInstaller goodness, you'll have to fix this.  Don't worry, it's easy!  You have three basic choices: ..."
+* Understand environment.rb vs boot.rb (bottom line: env is not processed before Initializer, so can't be used to load rails gems).  Add doc references.
+* Catch permission errors, and print descriptive instructions on how to handle sudo.  "You don't have permission to install this gem.  This is not a problem with GemInstaller.  You probably want use the --sudo option or run as sudo.  See <link> for more details."
 * docs - clean up sudo section.  Should be clearer about sudoers entry, and make sure that NOPASSWD is the last entry.
 * Faq - mention sudo
 * Faq - mention Zed's questions
 * design - dependency management is good.  Maven got it right, if not for the jelly...
-* search for config/geminstaller.yml by default
 * Investigate gem_plugin.  Plugin for mongrel???
 ================ 0.2.8 release ===================
 * Rename API: deprecate 'autogem' and rename to 'loadgems'; change current 'run' to 'install'; add new 'run' which automatically calls both 'install' and 'gem', add 'no-loadgems' option (only applicable when invoked programatically) to supress automatic 'loadgems
