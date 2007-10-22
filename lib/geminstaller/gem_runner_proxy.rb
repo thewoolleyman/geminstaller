@@ -35,8 +35,10 @@ module GemInstaller
     end
         
     def raise_error_with_output(exit_error, args, listener)
-      descriptive_exit_message = exit_error.descriptive_exit_message(exit_error.message, 'gem', args, listener)
-      raise exit_error.class.new(descriptive_exit_message)
+      gem_command_output = listener.read!
+      error_class = exit_error.class
+      descriptive_exit_message = exit_error.descriptive_exit_message(exit_error.message, 'gem', args, gem_command_output)
+      raise error_class.new(descriptive_exit_message)
     end
   end
 end

@@ -6,11 +6,9 @@ describe "an GemInstallerError" do
     message = "message"
     command = "command"
     args = ['arg1', 'arg2']
-    listener = GemInstaller::OutputListener.new
-    listener.notify('msg1')
-    listener.notify('msg2')
+    gem_command_output = ['msg1','msg2']
     error = GemInstaller::GemInstallerError.new
-    descriptive_exit_message = error.descriptive_exit_message(message, command, args, listener)
+    descriptive_exit_message = error.descriptive_exit_message(message, command, args, gem_command_output)
     expected_error_message = /message.*Gem command was:.*command arg1 arg2.*Gem command output was:.*msg1.*msg2/m
     descriptive_exit_message.should match(expected_error_message)
   end
