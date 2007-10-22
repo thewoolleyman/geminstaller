@@ -34,12 +34,16 @@ GemInstaller was created by "Chad Woolley":http://www.thewoolleyweb.com.
 
 h2(#known_bugs). Known Bugs
 
-Currently (as of version 0.2.3), the only _major_ known bug is related to auto-installing the Rails or Mongrel gems via boot.rb during startup of Mongrel or Webrick.  The simple workaround is to run GemInstaller manually or just restart Rails anytime GemInstaller auto-installs a Rails/Mongrel gem upgrade during app startup.  For Rails and other deployable apps, you can also "run GemInstaller from Capistrano":documentation/tutorials.html#running_geminstaller_from_capistrano to avoid this problem in demo/production environments.  Researching and fixing this problem is a top priority.  I bet there's another bug or twoo, so please "report them if you find them":http://rubyforge.org/tracker/?group_id=1902!
+Currently (as of version 0.2.4), the only _major_ known bug is related to auto-installing the Rails or Mongrel gems via boot.rb during startup of Mongrel or Webrick.  The simple workaround is to run GemInstaller manually or just restart Rails anytime GemInstaller auto-installs a Rails/Mongrel gem upgrade during app startup.  For Rails and other deployable apps, you can also "run GemInstaller from Capistrano":documentation/tutorials.html#running_geminstaller_from_capistrano to avoid this problem in demo/production environments.  Researching and fixing this problem is a top priority.  I bet there's another bug or twoo, so please "report them if you find them":http://rubyforge.org/tracker/?group_id=1902!
 
 There's also some leakage of gem doc warning messages even if you turn down --rubygems-output, but these can be ignored (these same messages show up when installing gems manually).  This should be fixed soon.
 
 h2(#history). History
 
+* 0.2.4
+** Look for config file at config/geminstaller.yml as well as geminstaller.yml
+** make startup message ('Installing Gems...') debug level instead of info
+** Add custom descriptive error if user gets access permission error when installing a gem
 * 0.2.3 - Fix debug statement left in, upgrade rspec, improvements to test suite
 * 0.2.2 - Fix performance problems with autogem command (don't manually recurse dependencies, gem method does it already)
 * 0.2.1 - RubyGems release 0.9.3 had some major refactoring done to the internals, which broke GemInstaller 0.2.0.  GemInstaller 0.2.1 is a patch release to fix this.  I did limited testing on 0.9.3 and 0.9.0.  Please let me know if anything is broken on any version of RubyGems.
