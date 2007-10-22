@@ -1,5 +1,9 @@
 == 0.x.y / yyyy-mm-dd
 
+== 0.2.4 / 2007-10-xx
+* Look for config file at config/geminstaller.yml as well as geminstaller.yml
+* Make startup message ('Installing Gems...') debug level instead of info
+
 == 0.2.3 / 2007-08-03
 * remove Autogem#process_gem debug statement
 * Don't reset test_gem_home in test_gem_home_spec, shaves about 18 seconds off suite
