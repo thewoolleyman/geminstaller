@@ -1,0 +1,4 @@
+---
+gems:
+  - name: testgem
+    install_options: <%= File.expand_path(File.dirname(__FILE__)) %> <%= FileUtils.pwd %>

@@ -1,0 +1,3 @@
+---
+gems:
+<%= include_config("#{File.expand_path(File.dirname(__FILE__))}/subdir1/included_gem_config1.yml") %>

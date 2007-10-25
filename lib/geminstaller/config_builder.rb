@@ -24,9 +24,14 @@ module GemInstaller
         file_contents = @file_reader.read(path)
         next unless file_contents
         next if file_contents.empty?
-        @output_filter.geminstaller_output(:debug,"Found GemInstaller config file at: #{File.expand_path(path)}\n")        
-        file_contents_erb = ERB.new(%{#{file_contents}})
-        yaml = @yaml_loader.load(file_contents_erb.result)
+        expanded_path = File.expand_path(path)
+        @output_filter.geminstaller_output(:debug,"Found GemInstaller config file at: #{expanded_path}\n")
+        erb = ERB.new(%{#{file_contents}})
+        erb_result = nil
+        Dir.chdir(File.dirname(expanded_path)) do |yaml_file_dir|
+          erb_result = erb.result(include_config_binding)
+        end
+        yaml = @yaml_loader.load(erb_result)
         merged_defaults.merge!(yaml['defaults']) unless yaml['defaults'].nil?
         next unless yaml['gems']
         yaml['gems'].each do |gem|
@@ -40,6 +45,16 @@ module GemInstaller
       merged_yaml['gems'] = merged_gems.values
       config = GemInstaller::Config.new(merged_yaml)
       config
+    end
+  
+    def include_config_binding
+      def include_config(config_file)
+        Dir.chdir(File.dirname(config_file)) do |yaml_file_dir|
+          erb = File.open(config_file) { |io| ERB.new(io.read) }
+          erb.result(include_config_binding)
+        end
+      end
+      binding
     end
   end
 end

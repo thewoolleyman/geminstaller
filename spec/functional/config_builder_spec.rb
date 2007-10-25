@@ -14,9 +14,11 @@ end
 
 describe GemInstaller::ConfigBuilder, "with no config file path set and run from dir containing geminstaller.yml" do
   before(:each) do
-    File.should be_exists("#{FileUtils.pwd}/geminstaller.yml")
-    config_builder_spec_fixture
-    @config_builder.build_config
+    Dir.chdir("#{dir}/../..") do
+      File.should be_exists("./geminstaller.yml")
+      config_builder_spec_fixture
+      @config_builder.build_config
+    end
   end
 
   it "should assign paths array to config_file_paths_array instance variable" do
@@ -52,6 +54,33 @@ describe GemInstaller::ConfigBuilder, "with a config containing no gems" do
 
   it "should not raise an error" do
     @config.gems.size.should == 0
+  end
+end
+
+describe GemInstaller::ConfigBuilder, "with a config containing a path evaluated via erb" do
+  it "should evaluate working directory to path of config file" do
+    @test_config_file_paths = File.expand_path("#{dir}/../fixture/evaluate_path_geminstaller_config.yml")
+    @test_config_file_dir = File.dirname(@test_config_file_paths)
+    config_builder_spec_common_setup
+    install_options = @config.gems[0].install_options
+    install_options[0].should == @test_config_file_dir
+    install_options[1].should == @test_config_file_dir
+  end
+end
+
+describe GemInstaller::ConfigBuilder, "with a config containing an include_config call" do
+  it "should include proper config file" do
+    @test_config_file_paths = File.expand_path("#{dir}/../fixture/including_geminstaller_config.yml")
+    @test_config_file_dir = File.dirname(@test_config_file_paths)
+    @included_config_file_dir1 = File.expand_path("#{dir}/../fixture/subdir1")
+    @included_config_file_dir2 = File.expand_path("#{dir}/../fixture/subdir2")
+    config_builder_spec_common_setup
+    install_options1 = @config.gems[0].install_options
+    install_options1[0].should == @included_config_file_dir1
+    install_options1[1].should == @included_config_file_dir1
+    install_options2 = @config.gems[1].install_options
+    install_options2[0].should == @included_config_file_dir2
+    install_options2[1].should == @included_config_file_dir2
   end
 end
 
