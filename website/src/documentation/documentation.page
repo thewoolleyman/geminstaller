@@ -26,6 +26,7 @@ h2. Table of Contents
 ** "<code>fix_dependencies</code> config property":#fix_dependencies_config_property
 ** "<code>no_autogem</code> config property":#no_autogem_config_property
 ** "<code>prefer_binary_platform</code> config property":#prefer_binary_platform_config_property
+** "<code>include_config</code> directive":#include_config
 * "Using GemInstaller with Ruby on Rails or Other Ruby Apps":#using_geminstaller_with_ruby_on_rails_or_other_ruby_apps
 ** "Invoking <code>GemInstaller</code> from Rails":#invoking_geminstaller_from_rails
 ** "Bootstrapping Rails with GemInstaller":#bootstrapping_rails_with_geminstaller
@@ -153,6 +154,8 @@ h3(#sudo_option). <code>--sudo</code> option
 
 The <code>--sudo</code> option runs GemInstaller as root by using the <code>sudo</code> command.  This command is neither valid nor necessary on Windows platforms.  See the "Dealing with sudo and root-owned RubyGem installations":#dealing_with_sudo section for more details.
 
+NOTE: As a security feature, the sudo command does NOT pass along the current environment.  That means that if you use the <code>--sudo</code> option, environment variables that are currently set will NOT be available to GemInstaller config files.  There are options to get around this - read the docs on sudoers for your unix distro.
+
 h3(#silent_option). <code>--silent</code> option
 
 The <code>--silent</code> option suppresses all RubyGems output except fatal errors/exceptions.  It overrides the <code>--geminstaller-output</code> and <code>--rubygems-output</code> options.
@@ -236,6 +239,35 @@ h3(#prefer_binary_platform_config_property). <code>prefer_binary_platform</code>
 Defaults to true.  GemInstaller automatically guesses at the correct platform for gem which have no platform specified.  Any platform which is not 'ruby' is considered a 'binary' platform.  
 
 This option determines whether the 'ruby' platform, or a 'binary' platform will be chosen first.  By default, binary platforms will be chosen if there is one available which seems to match the platform of the current machine.  In practice, this usually only applies to windows, since (hopefully) most gems which need to be compiled distribute a windows-specific precompiled gem version.  See "Automatic Platform Detection":#automatic_platform_detection for more info.
+
+h3(#include_config). <code>include_config</code> directive
+
+Inside a GemInstaller yaml config file, you can use the <code>include_config</code> directive to include another config file via ERB.  This also works recursively - included files can include other files.
+
+This is an alternative to specifying multiple files in the <code>--config</code> command line option - it allows you to abstract out common portions of config files across multiple files, while still only having to specify a single top-level config file.  
+
+GemInstaller also ensures that the working directory is set to the directory containing the current yaml file - NOT the directory that <code>geminstaller</code> was invoked from.  This allows you to use <code>include_config</code> to reference yaml files relative to each other.  Here's an example:
+
+<pre>
+\---
+# .../geminstaller.yml
+gems:
+<%= include_config("#{File.expand_path(File.dirname(__FILE__))}/subdir1/included_gem_config1.yml") %>
+</pre>
+
+<pre>
+\---
+# .../subdir1/included_gem_config1.yml
+  - name: testgem1
+<%= include_config("#{File.expand_path(File.dirname(__FILE__))}/../subdir2/included_gem_config2.yml") %>
+</pre>
+
+<pre>
+\---
+# .../subdir2/included_gem_config2.yml
+  - name: testgem2
+</pre>
+
 
 h2(#using_geminstaller_with_ruby_on_rails_or_other_ruby_apps). Using GemInstaller with Ruby on Rails or Other Ruby Apps
 

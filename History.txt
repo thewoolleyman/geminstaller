@@ -1,5 +1,9 @@
 == 0.x.y / yyyy-mm-dd
 
+== 0.2.5 / 2007-10-24
+* Add 'include_config' directive to yaml config file, allowing other files to be included via ERB.
+* Fix broken links in docs - patch from  Maciej Kozak (macio)
+
 == 0.2.4 / 2007-10-21
 * Look for config file at config/geminstaller.yml as well as geminstaller.yml
 * Make startup message ('Installing Gems...') debug level instead of info

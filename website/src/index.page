@@ -34,12 +34,15 @@ GemInstaller was created by "Chad Woolley":http://www.thewoolleyweb.com.
 
 h2(#known_bugs). Known Bugs
 
-Currently (as of version 0.2.4), the only _major_ known bug is related to auto-installing the Rails or Mongrel gems via boot.rb during startup of Mongrel or Webrick.  The simple workaround is to run GemInstaller manually or just restart Rails anytime GemInstaller auto-installs a Rails/Mongrel gem upgrade during app startup.  For Rails and other deployable apps, you can also "run GemInstaller from Capistrano":documentation/tutorials.html#running_geminstaller_from_capistrano to avoid this problem in demo/production environments.  Researching and fixing this problem is a top priority.  I bet there's another bug or twoo, so please "report them if you find them":http://rubyforge.org/tracker/?group_id=1902!
+Currently, the only _major_ known bug is related to auto-installing the Rails or Mongrel gems via boot.rb during startup of Mongrel or Webrick.  The simple workaround is to run GemInstaller manually or just restart Rails anytime GemInstaller auto-installs a Rails/Mongrel gem upgrade during app startup.  For Rails and other deployable apps, you can also "run GemInstaller from Capistrano":documentation/tutorials.html#running_geminstaller_from_capistrano to avoid this problem in demo/production environments.  I bet there's another bug or twoo, so please "report them if you find them":http://rubyforge.org/tracker/?group_id=1902!
 
 There's also some leakage of gem doc warning messages even if you turn down --rubygems-output, but these can be ignored (these same messages show up when installing gems manually).  This should be fixed soon.
 
 h2(#history). History
 
+* 0.2.5
+** Add 'include_config' directive to yaml config file, allowing other files to be included via ERB.
+** Fix broken links in docs - patch from  Maciej Kozak (macio)
 * 0.2.4
 ** Look for config file at config/geminstaller.yml as well as geminstaller.yml
 ** make startup message ('Installing Gems...') debug level instead of info
