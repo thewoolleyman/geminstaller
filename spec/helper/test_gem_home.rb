@@ -29,7 +29,6 @@ module GemInstaller
       init_dir
       rm_config
       create_config
-      GemInstaller::EmbeddedGemServer.start
       `#{gem_cmd} update --source #{embedded_gem_server_url} --config-file #{config_file}`
       @@initialized = true
     end

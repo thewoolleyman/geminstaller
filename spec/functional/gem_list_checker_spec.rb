@@ -4,7 +4,6 @@ require File.expand_path("#{dir}/../helper/spec_helper")
 describe "a GemListChecker instance" do
   before(:each) do
     GemInstaller::TestGemHome.use
-    GemInstaller::EmbeddedGemServer.start
     
     @registry = GemInstaller.create_registry
     @gem_list_checker = @registry.gem_list_checker

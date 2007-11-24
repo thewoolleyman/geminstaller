@@ -4,7 +4,6 @@ require File.expand_path("#{dir}/../helper/spec_helper")
 describe "an AutoGem instance" do
   before(:each) do
     GemInstaller::TestGemHome.use
-    GemInstaller::EmbeddedGemServer.start
     @registry = GemInstaller::create_registry
     @autogem = @registry.autogem
     # install all the sample gems

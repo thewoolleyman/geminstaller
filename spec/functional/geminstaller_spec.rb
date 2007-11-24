@@ -4,7 +4,6 @@ require File.expand_path("#{dir}/../helper/spec_helper")
 describe "The geminstaller command line application" do
   before(:each) do
     GemInstaller::TestGemHome.use
-    GemInstaller::EmbeddedGemServer.start
     
     @mock_output_proxy = mock("Mock Output Proxy")
     @registry = GemInstaller::create_registry
@@ -142,7 +141,6 @@ end
 describe "The geminstaller command line application created via GemInstaller.run method" do
   before(:each) do
     GemInstaller::TestGemHome.use
-    GemInstaller::EmbeddedGemServer.start
   end
 
   it "should run successfully" do
@@ -158,7 +156,6 @@ end
 describe "The GemInstaller.autogem method" do
   before(:each) do
     GemInstaller::TestGemHome.use
-    GemInstaller::EmbeddedGemServer.start
     @registry = GemInstaller::create_registry
     @gem_spec_manager = @registry.gem_spec_manager
     @gem_runner_proxy = @registry.gem_runner_proxy

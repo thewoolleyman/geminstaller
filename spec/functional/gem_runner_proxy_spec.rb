@@ -7,8 +7,6 @@ describe "a GemRunnerProxy instance" do
     @registry = GemInstaller::create_registry
     @gem_runner_proxy = @registry.gem_runner_proxy
     @gem_interaction_handler = @registry.gem_interaction_handler
-    
-    GemInstaller::EmbeddedGemServer.start
   end
 
   it "should return output of gem command" do

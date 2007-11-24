@@ -4,7 +4,6 @@ require File.expand_path("#{dir}/../helper/spec_helper")
 describe "The sample gem fixtures install and uninstall methods" do
   it "should be consistent" do
     GemInstaller::TestGemHome.use
-    GemInstaller::EmbeddedGemServer.start
     @registry = GemInstaller::create_registry
     @gem_command_manager = @registry.gem_command_manager
     @gem_spec_manager = @registry.gem_spec_manager

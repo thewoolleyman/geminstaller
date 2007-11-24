@@ -9,6 +9,10 @@ module GemInstaller::SpecUtils
         sample_dependent_depends_on_multiplatform_gem_name, sample_multiplatform_gem_name, 
         sample_dependent_multilevel_gem_name, sample_dependent_multiplatform_gem_name]
     end
+    
+    def rubygems_version
+      ENV['RUBYGEMS_VERSION'] || "0.9.4"
+    end
   
     def test_gem_home_dir
       dir_name = "test_gem_home"
@@ -16,7 +20,7 @@ module GemInstaller::SpecUtils
     end
   
     def rubygems_dist_dir
-      File.expand_path(File.dirname(__FILE__) + "/../fixture/rubygems_dist/rubygems-0.9.4")
+      File.expand_path(File.dirname(__FILE__) + "/../fixture/rubygems_dist/rubygems-#{rubygems_version}")
     end
   
     def test_rubygems_config_file

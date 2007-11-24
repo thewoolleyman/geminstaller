@@ -17,8 +17,6 @@ describe "a GemCommandManager instance" do
     @gem_command_manager = @registry.gem_command_manager
     @gem_spec_manager = @registry.gem_spec_manager
     @valid_platform_selector = @registry.valid_platform_selector
-
-    GemInstaller::EmbeddedGemServer.start
   end
 
   it "should be able to install, uninstall, and check for existence of specific versions of a gem" do

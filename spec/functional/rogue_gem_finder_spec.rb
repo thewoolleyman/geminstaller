@@ -4,7 +4,6 @@ require File.expand_path("#{dir}/../helper/spec_helper")
 describe "an RogueGemFinder instance" do
   before(:each) do
     GemInstaller::TestGemHome.use
-    GemInstaller::EmbeddedGemServer.start
     @registry = GemInstaller::create_registry
     @rogue_gem_finder = @registry.rogue_gem_finder
     @gem_command_manager = @registry.gem_command_manager

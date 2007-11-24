@@ -16,7 +16,6 @@ describe "a MissingDependencyFinder instance" do
     @sample_dependent_multiplatform_gem = sample_dependent_multiplatform_gem
     @sample_dependent_multilevel_gem = sample_dependent_multilevel_gem
 
-    GemInstaller::EmbeddedGemServer.start
     # ensure all gems are installed to start
     [@sample_gem, @sample_dependent_gem, @sample_multiplatform_gem, 
       @sample_dependent_multiplatform_gem, @sample_dependent_multilevel_gem].each do |gem|

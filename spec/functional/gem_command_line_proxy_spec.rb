@@ -5,7 +5,6 @@ describe "a gem command line proxy" do
 
   before(:each) do
     GemInstaller::TestGemHome.use
-    GemInstaller::EmbeddedGemServer.start
     @gem_command_line_proxy = GemInstaller::GemCommandLineProxy.new
   end
   

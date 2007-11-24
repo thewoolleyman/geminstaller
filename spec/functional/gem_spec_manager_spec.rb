@@ -10,8 +10,6 @@ describe "an GemSpecManager instance" do
     @registry = GemInstaller::create_registry
     @gem_spec_manager = @registry.gem_spec_manager
     @gem_command_manager = @registry.gem_command_manager
-
-    GemInstaller::EmbeddedGemServer.start
   end
 
   it "should return true for is_gem_installed? if a gem is installed and false if it is not" do
