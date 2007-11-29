@@ -1,5 +1,6 @@
 module GemInstaller
   class EmbeddedGemServer
+    include GemInstaller::SpecUtils
     @@gem_server_pid = nil
     def self.start
       return if @@gem_server_pid
@@ -7,11 +8,11 @@ module GemInstaller
       Gem.clear_paths
       cmd_args = "--dir=#{embedded_gem_dir} --port=#{embedded_gem_server_port} --daemon"
       if windows?
-        io_handles_and_pid = Open4.popen4("gem_server.bat #{cmd_args}",'b',true)
+        io_handles_and_pid = Open4.popen4("#{rubygems_dist_dir}/bin/gem_server.bat #{cmd_args}",'b',true)
         pid = io_handles_and_pid[3]
         @@gem_server_pid = pid
       else
-        gem_server_process = IO.popen("gem_server #{cmd_args}")
+        gem_server_process = IO.popen("#{rubygems_dist_dir}/bin/gem_server #{cmd_args}")
         @@gem_server_pid = gem_server_process.pid
       end
       print "Started embedded gem server at #{embedded_gem_dir}, pid = #{@@gem_server_pid}\n"
