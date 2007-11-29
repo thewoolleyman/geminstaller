@@ -1,6 +1,5 @@
 dir = File.dirname(__FILE__)
 
-
 # require for rubygems package
 require 'rubygems'
 
@@ -52,7 +51,6 @@ require File.expand_path("#{dir}/enhanced_stream_ui")
 require File.expand_path("#{dir}/exact_match_list_command")
 require File.expand_path("#{dir}/file_reader")
 require File.expand_path("#{dir}/gem_arg_processor")
-require File.expand_path("#{dir}/gem_command_line_proxy")
 require File.expand_path("#{dir}/gem_command_manager")
 require File.expand_path("#{dir}/gem_interaction_handler")
 require File.expand_path("#{dir}/gem_list_checker")

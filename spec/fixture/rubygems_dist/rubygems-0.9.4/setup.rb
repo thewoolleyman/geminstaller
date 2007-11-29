@@ -1372,6 +1372,8 @@ class Installer
   end
 
   def install_files(list, dest, mode)
+    require 'pp'
+    pp "#{list} #{dest} #{mode}"
     mkdir_p dest, @config.install_prefix
     list.each do |fname|
       install fname, dest, mode, @config.install_prefix

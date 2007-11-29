@@ -6,13 +6,14 @@ module GemInstaller
       return if @@gem_server_pid
       print "Starting embedded gem server at #{embedded_gem_dir}...\n"
       Gem.clear_paths
+      ruby_cmd = "ruby -I #{rubygems_lib_dir}:#{rubygems_bin_dir}"
       cmd_args = "--dir=#{embedded_gem_dir} --port=#{embedded_gem_server_port} --daemon"
       if windows?
         io_handles_and_pid = Open4.popen4("#{rubygems_bin_dir}/gem_server.bat #{cmd_args}",'b',true)
         pid = io_handles_and_pid[3]
         @@gem_server_pid = pid
       else
-        gem_server_process = IO.popen("#{rubygems_bin_dir}/gem_server #{cmd_args}")
+        gem_server_process = IO.popen("#{ruby_cmd} #{rubygems_bin_dir}/gem_server #{cmd_args}")
         @@gem_server_pid = gem_server_process.pid
       end
       print "Started embedded gem server at #{embedded_gem_dir}, pid = #{@@gem_server_pid}\n"

@@ -17,12 +17,23 @@ module GemInstaller
       $LOAD_PATH.unshift(rubygems_lib_dir)
     end
     
-    def self.init_dir
-      FileUtils.mkdir(test_gem_home_dir) unless File.exist?(test_gem_home_dir)
+    def self.init_dirs
+      self.create_dirs
       @rubygems_installer = GemInstaller::RubyGemsInstaller.new
-      @rubygems_installer.install_dir = test_gem_home_dir
+      @rubygems_installer.install_dir = rubygems_install_dir
+      @rubygems_installer.test_gem_home_dir = test_gem_home_dir
+      @rubygems_installer.libruby_dir = libruby_dir
+      @rubygems_installer.siteruby_dir = siteruby_dir
+      @rubygems_installer.siterubyver_dir = siterubyver_dir
       @rubygems_installer.rubygems_dist_dir = rubygems_dist_dir
       @rubygems_installer.install
+    end
+    
+    def self.create_dirs
+      FileUtils.mkdir(rubygems_install_dir)
+      FileUtils.mkdir(libruby_dir)
+      FileUtils.mkdir(siteruby_dir)
+      FileUtils.mkdir(siterubyver_dir)
     end
 
     def self.config_file
@@ -32,7 +43,8 @@ module GemInstaller
     def self.use
       return if @@initialized
       init_rubygems_path
-      init_dir
+      rm_dir
+      init_dirs
       rm_config
       create_config
       GemInstaller::EmbeddedGemServer.start
@@ -41,13 +53,14 @@ module GemInstaller
     end
     
     def self.gem_cmd
-      gem_cmd = "#{rubygems_bin_dir}/gem"
-      gem_cmd = "#{rubygems_bin_dir}/gem.bat" if RUBY_PLATFORM.index('mswin')
+      gem_cmd = "ruby -I #{rubygems_lib_dir}:#{rubygems_bin_dir} #{rubygems_bin_dir}/gem"
+      gem_cmd = "ruby -I #{rubygems_lib_dir}:#{rubygems_bin_dir} #{rubygems_bin_dir}/gem.bat" if RUBY_PLATFORM.index('mswin')
       gem_cmd
     end
     
     def self.rm_dir
       FileUtils.rm_rf(test_gem_home_dir) if File.exist?(test_gem_home_dir)
+      FileUtils.rm_rf(rubygems_install_dir) if File.exist?(rubygems_install_dir)
     end
     
     def self.rm_config

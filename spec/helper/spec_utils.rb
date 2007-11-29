@@ -1,4 +1,5 @@
-module GemInstaller::SpecUtils  
+module GemInstaller
+  module SpecUtils  
   def self.included(base)
     base.extend(ClassMethods)
   end
@@ -15,8 +16,24 @@ module GemInstaller::SpecUtils
     end
   
     def test_gem_home_dir
-      dir_name = "test_gem_home"
+      "#{rubygems_install_dir}"
+    end
+
+    def rubygems_install_dir
+      dir_name = "rubygems_install"
       File.expand_path(File.dirname(__FILE__) + "/../tmp/#{dir_name}")
+    end
+  
+    def libruby_dir
+      "#{rubygems_install_dir}/ruby"
+    end
+  
+    def siteruby_dir
+      "#{rubygems_install_dir}/site_ruby"
+    end
+  
+    def siterubyver_dir
+      "#{siteruby_dir}/1.8"
     end
   
     def rubygems_dist_dir
@@ -129,6 +146,7 @@ module GemInstaller::SpecUtils
         }.should raise_error(GemInstaller::GemInstallerError)
         error.message.should match(message_regex)
     end
+  end
   end
 end
 
