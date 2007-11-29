@@ -14,6 +14,7 @@ module GemInstaller
     end
     
     def self.init_dir
+      FileUtils.mkdir(test_gem_home_dir) unless File.exist?(test_gem_home_dir)
       @rubygems_installer = GemInstaller::RubyGemsInstaller.new
       @rubygems_installer.install_dir = test_gem_home_dir
       @rubygems_installer.rubygems_dist_dir = rubygems_dist_dir
