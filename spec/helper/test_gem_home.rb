@@ -35,8 +35,8 @@ module GemInstaller
     end
     
     def self.gem_cmd
-      gem_cmd = 'gem'
-      gem_cmd = 'gem.bat' if RUBY_PLATFORM.index('mswin')
+      gem_cmd = "#{rubygems_bin_dir}/gem"
+      gem_cmd = "#{rubygems_bin_dir}/gem.bat" if RUBY_PLATFORM.index('mswin')
       gem_cmd
     end
     

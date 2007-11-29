@@ -23,6 +23,10 @@ module GemInstaller::SpecUtils
       File.expand_path(File.dirname(__FILE__) + "/../fixture/rubygems_dist/rubygems-#{rubygems_version}")
     end
   
+    def rubygems_bin_dir
+      "#{rubygems_dist_dir}/bin"
+    end
+  
     def test_rubygems_config_file
       file_name = "test_gem.rc"
       File.expand_path(File.dirname(__FILE__) + "/../tmp/#{file_name}")
