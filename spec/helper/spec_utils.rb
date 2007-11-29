@@ -23,6 +23,10 @@ module GemInstaller::SpecUtils
       File.expand_path(File.dirname(__FILE__) + "/../fixture/rubygems_dist/rubygems-#{rubygems_version}")
     end
   
+    def rubygems_lib_dir
+      "#{rubygems_dist_dir}/lib"
+    end
+  
     def rubygems_bin_dir
       "#{rubygems_dist_dir}/bin"
     end

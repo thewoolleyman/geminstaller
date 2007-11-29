@@ -12,6 +12,10 @@ module GemInstaller
     def self.initialized?
       @@initialized
     end
+
+    def self.init_rubygems_path
+      $LOAD_PATH.unshift(rubygems_lib_dir)
+    end
     
     def self.init_dir
       FileUtils.mkdir(test_gem_home_dir) unless File.exist?(test_gem_home_dir)
@@ -27,6 +31,7 @@ module GemInstaller
     
     def self.use
       return if @@initialized
+      init_rubygems_path
       init_dir
       rm_config
       create_config
