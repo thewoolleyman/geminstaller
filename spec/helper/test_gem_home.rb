@@ -7,18 +7,18 @@ module GemInstaller
   class TestGemHome
     include FileUtils
     include GemInstaller::SpecUtils
-    @@initialized = false
-    
+    @@dirs_initialized = false
+    @@server_started = false
+
     def self.initialized?
-      @@initialized
+      @@dirs_initialized and @@server_started
     end
 
     def self.init_rubygems_path
       $LOAD_PATH.unshift(rubygems_lib_dir)
     end
     
-    def self.init_dirs
-      self.create_dirs
+    def self.perform_rubygems_install
       @rubygems_installer = GemInstaller::RubyGemsInstaller.new
       @rubygems_installer.install_dir = rubygems_install_dir
       @rubygems_installer.test_gem_home_dir = test_gem_home_dir
@@ -39,17 +39,28 @@ module GemInstaller
     def self.config_file
       GemInstaller::TestGemHome.test_rubygems_config_file
     end
-    
-    def self.use
-      return if @@initialized
+
+    def self.install_rubygems
+      return if @@dirs_initialized
       init_rubygems_path
       rm_dir
-      init_dirs
+      create_dirs
+      perform_rubygems_install
+      @@dirs_initialized = true
+    end
+
+    def self.start_server
+      return if @@server_started
       rm_config
       create_config
       GemInstaller::EmbeddedGemServer.start
       `#{gem_cmd} update --source #{embedded_gem_server_url} --config-file #{config_file}`
-      @@initialized = true
+      @@server_started = true
+    end
+    
+    def self.use
+      install_rubygems
+      start_server
     end
     
     def self.gem_cmd
@@ -75,11 +86,21 @@ module GemInstaller
       end 
     end
 
-    def self.reset
-      Gem.clear_paths
+    def self.stop_server
+      $server_was_stopped = GemInstaller::EmbeddedGemServer.stop unless $server_was_stopped
       rm_config
+      @@server_started = false
+    end
+
+    def self.uninstall_rubygems
+      Gem.clear_paths
       rm_dir
-      @@initialized = false
+      @@dirs_initialized = false
+    end
+
+    def self.reset
+      stop_server
+      uninstall_rubygems
     end
     
     def self.uninstall_all_test_gems

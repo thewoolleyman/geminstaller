@@ -1,6 +1,5 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
-require File.expand_path("#{dir}/../../lib/geminstaller/requires.rb")
 
 describe "test_gem_home_spec: the TestGemHome class" do
   include FileUtils
@@ -10,8 +9,9 @@ describe "test_gem_home_spec: the TestGemHome class" do
   end
   
   it "should delete and recreate a test gem home" do
+    # TODO: decide what this should test after spec_helper refactoring which now starts server
     # remove dir if it exists
-    GemInstaller::TestGemHome.reset unless GemInstaller::TestGemHome.initialized?
+#    GemInstaller::TestGemHome.reset unless GemInstaller::TestGemHome.initialized?
 
     # use should create dir
     GemInstaller::TestGemHome.use
