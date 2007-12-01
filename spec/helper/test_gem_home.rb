@@ -70,8 +70,8 @@ module GemInstaller
     end
     
     def self.rm_dir
-      # FileUtils.rm_rf(test_gem_home_dir) if File.exist?(test_gem_home_dir)
-      # FileUtils.rm_rf(rubygems_install_dir) if File.exist?(rubygems_install_dir)
+      FileUtils.rm_rf(test_gem_home_dir) if File.exist?(test_gem_home_dir)
+      FileUtils.rm_rf(rubygems_install_dir) if File.exist?(rubygems_install_dir)
     end
     
     def self.rm_config
