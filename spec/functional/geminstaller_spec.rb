@@ -183,7 +183,7 @@ describe "The GemInstaller.autogem method" do
 
     # These lines are required or else the GemInstaller.autogem command can't find the stubgem in the
     # test gem home.  I'm not sure why.
-    if Gem::RubyGemsVersion.index('0.8') == 0
+    if RUBYGEMS_VERSION_CHECKER.matches?('< 0.9')
       runner = Gem::GemRunner.new()
     else
       runner = Gem::GemRunner.new(:command_manager => Gem::CommandManager)
@@ -203,7 +203,7 @@ describe "The GemInstaller.autogem method" do
   it "should handle ignored args like sudo" do
     # These lines are required or else the GemInstaller.autogem command can't find the stubgem in the
     # test gem home.  I'm not sure why.
-    if Gem::RubyGemsVersion.index('0.8') == 0
+    if RUBYGEMS_VERSION_CHECKER.matches?('< 0.9')
       runner = Gem::GemRunner.new()
     else
       runner = Gem::GemRunner.new(:command_manager => Gem::CommandManager)

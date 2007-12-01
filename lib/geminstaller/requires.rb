@@ -10,7 +10,7 @@ require File.expand_path("#{dir}/rubygems_version_checker")
 # requires for rubygems internal classes
 require 'rubygems/doc_manager'
 require 'rubygems/config_file'
-if RUBYGEMS_VERSION_CHECKER.less_than?('0.9.3')
+if RUBYGEMS_VERSION_CHECKER.matches?('<0.9.3')
   require 'rubygems/cmd_manager'
 else
   require 'rubygems/command_manager'
@@ -21,7 +21,7 @@ require 'rubygems/installer'
 require 'rubygems/validator'
 
 # these are order-dependent.  Any better way???
-unless RUBYGEMS_VERSION_CHECKER.less_than?('0.9.3')
+unless RUBYGEMS_VERSION_CHECKER.matches?('<0.9.3')
   require 'rubygems/commands/query_command'
   require 'rubygems/commands/list_command'
 end

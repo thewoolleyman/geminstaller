@@ -1,7 +1,9 @@
 module GemInstaller
   class RubyGemsVersionChecker
-    def less_than?(compare_version, rubygems_version = Gem::RubyGemsVersion)
-      Gem::Version::Requirement.new(["< #{compare_version}"]).satisfied_by?(Gem::Version.new(rubygems_version))
+    def matches?(version_spec, options = {})
+      version_spec = [version_spec] unless version_spec.kind_of?(Array)
+      rubygems_version = options[:rubygems_version] ||= Gem::RubyGemsVersion
+      Gem::Version::Requirement.new(version_spec).satisfied_by?(Gem::Version.new(rubygems_version))
     end
   end
 end

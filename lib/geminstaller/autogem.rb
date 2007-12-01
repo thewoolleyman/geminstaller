@@ -20,7 +20,7 @@ module GemInstaller
     end
     
     def invoke_require_gem_command(name, version)
-      if Gem::RubyGemsVersion.index('0.8') == 0
+      if RUBYGEMS_VERSION_CHECKER.matches?('< 0.9')
         require_gem(name, version)
       else
         # TODO: should we check true/false result of gem method?

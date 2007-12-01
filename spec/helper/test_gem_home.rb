@@ -30,10 +30,10 @@ module GemInstaller
     end
     
     def self.create_dirs
-      FileUtils.mkdir(rubygems_install_dir)
-      FileUtils.mkdir(libruby_dir)
-      FileUtils.mkdir(siteruby_dir)
-      FileUtils.mkdir(siterubyver_dir)
+      FileUtils.mkdir(rubygems_install_dir) unless File.exist?(rubygems_install_dir)
+      FileUtils.mkdir(libruby_dir) unless File.exist?(libruby_dir)
+      FileUtils.mkdir(siteruby_dir) unless File.exist?(siteruby_dir)
+      FileUtils.mkdir(siterubyver_dir) unless File.exist?(siterubyver_dir)
     end
 
     def self.config_file
@@ -70,8 +70,8 @@ module GemInstaller
     end
     
     def self.rm_dir
-      FileUtils.rm_rf(test_gem_home_dir) if File.exist?(test_gem_home_dir)
-      FileUtils.rm_rf(rubygems_install_dir) if File.exist?(rubygems_install_dir)
+      # FileUtils.rm_rf(test_gem_home_dir) if File.exist?(test_gem_home_dir)
+      # FileUtils.rm_rf(rubygems_install_dir) if File.exist?(rubygems_install_dir)
     end
     
     def self.rm_config
