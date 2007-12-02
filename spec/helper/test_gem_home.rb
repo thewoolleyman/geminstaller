@@ -29,11 +29,8 @@ module GemInstaller
       init_rubygems_path
       rm_dirs
       create_dirs
-      #perform_rubygems_install
-
       require 'rubygems'
       ENV['GEM_PATH'] = "#{ENV['GEM_PATH']}:#{File.join(Config::CONFIG['libdir'], 'ruby', 'gems', Config::CONFIG['ruby_version'])}"
-
       install_sources
       @@dirs_initialized = true
     end
@@ -86,24 +83,9 @@ module GemInstaller
       FileUtils.mkdir(siterubyver_dir) unless File.exist?(siterubyver_dir)
     end
 
-    def self.perform_rubygems_install
-      @rubygems_installer = GemInstaller::RubyGemsInstaller.new
-      @rubygems_installer.install_dir = rubygems_install_dir
-      @rubygems_installer.test_gem_home_dir = test_gem_home_dir
-      @rubygems_installer.libruby_dir = libruby_dir
-      @rubygems_installer.siteruby_dir = siteruby_dir
-      @rubygems_installer.siterubyver_dir = siterubyver_dir
-      @rubygems_installer.rubygems_dist_dir = rubygems_dist_dir
-      @rubygems_installer.install
-    end
-    
     def self.install_sources
       @rubygems_installer = GemInstaller::RubyGemsInstaller.new
       @rubygems_installer.install_dir = rubygems_install_dir
-      @rubygems_installer.test_gem_home_dir = test_gem_home_dir
-      @rubygems_installer.libruby_dir = libruby_dir
-      @rubygems_installer.siteruby_dir = siteruby_dir
-      @rubygems_installer.siterubyver_dir = siterubyver_dir
       @rubygems_installer.rubygems_dist_dir = rubygems_dist_dir
       @rubygems_installer.install_sources
     end
