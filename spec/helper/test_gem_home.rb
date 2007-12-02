@@ -31,7 +31,8 @@ module GemInstaller
       put_rubygems_on_load_path
       require 'rubygems'
       init_gem_env_vars
-      install_sources
+      require geminstaller_lib_dir + "/geminstaller/rubygems_version_checker"
+      install_sources if RUBYGEMS_VERSION_CHECKER.matches?('<= 0.9.4')
       @@dirs_initialized = true
     end
 

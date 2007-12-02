@@ -15,6 +15,10 @@ module GemInstaller
       ENV['RUBYGEMS_VERSION'] || "0.9.4"
     end
   
+    def geminstaller_lib_dir
+      File.expand_path(File.dirname(__FILE__) + "/../../lib")
+    end
+
     def test_gem_home_dir
       dir_name = "test_gem_home"
       File.expand_path(File.dirname(__FILE__) + "/../tmp/#{dir_name}")

@@ -4,7 +4,6 @@ dir = File.dirname(__FILE__)
 require 'rubygems'
 
 # backward compability and version-checking stuff - must be required before it is used
-require 'rubygems/rubygems_version'
 require File.expand_path("#{dir}/rubygems_version_checker")
 
 # requires for rubygems internal classes

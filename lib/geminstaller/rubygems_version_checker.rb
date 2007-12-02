@@ -1,3 +1,5 @@
+require 'rubygems/rubygems_version'
+
 module GemInstaller
   class RubyGemsVersionChecker
     def matches?(version_spec, options = {})
