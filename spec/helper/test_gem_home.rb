@@ -30,7 +30,7 @@ module GemInstaller
       create_dirs
       put_rubygems_on_load_path
       require 'rubygems'
-      init_gem_path
+      init_gem_env_vars
       install_sources
       @@dirs_initialized = true
     end
@@ -72,8 +72,10 @@ module GemInstaller
       $LOAD_PATH.unshift(rubygems_lib_dir)
     end
 
-    def self.init_gem_path
-      ENV['GEM_PATH'] = "#{ENV['GEM_PATH']}:#{File.join(Config::CONFIG['libdir'], 'ruby', 'gems', Config::CONFIG['ruby_version'])}"
+    def self.init_gem_env_vars
+      ENV['GEM_HOME'] = test_gem_home_dir
+      existing_gem_path = ENV['GEM_PATH']
+      ENV['GEM_PATH'] = "#{existing_gem_path}:#{File.join(Config::CONFIG['libdir'], 'ruby', 'gems', Config::CONFIG['ruby_version'])}"
     end
 
     def self.rm_dirs
