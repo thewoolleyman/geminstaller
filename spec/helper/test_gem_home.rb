@@ -26,11 +26,11 @@ module GemInstaller
     
     def self.install_rubygems
       return if @@dirs_initialized
-      init_rubygems_path
       rm_dirs
       create_dirs
+      put_rubygems_on_load_path
       require 'rubygems'
-      ENV['GEM_PATH'] = "#{ENV['GEM_PATH']}:#{File.join(Config::CONFIG['libdir'], 'ruby', 'gems', Config::CONFIG['ruby_version'])}"
+      init_gem_path
       install_sources
       @@dirs_initialized = true
     end
@@ -67,10 +67,14 @@ module GemInstaller
 
     protected
     
-    def self.init_rubygems_path
+    def self.put_rubygems_on_load_path
       $LOAD_PATH.unshift(rubygems_lib_dir)
     end
-    
+
+    def self.init_gem_path
+      ENV['GEM_PATH'] = "#{ENV['GEM_PATH']}:#{File.join(Config::CONFIG['libdir'], 'ruby', 'gems', Config::CONFIG['ruby_version'])}"
+    end
+
     def self.rm_dirs
       FileUtils.rm_rf(test_gem_home_dir) if File.exist?(test_gem_home_dir)
       FileUtils.rm_rf(rubygems_install_dir) if File.exist?(rubygems_install_dir)

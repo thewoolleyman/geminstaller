@@ -8,11 +8,7 @@ describe "test_gem_home_spec: the TestGemHome class" do
     @test_gem_home_dir = test_gem_home_dir
   end
   
-  it "should delete and recreate a test gem home" do
-    # TODO: decide what this should test after spec_helper refactoring which now starts server
-    # remove dir if it exists
-#    GemInstaller::TestGemHome.reset unless GemInstaller::TestGemHome.initialized?
-
+  it "should create a test gem home" do
     # use should create dir
     GemInstaller::TestGemHome.use
 
