@@ -78,7 +78,6 @@ module GemInstaller
     
     def self.create_dirs
       FileUtils.mkdir(rubygems_install_dir) unless File.exist?(rubygems_install_dir)
-      FileUtils.mkdir(libruby_dir) unless File.exist?(libruby_dir)
       FileUtils.mkdir(siteruby_dir) unless File.exist?(siteruby_dir)
       FileUtils.mkdir(siterubyver_dir) unless File.exist?(siterubyver_dir)
     end

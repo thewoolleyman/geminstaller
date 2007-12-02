@@ -24,10 +24,6 @@ module GemInstaller
       File.expand_path(File.dirname(__FILE__) + "/../tmp/#{dir_name}")
     end
   
-    def libruby_dir
-      "#{rubygems_install_dir}/ruby"
-    end
-  
     def siteruby_dir
       "#{rubygems_install_dir}/site_ruby"
     end
