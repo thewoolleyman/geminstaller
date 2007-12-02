@@ -19,6 +19,11 @@ module GemInstaller
       start_server
     end
     
+    def self.reset
+      stop_server
+      uninstall_rubygems
+    end
+    
     def self.install_rubygems
       return if @@dirs_initialized
       init_rubygems_path
@@ -28,6 +33,38 @@ module GemInstaller
       @@dirs_initialized = true
     end
 
+    def self.uninstall_rubygems
+      Gem.clear_paths
+      rm_dirs
+      @@dirs_initialized = false
+    end
+
+    def self.start_server
+      return if @@server_started
+      rm_config
+      create_config
+      GemInstaller::EmbeddedGemServer.start
+      `#{gem_cmd} update --source #{embedded_gem_server_url} --config-file #{config_file}`
+      @@server_started = true
+    end
+    
+    def self.stop_server
+      $server_was_stopped = GemInstaller::EmbeddedGemServer.stop unless $server_was_stopped
+      rm_config
+      @@server_started = false
+    end
+
+    def self.uninstall_all_test_gems
+      test_gem_names.each do |test_gem_name|
+        list_output = `#{gem_cmd} list #{test_gem_name}`
+        next unless list_output =~ /#{test_gem_name} /
+        uninstall_command = "#{gem_cmd} uninstall #{test_gem_name} --config-file #{config_file} --all --ignore-dependencies --executables"
+        `#{uninstall_command}`
+      end
+    end
+
+    protected
+    
     def self.init_rubygems_path
       $LOAD_PATH.unshift(rubygems_lib_dir)
     end
@@ -59,15 +96,6 @@ module GemInstaller
       GemInstaller::TestGemHome.test_rubygems_config_file
     end
 
-    def self.start_server
-      return if @@server_started
-      rm_config
-      create_config
-      GemInstaller::EmbeddedGemServer.start
-      `#{gem_cmd} update --source #{embedded_gem_server_url} --config-file #{config_file}`
-      @@server_started = true
-    end
-    
     def self.rm_config
       FileUtils.rm(config_file) if File.exist?(config_file)
     end
@@ -83,32 +111,6 @@ module GemInstaller
     def self.gem_cmd
       return "ruby -I #{rubygems_lib_dir}:#{rubygems_bin_dir} #{rubygems_bin_dir}/gem.bat" if RUBY_PLATFORM.index('mswin')
       "ruby -I #{rubygems_lib_dir}:#{rubygems_bin_dir} #{rubygems_bin_dir}/gem"
-    end
-    
-    def self.reset
-      stop_server
-      uninstall_rubygems
-    end
-    
-    def self.stop_server
-      $server_was_stopped = GemInstaller::EmbeddedGemServer.stop unless $server_was_stopped
-      rm_config
-      @@server_started = false
-    end
-
-    def self.uninstall_rubygems
-      Gem.clear_paths
-      rm_dirs
-      @@dirs_initialized = false
-    end
-
-    def self.uninstall_all_test_gems
-      test_gem_names.each do |test_gem_name|
-        list_output = `#{gem_cmd} list #{test_gem_name}`
-        next unless list_output =~ /#{test_gem_name} /
-        uninstall_command = "#{gem_cmd} uninstall #{test_gem_name} --config-file #{config_file} --all --ignore-dependencies --executables"
-        `#{uninstall_command}`
-      end
-    end
+    end    
   end
 end
