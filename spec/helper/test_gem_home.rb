@@ -14,10 +14,36 @@ module GemInstaller
       @@dirs_initialized and @@server_started
     end
 
+    def self.use
+      install_rubygems
+      start_server
+    end
+    
+    def self.install_rubygems
+      return if @@dirs_initialized
+      init_rubygems_path
+      rm_dirs
+      create_dirs
+      perform_rubygems_install
+      @@dirs_initialized = true
+    end
+
     def self.init_rubygems_path
       $LOAD_PATH.unshift(rubygems_lib_dir)
     end
     
+    def self.rm_dirs
+      FileUtils.rm_rf(test_gem_home_dir) if File.exist?(test_gem_home_dir)
+      FileUtils.rm_rf(rubygems_install_dir) if File.exist?(rubygems_install_dir)
+    end
+    
+    def self.create_dirs
+      FileUtils.mkdir(rubygems_install_dir) unless File.exist?(rubygems_install_dir)
+      FileUtils.mkdir(libruby_dir) unless File.exist?(libruby_dir)
+      FileUtils.mkdir(siteruby_dir) unless File.exist?(siteruby_dir)
+      FileUtils.mkdir(siterubyver_dir) unless File.exist?(siterubyver_dir)
+    end
+
     def self.perform_rubygems_install
       @rubygems_installer = GemInstaller::RubyGemsInstaller.new
       @rubygems_installer.install_dir = rubygems_install_dir
@@ -29,24 +55,8 @@ module GemInstaller
       @rubygems_installer.install
     end
     
-    def self.create_dirs
-      FileUtils.mkdir(rubygems_install_dir) unless File.exist?(rubygems_install_dir)
-      FileUtils.mkdir(libruby_dir) unless File.exist?(libruby_dir)
-      FileUtils.mkdir(siteruby_dir) unless File.exist?(siteruby_dir)
-      FileUtils.mkdir(siterubyver_dir) unless File.exist?(siterubyver_dir)
-    end
-
     def self.config_file
       GemInstaller::TestGemHome.test_rubygems_config_file
-    end
-
-    def self.install_rubygems
-      return if @@dirs_initialized
-      init_rubygems_path
-      rm_dir
-      create_dirs
-      perform_rubygems_install
-      @@dirs_initialized = true
     end
 
     def self.start_server
@@ -56,22 +66,6 @@ module GemInstaller
       GemInstaller::EmbeddedGemServer.start
       `#{gem_cmd} update --source #{embedded_gem_server_url} --config-file #{config_file}`
       @@server_started = true
-    end
-    
-    def self.use
-      install_rubygems
-      start_server
-    end
-    
-    def self.gem_cmd
-      gem_cmd = "ruby -I #{rubygems_lib_dir}:#{rubygems_bin_dir} #{rubygems_bin_dir}/gem"
-      gem_cmd = "ruby -I #{rubygems_lib_dir}:#{rubygems_bin_dir} #{rubygems_bin_dir}/gem.bat" if RUBY_PLATFORM.index('mswin')
-      gem_cmd
-    end
-    
-    def self.rm_dir
-      FileUtils.rm_rf(test_gem_home_dir) if File.exist?(test_gem_home_dir)
-      FileUtils.rm_rf(rubygems_install_dir) if File.exist?(rubygems_install_dir)
     end
     
     def self.rm_config
@@ -86,6 +80,16 @@ module GemInstaller
       end 
     end
 
+    def self.gem_cmd
+      return "ruby -I #{rubygems_lib_dir}:#{rubygems_bin_dir} #{rubygems_bin_dir}/gem.bat" if RUBY_PLATFORM.index('mswin')
+      "ruby -I #{rubygems_lib_dir}:#{rubygems_bin_dir} #{rubygems_bin_dir}/gem"
+    end
+    
+    def self.reset
+      stop_server
+      uninstall_rubygems
+    end
+    
     def self.stop_server
       $server_was_stopped = GemInstaller::EmbeddedGemServer.stop unless $server_was_stopped
       rm_config
@@ -94,15 +98,10 @@ module GemInstaller
 
     def self.uninstall_rubygems
       Gem.clear_paths
-      rm_dir
+      rm_dirs
       @@dirs_initialized = false
     end
 
-    def self.reset
-      stop_server
-      uninstall_rubygems
-    end
-    
     def self.uninstall_all_test_gems
       test_gem_names.each do |test_gem_name|
         list_output = `#{gem_cmd} list #{test_gem_name}`
