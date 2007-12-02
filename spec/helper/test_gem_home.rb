@@ -68,6 +68,7 @@ module GemInstaller
     protected
     
     def self.put_rubygems_on_load_path
+      $LOAD_PATH.unshift(siterubyver_dir)
       $LOAD_PATH.unshift(rubygems_lib_dir)
     end
 
@@ -77,18 +78,17 @@ module GemInstaller
 
     def self.rm_dirs
       FileUtils.rm_rf(test_gem_home_dir) if File.exist?(test_gem_home_dir)
-      FileUtils.rm_rf(rubygems_install_dir) if File.exist?(rubygems_install_dir)
     end
     
     def self.create_dirs
-      FileUtils.mkdir(rubygems_install_dir) unless File.exist?(rubygems_install_dir)
+      FileUtils.mkdir(test_gem_home_dir) unless File.exist?(test_gem_home_dir)
       FileUtils.mkdir(siteruby_dir) unless File.exist?(siteruby_dir)
       FileUtils.mkdir(siterubyver_dir) unless File.exist?(siterubyver_dir)
     end
 
     def self.install_sources
       @rubygems_installer = GemInstaller::RubyGemsInstaller.new
-      @rubygems_installer.install_dir = rubygems_install_dir
+      @rubygems_installer.gem_home_dir = test_gem_home_dir
       @rubygems_installer.rubygems_dist_dir = rubygems_dist_dir
       @rubygems_installer.install_sources
     end

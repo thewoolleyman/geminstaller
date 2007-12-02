@@ -16,16 +16,12 @@ module GemInstaller
     end
   
     def test_gem_home_dir
-      "#{rubygems_install_dir}"
-    end
-
-    def rubygems_install_dir
-      dir_name = "rubygems_install"
+      dir_name = "test_gem_home"
       File.expand_path(File.dirname(__FILE__) + "/../tmp/#{dir_name}")
     end
-  
+
     def siteruby_dir
-      "#{rubygems_install_dir}/site_ruby"
+      "#{test_gem_home_dir}/site_ruby"
     end
   
     def siterubyver_dir

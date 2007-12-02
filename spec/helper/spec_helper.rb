@@ -3,8 +3,6 @@ dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/spec_utils.rb")
 include GemInstaller::SpecUtils::ClassMethods
 
-$LOAD_PATH.unshift(siterubyver_dir)
-
 require File.expand_path("#{dir}/test_gem_home.rb")
 GemInstaller::TestGemHome.install_rubygems
 
