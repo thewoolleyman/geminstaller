@@ -15,6 +15,7 @@ if RUBY_PLATFORM.index('mswin')
   require 'win32/process'
   require 'win32/open3'
 end
+require 'ruby-debug'
 
 
 at_exit do

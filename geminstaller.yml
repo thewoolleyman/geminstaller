@@ -19,6 +19,8 @@ gems:
   version: '>= 1.0.8'
 - name: cmdparse
   version: '>= 2.0.2'
+- name: ruby-debug
+  version: '>= 0.9.3'
 - name: webgen
   version: '>= 0.4.2'
 <% if RUBY_PLATFORM =~ /mswin/ %>
