@@ -35,7 +35,6 @@ module Gem
     # RDoc will cause RI docs generation to fail if run after RDoc).
     def generate_ri
       if @spec.has_rdoc then
-        require 'rdoc'
         load_rdoc
         install_ri # RDoc bug, ri goes first
       end
