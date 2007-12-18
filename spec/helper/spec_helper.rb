@@ -15,7 +15,8 @@ if RUBY_PLATFORM.index('mswin')
   require 'win32/process'
   require 'win32/open3'
 end
-require 'ruby-debug'
+# ruby-debug indirectly requires 'irb', which makes require of 'rdoc/rdoc' in rubygems doc_manager.rb blow up
+#require 'ruby-debug'
 
 
 at_exit do
