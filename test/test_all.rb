@@ -1,7 +1,3 @@
-# TODO: This is the only thing I could hack together in order to run the specs after upgrading
-# to Rspec 0.9.3.  Need to be back to all specs being runnable via 'rake' or 'test_all'
-# Are there any good examples of running rspec for a non-rails project, and allowing post-suite hooks?
-
 dir = File.dirname(__FILE__)
 specdir = File.expand_path("#{dir}/../spec")
 require File.expand_path("#{specdir}/helper/spec_helper")
@@ -18,11 +14,14 @@ args << "specdoc"
 args << "--diff"
 args << "unified"
 
-$behaviour_runner  = ::Spec::Runner::OptionParser.new.create_behaviour_runner(args, STDERR, STDOUT, false)
+# append generated args to ARGV.  THis may break if incompatible args are specified, 
+# but I don't know a better way to invoke Rspec 1.1.1 programatically and check the return value
+ARGV.concat(args)
 
 retval = 1
 begin
-  retval = $behaviour_runner.run(args, false)
+  require 'spec'
+  retval = ::Spec::Runner::CommandLine.run(rspec_options)
 ensure
   GemInstaller::TestGemHome.reset
 end

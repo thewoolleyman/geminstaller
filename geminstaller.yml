@@ -16,7 +16,7 @@ gems:
 - name: RedCloth
   version: '>= 3.0.4'
 - name: rspec
-  version: '>= 1.0.8'
+  version: '>= 1.1.1'
 - name: cmdparse
   version: '>= 2.0.2'
 - name: ruby-debug

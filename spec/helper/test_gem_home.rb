@@ -76,7 +76,7 @@ module GemInstaller
     def self.init_gem_env_vars
       ENV['GEM_HOME'] = test_gem_home_dir
       existing_gem_path = ENV['GEM_PATH']
-      ENV['GEM_PATH'] = "#{existing_gem_path}:#{File.join(Config::CONFIG['libdir'], 'ruby', 'gems', Config::CONFIG['ruby_version'])}"
+      ENV['GEM_PATH'] = "#{existing_gem_path}:#{File.join(::Config::CONFIG['libdir'], 'ruby', 'gems', ::Config::CONFIG['ruby_version'])}"
     end
 
     def self.rm_dirs
