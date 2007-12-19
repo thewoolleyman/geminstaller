@@ -3,7 +3,7 @@ module GemInstaller
     attr_writer :gem_spec_manager, :gem_runner_proxy, :gem_interaction_handler
     
     def list_remote_gem(gem, additional_options)
-      run_args = ["list",gem.name,"--remote"]
+      run_args = ["list",gem.name,"--remote","--details"]
       run_args += additional_options
       @gem_runner_proxy.run(run_args)
     end

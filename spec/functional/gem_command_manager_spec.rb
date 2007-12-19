@@ -35,9 +35,10 @@ describe "a GemCommandManager instance" do
       "\n", 
       "stubgem-multiplatform (1.0.1, 1.0.0)\n", 
       "    Multiplatform stub gem for testing geminstaller\n"]
-    list.should==(expected_list)
+    list.join.should==(expected_list.join)
   end
   
+  if RUBYGEMS_VERSION_CHECKER.matches?('<0.9.5') # Rubygems 0.9.5 and later automatically installs dependencies
   it "should raise an error if attempting to install a gem with dependencies without -y option" do
     # ensure dependency gem is uninstalled
     @gem_command_manager.uninstall_gem(@sample_gem)
@@ -52,6 +53,7 @@ describe "a GemCommandManager instance" do
       error.message.should match(expected_error_message)
     end
     exception.class.should==(GemInstaller::UnauthorizedDependencyPromptError)
+  end
   end
   
   it "should be able to install and uninstall similarly named gems without a prompt (using exact name matching)" do

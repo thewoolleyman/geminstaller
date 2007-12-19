@@ -83,7 +83,7 @@ describe "a GemRunnerProxy instance" do
 
     @gem_interaction_handler.dependent_gem = sample_multiplatform_gem
     output = @gem_runner_proxy.run(gem_runner_args)
-    output.join("\n").should match(/Successfully installed #{sample_multiplatform_gem_name}-#{sample_multiplatform_gem_version}-mswin32/m)
+    output.join("\n").should match(/Successfully installed #{sample_multiplatform_gem_name}-#{sample_multiplatform_gem_version}/m)
   end
   
   after(:each) do
