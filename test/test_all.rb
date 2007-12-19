@@ -26,4 +26,4 @@ ensure
   GemInstaller::TestGemHome.reset
 end
 retval ||= 0
-raise "Specs failed, return value = #{retval}" unless retval == 0
+raise "Specs failed, return value = #{retval}" unless (retval == 0 || retval == true)
