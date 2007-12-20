@@ -296,7 +296,7 @@ module Gem
 
     # REQUIRED gemspec attributes ------------------------------------
     
-    required_attribute :rubygems_version, RubyGemsVersion
+    required_attribute :rubygems_version, Gem::RubyGemsVersion
     required_attribute :specification_version, CURRENT_SPECIFICATION_VERSION
     required_attribute :name
     required_attribute :version
@@ -350,7 +350,7 @@ module Gem
     end
 
     def test_suite_file=(val)
-      warn 'test_suite_file deprecated, use test_files'
+      warn 'test_suite_file= deprecated, use test_files='
       @test_files = [] unless defined? @test_files
       @test_files << val
     end
@@ -382,6 +382,7 @@ module Gem
       case platform
       when Gem::Platform::CURRENT then
         @new_platform = Gem::Platform.local
+        @original_platform = @new_platform.to_s
 
       when Gem::Platform then
         @new_platform = platform
@@ -390,13 +391,13 @@ module Gem
       when nil, Gem::Platform::RUBY then
         @new_platform = Gem::Platform::RUBY
       when 'mswin32' then # was Gem::Platform::WIN32
-        @new_platform = Gem::Platform.new('x86-mswin32-60')
+        @new_platform = Gem::Platform.new 'x86-mswin32'
       when 'i586-linux' then # was Gem::Platform::LINUX_586
-        @new_platform = Gem::Platform.new('x86-linux')
+        @new_platform = Gem::Platform.new 'x86-linux'
       when 'powerpc-darwin' then # was Gem::Platform::DARWIN
-        @new_platform = Gem::Platform.new('ppc-darwin')
+        @new_platform = Gem::Platform.new 'ppc-darwin'
       else
-        @new_platform = platform
+        @new_platform = Gem::Platform.new platform
       end
 
       @platform = @new_platform.to_s
