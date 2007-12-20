@@ -12,7 +12,7 @@ module GemInstaller
     end
     
     def rubygems_version
-      ENV['RUBYGEMS_VERSION'] || "0.9.4"
+      ENV['RUBYGEMS_VERSION'] || "1.0.0"
     end
   
     def geminstaller_lib_dir

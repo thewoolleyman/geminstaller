@@ -7,6 +7,7 @@ require File.expand_path("#{dir}/test_gem_home.rb")
 GemInstaller::TestGemHome.install_rubygems
 
 require File.expand_path("#{dir}/../../lib/geminstaller/requires.rb")
+require 'pp'
 require 'spec'
 require 'find' 
 require 'stringio'

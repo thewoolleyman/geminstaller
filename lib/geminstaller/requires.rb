@@ -15,7 +15,9 @@ else
   require 'rubygems/command_manager'
 end
 require 'rubygems/gem_runner'
-require 'rubygems/remote_installer'
+if RUBYGEMS_VERSION_CHECKER.matches?('<1.0.0')
+  require 'rubygems/remote_installer'
+end
 require 'rubygems/installer'
 require 'rubygems/validator'
 

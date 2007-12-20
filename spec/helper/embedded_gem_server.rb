@@ -16,8 +16,8 @@ module GemInstaller
       else
         server_cmd = (RUBYGEMS_VERSION_CHECKER.matches?('<= 0.9.4') ? 'gem_server' : 'gem server')
         # Don't daemonize, it spawns a child process that I don't know how to kill.  There's an error
-        # in the 0.9.5 daemon option anyway.  Just dump everything to /dev/null
-        gem_server_process = IO.popen("#{ruby_cmd} #{rubygems_bin_dir}/#{server_cmd} #{cmd_args} >/dev/null 2>/dev/null")
+        # in the 0.9.5 daemon option anyway.  Just dump everything to /dev/null (but not while I'm still fixing against rubygems 1.0.0)
+        gem_server_process = IO.popen("#{ruby_cmd} #{rubygems_bin_dir}/#{server_cmd} #{cmd_args}")
         @@gem_server_pid = gem_server_process.pid
       end
       print "Started embedded gem server at #{embedded_gem_dir}, pid = #{@@gem_server_pid}\n"
