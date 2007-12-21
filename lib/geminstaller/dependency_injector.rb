@@ -15,7 +15,7 @@ module GemInstaller
     attr_accessor :gem_runner, :gem_command_manager, :gem_list_checker, :app, :arg_parser, :options, :noninteractive_chooser
     attr_accessor :gem_interaction_handler, :install_processor, :missing_dependency_finder, :valid_platform_selector
     attr_accessor :output_listener, :outs_output_observer, :errs_output_observer, :output_filter, :autogem, :rogue_gem_finder
-    attr_accessor :gem_spec_manager
+    attr_accessor :gem_spec_manager, :source_index_search_adapter
 
     def initialize
       @options = {}
@@ -49,6 +49,9 @@ module GemInstaller
       @gem_source_index_proxy = GemInstaller::GemSourceIndexProxy.new
       @gem_source_index_proxy.gem_source_index = @gem_source_index
 
+      @source_index_search_adapter = GemInstaller::SourceIndexSearchAdapter.new
+      @source_index_search_adapter.gem_source_index_proxy = @gem_source_index_proxy
+
       @gem_interaction_handler = GemInstaller::GemInteractionHandler.new
       @noninteractive_chooser_class = GemInstaller::NoninteractiveChooser
       @gem_interaction_handler.noninteractive_chooser_class = @noninteractive_chooser_class
@@ -80,7 +83,7 @@ module GemInstaller
   
       @gem_spec_manager = GemInstaller::GemSpecManager.new
       @gem_spec_manager.valid_platform_selector = @valid_platform_selector
-      @gem_spec_manager.gem_source_index_proxy = @gem_source_index_proxy
+      @gem_spec_manager.source_index_search_adapter = @source_index_search_adapter
       @gem_spec_manager.output_filter = @output_filter
         
       @gem_command_manager = GemInstaller::GemCommandManager.new
