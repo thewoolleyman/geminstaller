@@ -30,15 +30,13 @@ describe "The geminstaller command line application" do
   end
   
   it "should handle 'current' as a valid platform" do
-    gem = @sample_gem
     # force ruby platform to match 'remote' gem's platform
-    @valid_platform_selector.ruby_platform = gem.platform
+    @valid_platform_selector.ruby_platform = @sample_gem.platform
   
     # reset gem's platform to current
-    gem.platform = 'current'
+    @sample_gem.platform = 'current'
   
     @application.args = geminstaller_spec_test_args
-    @sample_gem.platform = 'current'
     @application.run
     @gem_spec_manager.is_gem_installed?(@sample_gem).should==(true)
   end
@@ -162,10 +160,15 @@ describe "The GemInstaller.autogem method" do
     # Clear out loaded specs in rubygems, otherwise the gem call won't do anything
     Gem.instance_eval { @loaded_specs.clear if @loaded_specs }
 
+    if RUBYGEMS_VERSION_CHECKER.matches?('>=0.9.5')
+      win32_platform = 'x86-mswin32'
+    else
+      win32_platform = 'mswin32'
+    end
     @expected_load_path_entry = "#{test_gem_home_dir}/gems/#{sample_gem_name}-#{sample_gem_version}/lib"
     @expected_load_path_entry_bin = "#{test_gem_home_dir}/gems/#{sample_gem_name}-#{sample_gem_version}/bin"
-    @expected_load_path_entry_2 = "#{test_gem_home_dir}/gems/#{sample_multiplatform_gem_name}-#{sample_multiplatform_gem_version}-x86-mswin32/lib"
-    @expected_load_path_entry_2_bin = "#{test_gem_home_dir}/gems/#{sample_multiplatform_gem_name}-#{sample_multiplatform_gem_version}-x86-mswin32/bin"
+    @expected_load_path_entry_2 = "#{test_gem_home_dir}/gems/#{sample_multiplatform_gem_name}-#{sample_multiplatform_gem_version}-#{win32_platform}/lib"
+    @expected_load_path_entry_2_bin = "#{test_gem_home_dir}/gems/#{sample_multiplatform_gem_name}-#{sample_multiplatform_gem_version}-#{win32_platform}/bin"
     GemInstaller.run(["--silent","--config=#{geminstaller_spec_live_config_path},#{geminstaller_spec_live_config_2_path}"])
     @gem_spec_manager.is_gem_installed?(sample_gem).should==(true)
     @gem_spec_manager.is_gem_installed?(sample_multiplatform_gem).should==(true)
