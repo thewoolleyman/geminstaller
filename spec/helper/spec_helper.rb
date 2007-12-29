@@ -4,7 +4,10 @@ require File.expand_path("#{dir}/spec_utils.rb")
 include GemInstaller::SpecUtils::ClassMethods
 
 require File.expand_path("#{dir}/test_gem_home.rb")
+GemInstaller::TestGemHome.put_rubygems_on_load_path
 GemInstaller::TestGemHome.install_rubygems
+
+ALLOW_UNSUPPORTED_RUBYGEMS_VERSION = true
 
 require File.expand_path("#{dir}/../../lib/geminstaller/requires.rb")
 require 'pp'
