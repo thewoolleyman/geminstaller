@@ -164,8 +164,8 @@ describe "The GemInstaller.autogem method" do
 
     @expected_load_path_entry = "#{test_gem_home_dir}/gems/#{sample_gem_name}-#{sample_gem_version}/lib"
     @expected_load_path_entry_bin = "#{test_gem_home_dir}/gems/#{sample_gem_name}-#{sample_gem_version}/bin"
-    @expected_load_path_entry_2 = "#{test_gem_home_dir}/gems/#{sample_multiplatform_gem_name}-#{sample_multiplatform_gem_version}-mswin32/lib"
-    @expected_load_path_entry_2_bin = "#{test_gem_home_dir}/gems/#{sample_multiplatform_gem_name}-#{sample_multiplatform_gem_version}-mswin32/bin"
+    @expected_load_path_entry_2 = "#{test_gem_home_dir}/gems/#{sample_multiplatform_gem_name}-#{sample_multiplatform_gem_version}-x86-mswin32/lib"
+    @expected_load_path_entry_2_bin = "#{test_gem_home_dir}/gems/#{sample_multiplatform_gem_name}-#{sample_multiplatform_gem_version}-x86-mswin32/bin"
     GemInstaller.run(["--silent","--config=#{geminstaller_spec_live_config_path},#{geminstaller_spec_live_config_2_path}"])
     @gem_spec_manager.is_gem_installed?(sample_gem).should==(true)
     @gem_spec_manager.is_gem_installed?(sample_multiplatform_gem).should==(true)
