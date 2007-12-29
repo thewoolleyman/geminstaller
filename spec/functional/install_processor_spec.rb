@@ -78,8 +78,13 @@ describe "an InstallProcessor instance" do
     @mock_output_filter.should_receive(:geminstaller_output).once.with(:install,/^Invoking gem install for #{@sample_gem.name}, version 1.0.0/)
     @mock_output_filter.should_receive(:geminstaller_output).once.with(:install,/^Installing #{@sample_gem.name} \(>= 1.0.0\)/)
 
+    # middle level should already be installed
+    @gem_spec_manager.is_gem_installed?(@sample_dependent_gem).should==(true)
+
     @install_processor.process([@sample_dependent_multilevel_gem])
+    #top level should be installed
     @gem_spec_manager.is_gem_installed?(@sample_dependent_multilevel_gem).should==(true)
+    #bottom level should be installed
     @gem_spec_manager.is_gem_installed?(@sample_gem).should==(true)
   end
   
