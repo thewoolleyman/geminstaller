@@ -64,7 +64,11 @@ module GemInstaller
         test_gem_platform = 'x86-mswin32' if test_gem_platform == 'mswin32'
         list_output = `#{gem_cmd} list #{test_gem_name}`
         next unless list_output =~ /#{test_gem_name} /
-        uninstall_command = "#{gem_cmd} uninstall #{test_gem_name} --all --ignore-dependencies --executables --platform #{test_gem_platform} --config-file #{config_file}"
+        if RUBYGEMS_VERSION_CHECKER.matches?('>=0.9.5')
+          platform_option = "--platform #{test_gem_platform}"
+        end
+        
+        uninstall_command = "#{gem_cmd} uninstall #{test_gem_name} --all --ignore-dependencies --executables #{platform_option} --config-file #{config_file}"
         `#{uninstall_command}`
       end
     end

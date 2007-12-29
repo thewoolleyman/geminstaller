@@ -11,13 +11,13 @@ module GemInstaller
     def uninstall_gem(gem)
       return if !@gem_spec_manager.is_gem_installed?(gem)
       @gem_interaction_handler.dependent_gem = gem
-      run_gem_command('uninstall',gem)
+      run_gem_command('uninstall', gem, gem.uninstall_options)
     end
 
     def install_gem(gem)
       return if @gem_spec_manager.is_gem_installed?(gem)
       @gem_interaction_handler.dependent_gem = gem
-      run_gem_command('install',gem)
+      run_gem_command('install', gem, gem.install_options)
     end
     
     def dependency(name, version, additional_options = [])
@@ -47,12 +47,12 @@ module GemInstaller
       end
     end
 
-    def run_gem_command(gem_command,gem)
+    def run_gem_command(gem_command, gem, options)
       run_args = [gem_command,gem.name,"--version", "#{gem.version}"]
       if RUBYGEMS_VERSION_CHECKER.matches?('>=0.9.5')
         run_args += ['--platform', "#{gem.platform}"]
       end
-      run_args += gem.install_options
+      run_args += options
       @gem_runner_proxy.run(run_args)
     end
   end

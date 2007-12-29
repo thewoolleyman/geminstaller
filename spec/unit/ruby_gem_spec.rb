@@ -36,6 +36,12 @@ describe "A ruby gem data object" do
     gem.install_options.should==('-y')
   end
 
+  it "may be instantiated with only a name, and uninstall options" do
+    gem = GemInstaller::RubyGem.new('mygem', :uninstall_options => '--all')
+    gem.name.should==('mygem')
+    gem.uninstall_options.should==('--all')
+  end
+
   it "may be instantiated with only a name, and install options (unspecified version)" do
     gem = GemInstaller::RubyGem.new('mygem', :version => '> 0.1.2.3')
     gem.version.should==('> 0.1.2.3')
