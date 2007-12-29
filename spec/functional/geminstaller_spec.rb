@@ -28,7 +28,10 @@ describe "The geminstaller command line application" do
     @application.run
     @gem_spec_manager.is_gem_installed?(@sample_gem).should==(true)
   end
-  
+
+  if RUBYGEMS_VERSION_CHECKER.matches?('<=0.9.4')
+  # This test only applies on older versions, since it involves faking out ruby_platform in
+  # valid_platform_selector, which is not used in newer versions
   it "should handle 'current' as a valid platform" do
     # force ruby platform to match 'remote' gem's platform
     @valid_platform_selector.ruby_platform = @sample_gem.platform
@@ -39,6 +42,7 @@ describe "The geminstaller command line application" do
     @application.args = geminstaller_spec_test_args
     @application.run
     @gem_spec_manager.is_gem_installed?(@sample_gem).should==(true)
+  end
   end
   
   it "should print startup message in debug mode" do
