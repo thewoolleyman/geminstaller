@@ -5,12 +5,16 @@ module GemInstaller
   end
 
   module ClassMethods
-    def test_gem_names
-      test_gem_names = [sample_gem_name, sample_dependent_gem_name, sample_dependent_depends_on_multiplatform_gem_name,
-        sample_dependent_depends_on_multiplatform_gem_name, sample_multiplatform_gem_name, 
-        sample_dependent_multilevel_gem_name, sample_dependent_multiplatform_gem_name]
+    def test_gems
+      [sample_gem, sample_dependent_gem, sample_dependent_depends_on_multiplatform_gem,
+        sample_dependent_depends_on_multiplatform_gem, sample_multiplatform_gem_ruby, sample_multiplatform_gem,
+        sample_dependent_multilevel_gem, sample_dependent_multiplatform_gem]
     end
     
+    def ruby_cmd
+      "ruby -I #{rubygems_lib_dir}:#{rubygems_bin_dir}"
+    end
+      
     def rubygems_version
       ENV['RUBYGEMS_VERSION'] || "1.0.1"
     end

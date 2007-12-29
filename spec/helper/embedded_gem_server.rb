@@ -6,7 +6,6 @@ module GemInstaller
       return if @@gem_server_pid
       print "Starting embedded gem server at #{embedded_gem_dir}...\n"
       Gem.clear_paths
-      ruby_cmd = "ruby -I #{rubygems_lib_dir}:#{rubygems_bin_dir}"
       cmd_args = "--dir=#{embedded_gem_dir} --port=#{embedded_gem_server_port}"
       if windows?
         server_cmd = (RUBYGEMS_VERSION_CHECKER.matches?('<= 0.9.4') ? 'gem_server.bat' : 'gem.bat server')

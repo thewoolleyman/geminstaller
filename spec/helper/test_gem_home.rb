@@ -58,10 +58,13 @@ module GemInstaller
     end
 
     def self.uninstall_all_test_gems
-      test_gem_names.each do |test_gem_name|
+      test_gems.each do |test_gem|
+        test_gem_name = test_gem.name
+        test_gem_platform = test_gem.platform
+        test_gem_platform = 'x86-mswin32' if test_gem_platform == 'mswin32'
         list_output = `#{gem_cmd} list #{test_gem_name}`
         next unless list_output =~ /#{test_gem_name} /
-        uninstall_command = "#{gem_cmd} uninstall #{test_gem_name} --config-file #{config_file} --all --ignore-dependencies --executables"
+        uninstall_command = "#{gem_cmd} uninstall #{test_gem_name} --all --ignore-dependencies --executables --platform #{test_gem_platform} --config-file #{config_file}"
         `#{uninstall_command}`
       end
     end
@@ -113,8 +116,8 @@ module GemInstaller
     end
 
     def self.gem_cmd
-      return "ruby -I #{rubygems_lib_dir}:#{rubygems_bin_dir} #{rubygems_bin_dir}/gem.bat" if RUBY_PLATFORM.index('mswin')
-      "ruby -I #{rubygems_lib_dir}:#{rubygems_bin_dir} #{rubygems_bin_dir}/gem"
+      return "#{ruby_cmd} #{rubygems_bin_dir}/gem.bat" if RUBY_PLATFORM.index('mswin')
+      "#{ruby_cmd} #{rubygems_bin_dir}/gem"
     end    
   end
 end
