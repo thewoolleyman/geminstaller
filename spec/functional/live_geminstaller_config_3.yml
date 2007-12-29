@@ -1,4 +1,6 @@
 ---
+defaults:
+  install_options: <%= install_options_for_testing.join(' ') %>
 gems:
 - name: <%= sample_gem_name %>
   version: <%= GemInstaller::SpecUtils::sample_gem_version %>

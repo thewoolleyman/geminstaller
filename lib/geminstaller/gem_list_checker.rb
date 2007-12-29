@@ -23,7 +23,7 @@ module GemInstaller
       end
 
       if matched_lines.size == 0
-        error_message = "Error: Could not find remote gem to install.  Gem name = '#{gem.name}', install options = '#{gem.install_options}'"
+        error_message = "Error: Could not find remote gem to install.  Gem name = '#{gem.name}', Gem version = '#{gem.version}', install options = '#{gem.install_options}'"
         raise GemInstaller::GemInstallerError.new(error_message)
       end
 

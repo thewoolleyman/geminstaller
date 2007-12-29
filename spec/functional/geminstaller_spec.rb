@@ -98,7 +98,7 @@ describe "The geminstaller command line application" do
     @gem_spec_manager.is_gem_installed?(@sample_multiplatform_gem).should==(true)
   end
   
-  it "should install correctly even if install_options is not specified" do
+  it "should install correctly even if install_options is not specified on the gem" do
     @application.args = ["--silent","--config=#{dir}/live_geminstaller_config_3.yml"]
     @application.run
     @gem_spec_manager.is_gem_installed?(@sample_gem).should==(true)
