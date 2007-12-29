@@ -91,6 +91,11 @@ describe "a GemCommandManager instance" do
     @gem_spec_manager.is_gem_installed?(@sample_multiplatform_gem).should==(true)
   end
   
+  if RUBYGEMS_VERSION_CHECKER.matches?('<=0.9.4')
+  # Can't do this test on RubyGems 0.9.5 or above, because it handles platforms internally
+  # rather than using ValidPlatformSelector, so we can't control ruby_platform.
+  # We would have to somehow make a stubgem that matches current platform, which is hard
+  # to make work on multiple platforms (because stubgems in spec/gems are manually created)
   it "should be able to install and uninstall a gem with the 'current' platform" do
     gem = @sample_gem
 
@@ -102,6 +107,7 @@ describe "a GemCommandManager instance" do
     @gem_spec_manager.is_gem_installed?(gem).should==(false)
     @gem_command_manager.install_gem(gem)
     @gem_spec_manager.is_gem_installed?(gem).should==(true)
+  end
   end
   
   it "should be able to list dependencies based on exact name match" do
