@@ -23,7 +23,11 @@ describe "a GemListChecker instance" do
   it "should properly specify with a binary platform" do
     @sample_gem.name = "stubgem-multiplatform"
     @sample_gem.version = "1.0.1"
-    @sample_gem.platform = Gem::Platform::WIN32
+    if RUBYGEMS_VERSION_CHECKER.matches?('>=0.9.5')
+      @sample_gem.platform = Gem::Platform.new('mswin32')
+    else
+      @sample_gem.platform = Gem::Platform::WIN32
+    end
     should_not_raise_error    
   end
 
