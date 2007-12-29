@@ -24,7 +24,8 @@ module GemInstaller
       # rubygems has bug up to 0.9.4 where the pipe options uses 'puts', instead of 'say', so we can't capture it
       # with enhanced_stream_ui.  Patched: http://rubyforge.org/tracker/index.php?func=detail&aid=9020&group_id=126&atid=577
       # TODO: use pipe option on later versions which support it
-      run_args = ["dependency",/^#{name}$/,"--version",version]
+      
+      run_args = ["dependency","^#{name}$","--version",version]
       run_args += additional_options
       output_lines = @gem_runner_proxy.run(run_args)
       # dependency output has all lines in the first element
