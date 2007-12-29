@@ -9,15 +9,21 @@ describe "The sample gem fixtures install and uninstall methods" do
     @gem_spec_manager = @registry.gem_spec_manager
 
     # install all the sample gems
-    GemInstaller.run(["--silent","--config=#{dir}/live_geminstaller_config_all_sample_gems.yml"])
+    GemInstaller.run(["--config=#{dir}/live_geminstaller_config_all_sample_gems.yml"])
 
     # uninstall all the sample gems
     GemInstaller::TestGemHome.uninstall_all_test_gems
     
-    # nothing but sources gem should be left
     all_local_gems = @gem_spec_manager.all_local_gems
-    all_local_gems.size.should == 1
-    all_local_gems[0].name.should == 'sources'
+
+    if RUBYGEMS_VERSION_CHECKER.matches?('>=0.9.5')
+      # no gems should be left
+      all_local_gems.should be_empty
+    else
+      # nothing but sources gem should be left
+      all_local_gems.size.should == 1
+      all_local_gems[0].name.should == 'sources'
+    end
   end
 
   after(:each) do
