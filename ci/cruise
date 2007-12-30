@@ -1,4 +1,9 @@
-#!/usr/bin/env ruby
+#!/usr/local/bin/ruby
+
+ENV['PATH']="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11"
+
+`echo $PATH > /tmp/path`
+`echo \`ruby -v\` > /tmp/rubyver`
 
 # in order to make cruise run as daemon, you need:
 # 1. cp $CCRB_HOME/daemon/cruise.sample $CCRB_HOME/daemon/cruise
@@ -29,11 +34,10 @@ end
 
 command = ARGV.shift
 
-# TODO: this will run as root on system startup, right?  Need to fix that...
 case command
 when 'start'
   #cd cruise_path
-  system "su woolley -l -c 'cd #{cruise_path} && ./cruise start -d'"
+  system "su - woolley -l -c 'cd #{cruise_path} && ./cruise start -d'"
   exit 0
 when 'stop'
   system "mongrel_rails stop -P #{cruise_path}/tmp/pids/mongrel.pid"
