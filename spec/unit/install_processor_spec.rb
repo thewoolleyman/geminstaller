@@ -10,7 +10,7 @@ describe "an InstallProcessor instance with no options passed" do
   it "should install a gem" do
     @mock_gem_spec_manager.should_receive(:is_gem_installed?).once.with(@sample_gem).and_return(false)
     @mock_gem_list_checker.should_receive(:verify_and_specify_remote_gem!).once.with(@sample_gem)
-    @mock_gem_command_manager.should_receive(:install_gem).once.with(@sample_gem).and_return([])
+    @mock_gem_command_manager.should_receive(:install_gem).once.with(@sample_gem, false).and_return([])
     @mock_output_filter.should_receive(:geminstaller_output).once.with(:install,/^Invoking gem install for #{@sample_gem.name}, version 1.0.0/).and_return([])
 
     @install_processor.process([@sample_gem])

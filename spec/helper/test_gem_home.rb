@@ -58,8 +58,11 @@ module GemInstaller
     end
 
     def self.uninstall_all_test_gems
-      uninstall_all_test_gems_via_rubygems
-      #rm_test_gem_home_dir
+      if RUBYGEMS_VERSION_CHECKER.matches?('>=0.9.5')
+        rm_test_gem_home_dir
+      else
+        uninstall_all_test_gems_via_rubygems
+      end
     end
     
     def self.uninstall_all_test_gems_via_rubygems
