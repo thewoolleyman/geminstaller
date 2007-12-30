@@ -2,7 +2,9 @@ Use these steps to run GemInstaller under CruiseControl.rb:
 
 * Create project with name 'geminstaller_using_rubygems_x-y-z', where 'x-y-z' is the version of RubyGems to test against.
 
-* copy geminstaller/ci/cruise to /etc/init.d/cruise and follow instructions it contains to hook up init script.
+* symlink geminstaller/ci/cruise to /etc/init.d/cruise and follow instructions it contains to hook up init script and update-rc.d.
+
+* gem install mongrel and daemons (TODO: add these to geminstaller config)
 
 * Edit ~/.cruise/site_config.rb to have the following entries:
 
