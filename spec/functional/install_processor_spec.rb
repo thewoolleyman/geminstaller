@@ -33,8 +33,17 @@ describe "an InstallProcessor instance" do
     uninstall_gem(@sample_gem)
 
     @mock_output_filter.should_receive(:geminstaller_output).once.with(:debug,/^Gem #{@sample_dependent_multilevel_gem.name}, version 1.0.0 is already installed/m)
-    @mock_output_filter.should_receive(:geminstaller_output).once.with(:info,/^Missing dependencies found for #{@sample_dependent_gem.name} \(1.0.0\)/m)
-    @mock_output_filter.should_receive(:geminstaller_output).once.with(:info,/^  #{@sample_gem.name} \(>= 1.0.0\)/)
+
+    if RUBYGEMS_VERSION_CHECKER.matches?('>=0.9.5')
+      # Rubygems >= 0.9.5 automatically installs missing dependencies by reinstalling top-level gem
+      @mock_output_filter.should_receive(:geminstaller_output).once.with(:install,/fix_dependencies.*#{@sample_dependent_multilevel_gem.name}.*will be reinstalled/m)
+      @mock_output_filter.should_receive(:geminstaller_output).once.with(:install,/^Invoking gem install for #{@sample_dependent_multilevel_gem.name}, version 1.0.0/)
+    else
+      # GemInstaller handles missing dependencies for older versions, but doesn't perform re-install of top-level gem
+      @mock_output_filter.should_receive(:geminstaller_output).once.with(:info,/^Missing dependencies found for #{@sample_dependent_gem.name} \(1.0.0\)/m)
+      @mock_output_filter.should_receive(:geminstaller_output).once.with(:info,/^  #{@sample_gem.name} \(>= 1.0.0\)/)
+    end
+
     @mock_output_filter.should_receive(:geminstaller_output).once.with(:install,/^Installing #{@sample_gem.name} \(>= 1.0.0\)/)
     @mock_output_filter.should_receive(:geminstaller_output).once.with(:install,/^Invoking gem install for #{@sample_gem.name}, version 1.0.0/)
 
@@ -53,8 +62,16 @@ describe "an InstallProcessor instance" do
     @install_processor.options = options
 
     @mock_output_filter.should_receive(:geminstaller_output).once.with(:debug,/^Gem #{@sample_dependent_multilevel_gem.name}, version 1.0.0 is already installed/m)
-    @mock_output_filter.should_receive(:geminstaller_output).once.with(:info,/^Missing dependencies found for #{@sample_dependent_multilevel_gem.name} \(1.0.0\)/m)
-    @mock_output_filter.should_receive(:geminstaller_output).once.with(:info,/^  #{@sample_dependent_gem.name} \(>= 1.0.0\)/)
+    if RUBYGEMS_VERSION_CHECKER.matches?('>=0.9.5')
+      # Rubygems >= 0.9.5 automatically installs missing dependencies by reinstalling top-level gem
+      @mock_output_filter.should_receive(:geminstaller_output).once.with(:install,/fix_dependencies.*#{@sample_dependent_multilevel_gem.name}.*will be reinstalled/m)
+      @mock_output_filter.should_receive(:geminstaller_output).once.with(:install,/^Invoking gem install for #{@sample_dependent_multilevel_gem.name}, version 1.0.0/)
+    else
+      # GemInstaller handles missing dependencies for older versions, but doesn't perform re-install of top-level gem
+      @mock_output_filter.should_receive(:geminstaller_output).once.with(:info,/^Missing dependencies found for #{@sample_dependent_multilevel_gem.name} \(1.0.0\)/m)
+      @mock_output_filter.should_receive(:geminstaller_output).once.with(:info,/^  #{@sample_dependent_gem.name} \(>= 1.0.0\)/)
+    end
+
     # TODO: info option results in duplicate installation messages
     @mock_output_filter.should_receive(:geminstaller_output).once.with(:install,/^Installing #{@sample_dependent_gem.name} \(>= 1.0.0\)/)
     @mock_output_filter.should_receive(:geminstaller_output).once.with(:install,/^Invoking gem install for #{@sample_dependent_gem.name}, version 1.0.0/)

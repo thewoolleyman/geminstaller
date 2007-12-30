@@ -58,6 +58,11 @@ module GemInstaller
     end
 
     def self.uninstall_all_test_gems
+      uninstall_all_test_gems_via_rubygems
+      #rm_test_gem_home_dir
+    end
+    
+    def self.uninstall_all_test_gems_via_rubygems
       test_gems.each do |test_gem|
         test_gem_name = test_gem.name
         test_gem_platform = test_gem.platform
@@ -87,6 +92,10 @@ module GemInstaller
     end
 
     def self.rm_dirs
+      rm_test_gem_home_dir
+    end
+    
+    def self.rm_test_gem_home_dir
       FileUtils.rm_rf(test_gem_home_dir) if File.exist?(test_gem_home_dir)
     end
     
