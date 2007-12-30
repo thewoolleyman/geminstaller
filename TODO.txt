@@ -1,8 +1,10 @@
 =============== rubygems >=0.9.5 Fixes ===============
-* Don't use missing dependency finder (it's built in)
+* Don't use missing dependency finder (it's built in) - BUT - it is required for autogem - why???
 * Don't use valid platform selector, use --platform option
 * Don't use GemInteractionHandler, should not be needed.
 =============== Unfiled =============
+* TEST SPEEDUP: don't use rubygems to clean up test gems, just delete files
+* Namespace constants (RUBYGEMS_VERSION_CHECKER)
 * add -S | --sudo-only-if-allowed option, will only invoke sudo if GEMINSTALLER_ALLOW(S)_SUDO env var is set
 * Dynamically detect posix platform and check if gem repo is completely writeable.  Ignorable prompt?
 * Figure out how to suppress webrick messages from embedded gem server

@@ -14,17 +14,29 @@ module GemInstaller
         already_specified = true
       end
       gem_is_installed = @gem_spec_manager.is_gem_installed?(gem)
-      if gem_is_installed 
+      if gem_is_installed
         @output_filter.geminstaller_output(:debug,"Gem #{gem.name}, version #{gem.version} is already installed.\n")
       else
-        @gem_list_checker.verify_and_specify_remote_gem!(gem) unless already_specified
-        @output_filter.geminstaller_output(:install,"Invoking gem install for #{gem.name}, version #{gem.version}.\n")
-        output_lines = @gem_command_manager.install_gem(gem)
-        print_dependency_install_messages(gem, output_lines) unless @options[:silent]
+        perform_install(gem, already_specified)
       end
       if gem.fix_dependencies
-        fix_dependencies(gem)
+        if RUBYGEMS_VERSION_CHECKER.matches?('>=0.9.5')
+          # RubyGems >=0.9.5 automatically handles missing dependencies, so just perform an install
+          #@output_filter.geminstaller_output(:install,"'fix_dependencies' was specified for #{gem.name}, version #{gem.version}, so it will be reinstalled to fix any missing dependencies.\n")
+          perform_install(gem)
+        else
+          # RubyGems <=0.9.4 does not automatically handles missing dependencies, so GemInstaller must find them
+          # manually with missing_dependency_finder
+          fix_dependencies(gem)
+        end
       end
+    end
+    
+    def perform_install(gem, already_specified)
+      @gem_list_checker.verify_and_specify_remote_gem!(gem) unless already_specified
+      @output_filter.geminstaller_output(:install,"Invoking gem install for #{gem.name}, version #{gem.version}.\n")
+      output_lines = @gem_command_manager.install_gem(gem)
+      print_dependency_install_messages(gem, output_lines) unless @options[:silent]
     end
     
     def print_dependency_install_messages(gem, output_lines)
