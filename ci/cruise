@@ -1,0 +1,44 @@
+#!/usr/bin/env ruby
+
+# in order to make cruise run as daemon, you need:
+# 1. cp $CCRB_HOME/daemon/cruise.sample $CCRB_HOME/daemon/cruise
+# 2. specify your cruise_path to $CCRB_HOME in $CCRB_HOME/daemon/cruise file
+# 3. ln -s $CCRB_HOME/daemon/cruise /etc/init.d/cruise (you may need to 'sudo' this)
+# 4. update-rc.d cruise (you may want to choose options by yourself, and you may need to 'sudo' this)
+# 5. it's done :>
+
+require "fileutils"
+include FileUtils
+
+require "rubygems"
+
+begin
+  gem 'mongrel'
+rescue => e
+  puts "Error: daemon mode of CC.rb requires mongrel installed"
+  exit 1
+end
+
+def cruise_path
+  "/home/woolley/workspace/cruisecontrolrb"
+end
+
+command = ARGV.shift
+
+case command
+when 'start'
+  cd cruise_path
+  system "./cruise start -d"
+  exit 0
+when 'stop'
+  system "mongrel_rails stop -P #{cruise_path}/tmp/pids/mongrel.pid"
+  Dir["#{cruise_path}/tmp/pids/builders/*.pid"].each do |pid_file|
+    pid = File.open(pid_file){|f| f.read }
+    system "kill -9 #{pid}"
+    rm pid_file
+  end
+  exit 0
+else
+  p "Usage: /etc/init.d/cruise start|stop"
+  exit 1
+end
