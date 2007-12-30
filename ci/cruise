@@ -25,6 +25,7 @@ end
 
 command = ARGV.shift
 
+# TODO: this will run as root on system startup, right?  Need to fix that...
 case command
 when 'start'
   cd cruise_path
