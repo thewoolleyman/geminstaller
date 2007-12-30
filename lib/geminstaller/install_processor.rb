@@ -23,7 +23,7 @@ module GemInstaller
         if RUBYGEMS_VERSION_CHECKER.matches?('>=0.9.5')
           # RubyGems >=0.9.5 automatically handles missing dependencies, so just perform an install
           #@output_filter.geminstaller_output(:install,"'fix_dependencies' was specified for #{gem.name}, version #{gem.version}, so it will be reinstalled to fix any missing dependencies.\n")
-          perform_install(gem)
+          perform_install(gem, already_specified)
         else
           # RubyGems <=0.9.4 does not automatically handles missing dependencies, so GemInstaller must find them
           # manually with missing_dependency_finder

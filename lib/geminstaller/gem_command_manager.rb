@@ -15,7 +15,7 @@ module GemInstaller
     end
 
     def install_gem(gem)
-      return if @gem_spec_manager.is_gem_installed?(gem)
+      return [] if @gem_spec_manager.is_gem_installed?(gem)
       @gem_interaction_handler.dependent_gem = gem
       run_gem_command('install', gem, gem.install_options)
     end
