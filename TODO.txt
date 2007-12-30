@@ -1,6 +1,7 @@
 =============== rubygems >=0.9.5 Fixes ===============
 * Don't use missing dependency finder (it's built in)
 * Don't use valid platform selector, use --platform option
+* Don't use GemInteractionHandler, should not be needed.
 =============== Unfiled =============
 * add -S | --sudo-only-if-allowed option, will only invoke sudo if GEMINSTALLER_ALLOW(S)_SUDO env var is set
 * Dynamically detect posix platform and check if gem repo is completely writeable.  Ignorable prompt?
