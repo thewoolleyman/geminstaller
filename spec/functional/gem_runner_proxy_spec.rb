@@ -14,7 +14,15 @@ describe "a GemRunnerProxy instance" do
     gem_runner_args += install_options_for_testing
 
     output = @gem_runner_proxy.run(gem_runner_args)
-    expected_output = /#{sample_multiplatform_gem_name} \(#{sample_multiplatform_gem_version}, #{sample_multiplatform_gem_version_low}\)/m
+    
+    if RUBYGEMS_VERSION_CHECKER.matches?('=0.9.5')
+      # bug in 0.9.5 that double-lists versions
+      expected_versions = "#{sample_multiplatform_gem_version}, #{sample_multiplatform_gem_version}, #{sample_multiplatform_gem_version_low}"
+    else
+      expected_versions = "#{sample_multiplatform_gem_version}, #{sample_multiplatform_gem_version_low}"
+    end
+    
+    expected_output = /#{sample_multiplatform_gem_name} \(#{expected_versions}\)/m
     output.join("\n").should match(expected_output)
   end
 

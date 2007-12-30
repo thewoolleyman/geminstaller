@@ -164,7 +164,8 @@ describe "The GemInstaller.autogem method" do
     # Clear out loaded specs in rubygems, otherwise the gem call won't do anything
     Gem.instance_eval { @loaded_specs.clear if @loaded_specs }
 
-    if RUBYGEMS_VERSION_CHECKER.matches?('>=0.9.5')
+    if RUBYGEMS_VERSION_CHECKER.matches?('>=1.0.0')
+      # architecture got auto-added to gem names in RubyGems 1.0.0 and above
       win32_platform = 'x86-mswin32'
     else
       win32_platform = 'mswin32'

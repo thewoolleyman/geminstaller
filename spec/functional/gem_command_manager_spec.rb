@@ -30,10 +30,18 @@ describe "a GemCommandManager instance" do
     list_options = ["--source=#{embedded_gem_server_url}"]
     @sample_gem.name = 'stubgem-multiplatform'
     list = @gem_command_manager.list_remote_gem(@sample_gem,list_options)
+    
+    if RUBYGEMS_VERSION_CHECKER.matches?('=0.9.5')
+      # bug in 0.9.5 that double-lists versions
+      expected_versions = "1.0.1, 1.0.1, 1.0.0"
+    else
+      expected_versions = "1.0.1, 1.0.0"
+    end
+    
     expected_list = ["\n",
       "*** REMOTE GEMS ***\n", 
       "\n", 
-      "stubgem-multiplatform (1.0.1, 1.0.0)\n", 
+      "stubgem-multiplatform (#{expected_versions})\n", 
       "    Multiplatform stub gem for testing geminstaller\n"]
     list.join.should==(expected_list.join)
   end
