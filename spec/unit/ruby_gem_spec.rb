@@ -5,6 +5,10 @@ describe "A ruby gem data object" do
   before(:each) do
   end
 
+  it "should fail as a test of CI" do
+    'does cruise work?'.should == "yes"
+  end
+
   it "may be instantiated with a name, a version, a platform, install options, check_for_upgrade flag, fix_dependencies flag, no_autogem flag, and prefer_binary_platform flag" do
     gem = GemInstaller::RubyGem.new('mygem', :version => 'v1.1', :platform => "ruby", :install_options => '-y')
     gem.name.should==('mygem')
