@@ -11,9 +11,11 @@
 * Add warning that environment is not passed via sudo
 * document include_config in yaml
 * add automatic re-invoke with sudo option (with warning message) if permission error is caught
+* handle uninstall of gem (requested by Alex Chaffee and others)
+* handle installation of gem from file (requested by Alex Chaffee)
 =============== 0.2.6
 * Understand environment.rb vs boot.rb (bottom line: env is not processed before Initializer, so can't be used to load rails gems).  Add doc references.
-* docs - clean up sudo section.  Should be clearer about sudoers entry, and make sure that NOPASSWD is the last entry.
+* docs - clean up sudo section.  Should be clearer about sudoers entry, and make sure that NOPASSWD is the last entry.  Rename from #dealing_with_sudo to #dealing_with_root_owned_gems, rewrite to reflect new best practices (different GEM_PATH or auto-sudo via capistrano)
 * Faq - mention sudo
 * Faq - mention Zed's questions
 * design - dependency management is good.  Maven got it right, if not for the jelly...
