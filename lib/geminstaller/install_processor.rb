@@ -25,7 +25,7 @@ module GemInstaller
           # RubyGems >=0.9.5 automatically handles missing dependencies, so just perform an install
           unless installation_performed
             @output_filter.geminstaller_output(:install,"The 'fix_dependencies' option was specified for #{gem.name}, version #{gem.version}, so it will be reinstalled to fix any missing dependencies.\n")
-            perform_install(gem, already_specified)
+            perform_install(gem, already_specified, true)
           end
         else
           # RubyGems <=0.9.4 does not automatically handles missing dependencies, so GemInstaller must find them
@@ -35,10 +35,10 @@ module GemInstaller
       end
     end
     
-    def perform_install(gem, already_specified)
+    def perform_install(gem, already_specified, force_install = false)
       @gem_list_checker.verify_and_specify_remote_gem!(gem) unless already_specified
       @output_filter.geminstaller_output(:install,"Invoking gem install for #{gem.name}, version #{gem.version}.\n")
-      output_lines = @gem_command_manager.install_gem(gem)
+      output_lines = @gem_command_manager.install_gem(gem, force_install)
       print_dependency_install_messages(gem, output_lines) unless @options[:silent]
     end
     

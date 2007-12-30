@@ -14,8 +14,8 @@ module GemInstaller
       run_gem_command('uninstall', gem, gem.uninstall_options)
     end
 
-    def install_gem(gem)
-      return [] if @gem_spec_manager.is_gem_installed?(gem)
+    def install_gem(gem, force_reinstall = false)
+      return [] if @gem_spec_manager.is_gem_installed?(gem) && !force_reinstall
       @gem_interaction_handler.dependent_gem = gem
       run_gem_command('install', gem, gem.install_options)
     end
