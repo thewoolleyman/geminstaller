@@ -2,6 +2,11 @@ module GemInstaller
   class MissingDependencyFinder
     attr_writer :gem_command_manager, :gem_spec_manager, :gem_arg_processor, :output_filter
     def find(dependent_gem)
+      if RUBYGEMS_VERSION_CHECKER.matches?('>=0.9.5')
+        # missing_dependency_finder is not used for RubyGems >= 0.9.5
+        raise RuntimeError.new("Internal GemInstaller Error: MissingDependencyFinder should not be used for RubyGems >= 0.9.5")
+      end
+      
       # NOTE: this doesn't resolve platforms, there's currently no way to know what
       # platform should be selected for a dependency gem.  Best-effort handling
       # of ambiguous platforms on dependency gems will be handled elsewhere

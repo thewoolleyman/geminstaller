@@ -1,6 +1,8 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
+if RUBYGEMS_VERSION_CHECKER.matches?('<=0.9.4')
+# missing_dependency_finder is not used for RubyGems >= 0.9.5
 describe "a MissingDependencyFinder instance" do
   before(:each) do
     GemInstaller::TestGemHome.use
@@ -26,7 +28,7 @@ describe "a MissingDependencyFinder instance" do
   it "should return all missing dependencies, and inherit install_options from dependent, and force --include-dependencies option if not already set" do
     # uninstall the dependencies
     [@sample_gem, @sample_multiplatform_gem].each do |gem|
-      gem.install_options << '--ignore-dependencies'
+      gem.uninstall_options -= ['--all']
       uninstall_gem(gem)
     end
     @sample_dependent_gem.install_options << '--no-test'
@@ -52,7 +54,7 @@ describe "a MissingDependencyFinder instance" do
 
   it "should find a missing dependency at the bottom of a multilevel dependency chain" do
     # uninstall the dependencies
-    @sample_gem.install_options << '--ignore-dependencies'
+    @sample_gem.uninstall_options -= ['--all']
     uninstall_gem(@sample_gem)
 
     @mock_output_filter.should_receive(:geminstaller_output).once.with(:info, /^Missing dependencies found for #{@sample_dependent_gem.name} \(1.0.0\)/m)
@@ -76,4 +78,5 @@ describe "a MissingDependencyFinder instance" do
     @gem_command_manager.uninstall_gem(gem)
     @gem_spec_manager.is_gem_installed?(gem).should==(false)
   end  
+end
 end

@@ -24,9 +24,9 @@ These are some notes on the underlying design of GemInstaller, and the current s
 * The tests are flaky on Windows (but run fine on mac/linux).  The app itself runs fine, so I believe it's something related to spawning processes for the test GEM_HOME and EmbeddedGemServer.  I plan to look at this too, eventually.
 * One of my motivations for creating GemInstaller was as an exercise to help me learn Ruby better.  If you see me doing anything obviously dumb or inefficient in the code or design, please let me know. Some of them I already know about, but haven't fixed, most I'm probably not aware of :)
 
-h1. Maintaining forward and backward compatibility with all RubyGems versions
+h1. Maintaining forward and backward compatibility with multiple RubyGems versions
 
-* I've put a lot of effort into ensuring that GemInstaller works with older versions of RubyGems.  As of now (12/07) all specs (not smoketests) are green on mac/linux (not windows) against RubyGems versions 0.9.4, 0.9.5, 1.0.0, and 1.0.1 (the latest).
+* I've put a lot of effort into ensuring that GemInstaller works with older versions of RubyGems.  As of now (12/07) all specs (not smoketests) are green on mac/linux (not windows) against RubyGems versions 0.8.11, 0.9.4, 0.9.5, 1.0.0, and 1.0.1 (the latest).
 
 * This wasn't as hard as it seems.  The hardest part was figuring out what was different between versions.  Once you understand that, you can add switch statements to perform different logic or tests depending on the version (which is easy if you use rubygems built in Version Requirement support - see GemInstaller::RubygemsVersionChecker).
 
