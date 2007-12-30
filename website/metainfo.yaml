@@ -57,16 +57,22 @@ community/rubyforge.html:
   title: Rubyforge
   orderInfo: 40
 
+code/ci:
+  url: http://ci.thewoolleyweb.com
+  inMenu: true
+  title: CI
+  orderInfo: 20
+
 code/rdoc:
   url: rdoc/index.html
   inMenu: true
   title: Rdoc
-  orderInfo: 20
+  orderInfo: 30
 
 code/coverage:
   url: coverage/index.html
   inMenu: true
   title: Coverage
-  orderInfo: 30
+  orderInfo: 40
 
 
