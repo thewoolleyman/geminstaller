@@ -15,6 +15,11 @@ module GemInstaller
       "ruby -I #{rubygems_lib_dir}:#{rubygems_bin_dir}"
     end
       
+    def gem_cmd
+      return "#{ruby_cmd} #{rubygems_bin_dir}/gem.bat" if RUBY_PLATFORM.index('mswin')
+      "#{ruby_cmd} #{rubygems_bin_dir}/gem"
+    end    
+
     def rubygems_version
       ENV['RUBYGEMS_VERSION'] || "1.0.1"
     end

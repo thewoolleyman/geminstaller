@@ -130,10 +130,5 @@ module GemInstaller
         f << "  - #{test_gem_home_dir}\n"
       end 
     end
-
-    def self.gem_cmd
-      return "#{ruby_cmd} #{rubygems_bin_dir}/gem.bat" if RUBY_PLATFORM.index('mswin')
-      "#{ruby_cmd} #{rubygems_bin_dir}/gem"
-    end    
   end
 end
