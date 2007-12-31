@@ -29,7 +29,7 @@ describe "The geminstaller command line application" do
     @gem_spec_manager.is_gem_installed?(@sample_gem).should==(true)
   end
 
-  if RUBYGEMS_VERSION_CHECKER.matches?('<=0.9.4')
+  if GemInstaller::RubyGemsVersionChecker.matches?('<=0.9.4')
   # This test only applies on older versions, since it involves faking out ruby_platform in
   # valid_platform_selector, which is not used in newer versions
   it "should handle 'current' as a valid platform" do
@@ -164,7 +164,7 @@ describe "The GemInstaller.autogem method" do
     # Clear out loaded specs in rubygems, otherwise the gem call won't do anything
     Gem.instance_eval { @loaded_specs.clear if @loaded_specs }
 
-    if RUBYGEMS_VERSION_CHECKER.matches?('>=1.0.0')
+    if GemInstaller::RubyGemsVersionChecker.matches?('>=1.0.0')
       # architecture got auto-added to gem names in RubyGems 1.0.0 and above
       win32_platform = 'x86-mswin32'
     else
@@ -191,7 +191,7 @@ describe "The GemInstaller.autogem method" do
 
     # These lines are required or else the GemInstaller.autogem command can't find the stubgem in the
     # test gem home.  I'm not sure why.
-    if RUBYGEMS_VERSION_CHECKER.matches?('< 0.9')
+    if GemInstaller::RubyGemsVersionChecker.matches?('< 0.9')
       runner = Gem::GemRunner.new()
     else
       runner = Gem::GemRunner.new(:command_manager => Gem::CommandManager)
@@ -211,7 +211,7 @@ describe "The GemInstaller.autogem method" do
   it "should handle ignored args like sudo" do
     # These lines are required or else the GemInstaller.autogem command can't find the stubgem in the
     # test gem home.  I'm not sure why.
-    if RUBYGEMS_VERSION_CHECKER.matches?('< 0.9')
+    if GemInstaller::RubyGemsVersionChecker.matches?('< 0.9')
       runner = Gem::GemRunner.new()
     else
       runner = Gem::GemRunner.new(:command_manager => Gem::CommandManager)

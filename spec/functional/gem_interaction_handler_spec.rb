@@ -1,7 +1,7 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
-if RUBYGEMS_VERSION_CHECKER.matches?('<=0.9.4')
+if GemInstaller::RubyGemsVersionChecker.matches?('<=0.9.4')
 # gem_interaction_handler is not used for RubyGems >= 0.9.5
 describe "a GemInteractionHandler instance with a non-multiplatform dependent gem and non-multiplatform dependency gem" do
   before(:each) do

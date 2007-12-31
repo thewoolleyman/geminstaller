@@ -6,7 +6,7 @@ require 'rubygems'
 # backward compability and version-checking stuff - must be required before it is used
 require File.expand_path("#{dir}/rubygems_version_checker")
 
-unless defined? ALLOW_UNSUPPORTED_RUBYGEMS_VERSION or RUBYGEMS_VERSION_CHECKER.matches?('>=0.9.5')
+unless defined? ALLOW_UNSUPPORTED_RUBYGEMS_VERSION or GemInstaller::RubyGemsVersionChecker.matches?('>=0.9.5')
   print "\n\n----------------------------------------------------------------" + 
             "WARNING: You are using RubyGems version #{Gem::RubyGemsVersion}.\n" +
             "You should update to RubyGems version 1.0.1 or above,\n" +
@@ -19,20 +19,20 @@ end
 # requires for rubygems internal classes
 require 'rubygems/doc_manager'
 require 'rubygems/config_file'
-if RUBYGEMS_VERSION_CHECKER.matches?('<0.9.3')
+if GemInstaller::RubyGemsVersionChecker.matches?('<0.9.3')
   require 'rubygems/cmd_manager'
 else
   require 'rubygems/command_manager'
 end
 require 'rubygems/gem_runner'
-if RUBYGEMS_VERSION_CHECKER.matches?('<1.0.0')
+if GemInstaller::RubyGemsVersionChecker.matches?('<1.0.0')
   require 'rubygems/remote_installer'
 end
 require 'rubygems/installer'
 require 'rubygems/validator'
 
 # these are order-dependent.  Any better way???
-unless RUBYGEMS_VERSION_CHECKER.matches?('<0.9.3')
+unless GemInstaller::RubyGemsVersionChecker.matches?('<0.9.3')
   require 'rubygems/commands/query_command'
   require 'rubygems/commands/list_command'
 end

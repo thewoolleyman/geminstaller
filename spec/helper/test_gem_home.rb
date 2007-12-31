@@ -32,7 +32,7 @@ module GemInstaller
       require 'rubygems'
       init_gem_env_vars
       require geminstaller_lib_dir + "/geminstaller/rubygems_version_checker"
-      install_sources if RUBYGEMS_VERSION_CHECKER.matches?('<= 0.9.4')
+      install_sources if GemInstaller::RubyGemsVersionChecker.matches?('<= 0.9.4')
       @@dirs_initialized = true
     end
 
@@ -58,7 +58,7 @@ module GemInstaller
     end
 
     def self.uninstall_all_test_gems
-      if RUBYGEMS_VERSION_CHECKER.matches?('>=0.9.5')
+      if GemInstaller::RubyGemsVersionChecker.matches?('>=0.9.5')
         rm_test_gem_home_dir
       else
         uninstall_all_test_gems_via_rubygems
@@ -72,7 +72,7 @@ module GemInstaller
         test_gem_platform = 'x86-mswin32' if test_gem_platform == 'mswin32'
         list_output = `#{gem_cmd} list #{test_gem_name}`
         next unless list_output =~ /#{test_gem_name} /
-        if RUBYGEMS_VERSION_CHECKER.matches?('>=0.9.5')
+        if GemInstaller::RubyGemsVersionChecker.matches?('>=0.9.5')
           platform_option = "--platform #{test_gem_platform}"
         end
         

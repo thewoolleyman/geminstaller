@@ -1,7 +1,6 @@
 
 =============== Unfiled =============
 * make smoketests run against specific gem versions
-* Namespace constants (RUBYGEMS_VERSION_CHECKER)
 * Add warning that environment is not passed via sudo, example of workaround
 * release with support for rubygems >= 0.9.5
 ================ 0.3.0 release ===================
@@ -18,6 +17,7 @@
 * tutorial: running via capistrano
 * crossreference front page, tutorials, and docs
 ================ 0.3.1 release ===================
+* Namespace remaining un-namespaced constants
 * Allow array or eval'able string of gems to be passed as --gems arg or instead of args
 * Add @options[:gems], should be parsed from command line* root-owned gems: add -S | --sudo-only-if-allowed option, will only invoke sudo if GEMINSTALLER_ALLOW(S)_SUDO env var is set
 * root-owned gems: add automatic re-invoke with sudo option (with warning message) if permission error is caught

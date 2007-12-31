@@ -1,7 +1,7 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
-if RUBYGEMS_VERSION_CHECKER.matches?('<=0.9.4')
+if GemInstaller::RubyGemsVersionChecker.matches?('<=0.9.4')
 # missing_dependency_finder is not used for RubyGems >= 0.9.5
 describe "a MissingDependencyFinder instance" do
   before(:each) do

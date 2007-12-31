@@ -62,7 +62,7 @@ begin
   end
 rescue Exception => e
   # ruby-doom fails with require-gem on rubygems 0.8
-  if RUBYGEMS_VERSION_CHECKER.matches?(['~> 0.8','< 0.9'])
+  if GemInstaller::RubyGemsVersionChecker.matches?(['~> 0.8','< 0.9'])
     raise e unless e.message.index('ruby-doom')
   else
     raise e

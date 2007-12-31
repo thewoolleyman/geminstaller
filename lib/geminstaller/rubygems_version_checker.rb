@@ -2,7 +2,7 @@ require 'rubygems/rubygems_version'
 
 module GemInstaller
   class RubyGemsVersionChecker
-    def matches?(version_spec, options = {})
+    def self.matches?(version_spec, options = {})
       version_spec = [version_spec] unless version_spec.kind_of?(Array)
       # TODO: if rubygems has already been initialized before GemInstaller overrides the rubygems version,
       # (for example, by running rspec), then Gem::RubyGemsVersion could be initialized to the incorrect
@@ -13,5 +13,3 @@ module GemInstaller
     end
   end
 end
-
-RUBYGEMS_VERSION_CHECKER = GemInstaller::RubyGemsVersionChecker.new

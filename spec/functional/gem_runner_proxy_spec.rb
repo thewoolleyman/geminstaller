@@ -15,7 +15,7 @@ describe "a GemRunnerProxy instance" do
 
     output = @gem_runner_proxy.run(gem_runner_args)
     
-    if RUBYGEMS_VERSION_CHECKER.matches?('=0.9.5')
+    if GemInstaller::RubyGemsVersionChecker.matches?('=0.9.5')
       # bug in 0.9.5 that double-lists versions
       expected_versions = "#{sample_multiplatform_gem_version}, #{sample_multiplatform_gem_version}, #{sample_multiplatform_gem_version_low}"
     else

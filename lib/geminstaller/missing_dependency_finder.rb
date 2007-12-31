@@ -2,7 +2,7 @@ module GemInstaller
   class MissingDependencyFinder
     attr_writer :gem_command_manager, :gem_spec_manager, :gem_arg_processor, :output_filter
     def find(dependent_gem)
-      if RUBYGEMS_VERSION_CHECKER.matches?('>=0.9.5')
+      if GemInstaller::RubyGemsVersionChecker.matches?('>=0.9.5')
         # missing_dependency_finder is not used for RubyGems >= 0.9.5
         raise RuntimeError.new("Internal GemInstaller Error: MissingDependencyFinder should not be used for RubyGems >= 0.9.5")
       end

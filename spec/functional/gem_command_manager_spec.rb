@@ -31,7 +31,7 @@ describe "a GemCommandManager instance" do
     @sample_gem.name = 'stubgem-multiplatform'
     list = @gem_command_manager.list_remote_gem(@sample_gem,list_options)
     
-    if RUBYGEMS_VERSION_CHECKER.matches?('=0.9.5')
+    if GemInstaller::RubyGemsVersionChecker.matches?('=0.9.5')
       # bug in 0.9.5 that double-lists versions
       expected_versions = "1.0.1, 1.0.1, 1.0.0"
     else
@@ -46,7 +46,7 @@ describe "a GemCommandManager instance" do
     list.join.should==(expected_list.join)
   end
   
-  if RUBYGEMS_VERSION_CHECKER.matches?('<0.9.5') # Rubygems 0.9.5 and later automatically installs dependencies
+  if GemInstaller::RubyGemsVersionChecker.matches?('<0.9.5') # Rubygems 0.9.5 and later automatically installs dependencies
   it "should raise an error if attempting to install a gem with dependencies without -y option" do
     # ensure dependency gem is uninstalled
     @gem_command_manager.uninstall_gem(@sample_gem)
@@ -99,7 +99,7 @@ describe "a GemCommandManager instance" do
     @gem_spec_manager.is_gem_installed?(@sample_multiplatform_gem).should==(true)
   end
   
-  if RUBYGEMS_VERSION_CHECKER.matches?('<=0.9.4')
+  if GemInstaller::RubyGemsVersionChecker.matches?('<=0.9.4')
   # Can't do this test on RubyGems 0.9.5 or above, because it handles platforms internally
   # rather than using ValidPlatformSelector, so we can't control ruby_platform.
   # We would have to somehow make a stubgem that matches current platform, which is hard

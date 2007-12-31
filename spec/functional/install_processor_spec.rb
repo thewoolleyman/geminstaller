@@ -34,7 +34,7 @@ describe "an InstallProcessor instance" do
 
     @mock_output_filter.should_receive(:geminstaller_output).once.with(:debug,/^Gem #{@sample_dependent_multilevel_gem.name}, version 1.0.0 is already installed/m)
 
-    if RUBYGEMS_VERSION_CHECKER.matches?('>=0.9.5')
+    if GemInstaller::RubyGemsVersionChecker.matches?('>=0.9.5')
       # Rubygems >= 0.9.5 automatically installs missing dependencies by reinstalling top-level gem
       @mock_output_filter.should_receive(:geminstaller_output).once.with(:install,/fix_dependencies.*#{@sample_dependent_multilevel_gem.name}.*will be reinstalled/m)
       @mock_output_filter.should_receive(:geminstaller_output).once.with(:install,/^Invoking gem install for #{@sample_dependent_multilevel_gem.name}, version 1.0.0/)
@@ -63,7 +63,7 @@ describe "an InstallProcessor instance" do
     @install_processor.options = options
   
     @mock_output_filter.should_receive(:geminstaller_output).once.with(:debug,/^Gem #{@sample_dependent_multilevel_gem.name}, version 1.0.0 is already installed/m)
-    if RUBYGEMS_VERSION_CHECKER.matches?('>=0.9.5')
+    if GemInstaller::RubyGemsVersionChecker.matches?('>=0.9.5')
       # Rubygems >= 0.9.5 automatically installs missing dependencies by reinstalling top-level gem
       @mock_output_filter.should_receive(:geminstaller_output).once.with(:install,/fix_dependencies.*#{@sample_dependent_multilevel_gem.name}.*will be reinstalled/m)
       @mock_output_filter.should_receive(:geminstaller_output).once.with(:install,/^Invoking gem install for #{@sample_dependent_multilevel_gem.name}, version 1.0.0/)
@@ -93,7 +93,7 @@ describe "an InstallProcessor instance" do
   
     @mock_output_filter.should_receive(:geminstaller_output).once.with(:install,/^Invoking gem install for #{@sample_dependent_multilevel_gem.name}, version 1.0.0/)
   
-    if RUBYGEMS_VERSION_CHECKER.matches?('>=0.9.5')
+    if GemInstaller::RubyGemsVersionChecker.matches?('>=0.9.5')
       # Rubygems >= 0.9.5 automatically installs missing dependencies
       @mock_output_filter.should_receive(:geminstaller_output).once.with(:install,/^Rubygems automatically installed dependency gem #{@sample_gem.name}-1.0.0/m)
     else

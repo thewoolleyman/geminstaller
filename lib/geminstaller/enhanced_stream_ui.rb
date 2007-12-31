@@ -7,7 +7,7 @@ module GemInstaller
     end
     
     def ask_yes_no(question, default=nil)
-      if RUBYGEMS_VERSION_CHECKER.matches?('<=0.9.4')
+      if GemInstaller::RubyGemsVersionChecker.matches?('<=0.9.4')
         # Using defaults, we expect no interactive prompts RubyGems >= 0.9.5
         begin
           @gem_interaction_handler.handle_ask_yes_no(question)
@@ -25,7 +25,7 @@ module GemInstaller
     end
     
     def choose_from_list(question, list)
-      if RUBYGEMS_VERSION_CHECKER.matches?('<=0.9.4')
+      if GemInstaller::RubyGemsVersionChecker.matches?('<=0.9.4')
         # Using defaults, we expect no interactive prompts RubyGems >= 0.9.5
         @gem_interaction_handler.handle_choose_from_list(question, list)
       else

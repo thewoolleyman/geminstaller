@@ -19,7 +19,7 @@ module GemInstaller
       found_gem_specs = @source_index_search_adapter.search(gem,gem.version)
       return [] unless found_gem_specs
 
-      if RUBYGEMS_VERSION_CHECKER.matches?('<=0.9.4')
+      if GemInstaller::RubyGemsVersionChecker.matches?('<=0.9.4')
         found_gem_specs = found_gem_specs.select do |gem_spec|
           valid_platforms = @valid_platform_selector.select(gem.platform, exact_platform_match)
           valid_platforms.include?(gem_spec.platform)

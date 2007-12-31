@@ -16,7 +16,7 @@ describe "The sample gem fixtures install and uninstall methods" do
     
     all_local_gems = @gem_spec_manager.all_local_gems
 
-    if RUBYGEMS_VERSION_CHECKER.matches?('>=0.9.5')
+    if GemInstaller::RubyGemsVersionChecker.matches?('>=0.9.5')
       # no gems should be left
       all_local_gems.should be_empty
     else

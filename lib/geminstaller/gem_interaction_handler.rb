@@ -4,7 +4,7 @@ module GemInstaller
     DEPENDENCY_PROMPT = 'Install required dependency'
     
     def handle_ask_yes_no(question)
-      if RUBYGEMS_VERSION_CHECKER.matches?('>=0.9.5')
+      if GemInstaller::RubyGemsVersionChecker.matches?('>=0.9.5')
         # gem_interaction_handler is not used for RubyGems >= 0.9.5
         raise RuntimeError.new("Internal GemInstaller Error: GemInteractionHandler should not be used for RubyGems >= 0.9.5")
       end
@@ -17,7 +17,7 @@ module GemInstaller
     end
     
     def handle_choose_from_list(question, list, noninteractive_chooser = nil)
-      if RUBYGEMS_VERSION_CHECKER.matches?('>=0.9.5')
+      if GemInstaller::RubyGemsVersionChecker.matches?('>=0.9.5')
         # gem_interaction_handler is not used for RubyGems >= 0.9.5
         raise RuntimeError.new("Internal GemInstaller Error: GemInteractionHandler should not be used for RubyGems >= 0.9.5")
       end

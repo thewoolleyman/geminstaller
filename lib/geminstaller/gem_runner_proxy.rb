@@ -27,7 +27,7 @@ module GemInstaller
     end
     
     def create_gem_runner
-      if RUBYGEMS_VERSION_CHECKER.matches?('< 0.9')
+      if GemInstaller::RubyGemsVersionChecker.matches?('< 0.9')
         @gem_runner_class.new()
       else
         @gem_runner_class.new(:command_manager => @gem_cmd_manager_class)

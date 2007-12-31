@@ -9,7 +9,7 @@ describe "a SourceIndexSearchAdapter instance" do
     @sample_gem = sample_gem
   end
 
-  if RUBYGEMS_VERSION_CHECKER.matches?('<=0.9.4')
+  if GemInstaller::RubyGemsVersionChecker.matches?('<=0.9.4')
   it "passes gem_pattern regexp and version_requirement for RubyGems <= 0.9.4" do
     @mock_gem_source_index_proxy.should_receive(:refresh!)
     @mock_gem_source_index_proxy.should_receive(:search).with(/^#{@sample_gem.regexp_escaped_name}$/, @sample_gem.version)

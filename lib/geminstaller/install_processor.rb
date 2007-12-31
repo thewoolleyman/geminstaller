@@ -21,7 +21,7 @@ module GemInstaller
         installation_performed = true
       end
       if gem.fix_dependencies
-        if RUBYGEMS_VERSION_CHECKER.matches?('>=0.9.5')
+        if GemInstaller::RubyGemsVersionChecker.matches?('>=0.9.5')
           # RubyGems >=0.9.5 automatically handles missing dependencies, so just perform an install
           unless installation_performed
             @output_filter.geminstaller_output(:install,"The 'fix_dependencies' option was specified for #{gem.name}, version #{gem.version}, so it will be reinstalled to fix any missing dependencies.\n")
