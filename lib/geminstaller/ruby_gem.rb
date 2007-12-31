@@ -19,7 +19,11 @@ module GemInstaller
       @check_for_upgrade = opts[:check_for_upgrade] == true ? true : false
       @fix_dependencies = opts[:fix_dependencies] == true ? true : false
       @no_autogem = opts[:no_autogem] == true ? true : false
-      @prefer_binary_platform = opts[:prefer_binary_platorm] == false ? false : true
+      if GemInstaller::RubyGemsVersionChecker.matches?('>=0.9.5')
+        warn("The 'prefer_binary_platform' option is deprecated on RubyGems >= 0.9.5, and has no effect") unless opts[:prefer_binary_platorm].nil?
+      else
+        @prefer_binary_platform = opts[:prefer_binary_platorm] == false ? false : true
+      end
     end
 
     def self.default_version

@@ -18,9 +18,13 @@ describe "A ruby gem data object" do
     gem.check_for_upgrade.should==(false)
     gem.fix_dependencies.should==(false)
     gem.no_autogem.should==(false)
-    gem.prefer_binary_platform.should==(true)
+    if GemInstaller::RubyGemsVersionChecker.matches?('>=0.9.5')
+      gem.prefer_binary_platform.should==(nil)
+    else
+      gem.prefer_binary_platform.should==(true)
+    end
   end
-
+  
   it "may be instantiated with only a name and a version" do
     gem = GemInstaller::RubyGem.new('mygem', :version => '1.1')
     gem.name.should==('mygem')
