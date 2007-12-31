@@ -3,6 +3,11 @@ module GemInstaller
     attr_writer :options, :ruby_platform, :output_filter
     
     def select(gem_platform = nil, exact_platform_match = false)
+      if RUBYGEMS_VERSION_CHECKER.matches?('>=0.9.5')
+        # valid_platform_selector is not used for RubyGems >= 0.9.5
+        raise RuntimeError.new("Internal GemInstaller Error: ValidPlatformSelector should not be used for RubyGems >= 0.9.5")
+      end
+
       @ruby_platform ||= RUBY_PLATFORM
       return [@ruby_platform] if gem_platform == Gem::Platform::CURRENT
       return [gem_platform] if exact_platform_match

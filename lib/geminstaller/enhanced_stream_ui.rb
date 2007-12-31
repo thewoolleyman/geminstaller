@@ -7,12 +7,15 @@ module GemInstaller
     end
     
     def ask_yes_no(question, default=nil)
-      begin
-        @gem_interaction_handler.handle_ask_yes_no(question)
-      rescue Exception => e
-        @outs.print(question)
-        @outs.flush
-        raise e
+      if RUBYGEMS_VERSION_CHECKER.matches?('<=0.9.4')
+        # Using defaults, we expect no interactive prompts RubyGems >= 0.9.5
+        begin
+          @gem_interaction_handler.handle_ask_yes_no(question)
+        rescue Exception => e
+          @outs.print(question)
+          @outs.flush
+          raise e
+        end
       end
       raise_unexpected_prompt_error(question)
     end
@@ -22,7 +25,14 @@ module GemInstaller
     end
     
     def choose_from_list(question, list)
-      @gem_interaction_handler.handle_choose_from_list(question, list)
+      if RUBYGEMS_VERSION_CHECKER.matches?('<=0.9.4')
+        # Using defaults, we expect no interactive prompts RubyGems >= 0.9.5
+        @gem_interaction_handler.handle_choose_from_list(question, list)
+      else
+        list_string = list.join("\n")
+        question_and_list = "#{question}\n#{list_string}"
+        raise_unexpected_prompt_error(question_and_list)
+      end
     end
 
     def terminate_interaction!(status=-1)

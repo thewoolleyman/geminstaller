@@ -29,8 +29,12 @@ describe "An EnhancedStreamUI instance with an OutputProxy injected for outs and
 
   it "will throw unexpected prompt error for ask_yes_no if question is not a dependency prompt" do
     mock_gem_interaction_handler = mock("Mock GemInteractionHandler")
-    mock_gem_interaction_handler.should_receive(:handle_ask_yes_no)
-    @enhanced_stream_ui.gem_interaction_handler = mock_gem_interaction_handler
+    if RUBYGEMS_VERSION_CHECKER.matches?('<=0.9.4')
+      # special handling for dependency prompts in ask_yes_no is not used for RubyGems >= 0.9.5,
+      # all prompts are considered unexpected
+      mock_gem_interaction_handler.should_receive(:handle_ask_yes_no)
+      @enhanced_stream_ui.gem_interaction_handler = mock_gem_interaction_handler
+    end
     question = 'question'
     lambda{ @enhanced_stream_ui.ask_yes_no(question) }.should raise_error(GemInstaller::UnexpectedPromptError)
   end
@@ -86,12 +90,18 @@ describe "An EnhancedStreamUI instance with an OutputProxy injected for outs and
   it "will call gem_interaction_handler when ask_yes_no is called" do
     mock_gem_interaction_handler = mock("mock_gem_interaction_handler")
     @enhanced_stream_ui.gem_interaction_handler = mock_gem_interaction_handler
-    question = 'question'
-    @mock_outs_listener.should_receive(:notify).once.with(question, :stdout)
-    error = GemInstaller::UnauthorizedDependencyPromptError
-    mock_gem_interaction_handler.should_receive(:handle_ask_yes_no).with(question).and_raise(error)
+    if RUBYGEMS_VERSION_CHECKER.matches?('<=0.9.4')
+      # special handling for dependency prompts in ask_yes_no is not used for RubyGems >= 0.9.5,
+      # all prompts are considered unexpected
+      question = 'question'
+      @mock_outs_listener.should_receive(:notify).once.with(question, :stdout)
+      error = GemInstaller::UnauthorizedDependencyPromptError
+      mock_gem_interaction_handler.should_receive(:handle_ask_yes_no).with(question).and_raise(error)
+    else
+      error = GemInstaller::UnexpectedPromptError
+    end
     lambda{ @enhanced_stream_ui.ask_yes_no(question) }.should raise_error(error)
   end
 
-  
+
 end

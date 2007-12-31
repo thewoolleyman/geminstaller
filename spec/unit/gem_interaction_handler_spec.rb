@@ -1,6 +1,8 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
+if RUBYGEMS_VERSION_CHECKER.matches?('<=0.9.4')
+# gem_interaction_handler is not used for RubyGems >= 0.9.5
 describe "a GemInteractionHandler instance with mock dependencies" do
   before(:each) do
     @gem_interaction_handler = GemInstaller::GemInteractionHandler.new
@@ -31,4 +33,5 @@ describe "a GemInteractionHandler instance with mock dependencies" do
       question, list, @dependent_gem.name, @dependent_gem.version, valid_platform_list)
     @gem_interaction_handler.handle_choose_from_list(question, list, @mock_noninteractive_chooser)
   end
+end
 end
