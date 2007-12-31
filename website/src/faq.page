@@ -5,3 +5,9 @@ h1. Frequently Asked Questions
 
 Q: Why don't the tests/specs run on Windows?<br/>
 A: Dunno, something with the process handling on windows for TestGemHome and EmbeddedGemServer.  The manual application tests under spec/smoketest/ work on windows, though.
+
+Q: Why do some gems (like BlueCloth) always get reinstalled, even though they are already installed?<br/>
+A: Dunno, this is either a bug in the gem or in RubyGems.  It isn't a problem with GemInstaller AFAIK, it happens even if you install manually via 'gem install'.  Haven't had time to debug, let me know if you figure it out.
+
+Q: What about gems like RMagick that have platform-specific binary dependencies?<br/>
+A: You are on your own, this is outside of the scope of GemInstaller.  The geminstaller.yml file is parsed with ERB, so you can put whatever hooks you want to perform necessary system setup and/or prereq validation.  You can also google or check the RMagick home page: "http://rmagick.rubyforge.org/":http://rmagick.rubyforge.org/

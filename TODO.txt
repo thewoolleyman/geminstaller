@@ -1,5 +1,3 @@
-* DOCS: document and add sample file for preinitializer boot hook
-* Namespace constants (RUBYGEMS_VERSION_CHECKER)
 * add -S | --sudo-only-if-allowed option, will only invoke sudo if GEMINSTALLER_ALLOW(S)_SUDO env var is set
 * Dynamically detect posix platform and check if gem repo is completely writeable.  Ignorable prompt?
 * Figure out how to suppress webrick messages from embedded gem server
@@ -10,22 +8,25 @@
 * handle uninstall of gem (requested by Alex Chaffee and others)
 * handle installation of gem from file (requested by Alex Chaffee)
 =============== Unfiled =============
+* Namespace constants (RUBYGEMS_VERSION_CHECKER)
 * release with support for rubygems >= 0.9.5
 ================ 0.3.0 release ===================
-* Understand environment.rb vs boot.rb (bottom line: env is not processed before Initializer, so can't be used to load rails gems).  Add doc references.
-* docs - clean up sudo section.  Should be clearer about sudoers entry, and make sure that NOPASSWD is the last entry.  Rename from #dealing_with_sudo to #dealing_with_root_owned_gems, rewrite to reflect new best practices (different GEM_PATH or auto-sudo via capistrano)
-* Faq - mention Zed's questions
-* Investigate gem_plugin.  Plugin for mongrel???
-================ 0.3.1 release ===================
 * Rename API: deprecate 'autogem' and rename to 'gem'; change current 'run' to 'install'; add new 'run' which automatically calls both 'install' and 'gem', add 'no-gem' option (only applicable when invoked programatically) to supress automatic 'gem'
-================ 0.3.2 release =====================
-* update docs with details on how to handle unmet dependencies when -y is not specified
-* tutorial: using common or shared config files, with different configs for different environments - test (rspec) vs. dev (capistrano) vs. demo/staging/prod
-* tutorial: running via capistrano
-* crossreference front page, tutorials, and docs
+* docs - document and add sample file for preinitializer boot hook
+* docs - clean up sudo section.  Should be clearer about sudoers entry, and make sure that NOPASSWD is the last entry.  Rename from #dealing_with_sudo to #dealing_with_root_owned_gems, rewrite to reflect new best practices (different GEM_PATH or auto-sudo via capistrano)
+* tutorial: using common or shared config files, with different configs for different environments - test (rspec) vs. dev (capistrano) vs. demo/staging/prod, mention include_config option and pros/cons of different approaches
 * put mongrel/rails startup bug in tracker, add link in "known bugs" section on home page.
+* tutorial: running via capistrano
+* Investigate gem_plugin.  Plugin for mongrel???
+* Investigate making a Rails plugin
+================ 0.3.1 release ===================
+* Why does RubyGems reinstall BlueCloth even though it is already installed?!?!? (remove from FAQ after solved)
+* Understand environment.rb vs boot.rb (bottom line: env is not processed before Initializer, so can't be used to load rails gems).  Add doc references.
+* add option to warn if any rogue gems are found
+================ 0.3.4 release =====================
+* crossreference front page, tutorials, and docs
 * links - rspec, rubygems
-================ 0.3.3 finishing website ===================
+================ 0.3.5 finishing website ===================
 * autogem and run args can be passed as string or array
 * better test coverage for --sudo and --exception options
 * use rspec context_setup
