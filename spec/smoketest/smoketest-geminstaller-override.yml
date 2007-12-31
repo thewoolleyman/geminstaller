@@ -6,6 +6,9 @@ gems:
   platform: ruby
 - name: ruby-doom
   version: 0.8
+  <% if GemInstaller::RubyGemsVersionChecker.matches?('< 0.9') %>
+  no_autogem: true
+  <% end %>
 - name: x10-cm17a
   no_autogem: true
   version: '1.0.1'

@@ -32,9 +32,10 @@ module GemInstaller
 
       is_windows = RUBY_PLATFORM =~ /mswin/ ? true : false
 
+      print "Important Note: Before running this, you should make sure you don't have the geminstaller gem installed locally.  Otherwise, you could run the installed version rather than the version in your working copy.\n\n"
+      print "This will uninstall the following gems and reinstall them with geminstaller.\n"
       unless no_warnings
-        print "Important Note: Before running this, you should make sure you don't have the geminstaller gem installed locally.  Otherwise, you could run the installed version rather than the version in your working copy.\n\n"
-        print "This will uninstall the following gems and reinstall them with geminstaller.  If that is OK, press 'y'\n\n"
+        print "If that is OK, press 'y'\n\n"
         test_gems.each {|gem| print "  " + gem + "\n"}
         response = gets
         exit unless response.index('y')
