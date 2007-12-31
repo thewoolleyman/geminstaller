@@ -7,6 +7,7 @@
 * add top-level method for uninstall of gems, and document (requested by Alex Chaffee and others)
 * Rename API: deprecate 'autogem' and rename to 'load'; change current 'run' to 'install'; add new 'run' which automatically calls both 'install' and 'load', add 'no-load' option (only applicable when invoked programatically) to supress automatic 'load'
 
+* docs - add example of using environment variable to control gem version without changing code (Rails)
 * docs - document and add sample file for preinitializer boot hook.  Explain why it can't be in environment.rb vs boot.rb or prinitializer (bottom line: env is not processed before Initializer, so can't be used to load rails gems)
 * tutorial: using common or shared config files, with different configs for different environments - test (rspec) vs. dev (capistrano) vs. demo/staging/prod, mention include_config option and pros/cons of different approaches
 * docs - rename "Documentation" page to "Manual"

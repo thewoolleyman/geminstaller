@@ -8,7 +8,7 @@ If anything is unclear, or if you'd like to see a tutorial on a topic, please su
 * "Bootstrapping your GemInstaller Config with the <code>--print-rogue-gems</code> option":#bootstrapping_your_geminstaller_config
 * "Using the <code>autogem</code> Option to Automatically Require Gems":#using_the_autogem_option_to_automatically_require_gems
 * "Integrating GemInstaller into Ruby on Rails":#integrating_geminstaller_into_ruby_on_rails
-* "Using Common or Shared Config Files":#using_common_or_shared_config_files
+* "Using Common or Shared Config Files or Snippets":#using_common_or_shared_config_files
 * "Running GemInstaller from Capistrano":#running_geminstaller_from_capistrano
 
 h2(#installing_geminstaller). Installing GemInstaller
@@ -272,17 +272,23 @@ That's about it!
 See also: Docs on "Using GemInstaller with Ruby on Rails or Other Ruby Apps":documentation.html#using_geminstaller_with_ruby_on_rails_or_other_ruby_apps. 
 
 
-h2(#using_common_or_shared_config_files). Using Common or Shared Config Files
+h2(#using_common_or_shared_config_files). Using Common or Shared Config Files or Snippets
 
-GemInstaller supports multiple config files, with the last config files in the list overriding the previous ones.  This means you could do any of the following:
+GemInstaller supports multiple config files, with the last config files in the list overriding the previous ones.  It also supports the "<code>include_config</code>":documentation.html#include_config property in the <code>geminstaller.yml</code> file, which allows you to share a YAML snippet across multiple config files.  This means you could do any of the following:
 
-* Have a common config file across all your projects, which is shared via an svn:external, and a custom config file to override or add gems which are not in the common config.
-* Have a common config file across all development machines, shared on a windows share or NFS mounted drive, with machine- or platform-specific gems listed in local config files.
-* Have config files that are specific to certain environments such as development and test, which will not be included when GemInstaller is run in a demo or production environment.
+* With multiple config files:
+** Have a common config file across all your projects, which is shared via an svn:external, and a custom config file to override or add gems which are not in the common config.
+** Have a common config file across all development machines, shared on a windows share or NFS mounted drive, with machine- or platform-specific gems listed in local config files.
+** Have config files that are specific to certain environments such as development and test, which will not be included when GemInstaller is run in a demo or production environment.
+* With the "<code>include_config</code>":documentation.html#include_config property:
+** Shared YAML snippets across multiple geminstaller.yml files via an svn:external.
+** Extract geminstaller.yml entries that are duplicated across multiple files to a single shared include snippet file.
+** Use a common include to simultaneously upgrade to the same version of a gem dependency across multiple projects.
+** Extract complicated or shared ERB logic in geminstaller.yml (such as automatically determining the correct version of a gem based on an environment variable) into a separate file. 
 
 TODO: Finish writing examples of this, for now see docs on the "<code>--config</code>":documentation.html#config_option option. 
 
-See also: Docs on the "<code>--config</code>":documentation.html#config_option option. 
+See also: Docs on the "<code>--config</code>":documentation.html#config_option option, Docs on the "<code>include_config</code>":documentation.html#include_config property. 
 
 
 h2(#running_geminstaller_from_capistrano). Running GemInstaller from Capistrano
