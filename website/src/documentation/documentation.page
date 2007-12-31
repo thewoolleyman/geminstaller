@@ -370,11 +370,13 @@ The "correct" platform can be determined in a few ways.  The easiest way is to l
 
 However, GemInstaller may not always guess right, especially for uncommon platforms, or gems which do not have a standard platform string specified.  In these cases, the <code>'platform'</code> property for a gems can be specified in the geminstaller config file.  If you know what platform you want for a specific gem, and you only run GemInstaller on one platform, you can hardcode this value.  Even if you run GemInstaller on multiple platforms (and therefore can't hardcode the platform string), you can use <code>erb</code> to programatically pick the correct platform.  See "Using <code>erb</code> in config files":#using_erb_in_config_files for an example.
 
-See the section on the "<code>prefer_binary_platform</code> config property":#prefer_binary_platform for more info.
+See the section on the "<code>prefer_binary_platform</code> config property":#prefer_binary_platform_config_property for more info.
 
 h2(#dealing_with_sudo). Dealing with sudo and root-owned RubyGem installations 
 
 If you only run geminstaller on Windows, you don't have to worry about this section :)
+
+<strong>Important Note:</strong> For security, the sudo command does NOT pass most environment variables.  See the faq item on "Environment Variables and sudo":../faq.html#environment_vars_and_sudo for more info.
 
 On many unix-like systems (Mac, Linux, etc.), the root user will own the local installation of RubyGems (often /usr/local/ruby) and/or the executable directory where gem executables are installed (often /usr/local/bin).  If this is the case, then gems must be installed and uninstalled by the root user, or via the sudo command.  This presents a problem for geminstaller, which must have this same permission to automatically install gems.
 

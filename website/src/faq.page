@@ -3,11 +3,20 @@ title: FAQ
 ---
 h1. Frequently Asked Questions
 
-Q: Why don't the tests/specs run on Windows?<br/>
-A: Dunno, something with the process handling on windows for TestGemHome and EmbeddedGemServer.  The manual application tests under spec/smoketest/ work on windows, though.
+
+<span id="environment_vars_and_sudo"/>
+Q: Why can't I use environment variables via ERB in geminstaller.yml when using sudo?<br/>
+A: For security, the sudo command does NOT pass most environment variables.  That means if you are trying to use an environment variable to control logic in your geminstaller.yml (for example to dynamically specify a gem version), then it won't work!  I don't yet have a good workaround for this, other than not using sudo.  I may add an option to auto-parse environment variables from the command line, like Rake.  Let me know if you have ideas.
 
 Q: Why do some gems (like BlueCloth) always get reinstalled, even though they are already installed?<br/>
 A: Dunno, this is either a bug in the gem or in RubyGems.  It isn't a problem with GemInstaller AFAIK, it happens even if you install manually via 'gem install'.  Haven't had time to debug, let me know if you figure it out.
 
 Q: What about gems like RMagick that have platform-specific binary dependencies?<br/>
 A: You are on your own, this is outside of the scope of GemInstaller.  The geminstaller.yml file is parsed with ERB, so you can put whatever hooks you want to perform necessary system setup and/or prereq validation.  You can also google or check the RMagick home page: "http://rmagick.rubyforge.org/":http://rmagick.rubyforge.org/
+
+Q: Why don't the tests/specs run on Windows?<br/>
+A: Dunno, something with the process handling on windows for TestGemHome and EmbeddedGemServer.  The manual application tests under spec/smoketest/ work on windows, though.
+
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>This space intentionally left blank.<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
