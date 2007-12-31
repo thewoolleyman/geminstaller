@@ -1,7 +1,3 @@
-=============== rubygems >=0.9.5 Fixes ===============
-* Don't use missing dependency finder (it's built in) - DONE
-* Don't use valid platform selector, use --platform option
-* Don't use GemInteractionHandler, should not be needed.
 =============== Unfiled =============
 * TEST SPEEDUP: don't use rubygems to clean up test gems, just delete files
     * DOCS: document and add sample file for preinitializer boot hook

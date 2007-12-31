@@ -35,8 +35,8 @@ h1. Maintaining forward and backward compatibility with multiple RubyGems versio
 * RubyGems 0.9.5 was a major upgrade, the preview release for 1.0.  It introduced support for platforms, auto-install of missing dependencies, and many other things that GemInstaller already did.
 
 * Here are the main differences in GemInstaller when running on RubyGems >=0.9.5:
-** Don't use missing dependency finder (auto-install of missing dependencies is built in)
-** Don't use valid platform selector, use --platform option (maybe, not investigated yet)
-** Don't use GemInteractionHandler, should not be needed. (maybe, not investigated yet)
+** Don't use missing dependency finder (auto-install of missing dependencies is now built in)
+** Don't use valid platform selector, use --platform option (auto-selection of platform is now built in)
+** GemInteractionHandler should throw error on any interactive prompt (since dependencies and platforms are now handled automatically by default)
 
 
