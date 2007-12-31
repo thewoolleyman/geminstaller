@@ -7,7 +7,7 @@ require 'rubygems'
 require File.expand_path("#{dir}/rubygems_version_checker")
 
 unless defined? ALLOW_UNSUPPORTED_RUBYGEMS_VERSION or GemInstaller::RubyGemsVersionChecker.matches?('>=0.9.5')
-  print "\n\n----------------------------------------------------------------" + 
+  print "\n\n----------------------------------------------------------------\n" + 
             "WARNING: You are using RubyGems version #{Gem::RubyGemsVersion}.\n" +
             "You should update to RubyGems version 1.0.1 or above,\n" +
             "because gems created for newer RubyGems versions\n" +
