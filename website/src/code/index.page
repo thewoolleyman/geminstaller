@@ -38,5 +38,6 @@ h1. Maintaining forward and backward compatibility with multiple RubyGems versio
 ** Don't use missing dependency finder (auto-install of missing dependencies is now built in)
 ** Don't use valid platform selector, use --platform option (auto-selection of platform is now built in)
 ** GemInteractionHandler should throw error on any interactive prompt (since dependencies and platforms are now handled automatically by default)
+** The "<code>prefer_binary_platform</code> config property":../documentation/documentation.html#prefer_binary_platform_config_property no longer applies, and has no effect.
 
 

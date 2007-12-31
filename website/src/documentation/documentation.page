@@ -119,8 +119,6 @@ h3(#redirect_stderr_to_stdout_option). <code>--redirect-stderr-to-stdout</code> 
 
 Currently, the GemInstaller <code>--sudo</code> option works by recursively re-invoking the <code>geminstaller</code> executable via <code>system()</code>.  This option is automatically added in this case to ensure that errors that would normally go to <code>stderr</code> are printed to <code>stdout</code>.  There are other solutions to this problem, but as of Ruby 1.8.5, there is no _easy_ way to make a system call which will give a return code AND show both stderr and stdout _synchronously_.  GemInstaller does not have and will not have any third-party runtime dependencies, so I needed to roll my own solution, and this was The Simplest Thing That Could Possibly Work.
 
-When RubyGems supports platform specification from the command line, I won't have to select platforms programatically via stdin, and I'll be able to invoke <code>gem</code> directly via sudo.  Until then, though, there must be this recursive hackishness to handle sudo.
-
 h3(#geminstaller_output_option). <code>--geminstaller-output</code> option
 
 The <code>--geminstaller-output</code> option controls what GemInstaller prints out about it's internal activity.  It is a comma-delimited list (no spaces), which can specify any of these output types:
@@ -196,6 +194,7 @@ gems:
 - name: [ another gem name ]
 - name: [ yet another gem name ]
   (etc...)
+<%= include_config("#{File.expand_path(File.dirname(__FILE__))}/path/to/included_snippet.yml") %>
 </pre>
 
 All properties are optional, except for the gem name.  If a default is specified, it will be used unless the gem specifically overrides it.
@@ -362,13 +361,13 @@ gems:
 
 h2(#automatic_platform_detection). Automatic Platform Detection
 
-Currently (as of version 0.9.2), RubyGems does not provide any way to specify a platform programatically or via the command line.  If the specified version of a gem has any binary or platform-specific releases, a list will be presented, and RubyGems will halt until input is provided via stdin.  This means that even if you write a script to install your required gems, you still have to deal with parsing the list and providing stdin input to select multi-platform gems.  To make it even more confusing, there are enforced requirements for what platforms are valid in a Gem specification file - the gem author can put whatever they want.  The RubyGems developers plan to deal with this situation in a future release, but until then...
+Up through version 0.9.4, RubyGems did not provide any way to specify a platform programatically or via the command line, and prompted via stdin if a specified version of a gem has any binary or platform-specific releases.  RubyGems 0.9.5 and later should correctly determine the correct platform to install, and GemInstaller will automatically use this feature.
 
-...GemInstaller solves this problem!  If a multi-platform gem version is found, GemInstaller will handle the list prompt, and automatically select the correct platform.
+However, if you must run older versions of RubyGems <= 0.9.4, GemInstaller still includes support for automatically selecting the platform without any stdin prompts.  If a multi-platform gem version is found, GemInstaller will handle the list prompt, and automatically select the correct platform.
 
-The "correct" platform can be determined in a few ways.  The easiest way is to let GemInstaller guess at the platform for you.  It contains logic which will attempt to determine the correct platform to choose, based on the platform of the current machine.
+This means that you don't have to worry about what version of RubyGems your app will run on - GemInstaller handles automatic platform selection on all RubyGems versions.
 
-However, GemInstaller may not always guess right, especially for uncommon platforms, or gems which do not have a standard platform string specified.  In these cases, the <code>'platform'</code> property for a gems can be specified in the geminstaller config file.  If you know what platform you want for a specific gem, and you only run GemInstaller on one platform, you can hardcode this value.  Even if you run GemInstaller on multiple platforms (and therefore can't hardcode the platform string), you can use <code>erb</code> to programatically pick the correct platform.  See "Using <code>erb</code> in config files":#using_erb_in_config_files for an example.
+If you do want explicit control over the platform which is used, all you need to do is specify the <code>'platform'</code> property for any multiplatform gems can be specified in the geminstaller config file.  If you know what platform you want for a specific gem, and you only run GemInstaller on one platform, you can hardcode this value.  Even if you run GemInstaller on multiple platforms (and therefore can't hardcode the platform string), you can use <code>erb</code> to programatically pick the correct platform.  See "Using <code>erb</code> in config files":#using_erb_in_config_files for an example.
 
 See the section on the "<code>prefer_binary_platform</code> config property":#prefer_binary_platform_config_property for more info.
 
