@@ -1,6 +1,5 @@
 =============== Unfiled =============
-* TEST SPEEDUP: don't use rubygems to clean up test gems, just delete files
-    * DOCS: document and add sample file for preinitializer boot hook
+* DOCS: document and add sample file for preinitializer boot hook
 * Namespace constants (RUBYGEMS_VERSION_CHECKER)
 * add -S | --sudo-only-if-allowed option, will only invoke sudo if GEMINSTALLER_ALLOW(S)_SUDO env var is set
 * Dynamically detect posix platform and check if gem repo is completely writeable.  Ignorable prompt?
@@ -8,19 +7,16 @@
 * Allow array or eval'able string of gems to be passed as --gems arg or instead of args
 * Add @options[:gems], should be parsed from command line
 * Add warning that environment is not passed via sudo
-* document include_config in yaml
 * add automatic re-invoke with sudo option (with warning message) if permission error is caught
 * handle uninstall of gem (requested by Alex Chaffee and others)
 * handle installation of gem from file (requested by Alex Chaffee)
 =============== 0.2.6
 * Understand environment.rb vs boot.rb (bottom line: env is not processed before Initializer, so can't be used to load rails gems).  Add doc references.
 * docs - clean up sudo section.  Should be clearer about sudoers entry, and make sure that NOPASSWD is the last entry.  Rename from #dealing_with_sudo to #dealing_with_root_owned_gems, rewrite to reflect new best practices (different GEM_PATH or auto-sudo via capistrano)
-* Faq - mention sudo
 * Faq - mention Zed's questions
-* design - dependency management is good.  Maven got it right, if not for the jelly...
 * Investigate gem_plugin.  Plugin for mongrel???
 ================ 0.2.8 release ===================
-* Rename API: deprecate 'autogem' and rename to 'loadgems'; change current 'run' to 'install'; add new 'run' which automatically calls both 'install' and 'gem', add 'no-loadgems' option (only applicable when invoked programatically) to supress automatic 'loadgems
+* Rename API: deprecate 'autogem' and rename to 'gem'; change current 'run' to 'install'; add new 'run' which automatically calls both 'install' and 'gem', add 'no-gem' option (only applicable when invoked programatically) to supress automatic 'gem'
 ================ 0.3.0 release =====================
 * update docs with details on how to handle unmet dependencies when -y is not specified
 * tutorial: using common or shared config files, with different configs for different environments - test (rspec) vs. dev (capistrano) vs. demo/staging/prod
@@ -28,9 +24,7 @@
 * crossreference front page, tutorials, and docs
 * put mongrel/rails startup bug in tracker, add link in "known bugs" section on home page.
 * links - rspec, rubygems
-* Set up cruise
 ================ 0.3.1 finishing website ===================
-* make valid_platform_selector use data from tattle
 * autogem and run args can be passed as string or array
 * better test coverage for --sudo and --exception options
 * use rspec context_setup
@@ -76,25 +70,20 @@
 * reconcile methods for testing error messages - manually vs proc_should_raise_with_message.  Probably should patch rspec.
 * remove test_gem_home.reset from geminstaller_spec.rb WITHOUT breaking the test suite.
 * tests fail on windows - seems to be related to test_gem_home running twice.  smoketest still passes.
-* Use rubygems executables from test_gem_home.  In order to do this, we must run test_gem_home and ensure it is on the load path BEFORE the system installation of rubygems ever gets initialized.  We will also have to manually include all geminstaller test dependency gems in test_gem_home or on the path.  Tried this once and failed, patch on linux box...
-* clean up spec_utils - remove duplication of class and instance methods
-* spec_utils global teardown method which uninstalls all gems
 * can't run binary out of source dir unless running it via ruby
 * running binary via ruby out of bin dir will pick up gem first on load path if it is installed
 * verify that >= version spec works with a specific platform, if that platform is not available for the highest version
 * Check for write access, and exit with warning to use sudo if there is no write access.
 * store rubygems dist as a tar, and untar it on demand
 * Add spec file name to all contexts (or see if rspec can do it automatically)
-* Make GemInstaller.run take a parameter to not fail if there is any error
 * Embedded gem_server process doesn't get killed on windows during tests - need to use ruby services, see comment in embedded_gem_server.rb
 * Embedded gem_server ports aren't handled correctly on linux during tests - port conflict on startup, open ports die off slowly after tests finish
 * Do a port check before starting embedded gem server, give option to kill process or at least exit with a descriptive warning.
-* Clean up spec_helper, find out simplest way to invoke rspec via test_unit, and still provide proper return codes/output
 * remove cruft from test output - intercept output streams from gem_server and rubygems setup
 * enhance DependencyInjector - allow items to be substituted prior to initialization - then geminstaller_spec could simply set a mock output_proxy on the registry instead of explicitly setting it every place it is used.
 * ensure --debug install option works as expected
 * fix all Zentest warnings
-* Rename RubyGem class to RubyGemAction, add install vs. uninstall actions in config (install is default)
+* Rename RubyGem class to RubyGemAction (or maybe RubyGemDependency to match 1.x)
 * Automate process for creating a stubgem
 * Give nice error message if gem server is unavailable (check socket)
 * Make tests run under RadRails debugger
@@ -104,5 +93,4 @@
 * make verbose option specify --backtrace on all gem commands
 * Add support, syntax, and options for uninstalling gems - completely, or down to highest specified version.
 * add feature to automatically warn if there is a more recent version of the gem available and check_for_upgrade == false.  Use "gem outdated" command
-* auto-generate geminstaller.yml files (possibly by parsing source, or based on all gems installed locally)
 ================ 0.later.1 Unprioritized ===================
