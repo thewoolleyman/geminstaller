@@ -10,15 +10,16 @@ GemInstaller provides automated management of RubyGems.  It uses a simple YAML c
 * Automatically install the correct versions of all required gems wherever your app runs.
 * Automatically ensure installed gems and versions are consistent across multiple applications, machines, platforms, and environments 
 * Automatically add correct versions of gems to the ruby load path when your app runs ('require_gem'/'gem')
-* Automatically reinstall missing dependency gems
-* Automatically guess at correct platform to install for multi-platform gems
+* Automatically reinstall missing dependency gems (built in to RubyGems > 1.0)
+* Automatically detect correct platform to install for multi-platform gems (built in to RubyGems > 1.0)
 * Print YAML for "rogue gems" which are not specified in the current config, to easily bootstrap your config file, or find gems that were manually installed without GemInstaller.
-* Allow for common configs to be reused across projects or environments by supporting multiple config files and defaults with overrides.
+* Allow for common configs to be reused across projects or environments by supporting multiple config files, including common config file snippets, and defaults with overrides.
+* Allow for dynamic selection of gems, versions, and platforms to be used based on environment vars or any other logic.
 * Avoid the "works on demo, breaks on production" syndrome
 
 GemInstaller can be used from the command line, or embedded to run automatically on startup for a Rails app or any other Ruby program.
 
-It has been tested on all major platforms (mac, linux, windows), and recent versions of RubyGems (0.8.x through 0.9.4).
+It has been tested on all major platforms (mac, linux, windows), and has an "extensive suite of tests":code/coverage/index.html which are "automatically run by Continuous Integration":http://ci.thewoolleyweb.com against recent versions of RubyGems (0.8.x through 1.0.1).
 
 h2. How do I get it?
 
@@ -32,11 +33,13 @@ h2. Who is responsible for GemInstaller?
 
 GemInstaller was created by "Chad Woolley":http://www.thewoolleyweb.com.
 
-h2(#known_bugs). Known Bugs
+h2(#known_issues). Known Issues
 
-Currently, the only _major_ known bug is related to auto-installing the Rails or Mongrel gems via boot.rb during startup of Mongrel or Webrick.  The simple workaround is to run GemInstaller manually or just restart Rails anytime GemInstaller auto-installs a Rails/Mongrel gem upgrade during app startup.  For Rails and other deployable apps, you can also "run GemInstaller from Capistrano":documentation/tutorials.html#running_geminstaller_from_capistrano to avoid this problem in demo/production environments.  I bet there's another bug or twoo, so please "report them if you find them":http://rubyforge.org/tracker/?group_id=1902!
+Currently, the only _major_ known issue is related to auto-installing the Rails or Mongrel gems via boot.rb or config/preinitializer.rb during startup of Mongrel or Webrick.  This is because the old version is already on the load path before GemInstaller installs the new version.  The simple workaround is to just restart Rails anytime GemInstaller auto-installs a Rails/Mongrel gem upgrade during app startup.  For Rails and other deployable apps, you can also "run GemInstaller from Capistrano":documentation/tutorials.html#running_geminstaller_from_capistrano to avoid this problem in demo/production environments.
 
-There's also some leakage of gem doc warning messages even if you turn down --rubygems-output, but these can be ignored (these same messages show up when installing gems manually).  This should be fixed soon.
+There's also some leakage of gem doc warning messages even if you turn down --rubygems-output, but these can be ignored (these same messages can show up when installing gems manually).
+
+I bet there's another bug or twoo, so please "report them if you find them":http://rubyforge.org/tracker/?group_id=1902!
 
 h2(#history). History
 

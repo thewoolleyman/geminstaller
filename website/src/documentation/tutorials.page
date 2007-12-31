@@ -76,7 +76,7 @@ h2(#integrating_geminstaller_into_ruby_on_rails). Integrating GemInstaller into 
 
 GemInstaller can be configured to automatically install all gems in the config file, and add them to the load path when Rails boots.  This means that you can check out and run your application anywhere, without having to worry about manually ensuring that the required dependency gems are installed.  This works with Webrick and Mongrel.
 
-IMPORTANT NOTE:  Currently, there is a bug with installing Mongrel and Rails gems on Rails startup.  See "Known Bugs":../index.html#known_bugs for details.
+IMPORTANT NOTE:  Currently, there is an issue with installing Mongrel and Rails gems on Rails startup (the old versions are already on the LOAD_PATH, so a restart is required to pick up the new ones).  See "Known Issues":../index.html#known_issues for details.
 
 First, you need a Rails app.  I'll let you handle this step on your own.  See the "Rails documentation":http://www.rubyonrails.org/docs for details.
 

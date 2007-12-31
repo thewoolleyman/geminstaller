@@ -1,12 +1,12 @@
 
 =============== Unfiled =============
-* Add warning that environment is not passed via sudo, example of workaround
 * deprecate prefer_binary_platform
 * docs - update references to platforms.
 * test on windows
 * release with support for rubygems >= 0.9.5
 ================ 0.3.0 release ===================
 * turn smoketest into rake task, with correct return code handling, and hook up to cruise
+* look into and explain mongrel/webrick installation errors
 * add top-level method for uninstall of gems, and document (requested by Alex Chaffee and others)
 * Rename API: deprecate 'autogem' and rename to 'load'; change current 'run' to 'install'; add new 'run' which automatically calls both 'install' and 'load', add 'no-load' option (only applicable when invoked programatically) to supress automatic 'load'
 
