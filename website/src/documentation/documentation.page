@@ -25,7 +25,7 @@ h2. Table of Contents
 ** "<code>check_for_upgrade</code> config property":#check_for_upgrade_config_property
 ** "<code>fix_dependencies</code> config property":#fix_dependencies_config_property
 ** "<code>no_autogem</code> config property":#no_autogem_config_property
-** "<code>prefer_binary_platform</code> config property":#prefer_binary_platform_config_property
+** "<code>prefer_binary_platform</code> config property":#prefer_binary_platform_config_property (deprecated)
 ** "<code>include_config</code> directive":#include_config
 * "Using GemInstaller with Ruby on Rails or Other Ruby Apps":#using_geminstaller_with_ruby_on_rails_or_other_ruby_apps
 ** "Invoking <code>GemInstaller</code> from Rails":#invoking_geminstaller_from_rails
@@ -181,7 +181,7 @@ defaults:
   check_for_upgrade: [ true | FALSE ]
   fix_dependencies: [ true | FALSE ]
   no_autogem: [ true | FALSE ]
-  prefer_binary_platform:  [ TRUE | false ]
+  prefer_binary_platform:  [ TRUE | false ] (deprecated)
 gems:
 - name: [ gem name ]
   version: '[ any valid version specification for this gem, e.g. >= 1.0.0 ]'
@@ -213,7 +213,7 @@ There are many different options for version specifications.  For more info, see
 
 h3(#platform_config_property). <code>platform</code> config property
 
-Defaults to 'ruby'.  This is the platform for the gem.  This must match a platform which is valid and available for the gem name and version specification.  See the sections on "Automatic Platform Detection":#automatic_platform_detection and the "<code>prefer_binary_platform</code> config property":#prefer_binary_platform for more info on how platforms are handled.
+Defaults to 'ruby'.  This is the platform for the gem.  This must match a platform which is valid and available for the gem name and version specification.  See the sections on "Automatic Platform Detection":#automatic_platform_detection and the "<code>prefer_binary_platform</code> config property":#prefer_binary_platform (deprecated) for more info on how platforms are handled.
 
 h3(#install_options_config_property). <code>install_options</code> config property
 
@@ -233,7 +233,9 @@ h3(#no_autogem_config_property). <code>no_autogem</code> config property
 
 Defaults to false.  This option will prevent the <code>autogem</code> command from automatically requiring a gem.  If you only want to require a few gems, you could set the default for this property to true, and only enable it (by setting a false value) for specific gems.  For more details see "Automatically Requiring Gems with the <code>autogem</code> Method":#automatically_requiring_gems_with_the_autogem_method.
 
-h3(#prefer_binary_platform_config_property). <code>prefer_binary_platform</code> config property
+h3(#prefer_binary_platform_config_property). <code>prefer_binary_platform</code> config property (deprecated)
+
+DEPRECATED:  This is deprecated when using RubyGems >= 0.9.5, which handles platform detection.
 
 Defaults to true.  GemInstaller automatically guesses at the correct platform for gem which have no platform specified.  Any platform which is not 'ruby' is considered a 'binary' platform.  
 
@@ -369,7 +371,7 @@ This means that you don't have to worry about what version of RubyGems your app 
 
 If you do want explicit control over the platform which is used, all you need to do is specify the <code>'platform'</code> property for any multiplatform gems can be specified in the geminstaller config file.  If you know what platform you want for a specific gem, and you only run GemInstaller on one platform, you can hardcode this value.  Even if you run GemInstaller on multiple platforms (and therefore can't hardcode the platform string), you can use <code>erb</code> to programatically pick the correct platform.  See "Using <code>erb</code> in config files":#using_erb_in_config_files for an example.
 
-See the section on the "<code>prefer_binary_platform</code> config property":#prefer_binary_platform_config_property for more info.
+See the section on the "<code>prefer_binary_platform</code> config property":#prefer_binary_platform_config_property (deprecated) for more info.
 
 h2(#dealing_with_sudo). Dealing with sudo and root-owned RubyGem installations 
 

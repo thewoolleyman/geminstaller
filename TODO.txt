@@ -1,6 +1,5 @@
 
 =============== Unfiled =============
-* deprecate prefer_binary_platform, update docs
 * test on windows
 * release with support for rubygems >= 0.9.5
 ================ 0.3.0 release ===================
