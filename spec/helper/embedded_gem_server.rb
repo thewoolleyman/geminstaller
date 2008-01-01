@@ -8,15 +8,15 @@ module GemInstaller
       Gem.clear_paths
       cmd_args = "--dir=#{embedded_gem_dir} --port=#{embedded_gem_server_port}"
       if windows?
-        server_cmd = (GemInstaller::RubyGemsVersionChecker.matches?('<= 0.9.4') ? 'gem_server.bat' : 'gem.bat server')
+        server_cmd = (GemInstaller::RubyGemsVersionChecker.matches?('<= 0.9.4') ? 'gem_server.bat' : "#{gem_cmd} server")
         io_handles_and_pid = Open4.popen4("#{rubygems_bin_dir}/#{server_cmd} #{cmd_args} --daemon",'b',true)
         pid = io_handles_and_pid[3]
         @@gem_server_pid = pid
       else
-        server_cmd = (GemInstaller::RubyGemsVersionChecker.matches?('<= 0.9.4') ? 'gem_server' : 'gem server')
+        server_cmd = (GemInstaller::RubyGemsVersionChecker.matches?('<= 0.9.4') ? "#{ruby_cmd} #{rubygems_bin_dir}/gem_server" : "#{gem_cmd} server")
         # Don't daemonize, it spawns a child process that I don't know how to kill.  There's an error
         # in the 0.9.5 daemon option anyway.  Just dump everything to /dev/null (but not while I'm still fixing against rubygems 1.0.0)
-        gem_server_process = IO.popen("#{ruby_cmd} #{rubygems_bin_dir}/#{server_cmd} #{cmd_args}")
+        gem_server_process = IO.popen("#{server_cmd} #{cmd_args}")
         @@gem_server_pid = gem_server_process.pid
       end
       print "Started embedded gem server at #{embedded_gem_dir}, pid = #{@@gem_server_pid}\n"
