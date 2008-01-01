@@ -16,7 +16,6 @@ module GemInstaller
       end
       
       def gem_cmd
-        return "#{ruby_cmd} #{rubygems_bin_dir}/gem.bat" if RUBY_PLATFORM.index('mswin')
         "#{ruby_cmd} #{rubygems_bin_dir}/gem"
       end    
 

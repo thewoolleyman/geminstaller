@@ -90,8 +90,12 @@ module GemInstaller
 
     def self.init_gem_env_vars
       ENV['GEM_HOME'] = test_gem_home_dir
-      existing_gem_path = ENV['GEM_PATH']
-      ENV['GEM_PATH'] = "#{existing_gem_path}:#{File.join(::Config::CONFIG['libdir'], 'ruby', 'gems', ::Config::CONFIG['ruby_version'])}"
+      # Copied from rubygems.rb path method
+      paths = [ENV['GEM_PATH']]
+      system_gem_home = File.join(::Config::CONFIG['libdir'], 'ruby', 'gems', ::Config::CONFIG['ruby_version'])
+      paths << system_gem_home
+      paths << APPLE_GEM_HOME if defined? APPLE_GEM_HOME
+      ENV['GEM_PATH'] = paths.compact.join(File::PATH_SEPARATOR)
     end
 
     def self.rm_dirs
