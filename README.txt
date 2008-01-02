@@ -13,10 +13,12 @@ GemInstaller provides automated management of RubyGems.  It uses a simple YAML c
 * Automatically install the correct versions of all required gems wherever your app runs.
 * Automatically ensure installed gems and versions are consistent across multiple applications, machines, platforms, and environments 
 * Automatically add correct versions of gems to the ruby load path when your app runs ('require_gem'/'gem')
-* Automatically reinstall missing dependency gems
-* Automatically guess at correct platform to install for multi-platform gems
+* Automatically reinstall missing dependency gems (built in to RubyGems > 1.0)
+* Automatically detect correct platform to install for multi-platform gems (built in to RubyGems > 1.0)
 * Print YAML for "rogue gems" which are not specified in the current config, to easily bootstrap your config file, or find gems that were manually installed without GemInstaller.
-* Avoid the "works on demo, broken on production" syndrome
+* Allow for common configs to be reused across projects or environments by supporting multiple config files, including common config file snippets, and defaults with overrides.
+* Allow for dynamic selection of gems, versions, and platforms to be used based on environment vars or any other logic.
+* Avoid the "works on demo, breaks on production" syndrome
 
 == SYNOPSYS:
 
@@ -38,7 +40,7 @@ See http://geminstaller.rubyforge.org/documentation/index.html
 
 (The MIT License)
 
-Copyright (c) 2006 Chad Woolley
+Copyright (c) 2008 Chad Woolley
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
