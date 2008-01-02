@@ -1,6 +1,6 @@
 
 =============== Unfiled =============
-* Rename API: deprecate 'autogem' and rename to 'load'; change current 'run' to 'install'; add new 'run' which automatically calls both 'install' and 'load', add 'no-load' option (only applicable when invoked programatically) to suppress automatic 'load'
+* Rename API: change current 'run' to 'install'; add new 'run' which automatically calls both 'install' and 'load', add 'no-load' option (only applicable when invoked programatically) to suppress automatic 'load'
 ================ 0.4.0 release ===================
 * turn smoketest into rake task, with correct return code handling, and hook up to cruise
 * look into and explain mongrel/webrick installation errors
