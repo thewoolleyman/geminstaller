@@ -1,11 +1,10 @@
 
 =============== Unfiled =============
-* release with support for rubygems >= 0.9.5
-================ 0.3.0 release ===================
+* Rename API: deprecate 'autogem' and rename to 'load'; change current 'run' to 'install'; add new 'run' which automatically calls both 'install' and 'load', add 'no-load' option (only applicable when invoked programatically) to suppress automatic 'load'
+================ 0.4.0 release ===================
 * turn smoketest into rake task, with correct return code handling, and hook up to cruise
 * look into and explain mongrel/webrick installation errors
 * add top-level method for uninstall of gems, and document (requested by Alex Chaffee and others)
-* Rename API: deprecate 'autogem' and rename to 'load'; change current 'run' to 'install'; add new 'run' which automatically calls both 'install' and 'load', add 'no-load' option (only applicable when invoked programatically) to supress automatic 'load'
 
 * docs - add example of using environment variable to control gem version without changing code (Rails)
 * docs - document and add sample file for preinitializer boot hook.  Explain why it can't be in environment.rb vs boot.rb or prinitializer (bottom line: env is not processed before Initializer, so can't be used to load rails gems)
@@ -17,7 +16,7 @@
 * put mongrel/rails startup bug in tracker, add link in "known bugs" section on home page.
 * tutorial: running via capistrano
 * crossreference front page, tutorials, and docs
-================ 0.3.1 release ===================
+================ 0.4.1 release ===================
 * Namespace remaining un-namespaced constants
 * Allow array or eval'able string of gems to be passed as --gems arg or instead of args
 * Add @options[:gems], should be parsed from command line* root-owned gems: add -S | --sudo-only-if-allowed option, will only invoke sudo if GEMINSTALLER_ALLOW(S)_SUDO env var is set
@@ -25,16 +24,16 @@
 * root-owned gems: Dynamically detect posix platform and check if gem repo is completely writeable.  Ignorable prompt?
 * docs - clean up sudo section.  Should be clearer about sudoers entry, and make sure that NOPASSWD is the last entry.  Rename from #dealing_with_sudo to #dealing_with_root_owned_gems, rewrite to reflect new best practices (different GEM_PATH or auto-sudo via capistrano)
 * tutorial: update running via capistrano to reference new sudo docs
-================ 0.3.2 release ===================
+================ 0.4.2 release ===================
 * handle installation of gem from file (requested by Alex Chaffee)
 * Investigate gem_plugin.  Plugin for mongrel???
 * Investigate making a Rails plugin
-================ 0.3.3 release ===================
+================ 0.4.3 release ===================
 * Why does RubyGems reinstall BlueCloth even though it is already installed?!?!? (remove from FAQ after solved)
 * Figure out how to suppress webrick messages from embedded gem server
 * add option to warn if any rogue gems are found
-================ 0.3.4 release =====================
-================ 0.3.5 finishing website ===================
+================ 0.4.4 release =====================
+================ 0.4.5 finishing website ===================
 * autogem and run args can be passed as string or array
 * better test coverage for --sudo and --exception options
 * use rspec context_setup
