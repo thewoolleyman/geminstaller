@@ -1,6 +1,5 @@
 
 =============== Unfiled =============
-* test on windows
 * release with support for rubygems >= 0.9.5
 ================ 0.3.0 release ===================
 * turn smoketest into rake task, with correct return code handling, and hook up to cruise
