@@ -4,7 +4,7 @@
 * Changes to work with RubyGems >= 0.9.5 and take advantage of new platform and auto-install features.  See notes at http://geminstaller.rubyforge.org/code/index.html#rubygems_compatibility
 * On Linux/Mac, you can now specify a RUBYGEMS_VERSION environment var to test against a specific version of RubyGems.
 * Improved smoketest.rb and autogem_test.rb
-* Tests now pass on windows (only against latest rubygems, with it installed, and only via test/test_all.rb, not rake)
+* Tests now run on windows (only against latest rubygems, with it installed, and only via test/test_all.rb, not rake)
 * deprecated/disabled prefer_binary_platform
 * many other small cleanups
 

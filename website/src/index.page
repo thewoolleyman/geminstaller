@@ -19,7 +19,7 @@ GemInstaller provides automated management of RubyGems.  It uses a simple YAML c
 
 GemInstaller can be used from the command line, or embedded to run automatically on startup for a Rails app or any other Ruby program.
 
-It has been tested on all major platforms (mac, linux, windows), and has an "extensive suite of tests":code/coverage/index.html which are "automatically run by Continuous Integration":http://ci.thewoolleyweb.com against recent versions of RubyGems (0.8.x through 1.0.1).
+It has been tested on all major platforms (mac, linux, windows), and has an "extensive suite of tests":code/coverage/index.html which are "automatically run by Continuous Integration":http://ci.thewoolleyweb.com against recent versions of RubyGems (0.8.x through 1.0.1)..
 
 h2. How do I get it?
 
@@ -43,6 +43,13 @@ I bet there's another bug or twoo, so please "report them if you find them":http
 
 h2(#history). History
 
+* 0.3.0
+** Changes to work with RubyGems >= 0.9.5 and take advantage of new platform and auto-install features.  See "notes on RubyGems version compatibility":code/index.html#rubygems_compatibility
+** On Linux/Mac, you can now specify a RUBYGEMS_VERSION environment var to test against a specific version of RubyGems.
+** Improved smoketest.rb and autogem_test.rb
+** Tests now run on windows (only against latest rubygems, with it installed, and only via test/test_all.rb, not rake)
+** deprecated/disabled prefer_binary_platform
+** many other small cleanups
 * 0.2.5
 ** Add 'include_config' directive to yaml config file, allowing other files to be included via ERB.
 ** Fix broken links in docs - patch from  Maciej Kozak (macio)
