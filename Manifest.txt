@@ -7,7 +7,9 @@ README.txt
 Rakefile
 TODO.txt
 bin/geminstaller
-ci/cruisecontrol
+ci/README_CI.txt
+ci/cruise
+cruise_config.rb
 focused_spec.sh
 focused_spec_debug.sh
 geminstaller.yml
