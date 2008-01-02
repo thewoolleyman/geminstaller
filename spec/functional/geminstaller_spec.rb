@@ -126,7 +126,11 @@ describe "The geminstaller command line application" do
     @application.run
     @gem_spec_manager.is_gem_installed?(sample_dependent_depends_on_multiplatform_gem).should==(true)
     expected_dependency_gem = nil
-    if RUBY_PLATFORM =~ /mswin/
+    if RUBY_PLATFORM =~ /mswin/ && GemInstaller::RubyGemsVersionChecker.matches?('<=0.9.4')
+      # The binary mswin32 platform will only be installed be installed when using
+      # the old valid_platform_selector under RubyGems <= 0.9.4.  On RubyGems >= 0.9.5,
+      # the built-in RubyGems platform selection is used, which installs the ruby
+      # platform before the mswin32 platform by default.
       expected_dependency_gem = sample_multiplatform_gem
     else
       expected_dependency_gem = sample_multiplatform_gem_ruby
