@@ -33,6 +33,10 @@ h2. Who is responsible for GemInstaller?
 
 GemInstaller was created by "Chad Woolley":http://www.thewoolleyweb.com.
 
+h2(#news). News
+
+Version 0.3.0 of GemInstaller is released.  This is tested and working against latest RubyGems 1.0.1.
+
 h2(#known_issues). Known Issues
 
 Currently, the only _major_ known issue is related to auto-installing the Rails or Mongrel gems via boot.rb or config/preinitializer.rb during startup of Mongrel or Webrick.  This is because the old version is already on the load path before GemInstaller installs the new version.  The simple workaround is to just restart Rails anytime GemInstaller auto-installs a Rails/Mongrel gem upgrade during app startup.  For Rails and other deployable apps, you can also "run GemInstaller from Capistrano":documentation/tutorials.html#running_geminstaller_from_capistrano to avoid this problem in demo/production environments.
