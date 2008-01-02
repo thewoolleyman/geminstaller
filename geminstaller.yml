@@ -7,7 +7,7 @@ gems:
 - name: diff-lcs
   version: '>= 1.1.2'
 - name: hoe
-  version: '>= 1.1.6'
+  version: '>= 1.4.0'
 - name: rake
   version: '>= 0.7.1'
 - name: rcov
@@ -25,7 +25,7 @@ gems:
   version: '>= 0.4.2'
 <% if RUBY_PLATFORM =~ /mswin/ %>
 - name: win32-process
-  version: '>= 0.5.0'
+  version: '>= 0.5.5'
   platform: 'mswin32'
 - name: win32console
   version: '>= 1.0.8'
