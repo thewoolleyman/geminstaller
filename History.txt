@@ -1,5 +1,13 @@
 == 0.x.y / yyyy-mm-dd
 
+== 0.3.0 / 2008-01-01
+* Changes to work with RubyGems >= 0.9.5 and take advantage of new platform and auto-install features.  See notes at http://geminstaller.rubyforge.org/code/index.html#rubygems_compatibility
+* On Linux/Mac, you can now specify a RUBYGEMS_VERSION environment var to test against a specific version of RubyGems.
+* Improved smoketest.rb and autogem_test.rb
+* Tests now pass on windows (only against latest rubygems, with it installed, and only via test/test_all.rb, not rake)
+* deprecated/disabled prefer_binary_platform
+* many other small cleanups
+
 == 0.2.5 / 2007-10-24
 * Add 'include_config' directive to yaml config file, allowing other files to be included via ERB.
 * Fix broken links in docs - patch from  Maciej Kozak (macio)

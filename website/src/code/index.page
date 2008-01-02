@@ -1,6 +1,7 @@
 ---
 title: Design
 ---
+<span id="release_process"/>
 h1. Design Notes
 
 These are some notes on the underlying design of GemInstaller, and the current state of development:
@@ -28,6 +29,7 @@ These are some notes on the underlying design of GemInstaller, and the current s
   * Sometimes test suite still hangs after a while, this is probably some orphaned EmbeddedGemServer process somewhere.  A reboot should fix it - this is windows, after all!
 * One of my motivations for creating GemInstaller was as an exercise to help me learn Ruby better.  If you see me doing anything obviously dumb or inefficient in the code or design, please let me know. Some of them I already know about, but haven't fixed, most I'm probably not aware of :)
 
+<span id="rubygems_compatibility"/>
 h1. Maintaining forward and backward compatibility with multiple RubyGems versions
 
 * I've put a lot of effort into ensuring that GemInstaller works with older versions of RubyGems.  As of now (12/07) all specs (not smoketests) are green on mac/linux (not windows) against RubyGems versions 0.8.11, 0.9.4, 0.9.5, 1.0.0, and 1.0.1 (the latest).
@@ -43,5 +45,13 @@ h1. Maintaining forward and backward compatibility with multiple RubyGems versio
 ** Don't use valid platform selector, use --platform option (auto-selection of platform is now built in)
 ** GemInteractionHandler should throw error on any interactive prompt (since dependencies and platforms are now handled automatically by default)
 ** The "<code>prefer_binary_platform</code> config property":../documentation/documentation.html#prefer_binary_platform_config_property no longer applies, and has no effect.
+
+<span id="release_process"/>
+h1. Release Process
+
+Yeah, it's too manual.  Feel free to tell me how to improve it.
+
+* Add section and entries for new release to History.txt
+* 
 
 
