@@ -1,4 +1,5 @@
-
+* add option to use frozen edge rails before rails gem, understand the implications
+* add warning if a gem version error is detected, saying to run geminstaller to install the missing version
 =============== Unfiled =============
 * Rename API: change current 'run' to 'install'; add new 'run' which automatically calls both 'install' and 'load', add 'no-load' option (only applicable when invoked programatically) to suppress automatic 'load'
 ================ 0.4.0 release ===================
