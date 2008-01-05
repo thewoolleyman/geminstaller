@@ -2,7 +2,7 @@ dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/geminstaller/requires.rb")
 
 module GemInstaller
-  def self.run(args = [], geminstaller_executable = nil)
+  def self.install(args = [], geminstaller_executable = nil)
     args_copy = args.dup
     args_copy = args_copy.split(' ') unless args.respond_to? :join
     # recursively call script with sudo, if --sudo option is specified
@@ -15,9 +15,14 @@ module GemInstaller
       return result
     else
       app = create_application(args_copy)
-      app.run
+      app.install
     end
-  end 
+  end
+  
+  def self.run(args = [], geminstaller_executable = nil)
+    # run is now an alias for install
+    install(args, geminstaller_executable)
+  end
   
   def self.autogem(args = [])
     args_copy = args.dup

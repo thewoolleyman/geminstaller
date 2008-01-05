@@ -31,7 +31,7 @@ args += " --exceptions"
 args += " --sudo" unless RUBY_PLATFORM =~ /mswin/ 
 
 # The 'install' method will auto-install gems as specified by the args and config
-GemInstaller.run(args)
+GemInstaller.install(args)
 
 # The 'autogem' method will automatically add all gems in the GemInstaller config to your load path, using the 'gem'
 # or 'require_gem' command.  Note that only the *first* version of any given gem will be loaded.

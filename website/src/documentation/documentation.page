@@ -113,7 +113,7 @@ geminstaller --config=../common-config/geminstaller-common-across-projects.yml,g
 
 h3(#exceptions_option). <code>--exceptions</code> option
 
-By default, GemInstaller will not throw exceptions for errors when invoked via <code>GemInstaller.run</code> or <code>GemInstaller.autogem</code>.  This is so that any GemInstaller errors will not abort startup of Rails or any other app other apps.  However, if you do want errors to abort startup of Rails or your app, you can set this option.
+By default, GemInstaller will not throw exceptions for errors when invoked via <code>GemInstaller.install</code> or <code>GemInstaller.autogem</code>.  This is so that any GemInstaller errors will not abort startup of Rails or any other app other apps.  However, if you do want errors to abort startup of Rails or your app, you can set this option.
 
 h3(#redirect_stderr_to_stdout_option). <code>--redirect-stderr-to-stdout</code> option
 
@@ -322,7 +322,7 @@ args += " --exceptions"
 args += " --sudo" unless RUBY_PLATFORM =~ /mswin/ 
 
 # The 'install' method will auto-install gems as specified by the args and config
-GemInstaller.run(args)
+GemInstaller.install(args)
 
 # The 'autogem' method will automatically add all gems in the GemInstaller config to your load path, using the 'gem'
 # or 'require_gem' command.  Note that only the *first* version of any given gem will be loaded.

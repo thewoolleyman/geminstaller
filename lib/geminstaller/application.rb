@@ -8,7 +8,7 @@ module GemInstaller
       @args = nil
     end
     
-    def run
+    def install
       begin
         exit_flag_and_return_code = handle_args
         if exit_flag_and_return_code[0]

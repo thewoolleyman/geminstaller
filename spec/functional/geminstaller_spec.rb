@@ -20,12 +20,12 @@ describe "The geminstaller command line application" do
   it "should print usage if --help arg is specified" do
     @application.args = ["--help"]
     @mock_output_proxy.should_receive(:sysout).with(/^Usage.*/)
-    @application.run
+    @application.install
   end
   
   it "should install gem if it is not already installed" do
     @application.args = geminstaller_spec_test_args
-    @application.run
+    @application.install
     @gem_spec_manager.is_gem_installed?(@sample_gem).should==(true)
   end
 
@@ -40,7 +40,7 @@ describe "The geminstaller command line application" do
     @sample_gem.platform = 'current'
   
     @application.args = geminstaller_spec_test_args
-    @application.run
+    @application.install
     @gem_spec_manager.is_gem_installed?(@sample_gem).should==(true)
   end
   end
@@ -51,7 +51,7 @@ describe "The geminstaller command line application" do
     @application.args = args
     @mock_output_proxy.should_receive(:sysout).with(/^GemInstaller is verifying gem installation: #{sample_gem_name}.*/)
     @mock_output_proxy.should_receive(:sysout).any_number_of_times.with(anything())
-    @application.run
+    @application.install
   end
   
 
@@ -61,13 +61,13 @@ describe "The geminstaller command line application" do
     @application.args = args
     @mock_output_proxy.should_receive(:sysout).with(/^Gem .* is already installed/)
     @mock_output_proxy.should_receive(:sysout).any_number_of_times.with(anything())
-    @application.run
+    @application.install
   end
   
   it "should print error if --sudo option is specified (it's only supported if geminstaller is invoked via GemInstaller class, which strips out the option)" do
     @application.args = ["--sudo","--config=#{geminstaller_spec_live_config_path}"]
     @mock_output_proxy.should_receive(:syserr).once().with(/^The sudo option is not .* supported/)
-    @application.run
+    @application.install
   end
   
   it "redirects stderr to stdout" do
@@ -81,7 +81,7 @@ describe "The geminstaller command line application" do
       $stderr = @mock_stderr
       @output_proxy = @registry.output_proxy
       @output_filter.output_proxy = @output_proxy
-      @application.run
+      @application.install
       @mock_stdout.out.should match(/^Error/)
       @mock_stderr.err.should ==(nil)
     ensure
@@ -94,27 +94,27 @@ describe "The geminstaller command line application" do
     @sample_multiplatform_gem = sample_multiplatform_gem
     @gem_command_manager.uninstall_gem(@sample_multiplatform_gem) if @gem_spec_manager.is_gem_installed?(@sample_multiplatform_gem)
     @application.args = ["--silent","--config=#{dir}/live_geminstaller_config_2.yml"]
-    @application.run
+    @application.install
     @gem_spec_manager.is_gem_installed?(@sample_multiplatform_gem).should==(true)
   end
   
   it "should install correctly even if install_options is not specified on the gem" do
     @application.args = ["--silent","--config=#{dir}/live_geminstaller_config_3.yml"]
-    @application.run
+    @application.install
     @gem_spec_manager.is_gem_installed?(@sample_gem).should==(true)
   end
   
   it "should not give an error if a config file with no gems is loaded" do
     @application.args = ["--config=#{dir}/empty_geminstaller_config.yml"]
     @mock_output_proxy.should_receive(:sysout).any_number_of_times.with(/No gems found/m)
-    @application.run
+    @application.install
   end
   
   it "should show error if a version specification is not met" do
     @application.args = ["--config=#{dir}/live_geminstaller_config_4.yml"]
     @mock_output_proxy.should_receive(:syserr).with(/^The specified version requirement '> 1.0.0' for gem 'stubgem' is not met by any of the available versions: 1.0.0./)
     @mock_output_proxy.should_receive(:sysout).any_number_of_times.with(anything())
-    @application.run
+    @application.install
     @gem_spec_manager.is_gem_installed?(@sample_gem).should==(false)
   end
    
@@ -123,7 +123,7 @@ describe "The geminstaller command line application" do
     @mock_output_proxy.should_receive(:sysout).with(/^Invoking gem install for #{sample_dependent_depends_on_multiplatform_gem.name}.*/)
     @mock_output_proxy.should_receive(:sysout).with(/^Rubygems automatically installed dependency gem #{sample_multiplatform_gem.name}-#{sample_multiplatform_gem.version}/)
     @mock_output_proxy.should_receive(:sysout).any_number_of_times.with(anything())
-    @application.run
+    @application.install
     @gem_spec_manager.is_gem_installed?(sample_dependent_depends_on_multiplatform_gem).should==(true)
     expected_dependency_gem = nil
     if RUBY_PLATFORM =~ /mswin/ && GemInstaller::RubyGemsVersionChecker.matches?('<=0.9.4')
@@ -144,14 +144,25 @@ describe "The geminstaller command line application" do
    
 end
 
-describe "The geminstaller command line application created via GemInstaller.run method" do
+describe "The geminstaller command line application created via GemInstaller.install method" do
   before(:each) do
     GemInstaller::TestGemHome.use
+    @registry = GemInstaller::create_registry
+    @gem_spec_manager = @registry.gem_spec_manager
   end
 
   it "should run successfully" do
+    @gem_spec_manager.is_gem_installed?(sample_gem).should be_false
+    result = GemInstaller.install(geminstaller_spec_test_args)
+    result.should equal(0)
+    @gem_spec_manager.is_gem_installed?(sample_gem).should be_true
+  end
+
+  it "should run successfully via the 'GemInstaller.run' method" do
+    @gem_spec_manager.is_gem_installed?(sample_gem).should be_false
     result = GemInstaller.run(geminstaller_spec_test_args)
     result.should equal(0)
+    @gem_spec_manager.is_gem_installed?(sample_gem).should be_true
   end
 
   after(:each) do
@@ -178,7 +189,7 @@ describe "The GemInstaller.autogem method" do
     @expected_load_path_entry_bin = "#{test_gem_home_dir}/gems/#{sample_gem_name}-#{sample_gem_version}/bin"
     @expected_load_path_entry_2 = "#{test_gem_home_dir}/gems/#{sample_multiplatform_gem_name}-#{sample_multiplatform_gem_version}-#{win32_platform}/lib"
     @expected_load_path_entry_2_bin = "#{test_gem_home_dir}/gems/#{sample_multiplatform_gem_name}-#{sample_multiplatform_gem_version}-#{win32_platform}/bin"
-    GemInstaller.run(["--silent","--config=#{geminstaller_spec_live_config_path},#{geminstaller_spec_live_config_2_path}"])
+    GemInstaller.install(["--silent","--config=#{geminstaller_spec_live_config_path},#{geminstaller_spec_live_config_2_path}"])
     @gem_spec_manager.is_gem_installed?(sample_gem).should==(true)
     @gem_spec_manager.is_gem_installed?(sample_multiplatform_gem).should==(true)
     $:.delete(@expected_load_path_entry)

@@ -27,4 +27,4 @@ if ARGV.include?('--geminstaller-exec-path')
   exit 0
 end
 
-exit GemInstaller.run(ARGV, geminstaller_executable)
+exit GemInstaller.install(ARGV, geminstaller_executable)

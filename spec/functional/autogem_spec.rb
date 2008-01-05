@@ -7,7 +7,7 @@ describe "an AutoGem instance" do
     @registry = GemInstaller::create_registry
     @autogem = @registry.autogem
     # install all the sample gems
-    GemInstaller.run(["--silent","--config=#{dir}/live_geminstaller_config_all_sample_gems.yml"])
+    GemInstaller.install(["--silent","--config=#{dir}/live_geminstaller_config_all_sample_gems.yml"])
     # Clear out loaded specs in rubygems, otherwise the gem call won't do anything
     Gem.instance_eval { @loaded_specs.clear if @loaded_specs }
   end

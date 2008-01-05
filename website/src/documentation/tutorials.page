@@ -97,7 +97,7 @@ gems:
   platform: <%= RUBY_PLATFORM =~ /mswin/ ? 'mswin32' : 'ruby'%>
 </pre>
 
-Once you have your *<code>geminstaller.yml</code>* created, the last step is to add calls to <code>GemInstaller.run</code> and <code>GemInstaller.autogem</code> in your boot.rb.  They should be placed right after the block which defines the RAILS_ROOT constant, as shown below ("..." indicates omitted lines):
+Once you have your *<code>geminstaller.yml</code>* created, the last step is to add calls to <code>GemInstaller.install</code> and <code>GemInstaller.autogem</code> in your boot.rb.  They should be placed right after the block which defines the RAILS_ROOT constant, as shown below ("..." indicates omitted lines):
 
 
 *RAILS_ROOT/config/boot.rb*:
@@ -127,7 +127,7 @@ args += " --exceptions"
 args += " --sudo" unless RUBY_PLATFORM =~ /mswin/ 
 
 # The 'install' method will auto-install gems as specified by the args and config
-GemInstaller.run(args)
+GemInstaller.install(args)
 
 # The 'autogem' method will automatically add all gems in the GemInstaller config to your load path, using the 'gem'
 # or 'require_gem' command.  Note that only the *first* version of any given gem will be loaded.
@@ -225,7 +225,7 @@ config_paths = "#{File.expand_path(RAILS_ROOT)}/config/geminstaller.yml"
 args = "--config #{config_paths}" 
 args += " --exceptions"
 args += " --sudo" unless RUBY_PLATFORM =~ /mswin/ 
-GemInstaller.run(args)
+GemInstaller.install(args)
 GemInstaller.autogem(args)
 ############# End GemInstaller config
 
