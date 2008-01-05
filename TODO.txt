@@ -1,3 +1,4 @@
+* Add option to auto-update rubygems to specified version.  See rubygems mailing list thread for details
 * add option to use frozen edge rails before rails gem, understand the implications
 * add warning if a gem version error is detected, saying to run geminstaller to install the missing version
 =============== Unfiled =============
