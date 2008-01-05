@@ -3,6 +3,7 @@
 * add warning if a gem version error is detected, saying to run geminstaller to install the missing version
 =============== Unfiled =============
 * Rename API: change current 'run' to 'install'; add new 'run' which automatically calls both 'install' and 'load', add 'no-load' option (only applicable when invoked programatically) to suppress automatic 'load'
+* set up sample rails project with geminstaller hook and sample test under CI.  Have cruise_config uninstall a dummy gem before rails tests, then have rails test ensure it was installed and loaded.
 ================ 0.4.0 release ===================
 * turn smoketest into rake task, with correct return code handling, and hook up to cruise
 * look into and explain mongrel/webrick installation errors
