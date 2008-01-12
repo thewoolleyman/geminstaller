@@ -1,8 +1,9 @@
+* If permission error, offer to auto-install under ~/gems/1.8 (configurable) and add to GEM_PATH
 * Add option to auto-update rubygems to specified version.  See rubygems mailing list thread for details
 * add option to use frozen edge rails before rails gem, understand the implications
 * add warning if a gem version error is detected, saying to run geminstaller to install the missing version
 =============== Unfiled =============
-* Rename API: change current 'run' to 'install'; add new 'run' which automatically calls both 'install' and 'load', add 'no-load' option (only applicable when invoked programatically) to suppress automatic 'load'
+* Rename API: change current 'run' to 'install'; add new 'run' which automatically calls both 'install' and 'autogem', add 'no-install' and 'no-autogem' option (only applicable when invoked programatically) to suppress if desired
 * set up sample rails project with geminstaller hook and sample test under CI.  Have cruise_config uninstall a dummy gem before rails tests, then have rails test ensure it was installed and loaded.
 ================ 0.4.0 release ===================
 * turn smoketest into rake task, with correct return code handling, and hook up to cruise
