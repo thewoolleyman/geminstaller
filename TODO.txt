@@ -1,5 +1,4 @@
 =============== Unfiled =============
-* add warning if a gem version error is detected, saying to run geminstaller to install the missing version
 * add auto-install option if gem version error is detected, update error message saying to set option
 * Rename API: change current 'run' to 'install'; add new 'run' which automatically calls both 'install' and 'autogem', add 'no-install' and 'no-autogem' option (only applicable when invoked programatically) to suppress if desired
 * If permission error, offer to auto-install under ~/gems/1.8 (configurable) and add to GEM_PATH

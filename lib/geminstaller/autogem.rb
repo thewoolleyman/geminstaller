@@ -12,9 +12,18 @@ module GemInstaller
     end
     
     def process_gem(gem)
-      unless @completed_names.index(gem.name) or gem.no_autogem
-        invoke_require_gem_command(gem.name, gem.version)
-        @completed_names << gem.name
+      name = gem.name
+      version = gem.version
+      unless @completed_names.index(name) or gem.no_autogem
+        begin
+          invoke_require_gem_command(name, version)
+        rescue Gem::LoadError => load_error
+          load_error_message = load_error.message
+          load_error_message.strip!
+          error_message = "Error: GemInstaller attempted to load gem '#{name}', version '#{version}', but that version is not installed.  Use GemInstaller to install the gem.  Original Gem::LoadError was: '#{load_error_message}'"
+          raise GemInstaller::GemInstallerError.new(error_message)
+        end
+        @completed_names << name
         @completed_gems << gem
       end
     end
@@ -23,8 +32,8 @@ module GemInstaller
       if GemInstaller::RubyGemsVersionChecker.matches?('< 0.9')
         require_gem(name, version)
       else
-        # TODO: should we check true/false result of gem method?
-        gem(name, version)
+        # TODO: check true/false result of gem method, print debug message if false (already loaded)
+        result = gem(name, version)
       end
     end
   end

@@ -7,7 +7,7 @@ describe "an AutoGem instance" do
     @registry = GemInstaller::create_registry
     @autogem = @registry.autogem
     # install all the sample gems
-    GemInstaller.install(["--silent","--config=#{dir}/live_geminstaller_config_all_sample_gems.yml"])
+    GemInstaller.install(["--config=#{dir}/live_geminstaller_config_all_sample_gems.yml"])
     # Clear out loaded specs in rubygems, otherwise the gem call won't do anything
     Gem.instance_eval { @loaded_specs.clear if @loaded_specs }
   end
@@ -17,6 +17,14 @@ describe "an AutoGem instance" do
     added_gems = @autogem.autogem([sample_gem])
     added_gems[0].should ==(sample_gem)
     path_should_include_entries(sample_gem)
+  end
+  
+  it "should raise a custom exception if autoload is attempted for missing gem version" do
+    missing_gem = sample_gem
+    missing_version = '0.13.13'
+    missing_gem.version = missing_version
+    expected_message= /Error: GemInstaller attempted to load gem '#{sample_gem_name}', version '#{missing_version}', but that version is not installed.  Use GemInstaller to install the gem.  Original Gem::LoadError was: 'RubyGem version error: #{sample_gem_name}\(#{sample_gem_version} not = #{missing_version}\)'/
+    lambda { @autogem.autogem([missing_gem]) }.should raise_error(GemInstaller::GemInstallerError, expected_message)
   end
   
   it "should not add a specified gem to the load path if the no_autogem property is set" do
