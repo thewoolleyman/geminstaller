@@ -137,6 +137,10 @@ module GemInstaller
         GemInstaller::RubyGem.new(sample_multiplatform_gem_name, :version => sample_multiplatform_gem_version, :platform => 'mswin32', :install_options => install_options, :uninstall_options => uninstall_options)
       end
   
+      def sample_multiplatform_gem_lower_version(install_options=install_options_for_testing, uninstall_options=uninstall_options_for_testing)
+        GemInstaller::RubyGem.new(sample_multiplatform_gem_name, :version => sample_multiplatform_gem_version_low, :platform => 'mswin32', :install_options => install_options, :uninstall_options => uninstall_options)
+      end
+
       def sample_multiplatform_gem_ruby(install_options=install_options_for_testing, uninstall_options=uninstall_options_for_testing)
         gem = sample_multiplatform_gem(install_options, uninstall_options)
         gem.platform = 'ruby'
