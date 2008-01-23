@@ -1,2 +1,2 @@
 # warning - experimental
-rdebug -I spec/fixture/rubygems_dist/rubygems-1.0.0/lib/ /usr/local/bin/spec -- $1 --line=$2
+ruby -I spec/lib/ruby-debug-0.10.0/cli:spec/lib/ruby-debug-0.10.0/bin:spec/lib/ruby-debug-base-0.10.0/lib:spec/lib/ruby-debug-0.10.0/bin/rdebug:spec/lib/rspec-1.1.1/lib spec/lib/ruby-debug-0.10.0/bin/rdebug spec/lib/rspec-1.1.1/bin/spec -- $1 --line=$2
