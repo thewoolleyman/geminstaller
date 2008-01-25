@@ -48,6 +48,7 @@ task :diff_manifest => :clean do
     next unless File.file? path
     next if path =~ /\.svn|tmp$|CVS/
     next if path =~ /\.iml|\.ipr|\.iws|\.kpf|\.tmproj|\.project/
+    next if path =~ /\.\/nbproject/
     next if path =~ /\.\/spec/
     next if path =~ /\.\/pkg/
     next if path =~ /\.\/output/

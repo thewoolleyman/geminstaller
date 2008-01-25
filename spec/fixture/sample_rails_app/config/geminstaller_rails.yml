@@ -1,0 +1,9 @@
+- name: rails
+  # This is an example of using an optional environment variable to override the version
+  #  of Rails that is used, without having to modify any code or config files.
+  <% if ENV['RAILS_GEM_VERSION'] %>
+  version: <%= ENV['RAILS_GEM_VERSION'] %>
+  <% else %>
+  version: 2.0.2
+  <% end %>
+  install_options: --include_dependencies

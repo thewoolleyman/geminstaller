@@ -1,0 +1,22 @@
+---
+# This file contains example of several GemInstaller features.  Your file can be simpler
+defaults: # defaults apply to all gems in the 'gems:' section, but can be overridden
+  # '--include-dependencies' is only needed for RubyGems < 1.0
+  # install_options: --include-dependencies
+gems:
+- name: capistrano
+  version: 2.0.0
+- name: capistrano-ext
+  version: 1.2.0
+- name: geminstaller
+  version: >= 0.3.0
+  # The 'check_for_upgrade' option will always install the most recent gem, but is 
+  # a slow remote operation that may fail if the remote gem server is unavailable
+  # check_for_upgrade: true
+# The include_config directive allows you to share common config entries across multiple files/projects
+<%= include_config("#{File.expand_path(File.dirname(__FILE__))}/geminstaller_rails.yml") %>
+- name: mongrel
+  version: 1.0.1
+# ruby-doom is a sample gem which we will use to verify that geminstaller is working
+- name: ruby-doom
+  version: 0.8
