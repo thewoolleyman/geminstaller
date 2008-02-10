@@ -6,4 +6,3 @@
   <% else %>
   version: 2.0.2
   <% end %>
-  install_options: --include_dependencies

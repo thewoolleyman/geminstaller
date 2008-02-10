@@ -1,7 +1,5 @@
 # This is a test of the GemInstaller autogem functionality
 
-# It requires that the GemInstaller gem be installed
-
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_utils")
 require File.expand_path("#{dir}/../helper/test_gem_home")
