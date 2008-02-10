@@ -1,0 +1,13 @@
+<h1>Ruby Load Path ($:):</h1>
+<ul>
+<% $:.each do |path_entry|%>
+  <li><%= path_entry %>
+<% end %>
+</ul>
+
+<h1>Ruby Require Array ($"):</h1>
+<ul>
+<% $".each do |require_entry|%>
+  <li><%= require_entry %>
+<% end %>
+</ul>
