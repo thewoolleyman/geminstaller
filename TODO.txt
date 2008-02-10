@@ -4,11 +4,11 @@
 * Change option handling to accept hashes in addition to strings when invoked programatically
 * also look for config file under RAILS_ROOT/config, if RAILS_ROOT is defined (somehow fails under textmate, if working dir is wrong)
 * add auto-install option if gem version error is detected, update error message saying to set option
-* If permission error, offer to auto-install under ~/gems/1.8 (configurable) and add to GEM_PATH
+* If permission error, offer to auto-install under ~/gems/1.8 (configurable) and add to GEM_PATH.  "use_writable_gem_home" and "writable_gem_home".
 * add option to use frozen edge rails before rails gem, understand the implications
-================ 0.4.1 release ===================
 * add command line tool to automatically generate files - rake task, and preinit hook.  Auto-detect rails vs. non-rails project and generate stuff accordingly.  --setup, --setup-rails
-* auto-install on app startup should not be the default, because of sudo/rake doublerun/speed issues.  Update autogem missing gem error message accordingly.
+* auto-install on app startup should not be the default unless use_writable_gem_home is implemented, because of sudo/rake doublerun/speed issues.  Update autogem missing gem error message accordingly.
+================ 0.4.1 release ===================
 * cryptic message if "name:" is left off in yaml
 * Add option to auto-update rubygems to specified version.  See rubygems mailing list thread for details
 * set up sample rails project with geminstaller hook and sample test under CI.  Have cruise_config uninstall a dummy gem before rails tests, then have rails test ensure it was installed and loaded.
