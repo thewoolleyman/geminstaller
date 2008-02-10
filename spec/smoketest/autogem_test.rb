@@ -8,7 +8,7 @@ module GemInstaller
   class AutoGemTest
     include GemInstaller::SpecUtils::ClassMethods
 
-    def run(no_warnings = false)
+    def run()
       GemInstaller::TestGemHome.put_rubygems_on_load_path
       dir = File.dirname(__FILE__)
       use_sudo = true
@@ -24,22 +24,13 @@ module GemInstaller
 
       is_windows = RUBY_PLATFORM =~ /mswin/ ? true : false
 
-      print "Important Note: Before running this, you should make sure you do not have the current geminstaller gem installed locally.  Use rake uninstall_gem to uninstall it.\n\n"
-      print "This will install the following gems and verify they can be autoloaded with geminstaller the autoload command.\n"
-      unless no_warnings
-        print "If that is OK, press 'y'\n\n"
-        required_gems.each {|gem| print "  " + gem + "\n"}
-        response = gets
-        exit unless response.index('y')
-      end
-
       sudo = '' 
       sudo = '--sudo' unless is_windows
 
       dir = File.dirname(__FILE__)
       config_files = "#{File.join(dir,'smoketest-geminstaller.yml')},#{File.join(dir,'smoketest-geminstaller-override.yml')}"
       path_to_app = File.expand_path("#{dir}/../../bin/geminstaller")
-      geminstaller_cmd = "#{ruby_cmd} #{path_to_app} #{sudo} --config=#{config_files}"
+      geminstaller_cmd = "#{ruby_cmd} -I #{dir}/../../lib #{path_to_app} #{sudo} --config=#{config_files}"
       print "Running geminstaller: #{geminstaller_cmd}\n"
       print "We won't verify installation, run smoketest.rb for that...\n"
       print "Please be patient, it may take a bit, or may not work at all if rubyforge or your network connection is down, or you don't have proper permissions, or if there's a bug in geminstaller :)\n\n"
@@ -96,9 +87,17 @@ module GemInstaller
 
       print "\n\n"
       print "SUCCESS! FANFARE! All gems were successfully added to the load path, except the one that shouldn't be!\n\n"
+      return true
     end
   end
 end
 
-no_warnings = (ARGV.member?('--no-warnings') ? true: false)
-GemInstaller::AutoGemTest.new.run(no_warnings)
+require 'test/unit'
+
+module GemInstaller
+  class AutoGemSmokeTest < Test::Unit::TestCase
+    def test_install
+      assert(GemInstaller::AutoGemTest.new.run, "FAILURE, autogem smoketest failed.") 
+    end
+  end
+end
