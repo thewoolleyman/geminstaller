@@ -1,4 +1,5 @@
 == 0.x.y / yyyy-mm-dd
+* rename GemInstaller.run method to GemInstaller.install, keep run as an alias for install
 * add‍warning‍if‍a‍gem‍version‍error‍is‍detected,‍saying‍to‍run‍geminstaller‍to‍install‍the‍missing‍version
 * more‍work‍on‍rubygems‍1.x‍compatibility
 * better internal support for uninstall options

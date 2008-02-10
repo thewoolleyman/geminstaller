@@ -1,20 +1,21 @@
 =============== Unfiled =============
-* also look for config file under RAILS_ROOT/config, if RAILS_ROOT is defined (somehow fails under textmate, if working dir is wrong)
-* cryptic message if "name:" is left off in yaml
-* add command line tool to automatically generate files - rake task, and preinit hook.  Auto-detect rails vs. non-rails project and generate stuff accordingly.  --setup, --setup-rails
-* auto-install on app startup should not be the default, because of sudo/rake doublerun/speed issues.  Update autogem missing gem error message accordingly.
-* add auto-install option if gem version error is detected, update error message saying to set option
+================ 0.3.1 release ===================
 * Rename API: change current 'run' to 'install'; add new 'run' which automatically calls both 'install' and 'autogem', add 'no-install' and 'no-autogem' option (only applicable when invoked programatically) to suppress if desired
+* Change option handling to accept hashes in addition to strings when invoked programatically
+* also look for config file under RAILS_ROOT/config, if RAILS_ROOT is defined (somehow fails under textmate, if working dir is wrong)
+* add auto-install option if gem version error is detected, update error message saying to set option
 * If permission error, offer to auto-install under ~/gems/1.8 (configurable) and add to GEM_PATH
 * add option to use frozen edge rails before rails gem, understand the implications
 ================ 0.4.1 release ===================
+* add command line tool to automatically generate files - rake task, and preinit hook.  Auto-detect rails vs. non-rails project and generate stuff accordingly.  --setup, --setup-rails
+* auto-install on app startup should not be the default, because of sudo/rake doublerun/speed issues.  Update autogem missing gem error message accordingly.
+* cryptic message if "name:" is left off in yaml
 * Add option to auto-update rubygems to specified version.  See rubygems mailing list thread for details
 * set up sample rails project with geminstaller hook and sample test under CI.  Have cruise_config uninstall a dummy gem before rails tests, then have rails test ensure it was installed and loaded.
 ================ 0.4.x release ===================
 * turn smoketest into rake task, with correct return code handling, and hook up to cruise
 * look into and explain mongrel/webrick installation errors
 * add top-level method for uninstall of gems, and document (requested by Alex Chaffee and others)
-
 * docs - add example of using environment variable to control gem version without changing code (Rails)
 * docs - document and add sample file for preinitializer boot hook.  Explain why it can't be in environment.rb vs boot.rb or prinitializer (bottom line: env is not processed before Initializer, so can't be used to load rails gems)
 * tutorial: using common or shared config files, with different configs for different environments - test (rspec) vs. dev (capistrano) vs. demo/staging/prod, mention include_config option and pros/cons of different approaches
