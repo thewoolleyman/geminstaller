@@ -1,5 +1,6 @@
 =============== Unfiled =============
 ================ 0.3.1 release ===================
+* rails_smoketest.rb is not working, always reinstalls existing gems
 * Rename API: change current 'run' to 'install'; add new 'run' which automatically calls both 'install' and 'autogem', add 'no-install' and 'no-autogem' option (only applicable when invoked programatically) to suppress if desired
 * Change option handling to accept hashes in addition to strings when invoked programatically
 * also look for config file under RAILS_ROOT/config, if RAILS_ROOT is defined (somehow fails under textmate, if working dir is wrong)
