@@ -20,7 +20,7 @@ module GemInstaller
   class SmokeTest
     include GemInstaller::SpecUtils::ClassMethods
 
-    def run(no_warnings = false)
+    def run
       dir = File.dirname(__FILE__)
       # heckle -> hoe -> rubyforge show a three-level dependency
       test_gems = ['ruby-doom', 'rutils', 'x10-cm17a', 'heckle', 'hoe', 'rubyforge']
@@ -32,37 +32,17 @@ module GemInstaller
 
       is_windows = RUBY_PLATFORM =~ /mswin/ ? true : false
 
-      print "Important Note: Before running this, you should make sure you don't have the geminstaller gem installed locally.  Otherwise, you could run the installed version rather than the version in your working copy.\n\n"
-      print "This will uninstall the following gems and reinstall them with geminstaller.\n"
-      unless no_warnings
-        print "If that is OK, press 'y'\n\n"
-        test_gems.each {|gem| print "  " + gem + "\n"}
-        response = gets
-        exit unless response.index('y')
-      end
-
       print "Here's the versions you currently have installed (if any), just in case this fails and you have to reinstall them manually:\n\n"
       IO.popen("#{gem_cmd} list #{test_gems.join(' ')}")
 
       use_sudo = false
       sudo = ''
       unless is_windows
-        unless no_warnings
-          print "Enter y if you need to use sudo to install/uninstall gems, anything else to not use sudo:\n"
-          response = gets
-          use_sudo = true if response.index('y')
-          if use_sudo
-            print "Enter your sudo password (if required),\n"
-            sudo_init = IO.popen("sudo pwd")
-            sudo_init.gets
-          end
-        else
-          # use sudo by default if no warnings
-          use_sudo = true          
-        end
-        if use_sudo
-          sudo = "sudo"
-        end
+        print "Enter your sudo password (if required),\n"
+        sudo_init = IO.popen("sudo pwd")
+        sudo_init.gets
+        use_sudo = true
+        sudo = "sudo"
       end
       test_gems.each do |gem|
         print "Uninstalling all versions of #{gem}.  This will give an error if it's not already installed.\n"
@@ -84,7 +64,6 @@ module GemInstaller
 
       print "\n\n"
       path_to_app = File.expand_path("#{dir}/../../bin/geminstaller")
-      sudo_flag = ''
       sudo_flag = '--sudo' if use_sudo
       geminstaller_cmd = "#{ruby_cmd} #{path_to_app} #{sudo_flag} --config=#{File.join(dir,'smoketest-geminstaller.yml')},#{File.join(dir,'smoketest-geminstaller-override.yml')}"
       print "Running geminstaller: #{geminstaller_cmd}\n"
@@ -135,9 +114,17 @@ module GemInstaller
       print "Running geminstaller: #{geminstaller_cmd}\n"
       IO.popen(geminstaller_cmd) {|process| process.readlines.each {|line| print line}}
       print "\n\n"
+      return success
     end
   end
 end
 
-no_warnings = (ARGV.member?('--no-warnings') ? true: false)
-GemInstaller::SmokeTest.new.run(no_warnings)
+require 'test/unit'
+
+module GemInstaller
+  class InstallSmokeTest < Test::Unit::TestCase
+    def test_install
+      assert(GemInstaller::SmokeTest.new.run, "FAILURE, install smoketest failed.") 
+    end
+  end
+end
