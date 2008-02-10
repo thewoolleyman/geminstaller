@@ -23,7 +23,7 @@ These are some notes on the underlying design of GemInstaller, and the current s
 *** Smoke Tests: There are some tests under /spec/smoketests which I run manually.  These are really coarse grained scripts, and don't use Rspec or Test::Unit.  They hit the live rubygems.org gem repository, and install/uninstall actual gems.  They are used as a periodic check to ensure that my "Test Gem Home" fixture approach is not masking any real-life bugs.
 * I'm a proponent of high code coverage.  I check periodically to ensure I maintain close to 100% code coverage, not counting platform- and version-specific code blocks (and I'll get around to those some day).  Also, the sudo recursive invocation stuff still needs some tests, but that's a bit tricky to automate.
 * The tests are "harder" on Windows (but run fine on mac/linux).  The app should work fine, but testing is pretty tricky.  I have all tests working against the latest rubygems (1.0.1).  Here's what does and doesn't work with tests against latest rubygems on windows:
-  * smoketest.rb and autogem_test.rb work
+  * install_smoketest.rb and autogem_smoketest.rb work
   * ruby test/test_all.rb works
   * rake default test task does not work (this seems to be a problem with hoe on windows)
   * Sometimes test suite still hangs after a while, this is probably some orphaned EmbeddedGemServer process somewhere.  A reboot should fix it - this is windows, after all!
@@ -57,8 +57,8 @@ Yeah, it's too manual.  Notes for improvement below.
 * rake update_manifest
 * Run tests:
   * CI should be green for all versions
-  * smoketest.rb and autogem_test.rb should pass for all RubyGems versions on mac/linux
-  * test_all, smoketest.rb and autogem_test.rb should pass for latest RubyGems version on windows
+  * install_smoketest.rb and autogem_smoketest.rb should pass for all RubyGems versions on mac/linux
+  * test_all, install_smoketest.rb and autogem_smoketest.rb should pass for latest RubyGems version on windows
 * Make sure everything is checked in
 * Make a tag in svn
 * rake clean package
