@@ -6,7 +6,7 @@
 * add auto-install option if gem version error is detected, update error message saying to set option
 * If permission error, offer to auto-install under ~/gems/1.8 (configurable) and add to GEM_PATH.  "use_writable_gem_home" and "writable_gem_home".
 * add option to use frozen edge rails before rails gem, understand the implications
-* add command line tool to automatically generate files - rake task, and preinit hook.  Auto-detect rails vs. non-rails project and generate stuff accordingly.  --setup, --setup-rails
+* add command line tool to automatically generate files - rake task, and preinit hook.  Auto-detect rails vs. non-rails project and generate stuff accordingly.  --setup, --setup-rails.  Check for new-style boot.rb, fail if missing, check for RAILS_GEM_VERSION in environment.rb, warn if present.
 * auto-install on app startup should not be the default unless use_writable_gem_home is implemented, because of sudo/rake doublerun/speed issues.  Update autogem missing gem error message accordingly.
 ================ 0.4.1 release ===================
 * cryptic message if "name:" is left off in yaml
