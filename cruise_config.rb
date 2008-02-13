@@ -8,4 +8,7 @@ Project.configure do |project|
     rubygems_version.gsub!('-','.')
     ENV['RUBYGEMS_VERSION'] = rubygems_version
   end
+  if project.name =~ /smoketest/i # smoketest project
+    project.rake_task = 'smoketest'
+  end
 end
