@@ -91,4 +91,11 @@ task :publish_website => [:clean, :website] do
   local_dir = 'website/output'
   sh %{rsync -av --delete --exclude=statsvn #{local_dir}/ #{host}:#{remote_dir}}
 end
+
+
+desc 'Run Smoketests'
+task :smoketest => [:clean] do
+  cmd = "#{Hoe::RUBY_FLAGS} test/test_all_smoketests.rb #{Hoe::FILTER}"
+  send :ruby, cmd
+end
 # vim: syntax=Ruby
