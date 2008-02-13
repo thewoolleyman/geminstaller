@@ -20,5 +20,5 @@ gems:
 # ruby-doom is a sample gem which we will use to verify that geminstaller is working
 - name: ruby-doom
   version: 0.8
-- name: sqlite3-ruby
+- name: xsqlite3-ruby
   version: 1.2.1
