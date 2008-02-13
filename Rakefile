@@ -96,6 +96,7 @@ end
 desc 'Run Smoketests'
 task :smoketest => [:clean] do
   cmd = "#{Hoe::RUBY_FLAGS} test/test_all_smoketests.rb #{Hoe::FILTER}"
-  send :ruby, cmd
+  result = send :ruby, cmd
+  raise "Smoketests failed" unless result == 0
 end
 # vim: syntax=Ruby
