@@ -40,6 +40,7 @@ when 'stop'
   system "mongrel_rails stop -P #{cruise_path}/tmp/pids/mongrel.pid"
   Dir["#{cruise_path}/tmp/pids/builders/*.pid"].each do |pid_file|
     pid = File.open(pid_file){|f| f.read }
+    puts "Killing builder at file #{pid_file}, pid=#{pid}"
     system "kill -9 #{pid}"
     rm pid_file
   end
