@@ -1,6 +1,6 @@
 == 0.x.y / yyyy-mm-dd
 * rename GemInstaller.run method to GemInstaller.install, keep run as an alias for install
-* add‍warning‍if‍a‍gem‍version‍error‍is‍detected,‍saying‍to‍run‍geminstaller‍to‍install‍the‍missing‍version
+* add‍warning‍if‍a‍gem‍version‍error‍is‍detected,‍with instructions‍to‍run‍geminstaller‍to‍install‍the‍missing‍version
 * Rubygems‍1.x‍compatibility
 * better internal support for uninstall options
 * use‍new,‍correct‍x86-mswin32‍format‍for‍mswin32‍platform‍gems
