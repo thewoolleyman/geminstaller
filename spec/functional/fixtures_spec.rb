@@ -18,7 +18,11 @@ describe "The sample gem fixtures install and uninstall methods" do
 
     if GemInstaller::RubyGemsVersionChecker.matches?('>=0.9.5')
       # no gems should be left
-      all_local_gems.should be_empty
+      test_gems.each do |gem|
+        # We must check each sample gem specifically, because on OSX Leopard, user gems end up 
+        # being found as well, not just the sample gems in the test gem home.
+        @gem_spec_manager.should_not be_is_gem_installed(gem)
+      end
     else
       # nothing but sources gem should be left
       all_local_gems.size.should == 1

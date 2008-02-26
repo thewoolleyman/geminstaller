@@ -5,6 +5,7 @@
 * better internal support for uninstall options
 * use‍new,‍correct‍x86-mswin32‍format‍for‍mswin32‍platform‍gems
 * update‍warning‍message‍for‍older‍rubygems‍versions
+* made tests run on Mac OS X Leopard w/RubyGems 1.0.1
 == 0.3.0 / 2008-01-01
 * Changes to work with RubyGems >= 0.9.5 and take advantage of new platform and auto-install features.  See notes at http://geminstaller.rubyforge.org/code/index.html#rubygems_compatibility
 * On Linux/Mac, you can now specify a RUBYGEMS_VERSION environment var to test against a specific version of RubyGems.

@@ -1,9 +1,10 @@
 =============== Unfiled =============
-================ 0.3.1 release ===================
+================ 0.4.0 release ===================
 * Fix bug with win32 using ruby platform by default
 * Change option handling to accept hashes in addition to strings when invoked programatically
 * also look for config file under RAILS_ROOT/config, if RAILS_ROOT is defined (somehow fails under textmate, if working dir is wrong)
-================ 0.4.0 release ===================
+* Rails smoketest is failing on capistrano-ext (thinks it is installed but can't autogem) - only Leopard?
+================ 0.5.0 release ===================
 * rails_smoketest.rb is not working, always reinstalls existing gems
 * If permission error, offer to auto-install under ~/gems/1.8 (configurable) and add to GEM_PATH.  "use_writable_gem_home" and "writable_gem_home".
 * add command line tool to automatically generate files - rake task, and preinit hook.  Auto-detect rails vs. non-rails project and generate stuff accordingly.  --setup, --setup-rails.  Check for new-style boot.rb, fail if missing, check for RAILS_GEM_VERSION in environment.rb, warn if present.
@@ -14,7 +15,7 @@
 * cryptic message if "name:" is left off in yaml
 * Add option to auto-update rubygems to specified version.  See rubygems mailing list thread for details
 * set up sample rails project with geminstaller hook and sample test under CI.  Have cruise_config uninstall a dummy gem before rails tests, then have rails test ensure it was installed and loaded.
-================ 0.4.x release ===================
+================ 0.x.x release ===================
 * turn smoketest into rake task, with correct return code handling, and hook up to cruise
 * look into and explain mongrel/webrick installation errors
 * add top-level method for uninstall of gems, and document (requested by Alex Chaffee and others)
@@ -28,7 +29,7 @@
 * put mongrel/rails startup bug in tracker, add link in "known bugs" section on home page.
 * tutorial: running via capistrano
 * crossreference front page, tutorials, and docs
-================ 0.4.x release ===================
+================ 0.x.x release ===================
 * Namespace remaining un-namespaced constants
 * Allow array or eval'able string of gems to be passed as --gems arg or instead of args
 * Add @options[:gems], should be parsed from command line* root-owned gems: add -S | --sudo-only-if-allowed option, will only invoke sudo if GEMINSTALLER_ALLOW(S)_SUDO env var is set
@@ -36,16 +37,16 @@
 * root-owned gems: Dynamically detect posix platform and check if gem repo is completely writeable.  Ignorable prompt?
 * docs - clean up sudo section.  Should be clearer about sudoers entry, and make sure that NOPASSWD is the last entry.  Rename from #dealing_with_sudo to #dealing_with_root_owned_gems, rewrite to reflect new best practices (different GEM_PATH or auto-sudo via capistrano)
 * tutorial: update running via capistrano to reference new sudo docs
-================ 0.4.x release ===================
+================ 0.x.x release ===================
 * handle installation of gem from file (requested by Alex Chaffee)
 * Investigate gem_plugin.  Plugin for mongrel???
 * Investigate making a Rails plugin
-================ 0.4.x release ===================
+================ 0.x.x release ===================
 * Why does RubyGems reinstall BlueCloth even though it is already installed?!?!? (remove from FAQ after solved)
 * Figure out how to suppress webrick messages from embedded gem server
 * add option to warn if any rogue gems are found
-================ 0.4.x release =====================
-================ 0.4.x finishing website ===================
+================ 0.x.x release =====================
+================ 0.x.x finishing website ===================
 * autogem and run args can be passed as string or array
 * better test coverage for --sudo and --exception options
 * use rspec context_setup
@@ -82,7 +83,7 @@
 * clean up registry - third-party first, no dependency next, alphabetized
 * review/clean up ri/rdoc
 * Better errors for invalid yaml (unsupported keys)
-========= 0.3.0 release ==============
+========= 0.x.0 release ==============
 * patch hoe to install_gem without sudo on windows
 * understand why '> 1' must be quoted to be a valid yaml value - see yaml_loader_spec.rb
 * tests failed when "partially" connected to network? (wireless at office)

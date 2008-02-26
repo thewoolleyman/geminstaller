@@ -84,8 +84,16 @@ module GemInstaller
     protected
     
     def self.put_rubygems_on_load_path
+      remove_rubygems_from_require_array
       $LOAD_PATH.unshift(siterubyver_dir)
       $LOAD_PATH.unshift(rubygems_lib_dir)
+    end
+    
+    def self.remove_rubygems_from_require_array
+      require_array_copy = $".dup
+      require_array_copy.each do |require_array_entry|
+        $".delete(require_array_entry) if require_array_entry =~ /rubygems/
+      end
     end
 
     def self.init_gem_env_vars
@@ -95,6 +103,13 @@ module GemInstaller
       system_gem_home = File.join(::Config::CONFIG['libdir'], 'ruby', 'gems', ::Config::CONFIG['ruby_version'])
       paths << system_gem_home
       paths << APPLE_GEM_HOME if defined? APPLE_GEM_HOME
+      
+      # Copied from defaults.rb default_dir method, we need to ensure that /Library/Ruby/Gems is
+      # on the GEM_PATH in Leopard
+      if defined? RUBY_FRAMEWORK_VERSION then
+        paths << File.join(File.dirname(Gem::ConfigMap[:sitedir]), 'Gems', Gem::ConfigMap[:ruby_version])
+      end
+      
       ENV['GEM_PATH'] = paths.compact.join(File::PATH_SEPARATOR)
     end
 
