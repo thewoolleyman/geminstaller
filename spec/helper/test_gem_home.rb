@@ -94,21 +94,41 @@ module GemInstaller
       require_array_copy.each do |require_array_entry|
         $".delete(require_array_entry) if require_array_entry =~ /rubygems/
       end
+      # point "require" back at the standard Ruby "require" method
+      # if RubyGems has already aliased gem_original_require to the original require...
+      if Kernel.private_method_defined?(:gem_original_require)
+        # get an unbound method reference to the original require method
+        unbound_gem_original_require = Kernel.send(:instance_method, :gem_original_require)
+        # then remove the overridden RubyGems require
+        Kernel.send(:remove_method, :require)
+        # and define require to invoke the original require method 
+        Kernel.send(:define_method, :require) {|path| unbound_gem_original_require.bind(Kernel).call(path) }
+      end
     end
 
     def self.init_gem_env_vars
       ENV['GEM_HOME'] = test_gem_home_dir
       # Copied from rubygems.rb path method
       paths = [ENV['GEM_PATH']]
-      system_gem_home = File.join(::Config::CONFIG['libdir'], 'ruby', 'gems', ::Config::CONFIG['ruby_version'])
-      paths << system_gem_home
-      paths << APPLE_GEM_HOME if defined? APPLE_GEM_HOME
       
-      # Copied from defaults.rb default_dir method, we need to ensure that /Library/Ruby/Gems is
-      # on the GEM_PATH in Leopard
-      if defined? RUBY_FRAMEWORK_VERSION then
-        paths << File.join(File.dirname(Gem::ConfigMap[:sitedir]), 'Gems', Gem::ConfigMap[:ruby_version])
+      # Copied from defaults.rb default_dir method,
+      # we need to ensure that /Library/Ruby/Gems is on the GEM_PATH in Leopard
+      require geminstaller_lib_dir + "/geminstaller/rubygems_version_checker"
+      if GemInstaller::RubyGemsVersionChecker.matches?('<=0.9.5') 
+        if defined? RUBY_FRAMEWORK_VERSION
+          paths << File.join(File.dirname(Config::CONFIG["sitedir"]), "Gems", Config::CONFIG['ruby_version'])
+        else
+          paths << File.join(Config::CONFIG['libdir'], 'ruby', 'gems', Config::CONFIG['ruby_version'])
+        end
+      else
+        if defined? RUBY_FRAMEWORK_VERSION
+          paths << File.join(File.dirname(Gem::ConfigMap[:sitedir]), 'Gems', Gem::ConfigMap[:ruby_version])
+        else
+          paths << File.join(Gem::ConfigMap[:libdir], 'ruby', 'gems', Gem::ConfigMap[:ruby_version])
+        end
       end
+
+      paths << APPLE_GEM_HOME if defined? APPLE_GEM_HOME
       
       ENV['GEM_PATH'] = paths.compact.join(File::PATH_SEPARATOR)
     end
