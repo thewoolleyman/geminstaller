@@ -8,3 +8,14 @@ test_files = Dir.glob("#{smoketest_dir}/**/*_smoketest.rb")
 test_files.each do |test_file|
   require test_file
 end
+# 
+# class SmokeTestSuite
+#   def self.suite
+#     suite = Test::Unit::TestSuite.new
+#     suite << GemInstaller::AutoGemSmokeTest.suite
+# #    suite << GemInstaller::InstallSmokeTest.suite
+# #    suite << GemInstaller::RailsSmokeTest.suite
+#     return suite
+#   end
+# end
+# Test::Unit::UI::Console::TestRunner.run(SmokeTestSuite)

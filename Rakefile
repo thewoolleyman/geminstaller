@@ -27,6 +27,12 @@ IndependentHoe.new('geminstaller', GemInstaller.version) do |p|
   p.extra_deps = []
 end
 
+def run_smoketest(path_to_smoketest)
+  cmd = "#{Hoe::RUBY_FLAGS} #{path_to_smoketest} #{Hoe::FILTER}"
+  result = send :ruby, cmd
+  raise "#{path_to_smoketest} Smoketest failed" unless result == 0 || result == true
+end
+
 desc "Run all metrics"
 task :metrics do
   Rake::Task[:coverage].invoke
@@ -92,11 +98,23 @@ task :publish_website => [:clean, :website] do
   sh %{rsync -av --delete --exclude=statsvn #{local_dir}/ #{host}:#{remote_dir}}
 end
 
-
-desc 'Run Smoketests'
+desc 'Run All Smoketests'
 task :smoketest => [:clean] do
-  cmd = "#{Hoe::RUBY_FLAGS} test/test_all_smoketests.rb #{Hoe::FILTER}"
-  result = send :ruby, cmd
-  raise "Smoketests failed" unless result == 0
+  run_smoketest 'test/test_all_smoketests.rb'
+end
+
+desc 'Run Install Smoketest'
+task :install_smoketest => [:clean] do
+  run_smoketest 'spec/smoketest/install_smoketest.rb'
+end
+
+desc 'Run AutoGem Smoketest'
+task :autogem_smoketest => [:clean] do
+  run_smoketest 'spec/smoketest/autogem_smoketest.rb'
+end
+
+desc 'Run Rails Smoketest'
+task :rails_smoketest => [:clean] do
+  run_smoketest 'spec/smoketest/rails_smoketest.rb'
 end
 # vim: syntax=Ruby

@@ -3,7 +3,7 @@ require File.expand_path("#{dir}/../helper/spec_helper")
 require 'test/unit'
 
 module GemInstaller
-  class RailsTest < Test::Unit::TestCase
+  class RailsSmokeTest < Test::Unit::TestCase
     def test_rails_app_with_geminstaller
       result = system("#{ruby_cmd} -I #{File.expand_path(File.dirname(__FILE__) + '/../../lib')} -Cspec/fixture/sample_rails_app test/functional/sample_controller_test.rb")
     
