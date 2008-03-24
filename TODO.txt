@@ -1,4 +1,5 @@
 =============== Unfiled =============
+* use gems.yml as default file name, deprecate geminstaller.yml.
 ================ 0.4.0 release ===================
 * Fix bug with win32 using ruby platform by default
 * Change option handling to accept hashes in addition to strings when invoked programatically
