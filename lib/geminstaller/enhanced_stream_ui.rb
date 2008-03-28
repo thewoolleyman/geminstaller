@@ -35,6 +35,8 @@ module GemInstaller
       end
     end
 
+    if GemInstaller::RubyGemsVersionChecker.matches?('<=1.0.1')
+    # explicit exit in terminate_interation was removed after 1.0.1
     def terminate_interaction!(status=-1)
       raise_error(status)
     end
@@ -42,6 +44,7 @@ module GemInstaller
     def terminate_interaction(status=0)
       raise_error(status) unless status == 0
       raise GemInstaller::RubyGemsExit.new(status)
+    end
     end
     
     def alert_error(statement, question=nil)

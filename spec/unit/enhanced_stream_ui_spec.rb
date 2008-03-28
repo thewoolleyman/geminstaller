@@ -75,6 +75,8 @@ describe "An EnhancedStreamUI instance with an OutputProxy injected for outs and
     
   end
   
+  if GemInstaller::RubyGemsVersionChecker.matches?('<=1.0.1')
+  # no more special handling of terminate_interaction required after 1.0.1
   it "will raise exception on terminate_interaction! (instead of exiting)" do
     lambda{ @enhanced_stream_ui.terminate_interaction!(0) }.should raise_error(GemInstaller::GemInstallerError)
   end
@@ -85,6 +87,7 @@ describe "An EnhancedStreamUI instance with an OutputProxy injected for outs and
 
   it "will raise exception on terminate_interaction and status != 0 (instead of exiting)" do
     lambda{ @enhanced_stream_ui.terminate_interaction(1) }.should raise_error(GemInstaller::GemInstallerError)
+  end
   end
   
   it "will call gem_interaction_handler when ask_yes_no is called" do

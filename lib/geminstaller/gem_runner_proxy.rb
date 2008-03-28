@@ -16,6 +16,13 @@ module GemInstaller
       exit_status = nil
       begin
         gem_runner.run(args)
+      rescue SystemExit => system_exit
+        if GemInstaller::RubyGemsVersionChecker.matches?('>1.0.1')
+          raise system_exit unless system_exit.is_a? Gem::SystemExitException
+          exit_status = system_exit.message
+        else
+          raise system_exit
+        end
       rescue GemInstaller::RubyGemsExit => normal_exit
         exit_status = normal_exit.message
       rescue GemInstaller::GemInstallerError => exit_error
