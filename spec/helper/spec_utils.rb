@@ -12,7 +12,7 @@ module GemInstaller
       end
     
       def ruby_cmd
-        "ruby -I #{rubygems_lib_dir}:#{rubygems_bin_dir}"
+        "ruby -I #{rubygems_lib_dir}#{File::PATH_SEPARATOR}#{rubygems_bin_dir}"
       end
       
       def gem_cmd
