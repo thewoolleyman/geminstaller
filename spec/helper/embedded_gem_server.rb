@@ -9,9 +9,8 @@ module GemInstaller
       cmd_args = "--dir=#{embedded_gem_dir} --port=#{embedded_gem_server_port}"
       if windows?
         server_cmd = (GemInstaller::RubyGemsVersionChecker.matches?('<= 0.9.4') ? 'gem_server.bat' : "#{gem_cmd} server")
-        io_handles_and_pid = Open4.popen4("#{server_cmd} #{cmd_args}",'b',true)
-        pid = io_handles_and_pid[3]
-        @@gem_server_pid = pid
+        gem_server_process = IO.popen("#{server_cmd} #{cmd_args}")
+        @@gem_server_pid = gem_server_process.pid
       else
         server_cmd = (GemInstaller::RubyGemsVersionChecker.matches?('<= 0.9.4') ? "#{ruby_cmd} #{rubygems_bin_dir}/gem_server" : "#{gem_cmd} server")
         # Don't daemonize, it spawns a child process that I don't know how to kill.  There's an error
