@@ -6,6 +6,7 @@ require './lib/dependent_stubgem_depends_on_multiplatform.rb'
 
 Hoe.new('dependent-stubgem-depends-on-multiplatform', DependentStubgemDependsOnMultiplatform::VERSION) do |p|
   p.author = 'Chad Woolley'
+  p.email = 'nobody@example.com'
   p.rubyforge_name = 'dependent-stubgem-depends-on-multiplatform'
   p.summary = p.paragraphs_of('README.txt', 1).first.split(/\n/)[2]
   p.description = p.paragraphs_of('README.txt', 2..5).join("\n\n")

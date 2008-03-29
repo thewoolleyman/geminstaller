@@ -2,6 +2,5 @@ History.txt
 Manifest.txt
 README.txt
 Rakefile
-bin/dependent_stubgem_depends_on_multiplatform
 lib/dependent_stubgem_depends_on_multiplatform.rb
 test/test_dependent_stubgem_depends_on_multiplatform.rb
