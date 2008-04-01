@@ -20,7 +20,7 @@ module GemInstaller
       end    
 
       def rubygems_version
-        default_rubygems_version = "1.0.1"
+        default_rubygems_version = "1.1.0"
         if RUBY_PLATFORM =~ /mswin/ && ENV['RUBYGEMS_VERSION']
           raise "ERROR: On Windows, the GemInstaller tests do not support overriding RUBYGEMS_VERSION.  Install RubyGems version #{default_rubygems_version}"
         end
