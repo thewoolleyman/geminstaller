@@ -17,10 +17,13 @@ module GemInstaller
       
       def gem_cmd
         "#{ruby_cmd} #{rubygems_bin_dir}/gem"
-      end    
+      end
+      
+      def default_rubygems_version
+        "9.9.9"
+      end
 
       def rubygems_version
-        default_rubygems_version = "1.1.0"
         if RUBY_PLATFORM =~ /mswin/ && ENV['RUBYGEMS_VERSION']
           raise "ERROR: On Windows, the GemInstaller tests do not support overriding RUBYGEMS_VERSION.  Install RubyGems version #{default_rubygems_version}"
         end
