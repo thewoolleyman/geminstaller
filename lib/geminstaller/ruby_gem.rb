@@ -10,7 +10,9 @@ module GemInstaller
       if opts[:version] != "" && opts[:version] != nil 
         @version = opts[:version] 
       end
-      @platform = 'ruby'
+      if GemInstaller::RubyGemsVersionChecker.matches?('<=0.9.5')
+        @platform = 'ruby'
+      end
       if opts[:platform] != "" && opts[:platform] != nil 
         @platform = opts[:platform]
       end
@@ -31,14 +33,21 @@ module GemInstaller
     end
     
     def self.default_platform
-      Gem::Platform::RUBY
-    end    
+      if GemInstaller::RubyGemsVersionChecker.matches?('>0.9.5')
+        Gem::Platform::CURRENT
+      else
+        # Not sure if this is actually required for RubyGems <=0.9.5, but it 
+        # was the original value in GemInstaller <=0.3.0, and makes the tests pass
+        'ruby'
+      end
+    end
 
     def <=>(other)
       compare = @name <=> other.name
       return compare if compare != 0
       compare = @version <=> other.version
       return compare if compare != 0
+      return 0 if (@platform == nil && other.platform == nil)
       return @platform <=> other.platform
     end
     

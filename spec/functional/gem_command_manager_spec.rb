@@ -42,7 +42,7 @@ describe "a GemCommandManager instance" do
     list.join.should match expected_list
   end
   
-  if GemInstaller::RubyGemsVersionChecker.matches?('<0.9.5') # Rubygems 0.9.5 and later automatically installs dependencies
+  if GemInstaller::RubyGemsVersionChecker.matches?('<=0.9.4') # Rubygems 0.9.5 and later automatically installs dependencies
   it "should raise an error if attempting to install a gem with dependencies without -y option" do
     # ensure dependency gem is uninstalled
     @gem_command_manager.uninstall_gem(@sample_gem)

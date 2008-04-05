@@ -1,6 +1,7 @@
 module GemInstaller
   class EnhancedStreamUI < Gem::StreamUI
-    attr_writer :gem_interaction_handler, :outs, :errs
+    attr_writer :outs, :errs
+    attr_writer :gem_interaction_handler if GemInstaller::RubyGemsVersionChecker.matches?('<=0.9.4')
     
     def initialize()
       # override default constructor to have no args

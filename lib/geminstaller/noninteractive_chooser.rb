@@ -3,6 +3,7 @@ module GemInstaller
   # Format for "uninstall" prompt list: "#{spec.name}-#{spec.version}" for ruby,  "#{spec.name}-#{spec.version}-#{spec.platform}" (gem.full_name) for binary
   class NoninteractiveChooser
     def initialize
+      check_rubygems_version
       @question = nil
     end
     
@@ -102,6 +103,12 @@ module GemInstaller
       install_format_exact_name_match_regexp = /^#{dependent_gem_name}\s.*/
       install_list_type? and list[0] =~ install_format_exact_name_match_regexp
     end
-  
+
+    def check_rubygems_version
+      if GemInstaller::RubyGemsVersionChecker.matches?('>=0.9.5')
+        # noninteractive_chooser is not used for RubyGems >= 0.9.5
+        raise RuntimeError.new("Internal GemInstaller Error: NoninteractiveChooser should not be used for RubyGems >= 0.9.5")
+      end
+    end
   end
 end

@@ -1,4 +1,6 @@
 == 0.x.y / yyyy-mm-dd
+* deprecate support of rubygems 0.9.5, 1.0.0, and 1.0.1.
+* Change handling of platforms on rubygems on Rubygems > 0.9.5, let RubyGems handle default.
 * rename GemInstaller.run method to GemInstaller.install, keep run as an alias for install
 * add‍warning‍if‍a‍gem‍version‍error‍is‍detected,‍with instructions‍to‍run‍geminstaller‍to‍install‍the‍missing‍version
 * Rubygems‍1.x‍compatibility
@@ -6,6 +8,7 @@
 * use‍new,‍correct‍x86-mswin32‍format‍for‍mswin32‍platform‍gems
 * update‍warning‍message‍for‍older‍rubygems‍versions
 * made tests run on Mac OS X Leopard w/RubyGems 1.0.1
+
 == 0.3.0 / 2008-01-01
 * Changes to work with RubyGems >= 0.9.5 and take advantage of new platform and auto-install features.  See notes at http://geminstaller.rubyforge.org/code/index.html#rubygems_compatibility
 * On Linux/Mac, you can now specify a RUBYGEMS_VERSION environment var to test against a specific version of RubyGems.

@@ -92,8 +92,8 @@ describe "An EnhancedStreamUI instance with an OutputProxy injected for outs and
   
   it "will call gem_interaction_handler when ask_yes_no is called" do
     mock_gem_interaction_handler = mock("mock_gem_interaction_handler")
-    @enhanced_stream_ui.gem_interaction_handler = mock_gem_interaction_handler
     if GemInstaller::RubyGemsVersionChecker.matches?('<=0.9.4')
+      @enhanced_stream_ui.gem_interaction_handler = mock_gem_interaction_handler
       # special handling for dependency prompts in ask_yes_no is not used for RubyGems >= 0.9.5,
       # all prompts are considered unexpected
       question = 'question'

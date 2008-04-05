@@ -96,7 +96,7 @@ require 'test/unit'
 
 module GemInstaller
   class AutoGemSmokeTest < Test::Unit::TestCase
-    def test_install
+    def test_autogem
       assert(GemInstaller::AutoGemTest.new.run, "FAILURE, autogem smoketest failed.") 
     end
   end

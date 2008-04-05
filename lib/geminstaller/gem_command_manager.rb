@@ -1,6 +1,7 @@
 module GemInstaller
   class GemCommandManager
-    attr_writer :gem_spec_manager, :gem_runner_proxy, :gem_interaction_handler
+    attr_writer :gem_spec_manager, :gem_runner_proxy
+    attr_writer :gem_interaction_handler if GemInstaller::RubyGemsVersionChecker.matches?('<=0.9.4')
     
     def list_remote_gem(gem, additional_options)
       run_args = ["list",gem.name,"--remote","--details"]
@@ -10,14 +11,18 @@ module GemInstaller
 
     def uninstall_gem(gem)
       return if !@gem_spec_manager.is_gem_installed?(gem)
-      @gem_interaction_handler.dependent_gem = gem
+      init_gem_interaction_handler(gem)
       run_gem_command('uninstall', gem, gem.uninstall_options)
     end
 
     def install_gem(gem, force_reinstall = false)
       return [] if @gem_spec_manager.is_gem_installed?(gem) && !force_reinstall
-      @gem_interaction_handler.dependent_gem = gem
+      init_gem_interaction_handler(gem)
       run_gem_command('install', gem, gem.install_options)
+    end
+    
+    def init_gem_interaction_handler(gem)
+      @gem_interaction_handler.dependent_gem = gem if GemInstaller::RubyGemsVersionChecker.matches?('<=0.9.4')
     end
     
     def dependency(name, version, additional_options = [])

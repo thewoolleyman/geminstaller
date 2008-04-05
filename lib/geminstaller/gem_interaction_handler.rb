@@ -3,11 +3,11 @@ module GemInstaller
     attr_writer :dependent_gem, :noninteractive_chooser_class, :valid_platform_selector
     DEPENDENCY_PROMPT = 'Install required dependency'
     
+    def initialize
+      check_rubygems_version
+    end
+    
     def handle_ask_yes_no(question)
-      if GemInstaller::RubyGemsVersionChecker.matches?('>=0.9.5')
-        # gem_interaction_handler is not used for RubyGems >= 0.9.5
-        raise RuntimeError.new("Internal GemInstaller Error: GemInteractionHandler should not be used for RubyGems >= 0.9.5")
-      end
       return unless question.index(DEPENDENCY_PROMPT)
       message = "Error: RubyGems is prompting to install a required dependency, and you have not " +
                 "specified the '--install-dependencies' option for the current gem.  You must modify your " +
@@ -17,10 +17,6 @@ module GemInstaller
     end
     
     def handle_choose_from_list(question, list, noninteractive_chooser = nil)
-      if GemInstaller::RubyGemsVersionChecker.matches?('>=0.9.5')
-        # gem_interaction_handler is not used for RubyGems >= 0.9.5
-        raise RuntimeError.new("Internal GemInstaller Error: GemInteractionHandler should not be used for RubyGems >= 0.9.5")
-      end
       noninteractive_chooser ||= @noninteractive_chooser_class.new
       valid_platforms = nil
       if dependent_gem_with_platform_specified?(list, noninteractive_chooser) or noninteractive_chooser.uninstall_list_type?(question)
@@ -33,6 +29,13 @@ module GemInstaller
     
     def dependent_gem_with_platform_specified?(list, noninteractive_chooser)
       noninteractive_chooser.dependent_gem?(@dependent_gem.name, list) and @dependent_gem.platform
+    end
+  
+    def check_rubygems_version
+      if GemInstaller::RubyGemsVersionChecker.matches?('>=0.9.5')
+        # gem_interaction_handler is not used for RubyGems >= 0.9.5
+        raise RuntimeError.new("Internal GemInstaller Error: GemInteractionHandler should not be used for RubyGems >= 0.9.5")
+      end
     end
   end
 end

@@ -12,10 +12,14 @@ module GemInstaller
   
   class Registry
     attr_accessor :file_reader, :yaml_loader, :output_proxy, :config_builder, :gem_source_index, :gem_runner_proxy
-    attr_accessor :gem_runner, :gem_command_manager, :gem_list_checker, :app, :arg_parser, :options, :noninteractive_chooser
-    attr_accessor :gem_interaction_handler, :install_processor, :missing_dependency_finder, :valid_platform_selector
+    attr_accessor :gem_runner, :gem_command_manager, :gem_list_checker, :app, :arg_parser, :options
+    attr_accessor :install_processor, :missing_dependency_finder, :valid_platform_selector
     attr_accessor :output_listener, :outs_output_observer, :errs_output_observer, :output_filter, :autogem, :rogue_gem_finder
     attr_accessor :gem_spec_manager, :source_index_search_adapter
+    
+    if GemInstaller::RubyGemsVersionChecker.matches?('<=0.9.4')
+      attr_accessor :gem_interaction_handler, :noninteractive_chooser
+    end
 
     def initialize
       @options = {}
@@ -52,11 +56,6 @@ module GemInstaller
       @source_index_search_adapter = GemInstaller::SourceIndexSearchAdapter.new
       @source_index_search_adapter.gem_source_index_proxy = @gem_source_index_proxy
 
-      @gem_interaction_handler = GemInstaller::GemInteractionHandler.new
-      @noninteractive_chooser_class = GemInstaller::NoninteractiveChooser
-      @gem_interaction_handler.noninteractive_chooser_class = @noninteractive_chooser_class
-      @gem_interaction_handler.valid_platform_selector = @valid_platform_selector
-      
       @outs_output_observer = GemInstaller::OutputObserver.new
       @outs_output_observer.stream = :stdout
       @outs_output_observer.register(@output_listener)
@@ -67,7 +66,6 @@ module GemInstaller
       @enhanced_stream_ui = GemInstaller::EnhancedStreamUI.new
       @enhanced_stream_ui.outs = @outs_output_observer
       @enhanced_stream_ui.errs = @errs_output_observer
-      @enhanced_stream_ui.gem_interaction_handler = @gem_interaction_handler
 
       @gem_runner_class = Gem::GemRunner
       @gem_cmd_manager_class = Gem::CommandManager
@@ -89,7 +87,6 @@ module GemInstaller
       @gem_command_manager = GemInstaller::GemCommandManager.new
       @gem_command_manager.gem_spec_manager = @gem_spec_manager
       @gem_command_manager.gem_runner_proxy = @gem_runner_proxy
-      @gem_command_manager.gem_interaction_handler = @gem_interaction_handler
         
       @rogue_gem_finder = GemInstaller::RogueGemFinder.new
       @rogue_gem_finder.gem_command_manager = @gem_command_manager
@@ -118,6 +115,15 @@ module GemInstaller
       @install_processor.gem_spec_manager = @gem_spec_manager
       @install_processor.missing_dependency_finder = @missing_dependency_finder
       @install_processor.output_filter = @output_filter
+      
+      if GemInstaller::RubyGemsVersionChecker.matches?('<=0.9.4')
+        @gem_interaction_handler = GemInstaller::GemInteractionHandler.new
+        @noninteractive_chooser_class = GemInstaller::NoninteractiveChooser
+        @gem_interaction_handler.noninteractive_chooser_class = @noninteractive_chooser_class
+        @gem_interaction_handler.valid_platform_selector = @valid_platform_selector
+        @gem_command_manager.gem_interaction_handler = @gem_interaction_handler
+        @enhanced_stream_ui.gem_interaction_handler = @gem_interaction_handler
+      end
 
       @app = GemInstaller::Application.new
       @app.autogem = @autogem

@@ -6,7 +6,7 @@ describe "a GemRunnerProxy instance" do
     GemInstaller::TestGemHome.use
     @registry = GemInstaller::create_registry
     @gem_runner_proxy = @registry.gem_runner_proxy
-    @gem_interaction_handler = @registry.gem_interaction_handler
+    @gem_interaction_handler = @registry.gem_interaction_handler if GemInstaller::RubyGemsVersionChecker.matches?('<=0.9.4') 
   end
 
   it "should return output of gem command" do
@@ -89,7 +89,7 @@ describe "a GemRunnerProxy instance" do
     gem_runner_args = ["install", "#{sample_multiplatform_gem_name}", "--remote"]
     gem_runner_args += install_options_for_testing
 
-    @gem_interaction_handler.dependent_gem = sample_multiplatform_gem
+    @gem_interaction_handler.dependent_gem = sample_multiplatform_gem if GemInstaller::RubyGemsVersionChecker.matches?('<=0.9.4') 
     output = @gem_runner_proxy.run(gem_runner_args)
     output.join("\n").should match(/Successfully installed #{sample_multiplatform_gem_name}-#{sample_multiplatform_gem_version}/m)
   end

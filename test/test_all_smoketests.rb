@@ -6,7 +6,7 @@ smoketest_dir = File.expand_path("#{dir}/../spec/smoketest")
 test_files = Dir.glob("#{smoketest_dir}/**/*_smoketest.rb")
 
 test_files.each do |test_file|
-  require test_file
+  raise "#{test_file} failed" unless system("ruby #{test_file}")
 end
 # 
 # class SmokeTestSuite

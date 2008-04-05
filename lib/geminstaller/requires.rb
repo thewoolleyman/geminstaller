@@ -16,6 +16,18 @@ unless defined? ALLOW_UNSUPPORTED_RUBYGEMS_VERSION or GemInstaller::RubyGemsVers
             "----------------------------------------------------------------\n\n"
 end
 
+
+if !(defined? ALLOW_UNSUPPORTED_RUBYGEMS_VERSION) or 
+  GemInstaller::RubyGemsVersionChecker.matches?('=0.9.5') or
+  GemInstaller::RubyGemsVersionChecker.matches?('=1.1.0')
+  print "\n\n----------------------------------------------------------------\n" + 
+            "WARNING: You are using RubyGems version #{Gem::RubyGemsVersion}.\n" +
+            "This version is known to have bugs and/or compatibility issues\n" +
+            "with GemInstaller.  Update RubyGems, or continue at your risk.\n" +
+            "To update rubygems (recommended), use 'gem update --system'.\n" +
+            "----------------------------------------------------------------\n\n"
+end
+
 # requires for rubygems internal classes
 require 'rubygems/doc_manager'
 require 'rubygems/config_file'

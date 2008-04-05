@@ -27,8 +27,8 @@ module GemInstaller
       else
         # TODO: this is a hack because source_index#search doesn't allow specification of platform
         if exact_platform_match
-          found_gem_specs = found_gem_specs.delete_if do |spec|
-            !spec_platform_matches?(spec, gem.platform)
+          found_gem_specs = found_gem_specs.select do |spec|
+            spec_platform_matches?(spec, gem.platform)
           end
         end
       end
@@ -39,11 +39,10 @@ module GemInstaller
     end
 
     def spec_platform_matches?(spec, platform)
-      spec_platform = Gem::Platform.new(spec.platform)
-      if spec_platform.is_a?(String)
-        return spec_platform == platform
+      if GemInstaller::RubyGemsVersionChecker.matches?('>0.9.5')
+        return Gem::Platform.new(spec.platform) == Gem::Platform.new(platform)
       end
-      return spec_platform =~ platform
+      return spec.platform == platform
     end
   end
 end

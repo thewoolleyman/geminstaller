@@ -1,6 +1,8 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_helper")
 
+if GemInstaller::RubyGemsVersionChecker.matches?('<=0.9.4')
+# noninteractive_chooser is not used for RubyGems >= 0.9.5
 describe "a NoninteractiveChooser instance which is passed an install-formatted list of both non-binary and binary gems" do
   before(:each) do
     @noninteractive_chooser = GemInstaller::NoninteractiveChooser.new
@@ -140,4 +142,4 @@ end
 def should_raise_error(name, version, valid_platforms)
   lambda{ @noninteractive_chooser.choose(@question, @list, name, version, valid_platforms) }.should raise_error(GemInstaller::GemInstallerError)
 end
-
+end

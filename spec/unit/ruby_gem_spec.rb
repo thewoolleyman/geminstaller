@@ -31,11 +31,22 @@ describe "A ruby gem data object" do
     gem.version.should==('1.1')
   end
 
+  if GemInstaller::RubyGemsVersionChecker.matches?('<=0.9.5') 
   it "should default the platform to ruby if it is not specified" do
     gem = GemInstaller::RubyGem.new('mygem', :version => 'v1.1')
     gem.name.should==('mygem')
     gem.version.should==('v1.1')
     gem.platform.should==('ruby')
+  end
+  end
+
+  if GemInstaller::RubyGemsVersionChecker.matches?('>0.9.5') 
+  it "should leave the platform nil if it is not specified" do
+    gem = GemInstaller::RubyGem.new('mygem', :version => 'v1.1')
+    gem.name.should==('mygem')
+    gem.version.should==('v1.1')
+    gem.platform.should==(nil)
+  end
   end
 
   it "may be instantiated with only a name, and install options (unspecified version)" do
@@ -68,6 +79,12 @@ describe "A ruby gem data object" do
     gems[2].install_options.should==('2')
     gems[3].install_options.should==('3')
     gems[4].install_options.should==('4')
+  end
+
+  it "should compare as equal if both platforms are nil" do
+    gem1 = GemInstaller::RubyGem.new('1', :platform => nil)
+    gem2 = GemInstaller::RubyGem.new('1', :platform => nil)
+    gem1.should ==(gem2)
   end
 
   it "should return regexp_escaped_name" do
