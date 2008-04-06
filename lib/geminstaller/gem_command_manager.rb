@@ -5,6 +5,7 @@ module GemInstaller
     
     def list_remote_gem(gem, additional_options)
       run_args = ["list",gem.name,"--remote","--details"]
+      run_args << "--all" if GemInstaller::RubyGemsVersionChecker.matches?('>1.0.1')
       run_args += additional_options
       @gem_runner_proxy.run(run_args)
     end

@@ -27,6 +27,7 @@ describe "a GemCommandManager instance" do
   end
   
   it "should be able to list remote gems" do
+    Gem::SourceInfoCache.cache.reset_cache_data if GemInstaller::RubyGemsVersionChecker.matches?('>1.0.1')
     list_options = ["--source=#{embedded_gem_server_url}"]
     @sample_gem.name = 'stubgem-multiplatform'
     list = @gem_command_manager.list_remote_gem(@sample_gem,list_options)
