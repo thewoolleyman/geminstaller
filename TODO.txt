@@ -3,7 +3,7 @@
 * fix smoke tests on CI
 * Investigate error when installing and loading gem in same session (like rails preinitializer)
 ================ 0.5.0 release ===================
-* If permission error, auto-install under writable_gem_home ~/gems/1.8 (configurable), add ENV['HOME']pathsepGem::ConfigMap[:ruby_version], and issue warning (saying to set gem_home: in ~/.gemrc to suppress warning).  "[no_]use_writable_gem_home" and "writable_gem_home".
+* If permission error, auto-install under writable_gem_home ~/gems/1.8 (configurable), Gem.clear_paths, set ENV['GEM_HOME'] to ENV['HOME']pathsepGem::ConfigMap[:ruby_version], and issue warning (saying in order to prevent warning, a) set gem_home: in ~/.gemrc, b) invoke via sudo (only if command line), c) make (and keep) current Gem.dir writeable, or d) add geminstaller (and ruby?) to sudoers file (security hole).  Properties: "[no_]use_writable_gem_home" and "writable_gem_home".
 * For RubyGems >=1.0.1, look at using Gem::SourceInfoCache instead of SourceIndex or --list command
 * Speed!
 * add command line tool to automatically generate files - default file, rake task (geminstaller:run, geminstaller:install, geminstaller:autogem), and preinit hook.  Auto-detect rails vs. non-rails project and generate stuff accordingly.  --setup, --setup-rails.  Check for new-style boot.rb, fail if missing, check for RAILS_GEM_VERSION in environment.rb, warn if present.
