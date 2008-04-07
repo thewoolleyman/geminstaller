@@ -3,13 +3,15 @@
 * fix smoke tests on CI
 * Investigate error when installing and loading gem in same session (like rails preinitializer)
 ================ 0.5.0 release ===================
-* If permission error, offer to auto-install under ~/gems/1.8 (configurable) and unshift onto GEM_PATH.  "use_writable_gem_home" and "writable_gem_home".
+* For RubyGems >=1.0.1, look at using Gem::SourceInfoCache instead of SourceIndex or --list command
+* Speed!
+* If permission error, auto-install under writable_gem_home (or path?) ~/gems/1.8 (configurable), unshift onto GEM_PATH, and issue warning (saying to add to ~/.gemrc gem path to suppress warning).  "[no_]use_writable_gem_home" and "writable_gem_home".
 * add command line tool to automatically generate files - default file, rake task (geminstaller:run, geminstaller:install, geminstaller:autogem), and preinit hook.  Auto-detect rails vs. non-rails project and generate stuff accordingly.  --setup, --setup-rails.  Check for new-style boot.rb, fail if missing, check for RAILS_GEM_VERSION in environment.rb, warn if present.
+* Merb support.  Does merb have preinitializer.rb equivalent?
 * Change 'run' to automatically automatically calls both 'install' and 'autogem', add 'no-install' and 'no-autogem' option (only applicable when invoked programatically) to suppress if desired
 * auto-install on app startup should not be the default unless use_writable_gem_home is implemented, because of sudo/rake doublerun/speed issues.  Update autogem missing gem error message accordingly.
 * also look for config file under RAILS_ROOT/config, if RAILS_ROOT is defined (somehow fails under textmate, if working dir is wrong)
 ================ 0.x.0 release ===================
-* For RubyGems >=1.0.1, look at using Gem::SourceInfoCache instead of SourceIndex or --list command
 * Change option handling to accept hashes in addition to strings when invoked programatically
 * rails_smoketest.rb is not working, always reinstalls existing gems
 * add option to use frozen edge rails before rails gem, understand the implications
