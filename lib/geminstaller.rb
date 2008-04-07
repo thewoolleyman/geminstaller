@@ -61,18 +61,14 @@ module GemInstaller
   end
   
   def self.reinvoke_with_sudo(args, geminstaller_executable)
-    # TODO: this sudo support seems like a hack, but I don't have a better idea right now.  Ideally, we would
-    # invoke rubygems from the command line inside geminstaller.  However, we can't do that because rubygems
-    # currently doesn't provide a way to specify platform from the command line - it always pops up the list
-    # for multi-platform gems, and we have to extend/hack rubygems to manage that.
-    # Feel free to comment or improve it, this seems to work for now...
+    # Sudo support is a hack, better to use other alternatives.
     geminstaller_executable ||= find_geminstaller_executable
     args_without_sudo = strip_sudo(args)
     args_without_sudo << '--redirect-stderr-to-stdout'
     cmd = "sudo ruby #{geminstaller_executable} #{args_without_sudo.join(' ')}"
     # TODO: this eats any output.  There currently is no standard way to get a return code AND stdin AND stdout.
     # Some non-standard packages like Open4 handle this, but not synchronously.  The Simplest Thing That Could
-    # Possibly Work s to have a command line option which will cause all stderr output to be redirected to stdout.
+    # Possibly Work is to have a command line option which will cause all stderr output to be redirected to stdout.
     result = system(cmd)
     return 1 unless result
     return $?.exitstatus
