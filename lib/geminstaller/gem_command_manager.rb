@@ -57,7 +57,7 @@ module GemInstaller
     def run_gem_command(gem_command, gem, options)
       run_args = [gem_command,gem.name,"--version", "#{gem.version}"]
       if GemInstaller::RubyGemsVersionChecker.matches?('>=0.9.5')
-        run_args += ['--platform', "#{gem.platform}"]
+        run_args += ['--platform', "#{gem.platform}"] if gem.platform && !gem.platform.empty?
       end
       run_args += options
       @gem_runner_proxy.run(run_args)

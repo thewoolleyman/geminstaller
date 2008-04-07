@@ -17,6 +17,8 @@ module GemInstaller
     def self.use
       install_rubygems
       start_server
+      Gem.class_eval { @platforms = nil } if GemInstaller::RubyGemsVersionChecker.matches?(['>=0.9.5', '<=1.1.0'])
+      Gem.platforms.clear if GemInstaller::RubyGemsVersionChecker.matches?('>=1.1.0')
     end
     
     def self.reset
