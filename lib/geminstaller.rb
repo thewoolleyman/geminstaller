@@ -45,8 +45,7 @@ module GemInstaller
   end
   
   def self.create_registry
-    dependency_injector = GemInstaller::DependencyInjector.new
-    dependency_injector.registry
+    GemInstaller::Registry.new
   end
   
   def self.parse_config_paths(config_paths)

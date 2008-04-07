@@ -147,8 +147,8 @@ describe GemInstaller::ConfigBuilder, "with an empty config file" do
 end
 
 def config_builder_spec_fixture
-  dependency_injector = GemInstaller::DependencyInjector.new
-  @config_builder = dependency_injector.registry.config_builder
+  registry = GemInstaller::Registry.new
+  @config_builder = registry.config_builder
   @config_builder.config_file_paths = @test_config_file_paths if @test_config_file_paths
 end
 

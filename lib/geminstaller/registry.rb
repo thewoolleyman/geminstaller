@@ -1,15 +1,4 @@
 module GemInstaller
-  class DependencyInjector
-    def registry
-      @registry ||= create_registry
-    end
-    
-    def create_registry
-      # define the service registry
-      @registry = GemInstaller::Registry.new
-    end
-  end
-  
   class Registry
     attr_accessor :file_reader, :yaml_loader, :output_proxy, :config_builder, :gem_source_index, :gem_runner_proxy
     attr_accessor :gem_runner, :gem_command_manager, :gem_list_checker, :app, :arg_parser, :options

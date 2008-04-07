@@ -20,7 +20,6 @@ lib/geminstaller/autogem.rb
 lib/geminstaller/backward_compatibility.rb
 lib/geminstaller/config.rb
 lib/geminstaller/config_builder.rb
-lib/geminstaller/dependency_injector.rb
 lib/geminstaller/enhanced_stream_ui.rb
 lib/geminstaller/exact_match_list_command.rb
 lib/geminstaller/file_reader.rb
@@ -42,6 +41,7 @@ lib/geminstaller/output_filter.rb
 lib/geminstaller/output_listener.rb
 lib/geminstaller/output_observer.rb
 lib/geminstaller/output_proxy.rb
+lib/geminstaller/registry.rb
 lib/geminstaller/requires.rb
 lib/geminstaller/rogue_gem_finder.rb
 lib/geminstaller/ruby_gem.rb
@@ -57,6 +57,7 @@ lib/geminstaller/yaml_loader.rb
 lib/geminstaller_rails_preinitializer.rb
 start_local_gem_server.sh
 test/test_all.rb
+test/test_all_smoketests.rb
 website/config.yaml
 website/metainfo.yaml
 website/src/analytics.page
