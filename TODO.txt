@@ -1,11 +1,11 @@
 =============== Unfiled =============
-================ 0.5.0 release ===================
+================ 0.4.0 release ===================
 * fix smoke tests on CI
 * Investigate error when installing and loading gem in same session (like rails preinitializer)
 ================ 0.5.0 release ===================
+* If permission error, auto-install under writable_gem_home ~/gems/1.8 (configurable), add ENV['HOME']pathsepGem::ConfigMap[:ruby_version], and issue warning (saying to set gem_home: in ~/.gemrc to suppress warning).  "[no_]use_writable_gem_home" and "writable_gem_home".
 * For RubyGems >=1.0.1, look at using Gem::SourceInfoCache instead of SourceIndex or --list command
 * Speed!
-* If permission error, auto-install under writable_gem_home (or path?) ~/gems/1.8 (configurable), unshift onto GEM_PATH, and issue warning (saying to add to ~/.gemrc gem path to suppress warning).  "[no_]use_writable_gem_home" and "writable_gem_home".
 * add command line tool to automatically generate files - default file, rake task (geminstaller:run, geminstaller:install, geminstaller:autogem), and preinit hook.  Auto-detect rails vs. non-rails project and generate stuff accordingly.  --setup, --setup-rails.  Check for new-style boot.rb, fail if missing, check for RAILS_GEM_VERSION in environment.rb, warn if present.
 * Merb support.  Does merb have preinitializer.rb equivalent?
 * Change 'run' to automatically automatically calls both 'install' and 'autogem', add 'no-install' and 'no-autogem' option (only applicable when invoked programatically) to suppress if desired
