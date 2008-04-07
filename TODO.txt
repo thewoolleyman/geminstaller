@@ -5,6 +5,7 @@
 ================ 0.5.0 release ===================
 * If permission error, auto-install under writable_gem_home ~/gems/1.8 (configurable), Gem.clear_paths, set ENV['GEM_HOME'] to ENV['HOME']pathsepGem::ConfigMap[:ruby_version], and issue warning (saying in order to prevent warning, a) set gem_home: in ~/.gemrc, b) invoke via sudo (only if command line), c) make (and keep) current Gem.dir writeable, or d) add geminstaller (and ruby?) to sudoers file (security hole).  Properties: "[no_]use_writable_gem_home" and "writable_gem_home".
 * For RubyGems >=1.0.1, look at using Gem::SourceInfoCache instead of SourceIndex or --list command
+* Move classes which are unused against current RubyGems into Legacy module.
 * Speed! What can be done to speed things up?
 * performance improvement: first try cache hit without all option, then with if not found.
 * add command line tool to automatically generate files - default file, rake task (geminstaller:run, geminstaller:install, geminstaller:autogem), and preinit hook.  Auto-detect rails vs. non-rails project and generate stuff accordingly.  --setup, --setup-rails.  Check for new-style boot.rb, fail if missing, check for RAILS_GEM_VERSION in environment.rb, warn if present.
