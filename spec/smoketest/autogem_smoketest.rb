@@ -3,10 +3,12 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_utils")
 require File.expand_path("#{dir}/../helper/test_gem_home")
+require File.expand_path("#{dir}/smoketest_support")
 
 module GemInstaller
   class AutoGemTest
     include GemInstaller::SpecUtils::ClassMethods
+    include GemInstaller::SmoketestSupport
 
     def run()
       GemInstaller::TestGemHome.put_rubygems_on_load_path
@@ -22,15 +24,9 @@ module GemInstaller
         'hoe', 
         'rubyforge']
 
-      is_windows = RUBY_PLATFORM =~ /mswin/ ? true : false
-
-      sudo = '' 
-      sudo = '--sudo' unless is_windows
-
       dir = File.dirname(__FILE__)
       config_files = "#{File.join(dir,'smoketest-geminstaller.yml')},#{File.join(dir,'smoketest-geminstaller-override.yml')}"
-      path_to_app = File.expand_path("#{dir}/../../bin/geminstaller")
-      geminstaller_cmd = "#{ruby_cmd} -I #{dir}/../../lib #{path_to_app} #{sudo} --config=#{config_files}"
+      geminstaller_cmd = "#{gem_home} #{ruby_cmd} #{geminstaller_executable} --config=#{config_files}"
       print "Running geminstaller: #{geminstaller_cmd}\n"
       print "We won't verify installation, run smoketest.rb for that...\n"
       print "Please be patient, it may take a bit, or may not work at all if rubyforge or your network connection is down, or you don't have proper permissions, or if there's a bug in geminstaller :)\n\n"
@@ -38,8 +34,10 @@ module GemInstaller
       print "\n\n"
 
       print "Geminstaller command complete.  Now testing GemInstaller.autogem() command.\n"
-      require File.expand_path("#{dir}/../../lib/geminstaller")
-      require 'pp'
+
+      remove_geminstaller_from_require_array
+      $:.unshift("#{geminstaller_lib_dir}")
+      require "geminstaller"
 
       no_autogem_regexp = 'x10-cm17a'
       if GemInstaller::RubyGemsVersionChecker.matches?('< 0.9')
@@ -50,7 +48,19 @@ module GemInstaller
       
       not_toplevel = /(hoe|rubyforge)/
 
-      loaded_gems = GemInstaller::autogem("--config=#{config_files}")
+      old_gem_home = Gem.dir
+      Gem.clear_paths
+      ENV['GEM_HOME'] = gem_home_dir
+      begin
+        loaded_gems = GemInstaller::autogem("--config=#{config_files}")
+      ensure
+        Gem.clear_paths
+        ENV['GEM_HOME'] = old_gem_home
+      end
+      print "These gems were loaded, verifying they are complete:\n"
+      print loaded_gems.map {|g| g.name }.join("\n")
+      print "\n"
+      
       required_gems.each do |required_gem|
         found, skip = nil
         loaded_gems.each do | loaded_gem|
@@ -64,7 +74,7 @@ module GemInstaller
           loaded_gems.each do |loaded_gem|
             print "#{loaded_gem.name}\n"
           end
-          exit 1
+          raise
         end
       end
 
@@ -77,7 +87,7 @@ module GemInstaller
         end
         unless found || skip
           print "FAILURE, GemInstaller.autogem did not put required gem #{required_gem} on load path: #{$:}" 
-          exit 1
+          raise
         end
       end
 

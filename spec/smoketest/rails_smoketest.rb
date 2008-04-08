@@ -5,7 +5,6 @@ require 'test/unit'
 module GemInstaller
   class RailsSmokeTest < Test::Unit::TestCase
     def test_rails_app_with_geminstaller
-      raise 'rails'
       
       result = system("#{ruby_cmd} -I #{File.expand_path(File.dirname(__FILE__) + '/../../lib')} -Cspec/fixture/sample_rails_app test/functional/sample_controller_test.rb")
     

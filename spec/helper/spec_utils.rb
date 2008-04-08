@@ -12,7 +12,7 @@ module GemInstaller
       end
     
       def ruby_cmd
-        "ruby -I #{rubygems_lib_dir}#{File::PATH_SEPARATOR}#{rubygems_bin_dir}"
+        "ruby -I #{rubygems_lib_dir}#{File::PATH_SEPARATOR}#{rubygems_bin_dir}#{File::PATH_SEPARATOR}#{geminstaller_lib_dir}"
       end
       
       def gem_cmd
@@ -30,8 +30,20 @@ module GemInstaller
         ENV['RUBYGEMS_VERSION'] || default_rubygems_version
       end
   
+      def geminstaller_root_dir
+        File.expand_path(File.dirname(__FILE__) + "/../..")
+      end
+
       def geminstaller_lib_dir
-        File.expand_path(File.dirname(__FILE__) + "/../../lib")
+        "#{geminstaller_root_dir}/lib"
+      end
+
+      def geminstaller_bin_dir
+        "#{geminstaller_root_dir}/bin"
+      end
+
+      def geminstaller_executable
+        "#{geminstaller_bin_dir}/geminstaller"
       end
 
       def test_gem_home_dir
@@ -152,6 +164,13 @@ module GemInstaller
 
       def sample_dependent_multiplatform_gem(install_options=install_options_for_testing, uninstall_options=uninstall_options_for_testing)
         GemInstaller::RubyGem.new(sample_dependent_multiplatform_gem_name, :version => sample_multiplatform_gem_version_low, :platform => 'mswin32', :install_options => install_options, :uninstall_options => uninstall_options)
+      end
+
+      def remove_geminstaller_from_require_array
+        require_array_copy = $".dup
+        require_array_copy.each do |require_array_entry|
+          $".delete(require_array_entry) if require_array_entry =~ /geminstaller/
+        end
       end
   
       def proc_should_raise_with_message(message_regex, &block)
