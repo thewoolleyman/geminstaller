@@ -51,7 +51,7 @@ module GemInstaller
         print "\nRunning gem list for #{gem}, verify that it contains the expected version(s)"
         gem_found = false
         all_list_output = ''
-        Open3.popen3("#{gem_home} #{gem_cmd} list #{gem}") do |io| 
+        IO.popen("#{gem_home} #{gem_cmd} list #{gem}") do |io| 
           io.readlines.each do |line|
             print line
             all_list_output += " #{line}"
