@@ -117,4 +117,10 @@ desc 'Run Rails Smoketest'
 task :rails_smoketest => [:clean] do
   run_smoketest 'spec/smoketest/rails_smoketest.rb'
 end
+
+desc 'Run Debug Smoketest'
+task :debug_smoketest => [:clean] do
+  run_smoketest 'spec/smoketest/debug_smoketest.rb'
+end
+
 # vim: syntax=Ruby
