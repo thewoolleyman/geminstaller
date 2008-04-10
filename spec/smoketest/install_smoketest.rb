@@ -47,6 +47,8 @@ module GemInstaller
       end
 
       print "\n\n"
+      # inspect environment, especially LD_LIBRARY_PATH, PATH
+      'env'
       geminstaller_cmd = "#{gem_home} #{ruby_cmd} #{geminstaller_executable} --config=#{File.join(dir,'smoketest-geminstaller.yml')},#{File.join(dir,'smoketest-geminstaller-override.yml')}"
       print "Running geminstaller: #{geminstaller_cmd}\n"
       print "This should print a message for each of the gems which are installed.\n"
@@ -92,7 +94,7 @@ module GemInstaller
         raise RuntimeError.new("\n\nFAILURE: The following gems were not installed: #{missing_gems}\n\n")
       end
 
-      geminstaller_cmd = "#{gem_home} #{ruby_cmd} --silent --config=#{File.join(dir,'smoketest-geminstaller-reinstall.yml')}"
+      geminstaller_cmd = "#{gem_home} #{ruby_cmd} #{geminstaller_executable} --silent --config=#{File.join(dir,'smoketest-geminstaller-reinstall.yml')}"
       print "Now (re)installing the latest version of the test gems, in case this hit your real gem home and uninstalled stuff.\n"
       print "Running geminstaller: #{geminstaller_cmd}\n"
       IO.popen(geminstaller_cmd) {|process| process.readlines.each {|line| print line}}
