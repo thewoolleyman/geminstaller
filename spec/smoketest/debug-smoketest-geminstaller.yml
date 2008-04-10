@@ -1,0 +1,8 @@
+---
+defaults:
+  install_options: --include-dependencies
+gems:
+- name: x10-cm17a
+  no_autogem: true
+  version: '1.0.1'
+  platform: <%= RUBY_PLATFORM =~ /mswin/ ? 'i386-mswin32' : 'ruby'%>
