@@ -99,7 +99,7 @@ task :publish_website => [:clean, :website] do
 end
 
 desc 'Run All Smoketests'
-task :smoketest => [:clean] do
+task :all_smoketest => [:clean] do
   run_smoketest 'test/test_all_smoketests.rb'
 end
 
