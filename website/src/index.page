@@ -35,7 +35,7 @@ GemInstaller was created by "Chad Woolley":http://www.thewoolleyweb.com.
 
 h2(#news). News
 
-Version 0.3.0 of GemInstaller is released.  This is tested and working against latest RubyGems 1.0.1.
+Version 0.4.0 of GemInstaller is released.  This is tested and working against RubyGems 1.1.1.
 
 h2(#known_issues). Known Issues
 
