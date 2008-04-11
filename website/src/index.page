@@ -19,7 +19,7 @@ GemInstaller provides automated management of RubyGems.  It uses a simple YAML c
 
 GemInstaller can be used from the command line, or embedded to run automatically on startup for a Rails app or any other Ruby program.
 
-It has been tested on all major platforms (mac, linux, windows), and has an "extensive suite of tests":code/coverage/index.html which are "automatically run by Continuous Integration":http://ci.thewoolleyweb.com against recent versions of RubyGems (0.8.x through 1.0.1)..
+It has been tested on all major platforms (mac, linux, windows), and has an "extensive suite of tests":code/coverage/index.html which are "automatically run by Continuous Integration":http://ci.thewoolleyweb.com against recent versions of RubyGems (> 1.0.1 releases and trunk)..
 
 h2. How do I get it?
 
@@ -35,15 +35,11 @@ GemInstaller was created by "Chad Woolley":http://www.thewoolleyweb.com.
 
 h2(#news). News
 
-Version 0.4.0 of GemInstaller is released.  This is tested and working against RubyGems 1.1.1.
+Version 0.4.0 of GemInstaller is released.  This is tested and working against RubyGems 1.1.1.  Version 1.1.0 of RubyGems had some problems with GemInstaller, and is not supported.
 
 h2(#known_issues). Known Issues
 
-Currently, the only _major_ known issue is related to auto-installing the Rails or Mongrel gems via boot.rb or config/preinitializer.rb during startup of Mongrel or Webrick.  This is because the old version is already on the load path before GemInstaller installs the new version.  The simple workaround is to just restart Rails anytime GemInstaller auto-installs a Rails/Mongrel gem upgrade during app startup.  For Rails and other deployable apps, you can also "run GemInstaller from Capistrano":documentation/tutorials.html#running_geminstaller_from_capistrano to avoid this problem in demo/production environments.
-
-There's also some leakage of gem doc warning messages even if you turn down --rubygems-output, but these can be ignored (these same messages can show up when installing gems manually).
-
-I bet there's another bug or twoo, so please "report them if you find them":http://rubyforge.org/tracker/?group_id=1902!
+Please "report them if you find them":http://rubyforge.org/tracker/?group_id=1902!
 
 h2(#history). History
 
@@ -51,13 +47,13 @@ h2(#history). History
 ** Fix multiplatform bug on windows where ruby platform requiring compile was selected over native mswin platform.
 ** deprecate support of rubygems 0.9.5, 1.0.0, and 1.1.0.
 ** Change handling of platforms on rubygems on Rubygems > 0.9.5, let RubyGems handle default.
-** rename GemInstaller.run method to GemInstaller.install, keep run as an alias for install
-** add‍warning‍if‍a‍gem‍version‍error‍is‍detected,‍with instructions‍to‍run‍geminstaller‍to‍install‍the‍missing‍version
-** Rubygems‍1.x‍compatibility
-** better internal support for uninstall options
-** use‍new,‍correct‍x86-mswin32‍format‍for‍mswin32‍platform‍gems
-** update‍warning‍message‍for‍older‍rubygems‍versions
-** made tests run on Mac OS X Leopard w/RubyGems 1.0.1
+** Rename GemInstaller.run method to GemInstaller.install, keep 'run' as an alias for 'install'
+** Include instructions ‍to‍ run‍ geminstaller‍ to‍ install‍ the‍ missing‍ version  when‍ gem‍ version‍ error‍ is‍ detected.
+** Rubygems‍ 1.x ‍compatibility.
+** Better internal support for uninstall options.
+** Use‍ new,‍ correct‍ x86-mswin32‍ format‍ for‍ mswin32‍ platform‍ gems.
+** Update‍ warning‍ message‍ for‍ older‍ rubygems‍ versions.
+** Made tests run on Mac OS X Leopard w/RubyGems 1.0.1.
 * 0.3.0
 ** Changes to work with RubyGems >= 0.9.5 and take advantage of new platform and auto-install features.  See "notes on RubyGems version compatibility":code/index.html#rubygems_compatibility
 ** On Linux/Mac, you can now specify a RUBYGEMS_VERSION environment var to test against a specific version of RubyGems.
