@@ -56,9 +56,9 @@ Yeah, it's too manual.  Notes for improvement below.
 * Update version in geminstaller.rb
 * rake update_manifest
 * Run tests:
-  * CI should be green for all versions
-  * install_smoketest.rb and autogem_smoketest.rb should pass for all RubyGems versions on mac/linux
-  * test_all, install_smoketest.rb and autogem_smoketest.rb should pass for latest RubyGems version on windows
+** CI should be green for all versions
+** install_smoketest.rb and autogem_smoketest.rb should pass for all RubyGems versions on mac/linux
+** test_all, install_smoketest.rb and autogem_smoketest.rb should pass for latest RubyGems version on windows
 * Make sure everything is checked in
 * Make a tag in svn
 * rake clean package

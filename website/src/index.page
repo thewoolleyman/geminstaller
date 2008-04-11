@@ -47,6 +47,17 @@ I bet there's another bug or twoo, so please "report them if you find them":http
 
 h2(#history). History
 
+* 0.4.0
+** Fix multiplatform bug on windows where ruby platform requiring compile was selected over native mswin platform.
+** deprecate support of rubygems 0.9.5, 1.0.0, and 1.1.0.
+** Change handling of platforms on rubygems on Rubygems > 0.9.5, let RubyGems handle default.
+** rename GemInstaller.run method to GemInstaller.install, keep run as an alias for install
+** add‍warning‍if‍a‍gem‍version‍error‍is‍detected,‍with instructions‍to‍run‍geminstaller‍to‍install‍the‍missing‍version
+** Rubygems‍1.x‍compatibility
+** better internal support for uninstall options
+** use‍new,‍correct‍x86-mswin32‍format‍for‍mswin32‍platform‍gems
+** update‍warning‍message‍for‍older‍rubygems‍versions
+** made tests run on Mac OS X Leopard w/RubyGems 1.0.1
 * 0.3.0
 ** Changes to work with RubyGems >= 0.9.5 and take advantage of new platform and auto-install features.  See "notes on RubyGems version compatibility":code/index.html#rubygems_compatibility
 ** On Linux/Mac, you can now specify a RUBYGEMS_VERSION environment var to test against a specific version of RubyGems.

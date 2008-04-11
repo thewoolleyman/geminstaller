@@ -1,4 +1,4 @@
-== 0.x.y / yyyy-mm-dd
+== 0.4.0 / 2008-04-10
 * Fix multiplatform bug on windows where ruby platform requiring compile was selected over native mswin platform.
 * deprecate support of rubygems 0.9.5, 1.0.0, and 1.1.0.
 * Change handling of platforms on rubygems on Rubygems > 0.9.5, let RubyGems handle default.
