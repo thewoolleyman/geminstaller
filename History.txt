@@ -1,3 +1,6 @@
+== 0.4.1 / 2008-04-12
+* Fix bug with warnings for outdated/incompatible rubygems versions.
+
 == 0.4.0 / 2008-04-10
 * Fix multiplatform bug on windows where ruby platform requiring compile was selected over native mswin platform.
 * deprecate support of rubygems 0.9.5, 1.0.0, and 1.1.0.
