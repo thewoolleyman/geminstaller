@@ -48,6 +48,7 @@ lib/geminstaller/ruby_gem.rb
 lib/geminstaller/rubygems_exit.rb
 lib/geminstaller/rubygems_extensions.rb
 lib/geminstaller/rubygems_version_checker.rb
+lib/geminstaller/rubygems_version_warnings.rb
 lib/geminstaller/source_index_search_adapter.rb
 lib/geminstaller/unauthorized_dependency_prompt_error.rb
 lib/geminstaller/unexpected_prompt_error.rb

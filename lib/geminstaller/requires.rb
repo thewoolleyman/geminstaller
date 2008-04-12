@@ -5,28 +5,8 @@ require 'rubygems'
 
 # backward compability and version-checking stuff - must be required before it is used
 require File.expand_path("#{dir}/rubygems_version_checker")
-
-unless defined? ALLOW_UNSUPPORTED_RUBYGEMS_VERSION or GemInstaller::RubyGemsVersionChecker.matches?('>=0.9.5')
-  print "\n\n----------------------------------------------------------------\n" + 
-            "WARNING: You are using RubyGems version #{Gem::RubyGemsVersion}.\n" +
-            "You should update to RubyGems version 1.0.1 or above,\n" +
-            "because gems created for newer RubyGems versions\n" +
-            "might be incompatible.\n" +
-            "To update rubygems (recommended), use 'gem update --system'.\n" +
-            "----------------------------------------------------------------\n\n"
-end
-
-
-if !(defined? ALLOW_UNSUPPORTED_RUBYGEMS_VERSION) or 
-  GemInstaller::RubyGemsVersionChecker.matches?('=0.9.5') or
-  GemInstaller::RubyGemsVersionChecker.matches?('=1.1.0')
-  print "\n\n----------------------------------------------------------------\n" + 
-            "WARNING: You are using RubyGems version #{Gem::RubyGemsVersion}.\n" +
-            "This version is known to have bugs and/or compatibility issues\n" +
-            "with GemInstaller.  Update RubyGems, or continue at your risk.\n" +
-            "To update rubygems (recommended), use 'gem update --system'.\n" +
-            "----------------------------------------------------------------\n\n"
-end
+require File.expand_path("#{dir}/rubygems_version_warnings")
+GemInstaller::RubyGemsVersionWarnings.print_warnings
 
 # requires for rubygems internal classes
 require 'rubygems/doc_manager'
