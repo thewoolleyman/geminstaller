@@ -46,6 +46,13 @@ task :coverage do
   sh "rcov -o website/output/code/coverage test/test_all.rb"
 end
 
+task :coverage_no_fail do
+  begin
+    Rake::Task[:coverage].invoke
+  rescue
+  end
+end
+
 desc "Diff the manifest"
 task :diff_manifest => :clean do
   f = "Manifest.tmp"
@@ -91,7 +98,15 @@ task :website => [:webgen, :website_rdocs, :coverage] do
 end
 
 desc 'Publish website to RubyForge'
-task :publish_website => [:clean, :website] do
+task :publish_website => [:clean, :website, :upload_website] do
+end
+
+desc 'Publish website to RubyForge even if test coverage run rails'
+task :publish_website_no_fail => [:clean, :webgen, :website_rdocs, :coverage_no_fail, :upload_website] do
+end
+
+desc 'Upload website (should already be clean and generated)'
+task :upload_website do
   host = "thewoolleyman@rubyforge.org"
   remote_dir = "/var/www/gforge-projects/geminstaller"
   local_dir = 'website/output'
