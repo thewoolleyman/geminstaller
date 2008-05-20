@@ -3,10 +3,13 @@ title: FAQ
 ---
 h1. Frequently Asked Questions
 
+<span id="rails_config_gems"/>
+Q: Why not just use Rails' config.gems instead of GemInstaller?<br/>
+A: I'll come up with a feature comparison chart sometime.  For now, I'll mention a few reasons:  1) Rails itself cannot manage the Rails gems - but GemInstaller can via preinitializer.rb. 2) GemInstaller has more features that config.gems.  3) GemInstaller runs for any app or environment that needs to manage RubyGems, not just Rails.  If none of these things matter to you, you should consider using config.gems :)
 
 <span id="environment_vars_and_sudo"/>
 Q: Why can't I use environment variables via ERB in geminstaller.yml when using sudo?<br/>
-A: For security, the sudo command does NOT pass most environment variables.  That means if you are trying to use an environment variable to control logic in your geminstaller.yml (for example to dynamically specify a gem version), then it won't work!  I don't yet have a good workaround for this, other than not using sudo.  I may add an option to auto-parse environment variables from the command line, like Rake.  Let me know if you have ideas.
+A: For security, the sudo command does NOT pass most environment variables.  That means if you are trying to use an environment variable to control logic in your geminstaller.yml (for example to dynamically specify a gem version), then it won't work!  The workaround would be to not use sudo (http://thewoolleyweb.lighthouseapp.com/projects/11580/tickets/1-automatically-create-use-and-manage-writeable-gem-home-if-system-gem-home-is-not-writeable)
 
 Q: Why do some gems (like BlueCloth) always get reinstalled, even though they are already installed?<br/>
 A: Dunno, this is either a bug in the gem or in RubyGems.  It isn't a problem with GemInstaller AFAIK, it happens even if you install manually via 'gem install'.  Haven't had time to debug, let me know if you figure it out.

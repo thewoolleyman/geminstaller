@@ -377,6 +377,12 @@ h2(#dealing_with_sudo). Dealing with sudo and root-owned RubyGem installations
 
 If you only run geminstaller on Windows, you don't have to worry about this section :)
 
+<strong>UPDATE:</strong>
+
+After thinking about this problem a lot, I've become convinced the best way to "deal with sudo" is to never use it at all.  I've got a "feature planned":http://thewoolleyweb.lighthouseapp.com/projects/11580/tickets/1-automatically-create-use-and-manage-writeable-gem-home-if-system-gem-home-is-not-writeable that will address this issue, but still need to implement it.
+
+<strong>FOR NOW, THOUGH:</strong>
+
 <strong>Important Note:</strong> For security, the sudo command does NOT pass most environment variables.  See the faq item on "Environment Variables and sudo":../faq.html#environment_vars_and_sudo for more info.
 
 On many unix-like systems (Mac, Linux, etc.), the root user will own the local installation of RubyGems (often /usr/local/ruby) and/or the executable directory where gem executables are installed (often /usr/local/bin).  If this is the case, then gems must be installed and uninstalled by the root user, or via the sudo command.  This presents a problem for geminstaller, which must have this same permission to automatically install gems.

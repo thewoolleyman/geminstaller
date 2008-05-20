@@ -33,13 +33,19 @@ h2. Who is responsible for GemInstaller?
 
 GemInstaller was created by "Chad Woolley":http://www.thewoolleyweb.com.
 
+h2. Why not use use Rails' config.gems?
+
+GemInstaller "has some advantages":faq.html#rails_config_gems over Rails' config.gems.
+
 h2(#news). News
 
-Version 0.4.0 of GemInstaller is released.  This is tested and working against RubyGems 1.1.1.  Version 1.1.0 of RubyGems had some problems with GemInstaller, and is not supported.
+Version 0.4.1 of GemInstaller is released.  This is tested and working against RubyGems 1.1.1.  Version 1.1.0 of RubyGems had some problems with GemInstaller, and is not supported.
 
 h2(#known_issues). Known Issues
 
-Please "report them if you find them":http://rubyforge.org/tracker/?group_id=1902!
+I have a "list of high priority bugs and features":http://thewoolleyweb.lighthouseapp.com/projects/11580-geminstaller/tickets?q=tagged%3Ahigh_priority that need to be addressed before a 1.0 release.
+
+Please "report any others that you find":http://thewoolleyweb.lighthouseapp.com/projects/11580-geminstaller/overview !
 
 h2(#history). History
 

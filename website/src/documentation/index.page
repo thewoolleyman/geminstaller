@@ -21,6 +21,12 @@ gems:
 
 h2. Using GemInstaller with Ruby on Rails
 
+<strong>RAILS 2.0 UPDATE:</strong>
+
+I've created a "Sample Rails App":http://geminstaller.rubyforge.org/svn/trunk/spec/fixture/sample_rails_app/ in the source, which shows how to use the Rails 2.0 config/preinitializer.rb hook.  I need to spend some time updating the docs to reflect this, but for now just "check out the source":http://geminstaller.rubyforge.org/svn/trunk/spec/fixture/sample_rails_app/
+
+<strong>OLD RAILS 1.0 INSTRUCTIONS:</strong>
+
 * Create geminstaller.yml in the RAILS_ROOT/config directory.  Include entries for your Rails version, and any other gems your app needs (Note: If you are too lazy to make your config file manually, or don't know what gems you need, see the tutorial on "Bootstrapping your GemInstaller Config with the <code>--print-rogue-gems</code> option":tutorials.html#bootstrapping_your_geminstaller_config):
 
     <pre>

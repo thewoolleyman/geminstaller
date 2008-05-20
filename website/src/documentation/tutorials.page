@@ -74,9 +74,13 @@ See also:  Docs on "Automatically Requiring Gems with the <code>autogem</code> M
 
 h2(#integrating_geminstaller_into_ruby_on_rails). Integrating GemInstaller into Ruby on Rails
 
-GemInstaller can be configured to automatically install all gems in the config file, and add them to the load path when Rails boots.  This means that you can check out and run your application anywhere, without having to worry about manually ensuring that the required dependency gems are installed.  This works with Webrick and Mongrel.
+<strong>RAILS 2.0 UPDATE:</strong>
 
-IMPORTANT NOTE:  Currently, there is an issue with installing Mongrel and Rails gems on Rails startup (the old versions are already on the LOAD_PATH, so a restart is required to pick up the new ones).  See "Known Issues":../index.html#known_issues for details.
+I've created a "Sample Rails App":http://geminstaller.rubyforge.org/svn/trunk/spec/fixture/sample_rails_app/ in the source, which shows how to use the Rails 2.0 config/preinitializer.rb hook.  I need to spend some time updating the docs to reflect this, but for now just "check out the source":http://geminstaller.rubyforge.org/svn/trunk/spec/fixture/sample_rails_app/
+
+<strong>OLD RAILS 1.0 INSTRUCTIONS:</strong>
+
+GemInstaller can be configured to automatically install all gems in the config file, and add them to the load path when Rails boots.  This means that you can check out and run your application anywhere, without having to worry about manually ensuring that the required dependency gems are installed.  This works with Webrick and Mongrel.
 
 First, you need a Rails app.  I'll let you handle this step on your own.  See the "Rails documentation":http://www.rubyonrails.org/docs for details.
 
