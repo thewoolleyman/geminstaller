@@ -33,7 +33,7 @@ h2. Who is responsible for GemInstaller?
 
 GemInstaller was created by "Chad Woolley":http://www.thewoolleyweb.com.
 
-h2. Why not use use Rails' config.gems?
+h2. Why not just use Rails' config.gems?
 
 GemInstaller "has some advantages":faq.html#rails_config_gems over Rails' config.gems.
 
