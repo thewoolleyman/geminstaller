@@ -49,7 +49,10 @@ module GemInstaller
       rm_config
       create_config
       GemInstaller::EmbeddedGemServer.start
-      `#{gem_cmd} update --source #{embedded_gem_server_url} --config-file #{config_file}`
+      cmd = "#{gem_cmd} update --source #{embedded_gem_server_url} --config-file #{config_file}"
+      puts "Updating from embedded gem server, cmd = #{cmd}"
+      output = `#{cmd}`
+      raise "Failure updating from embedded gem server, cmd = #{cmd}" unless $?.success?
       @@server_started = true
     end
     
