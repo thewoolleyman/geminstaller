@@ -65,6 +65,7 @@ module GemInstaller
     def self.uninstall_all_test_gems
       if GemInstaller::RubyGemsVersionChecker.matches?('>=0.9.5')
         rm_test_gem_home_dir
+        require 'rubygems/source_info_cache'
         Gem::SourceInfoCache.reset if GemInstaller::RubyGemsVersionChecker.matches?('>1.0.1')
       else
         uninstall_all_test_gems_via_rubygems
