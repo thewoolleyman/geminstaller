@@ -11,6 +11,7 @@ describe "a GemRunnerProxy instance" do
 
   it "should return output of gem command" do
     gem_runner_args = ["list", "#{sample_multiplatform_gem_name}", "--remote"]
+    gem_runner_args += ['--all'] if GemInstaller::RubyGemsVersionChecker.matches?('<=1.1.1')
     gem_runner_args += install_options_for_testing
 
     output = @gem_runner_proxy.run(gem_runner_args)
