@@ -3,7 +3,7 @@ module GemInstaller
     def gem_home
       is_windows = RUBY_PLATFORM =~ /mswin/ ? true : false
       return '' if is_windows
-      return "export GEM_HOME=#{gem_home_dir};"
+      return "export GEM_HOME=#{gem_home_dir}; export GEM_PATH=#{gem_home_dir};"
     end
     
     def gem_home_dir

@@ -38,7 +38,7 @@ module GemInstaller
       @config_builder.yaml_loader = @yaml_loader
       @config_builder.output_filter = @output_filter
 
-      @gem_source_index = Gem::SourceIndex.new
+      @gem_source_index = Gem::SourceIndex.from_installed_gems
       @gem_source_index_proxy = GemInstaller::GemSourceIndexProxy.new
       @gem_source_index_proxy.gem_source_index = @gem_source_index
 

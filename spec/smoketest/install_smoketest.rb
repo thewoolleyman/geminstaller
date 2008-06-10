@@ -30,7 +30,9 @@ module GemInstaller
 
       test_gems.each do |gem|
         print "Uninstalling all versions of #{gem}.  This will give an error if it's not already installed.\n"
-        IO.popen("#{gem_home} #{gem_cmd} uninstall --all --ignore-dependencies --executables #{gem}") do |process| 
+        cmd = "#{gem_home} #{gem_cmd} uninstall --all --ignore-dependencies --executables #{gem}"
+        print "#{cmd}\n"
+        IO.popen(cmd) do |process| 
           process.readlines.each do |line| 
             print line
           end
