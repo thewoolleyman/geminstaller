@@ -184,6 +184,17 @@ module GemInstaller
           }.should raise_error(GemInstaller::GemInstallerError)
           error.message.should match(message_regex)
       end
+      
+      def install_gem(gem)
+        install_result = @gem_command_manager.install_gem(gem)
+        begin
+          @gem_spec_manager.is_gem_installed?(gem).should==(true)
+        rescue Spec::Expectations::ExpectationNotMetError => e
+          p install_result
+          raise e
+        end
+      end
+      
     end
   end
 end

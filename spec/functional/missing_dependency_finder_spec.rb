@@ -69,11 +69,6 @@ describe "a MissingDependencyFinder instance" do
     GemInstaller::TestGemHome.uninstall_all_test_gems
   end
 
-  def install_gem(gem)
-    @gem_command_manager.install_gem(gem)
-    @gem_spec_manager.is_gem_installed?(gem).should==(true)
-  end
-  
   def uninstall_gem(gem)
     @gem_command_manager.uninstall_gem(gem)
     @gem_spec_manager.is_gem_installed?(gem).should==(false)

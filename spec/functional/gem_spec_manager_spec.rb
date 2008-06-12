@@ -58,12 +58,7 @@ describe "an GemSpecManager instance" do
     local_gem_names.should include(@sample_multiplatform_gem.name)
     local_gem_versions.should include(@sample_gem.version)
   end
-  
-  def install_gem(gem)
-    @gem_command_manager.install_gem(gem)
-    @gem_spec_manager.is_gem_installed?(gem).should==(true)
-  end
-  
+    
   after(:each) do
     GemInstaller::TestGemHome.uninstall_all_test_gems
   end
