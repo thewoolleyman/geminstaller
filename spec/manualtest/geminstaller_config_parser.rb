@@ -8,6 +8,8 @@ registry = GemInstaller::Registry.new
 config_builder = registry.config_builder
 config_builder.config_file_paths = config_file_paths
 config = config_builder.build_config
+gems = config.gems
 
-require 'pp'
-pp config
+gems.each do |gem|
+  p "#{gem.name} #{gem.version}"
+end
