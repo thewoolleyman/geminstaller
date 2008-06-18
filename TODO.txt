@@ -1,4 +1,5 @@
 =============== Unfiled =============
+* Tagline: "It's not just for installing gems!" - "removes the drudgery of installing, activating, and requiring gems"
 * move to Github
   * autoupdate of rails trunk
   * redirection of links to old svn
