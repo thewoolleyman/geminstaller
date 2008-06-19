@@ -15,7 +15,7 @@ describe "test_gem_home_spec: the TestGemHome class" do
     # make sure rubygems dirs, including source_index, were created
     entries = Dir.entries("#{@test_gem_home_dir}")
     expected_entries = ["cache", "doc", "gems", "specifications"]
-    if GemInstaller::RubyGemsVersionChecker.matches?('>1.1.1')
+    if GemInstaller::RubyGemsVersionChecker.matches?('>=1.2.0')
       expected_entries << 'cache'
     else
       expected_entries << 'source_cache'

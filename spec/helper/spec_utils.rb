@@ -125,7 +125,11 @@ module GemInstaller
       end
   
       def install_options_for_testing
-        ['--backtrace','--source', embedded_gem_server_url, '--config-file', test_rubygems_config_file]
+        ['--source', embedded_gem_server_url] + options_for_testing
+      end
+      
+      def options_for_testing
+        ['--backtrace','--config-file', test_rubygems_config_file]
       end
     
       def uninstall_options_for_testing

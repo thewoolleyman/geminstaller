@@ -31,9 +31,12 @@ module GemInstaller
       # with enhanced_stream_ui.  Patched: http://rubyforge.org/tracker/index.php?func=detail&aid=9020&group_id=126&atid=577
       # TODO: use pipe option on later versions which support it
       
-      run_args = ["dependency","^#{name}$","--version",version]
+      name_regexp = "^#{name}$"
+      name_regexp = "/#{name_regexp}/" if GemInstaller::RubyGemsVersionChecker.matches?('>=1.2.0')
+      run_args = ["dependency", name_regexp, "--version", version]
       run_args += additional_options
       output_lines = @gem_runner_proxy.run(run_args)
+      p output_lines
       # dependency output has all lines in the first element
       output_array = output_lines[0].split("\n")
       # drop the first line which just echoes the dependent gem
@@ -49,7 +52,7 @@ module GemInstaller
       # convert into gems
       output_gems = output_array.collect do |line|
         name = line.split(' ')[0]
-        version_spec = line.split(/[()]/)[1]
+        version_spec = line.split(/[(,)]/)[1]
         GemInstaller::RubyGem.new(name, :version => version_spec)
       end
     end
