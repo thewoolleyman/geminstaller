@@ -4,8 +4,8 @@ title: FAQ
 h1. Frequently Asked Questions
 
 <span id="rails_config_gems"/>
-Q: Why not just use Rails' config.gems instead of GemInstaller?<br/>
-A: I'll come up with a feature comparison chart sometime.  For now, I'll mention a few reasons:  1) Rails itself cannot manage the Rails gems - but GemInstaller can via preinitializer.rb. 2) GemInstaller has more features that config.gems.  3) GemInstaller runs for any app or environment that needs to manage RubyGems, not just Rails.  If none of these things matter to you, you should consider using config.gems :)
+Q: Why not just use Rails' config.gems and rake tasks instead of GemInstaller?<br/>
+A: I'll come up with a feature comparison chart sometime.  For now, I'll mention a few reasons:  1) Rails itself cannot manage the Rails gems - but GemInstaller can via preinitializer.rb. 2) GemInstaller has more features that config.gems.  3) GemInstaller runs for any app or environment that needs to manage RubyGems, not just Rails.  Like Merb!  If you only use Rails, and none of these things matter to you, maybe you should consider using the Rails support :)
 
 <span id="environment_vars_and_sudo"/>
 Q: Why can't I use environment variables via ERB in geminstaller.yml when using sudo?<br/>
@@ -19,6 +19,9 @@ A: You are on your own, this is outside of the scope of GemInstaller.  The gemin
 
 Q: Why don't the tests/specs run on Windows?<br/>
 A: This has been improved with GemInstaller 0.3.0.  Using RubyGems 1.0.1 on Windows, install_smoketest.rb, autogem_smoketest.rb, and ruby test/test_all.rb all work.  See references to 'windows' on the "Code Page":code/index.html for more details.
+
+Q: Why else should I support GemInstaller?<br/>
+A: GemInstaller has an extensive, multifaceted and multiplatform suite of specs and tests which is actively maintained against the latest trunk version of RubyGems and run via Continuous Integration.  It is valuable for alerting about regressions in RubyGems itself.  For example, leading up to the the RubyGems 1.2.0 release, the GemInstaller spec suite identified several regression bugs in RubyGems which were promptly reported and proactively fixed by awesome Eric Hodel and others before the release.
 
 
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>This space intentionally left blank.<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>

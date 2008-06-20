@@ -19,7 +19,7 @@
       <div id="header">
         <div id="sitename">
           <h1>GemInstaller</h1>
-          <h2>Automate Ruby Gems!</h2>
+          <h2>Automated Gem installation, activation, and much more!</h2>
         </div>
       </div>
 

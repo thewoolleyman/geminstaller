@@ -32,7 +32,7 @@ These are some notes on the underlying design of GemInstaller, and the current s
 <span id="rubygems_compatibility"/>
 h1. Maintaining forward and backward compatibility with multiple RubyGems versions
 
-* I've put a lot of effort into ensuring that GemInstaller works with older versions of RubyGems.  As of now (2008-01-01) all specs (not smoketests) are green on mac/linux against RubyGems versions 0.8.11, 0.9.4, 0.9.5, 1.0.0, and 1.0.1.  On Windows, smoketests and specs are green against 1.0.1.  I haven't figured out how to automate testing against older RubyGems versions without a reinstall on Windows, so let me know if something is broken (or just upgrade).
+* I've put a lot of effort into ensuring that GemInstaller works with older versions of RubyGems, and run automated tests against several recent versions on Continuous Integration.
 
 * This wasn't as hard as it seems.  The hardest part was figuring out what was different between versions.  Once you understand that, you can add switch statements to perform different logic or tests depending on the version (which is easy if you use rubygems built in Version Requirement support - see GemInstaller::RubygemsVersionChecker).
 
