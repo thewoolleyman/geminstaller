@@ -50,6 +50,8 @@ Please "report any others that you find":http://thewoolleyweb.lighthouseapp.com/
 
 h2(#history). History
 
+* 0.4.2
+** Compatibility with RubyGems 1.2.0
 * 0.4.1
 ** Fix bug with warnings for outdated/incompatible rubygems versions.
 * 0.4.0
