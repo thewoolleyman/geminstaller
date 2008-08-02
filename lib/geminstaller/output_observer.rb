@@ -25,6 +25,10 @@ module GemInstaller
     def puts(output)
       print("#{output}\n")
     end
+
+    def tty?
+      false
+    end
     
     def flush
     end

@@ -39,7 +39,7 @@ describe "a GemCommandManager instance" do
       expected_versions = "1.0.1, 1.0.0"
     end
     
-    expected_list = /REMOTE GEMS.*stubgem-multiplatform \(#{expected_versions}\).*Multiplatform stub gem for testing geminstaller/m
+    expected_list = /.*stubgem-multiplatform \(#{expected_versions}\).*Multiplatform stub gem for testing geminstaller/m
     list.join.should match expected_list
   end
   
