@@ -38,10 +38,6 @@ h2. Why not just use Rails' config.gems?
 
 GemInstaller "has some advantages":faq.html#rails_config_gems over Rails' config.gems.
 
-h2(#news). News
-
-Version 0.4.1 of GemInstaller is released.  This is tested and working against RubyGems 1.1.1.  Version 1.1.0 of RubyGems had some problems with GemInstaller, and is not supported.
-
 h2(#known_issues). Known Issues
 
 I have a "list of high priority bugs and features":http://thewoolleyweb.lighthouseapp.com/projects/11580-geminstaller/tickets?q=tagged%3Ahigh_priority that need to be addressed before a 1.0 release.
@@ -50,6 +46,8 @@ Please "report any others that you find":http://thewoolleyweb.lighthouseapp.com/
 
 h2(#history). History
 
+* 0.4.4
+** Compatibility with RubyGems 1.3.0
 * 0.4.3
 ** Repackage gem with released version of RubyGems 1.2.0.
 * 0.4.2
