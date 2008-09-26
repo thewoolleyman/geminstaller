@@ -53,7 +53,7 @@ Yeah, it's too manual.  Notes for improvement below.
 
 * Add section and entries for new release to History.txt
 * Add same history info to history section on homepage.
-* Update version in geminstaller.rb
+* Update version in geminstaller.rb (if it was not done immediately after last publish, which it should have been)
 * rake update_manifest
 * Run tests:
 ** CI should be green for all versions
@@ -64,9 +64,23 @@ Yeah, it's too manual.  Notes for improvement below.
 * rake clean package
 * Upload gem to rubyforge
 * rake publish_website
+* Bump the version in geminstaller.rb to the expected next release version.
 
 Here's the improvements I need to make to the release process:
 
 * Avoid duplication of history file to display on home page
 * Make CI automatically build and tag a gem/package with next version + revision: x.y.z.<svn revision>
 * Rake task to automatically tag and release latest build from CI and tag
+
+<span id="rubygems_upgrade_process"/>
+h1. Rubygems Upgrade Process
+
+Process to test against new rubygems release.
+
+<pre>
+svn export http://rubygems.rubyforge.org/svn/tags/REL_X_Y_Z spec/fixture/rubygems_dist/rubygems-X.Y.Z
+</pre>
+
+* add spec/fixture/rubygems_dist/rubytems-X.Y.Z
+* checkin
+* Add project for that release on CI
