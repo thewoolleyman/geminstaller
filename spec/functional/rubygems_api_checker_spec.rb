@@ -15,7 +15,7 @@ describe "RubyGems API" do
   if GemInstaller::RubyGemsVersionChecker.matches?('>=1.1.1')
   # we only care about latest version of RubyGems
   it "should return the expected fixture environment" do
-    gem_runner_args = ["env"]
+    gem_runner_args = ["env"] + options_for_testing
 
     output = @gem_runner_proxy.run(gem_runner_args)
     #puts output.join("\n")
