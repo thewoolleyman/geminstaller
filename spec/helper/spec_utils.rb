@@ -125,6 +125,8 @@ module GemInstaller
       end
   
       def install_options_for_testing
+        # TODO: fix tests so no-ri no-rdoc works...
+        # ['--source', embedded_gem_server_url, '--no-ri', '--no-rdoc'] + options_for_testing
         ['--source', embedded_gem_server_url] + options_for_testing
       end
       
