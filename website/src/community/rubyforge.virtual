@@ -1,0 +1,4 @@
+rubyforge.html:
+  title: Rubyforge
+  url: http://rubyforge.org/projects/geminstaller
+  in_menu: true

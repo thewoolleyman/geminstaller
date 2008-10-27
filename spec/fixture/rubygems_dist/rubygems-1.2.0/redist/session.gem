@@ -1,4 +1,4 @@
-        MD5SUM = "5f77e34208c02ef0f51a973ec1ae375e"
+z        MD5SUM = "5f77e34208c02ef0f51a973ec1ae375e"
         if $0 == __FILE__
           require 'optparse'
         

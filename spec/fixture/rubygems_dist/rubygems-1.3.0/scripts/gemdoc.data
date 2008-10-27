@@ -1,4 +1,4 @@
-== gem build -- Build a gem file from a specification
+z== gem build -- Build a gem file from a specification
 
 The build command is used by developers to package their Ruby software
 into a single gem file that can be distributed.  The build command

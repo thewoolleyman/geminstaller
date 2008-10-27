@@ -1,2 +1,11 @@
 # Configuration file for webgen
 # Used to set the parameters of the plugins
+default_meta_info:
+  Page:
+    blocks:
+      default: {pipeline: tags,redcloth,blocks}
+  Template:
+    blocks:
+      default: {pipeline: tags,redcloth,blocks}
+tag.menu.show_current_subtree_only: true
+tag.menu.nested: false

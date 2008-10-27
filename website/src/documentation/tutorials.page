@@ -13,11 +13,10 @@ If anything is unclear, or if you'd like to see a tutorial on a topic, please su
 
 h2(#installing_geminstaller). Installing GemInstaller
 
-<pre>
-$ gem install geminstaller
+<pre><code>$ gem install geminstaller
    - OR, if you get a permission error -
 $ sudo gem install geminstaller 
-</pre>
+</code></pre>
 
 See also: Docs on "installation":documentation.html#installation.
 
@@ -25,9 +24,9 @@ h2(#bootstrapping_your_geminstaller_config). Bootstrapping your GemInstaller Con
 
 You may have no idea what gems your app uses, or you might just want to create a GemInstaller config file with all the gems currently on your system, in order to install the same gems on a different system.  This tutorial will show you how to use the <code>--print-rogue-gems</code> option to automatically create a GemInstaller config file.
 
-<pre>
+<pre><code>
 $ geminstaller --print-rogue-gems > geminstaller.yml
-</pre>
+</code></pre>
 
 That was easy, wasn't it?  This config file should specify the exact versions for all of the gems which are currently installed on your system.
 
@@ -43,15 +42,14 @@ h2(#using_the_autogem_option_to_automatically_require_gems). Using the <code>aut
 GemInstaller can automatically run the RubyGems 'gem' or 'require_gem' method to automatically add all of the gems in your GemInstaller config file(s) to the load path.  Here's an example.
 
 First, create a simple *<code>geminstaller.yml</code>* file:
-<pre>
-\---
+<pre><code>---
 gems:
 - name: ruby-doom
   version: '= 0.8'
-</pre>
+</code></pre>
 
 Now, we'll use <code>irb</code> to test autogem, and verify that it can add the ruby-doom gem to the load path:
-<pre>
+<pre><code>
 $ irb
 irb(main):001:0> require 'rubygems'
 => true
@@ -61,7 +59,7 @@ irb(main):003:0> GemInstaller.autogem('--config=geminstaller.yml')
 => autogem returns the gem object(s) as it's return value...
 irb(main):004:0> $: # Now verify the gem was added to the load path
 => ["/usr/local/lib/ruby/gems/1.8/gems/ruby-doom-0.8/lib", ...]
-</pre>
+</code></pre>
 
 Note that <code>autogem</code> takes arguments in the same format as the GemInstaller command line and <code>run</code> method, but it ignores arguments which are not applicable (such as -r or -s).  You could also specify no argument at all if you wanted to simply use the default <code>geminstaller.yml</code> file in the current directory.  If you don't want a certain gem to be loaded, you can set the <code>no-autogem</code> property to true for that gem in your config file.
 
@@ -87,60 +85,58 @@ First, you need a Rails app.  I'll let you handle this step on your own.  See th
 Next, you need a *<code>geminstaller.yml</code>* config file.  Create this under the Rails <code>config</code> directory.  For details, see the documentation on the "config file":documentation.html#config_file and the tutorial on "bootstrapping your GemInstaller config with the <code>--print-rogue-gems</code> option":#bootstrapping_your_geminstaller_config.  Here's an example config which contains only entries for Mongrel and Rails, and ruby-doom:
 
 *RAILS_ROOT/config/geminstaller.yml*:
-<pre>
-\---
-defaults:
-  install_options: --include-dependencies
-gems:
-- name: ruby-doom
-  version: '= 0.8'
-- name: rails
-  version: '= 1.1.6'
-- name: mongrel
-  version: '= 1.0.1'
-  platform: <%= RUBY_PLATFORM =~ /mswin/ ? 'mswin32' : 'ruby'%>
-</pre>
+<pre><code>  ---
+  defaults:
+    install_options: --include-dependencies
+  gems:
+  - name: ruby-doom
+    version: '= 0.8'
+  - name: rails
+    version: '= 1.1.6'
+  - name: mongrel
+    version: '= 1.0.1'
+    platform: <%= RUBY_PLATFORM =~ /mswin/ ? 'mswin32' : 'ruby'%>
+</code></pre>
 
 Once you have your *<code>geminstaller.yml</code>* created, the last step is to add calls to <code>GemInstaller.install</code> and <code>GemInstaller.autogem</code> in your boot.rb.  They should be placed right after the block which defines the RAILS_ROOT constant, as shown below ("..." indicates omitted lines):
 
 
 *RAILS_ROOT/config/boot.rb*:
-<pre>
-...
-unless defined?(RAILS_ROOT)
-...
-end
-
-############# Begin GemInstaller config - see http://geminstaller.rubyforge.org
-require "rubygems"
-require "geminstaller"
-
-# Path(s) to your GemInstaller config file(s)
-config_paths = "#{File.expand_path(RAILS_ROOT)}/config/geminstaller.yml" 
-
-# Arguments which will be passed to GemInstaller (you can add any extra ones)
-args = "--config #{config_paths}" 
-
-# The 'exceptions' flag determines whether errors encountered while running GemInstaller
-# should raise exceptions (and abort Rails), or just return a nonzero return code
-args += " --exceptions"
-
-# This will use sudo by default on all non-windows platforms, but requires an entry in your
-# sudoers file to avoid having to type a password.  It can be omitted if you don't want to use sudo.
-# See http://geminstaller.rubyforge.org/documentation/documentation.html#dealing_with_sudo
-args += " --sudo" unless RUBY_PLATFORM =~ /mswin/ 
-
-# The 'install' method will auto-install gems as specified by the args and config
-GemInstaller.install(args)
-
-# The 'autogem' method will automatically add all gems in the GemInstaller config to your load path, using the 'gem'
-# or 'require_gem' command.  Note that only the *first* version of any given gem will be loaded.
-GemInstaller.autogem(args)
-############# End GemInstaller config
-
-unless defined?(Rails::Initializer)
-...
-</pre>
+<pre><code>  ...
+  unless defined?(RAILS_ROOT)
+  ...
+  end
+ 
+  ############# Begin GemInstaller config - see http://geminstaller.rubyforge.org
+  require "rubygems"
+  require "geminstaller"
+ 
+  # Path(s) to your GemInstaller config file(s)
+  config_paths = "#{File.expand_path(RAILS_ROOT)}/config/geminstaller.yml" 
+ 
+  # Arguments which will be passed to GemInstaller (you can add any extra ones)
+  args = "--config #{config_paths}" 
+ 
+  # The 'exceptions' flag determines whether errors encountered while running GemInstaller
+  # should raise exceptions (and abort Rails), or just return a nonzero return code
+  args += " --exceptions"
+ 
+  # This will use sudo by default on all non-windows platforms, but requires an entry in your
+  # sudoers file to avoid having to type a password.  It can be omitted if you don't want to use sudo.
+  # See http://geminstaller.rubyforge.org/documentation/documentation.html#dealing_with_sudo
+  args += " --sudo" unless RUBY_PLATFORM =~ /mswin/ 
+ 
+  # The 'install' method will auto-install gems as specified by the args and config
+  GemInstaller.install(args)
+ 
+  # The 'autogem' method will automatically add all gems in the GemInstaller config to your load path, using the 'gem'
+  # or 'require_gem' command.  Note that only the *first* version of any given gem will be loaded.
+  GemInstaller.autogem(args)
+  ############# End GemInstaller config
+ 
+  unless defined?(Rails::Initializer)
+  ...
+</code></pre>
 
 This example also has configurable variables which illustrate the common option arguments you can control.  The <code>--exceptions</code> argument will cause GemInstaller to raise an exception if errors occur, and thus abort Rails startup.  The <code>--sudo</code> argument causes GemInstaller to be run via sudo.
 
@@ -159,27 +155,27 @@ GemInstaller is automatically requiring gems: mongrel = 1.0.1, rails = 1.1.6, ru
 [2007-05-13 22:41:37] INFO  WEBrick 1.3.1
 [2007-05-13 22:41:37] INFO  ruby 1.8.5 (2006-08-25) [i686-darwin8.7.1]
 [2007-05-13 22:41:37] INFO  WEBrick::HTTPServer#start: pid=2519 port=3000
-</pre>
+</code></pre>
 
 If that worked, good!  If not, carefully read the error message.  If it was a RubyGems failure (as opposed to a bug in GemInstaller), the "<code>gem</code>" command that GemInstaller tried to execute should be echoed as part of the error message.  Cut and paste this command onto the command line, and see if you get the same error.  If you do, then resolve it and the problem should go away under GemInstaller as well.
 
 For extra credit, we can write a simple Rails controller to verify that the correct gems are getting added to the load path by the <code>autogem</code> command.  First, create the Rails app and a controller:
 
-<pre>
+<pre><code>
 $ rails geminstaller_example
 $ ruby script/generate controller GemInstallerExample
-</pre>
+</code></pre>
 
 Next, create the Rails app.  You need...
 
 ...an action:
 *RAILS_ROOT/app/controllers/gem_installer_example_controller.rb*
-<pre>
+<pre><code>
 class GemInstallerExampleController < ApplicationController
   def index
   end
 end
-</pre>
+</code></pre>
 
 ...a sample rhtml page which will show your config and load path:
 *RAILS_ROOT/app/views/gem_installer/index.rhtml*
@@ -193,7 +189,7 @@ end
 <h2>Load Path: </h2>
 <h2><%= $:.join("\n") %></h2>
 <hr/>
-</pre>
+</code></pre>
 
 ...a default route to your page:
 *RAILS_ROOT/config/routes.rb*
@@ -202,21 +198,20 @@ end
 # Put the following line as the first route in the routes.rb file:
 map.connect '', :controller => "gem_installer_example"
 ...
-</pre>
+</code></pre>
 
 ...a GemInstaller config file:
 *RAILS_ROOT/config/geminstaller.yml*:
-<pre>
-\---
+<pre><code>---
 defaults:
   install_options: --include-dependencies
 gems:
 - name: ruby-doom
   version: '= 0.8'
-</pre>
+</code></pre>
 
 ...the modifications to boot.rb (comments and local variables omitted here for brevity):
-<pre>
+</code></pre>
 ...
 unless defined?(RAILS_ROOT)
 ...
@@ -235,19 +230,19 @@ GemInstaller.autogem(args)
 
 unless defined?(Rails::Initializer)
 ...
-</pre>
+</code></pre>
 
 ...and delete the public/index.html file:
 <pre>
 $ rm public/index.html
-</pre>
+</code></pre>
 
 Now, you should be able to start the example Rails app and navigate to <code>http://localhost:3000</code> to view your config file and load path with the gems auto-required:
 
 <pre>
 $ ... cd to root of your rails app ...
 $ mongrel_rails start
-</pre>
+</code></pre>
 
 ...open http://localhost:3000, and you should see something like this:
 <pre>
@@ -269,7 +264,7 @@ Load Path:
 ...
 (more stuff omitted)
 ...
-</pre>
+</code></pre>
 
 That's about it!
 

@@ -16,7 +16,8 @@ gems:
   version: '>= 0.7.0.1'
   platform: <%= RUBY_PLATFORM =~ /mswin/ ? 'mswin32' : 'ruby'%>
 - name: RedCloth
-  version: '>= 3.0.4'
+#  version: '= 3.0.4'
+  version: '= 4.0.4'
 - name: rspec
   version: '>= 1.1.1'
 - name: cmdparse
@@ -24,7 +25,9 @@ gems:
 - name: ruby-debug
   version: '>= 0.9.3'
 - name: webgen
-  version: '= 0.4.2'
+  version: '= 0.5.5'
+# - name: gettalong-webgen
+#   version: '>= 0.5.5.20081001'
 <% if RUBY_PLATFORM =~ /mswin/ %>
 - name: win32-process
   version: '>= 0.5.5'

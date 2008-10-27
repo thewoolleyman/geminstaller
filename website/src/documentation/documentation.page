@@ -60,7 +60,7 @@ h2(#command_line_options). Command Line Options
 
 h3(#command_line_options_summary). Command Line Options Summary
 
-<pre>
+<pre><code>
 $ geminstaller --help
 Usage: geminstaller [options]
 
@@ -101,15 +101,15 @@ Usage: geminstaller [options]
     -t, --silent                     Suppress all output except fatal exceptions, and output from
                                      rogue-gems option.
     -v, --version                    Show GemInstaller version and exit.
-</pre>
+</code></pre>
 
 h3(#config_option). <code>--config</code> option
 
 By default, GemInstaller will look for a config file named <code>geminstaller.yml</code> in the working directory.  The <code>'--config'</code> option allows you to override this with a different file name or path.  You can also have multiple comma-delimited paths to custom-named config files.  This is useful if you have multiple projects, and want them to share a common config file, but still have project-specific overrides.  You could also have a standard set of gems across multiple systems, with additional custom gems specified by individual projects.  The last entries in the list will override the first ones.  For example: 
 
-<pre>
+<pre><code>
 geminstaller --config=../common-config/geminstaller-common-across-projects.yml,geminstaller-custom-for-myproject.yml
-</pre>
+</code></pre>
 
 h3(#exceptions_option). <code>--exceptions</code> option
 
@@ -174,8 +174,7 @@ h3(#config_file_syntax_summary). Config File Syntax Summary
 
 This is an example config file template showing all the valid properties (boolean defaults capitalized):
 
-<pre>
-\---
+<pre><code>---
 defaults:
   install_options: [ any valid option for the RubyGems 'gem install' command ]
   check_for_upgrade: [ true | FALSE ]
@@ -195,7 +194,7 @@ gems:
 - name: [ yet another gem name ]
   (etc...)
 <%= include_config("#{File.expand_path(File.dirname(__FILE__))}/path/to/included_snippet.yml") %>
-</pre>
+</code></pre>
 
 All properties are optional, except for the gem name.  If a default is specified, it will be used unless the gem specifically overrides it.
 
@@ -249,25 +248,22 @@ This is an alternative to specifying multiple files in the <code>--config</code>
 
 GemInstaller also ensures that the working directory is set to the directory containing the current yaml file - NOT the directory that <code>geminstaller</code> was invoked from.  This allows you to use <code>include_config</code> to reference yaml files relative to each other.  Here's an example:
 
-<pre>
-\---
+<pre><code>---
 # .../geminstaller.yml
 gems:
 <%= include_config("#{File.expand_path(File.dirname(__FILE__))}/subdir1/included_gem_config1.yml") %>
-</pre>
+</code></pre>
 
-<pre>
-\---
+<pre><code>---
 # .../subdir1/included_gem_config1.yml
   - name: testgem1
 <%= include_config("#{File.expand_path(File.dirname(__FILE__))}/../subdir2/included_gem_config2.yml") %>
-</pre>
+</code></pre>
 
-<pre>
-\---
+<pre><code>---
 # .../subdir2/included_gem_config2.yml
   - name: testgem2
-</pre>
+</code></pre>
 
 
 h2(#using_geminstaller_with_ruby_on_rails_or_other_ruby_apps). Using GemInstaller with Ruby on Rails or Other Ruby Apps
@@ -278,8 +274,7 @@ IMPORTANT NOTE: You need to know whether you run on unix and need root/sudo acce
 
 First, you need to create <code>geminstaller.yml</code> in the <code>RAILS_ROOT/config</code> directory (See also "Bootstrapping your GemInstaller Config with the <code>--print-rogue-gems</code> option":#bootstrapping_your_geminstaller_config).  Here's an example config file which will install (an old version of) Rails and Mongrel:
 
-<pre>
-\---
+<pre><code>---
 defaults:
   install_options: --include-dependencies
 gems:
@@ -288,50 +283,48 @@ gems:
 - name: mongrel
   version: '= 1.0.1'
   platform: <%= RUBY_PLATFORM =~ /mswin/ ? 'mswin32' : 'ruby'%>
-</pre>
+</code></pre>
 
 h3(#invoking_geminstaller_from_rails). Invoking <code>GemInstaller</code> from Rails
 
 Once you have your *<code>geminstaller.yml</code>* created, invoke the GemInstaller on app startup in your boot.rb.  It should be placed right after the block which defines the RAILS_ROOT constant, as shown below ("..." indicates omitted lines):
 
-
 *RAILS_ROOT/config/boot.rb*:
-<pre>
-...
-unless defined?(RAILS_ROOT)
-...
-end
-
-############# Begin GemInstaller config - see http://geminstaller.rubyforge.org
-require "rubygems"
-require "geminstaller"
-
-# Path(s) to your GemInstaller config file(s)
-config_paths = "#{File.expand_path(RAILS_ROOT)}/config/geminstaller.yml" 
-
-# Arguments which will be passed to GemInstaller (you can add any extra ones)
-args = "--config #{config_paths}" 
-
-# The 'exceptions' flag determines whether errors encountered while running GemInstaller
-# should raise exceptions (and abort Rails), or just return a nonzero return code
-args += " --exceptions"
-
-# This will use sudo by default on all non-windows platforms, but requires an entry in your
-# sudoers file to avoid having to type a password.  It can be omitted if you don't want to use sudo.
-# See http://geminstaller.rubyforge.org/documentation/documentation.html#dealing_with_sudo
-args += " --sudo" unless RUBY_PLATFORM =~ /mswin/ 
-
-# The 'install' method will auto-install gems as specified by the args and config
-GemInstaller.install(args)
-
-# The 'autogem' method will automatically add all gems in the GemInstaller config to your load path, using the 'gem'
-# or 'require_gem' command.  Note that only the *first* version of any given gem will be loaded.
-GemInstaller.autogem(args)
-############# End GemInstaller config
-
-unless defined?(Rails::Initializer)
-...
-</pre>
+<pre><code>  ...
+  unless defined?(RAILS_ROOT)
+  ...
+  end
+ 
+  ############# Begin GemInstaller config - see http://geminstaller.rubyforge.org
+  require "rubygems"
+  require "geminstaller"
+ 
+  # Path(s) to your GemInstaller config file(s)
+  config_paths = "#{File.expand_path(RAILS_ROOT)}/config/geminstaller.yml"
+ 
+  # Arguments which will be passed to GemInstaller (you can add any extra ones)
+  args = "--config #{config_paths}" 
+ 
+  # The 'exceptions' flag determines whether errors encountered while running GemInstaller
+  # should raise exceptions (and abort Rails), or just return a nonzero return code
+  args += " --exceptions"
+ 
+  # This will use sudo by default on all non-windows platforms, but requires an entry in your
+  # sudoers file to avoid having to type a password.  It can be omitted if you don't want to use sudo.
+  # See http://geminstaller.rubyforge.org/documentation/documentation.html#dealing_with_sudo
+  args += " --sudo" unless RUBY_PLATFORM =~ /mswin/ 
+ 
+  # The 'install' method will auto-install gems as specified by the args and config
+  GemInstaller.install(args)
+ 
+  # The 'autogem' method will automatically add all gems in the GemInstaller config to your load path, using the 'gem'
+  # or 'require_gem' command.  Note that only the *first* version of any given gem will be loaded.
+  GemInstaller.autogem(args)
+  ############# End GemInstaller config
+ 
+  unless defined?(Rails::Initializer)
+  ...
+</code></pre>
 
 As you can see, this example contains several comments which are hopefully self-explanatory.  See the "Command Line Options Summary":#command_line_options_summary, especially the "<code>--config</code>":#config_option, "<code>--exceptions</code>":#exceptions_option, and "<code>--sudo</code>":#sudo_option options for more details, as well as the "Integrating GemInstaller into Ruby on Rails":#integrating_geminstaller_into_ruby_on_rails tutorial.
 
@@ -339,10 +332,10 @@ h3(#bootstrapping_rails_with_geminstaller). Bootstrapping Rails with GemInstalle
 
 If you don't already have Rails or Mongrel installed (you've just checked your app out or deployed onto a new machine), you obviously can't use the above boot.rb method to run GemInstaller.  In this case, you just need to run GemInstaller from the command line once to "bootstrap" and install the Rails/Mongrel gems.  This assumes you already have your <code>geminstaller.yml</code> config file in the Rails <code>config</code> dir:
 
-<pre>
+<pre><code>
 $ cd [RAILS_APP_ROOT]/config
 $ geminstaller --sudo # only use the -sudo option if necessary
-</pre>
+</code></pre>
 
 h3(#using_geminstaller_from_other_ruby_apps). Using GemInstaller from Other Ruby Apps
 
@@ -352,14 +345,13 @@ h2(#using_erb_in_config_files). Using <code>erb</code> in config files
 
 The GemInstaller config file(s) are also run through erb, so you can embed any custom ruby code to dynamically generate portions of your config.  This can be used to have the same config file select gems differently on different platforms or environments.  Below is an example of using erb to detect and choose the platform.  This is necessary with some gems, even though GemInstaller attempts to guess at the platform.  See "Automatic Platform Detection":#automatic_platform_detection for more info.
 
-    <pre>
-\---
+<pre><code>---
 # geminstaller-detect-platform.yml
 gems:
 - name: x10-cm17a
   version: '> 1.0.0'
   platform: <%= RUBY_PLATFORM =~ /mswin/ ? 'i386-mswin32' : 'ruby'%>
-</pre>
+</code></pre>
 
 h2(#automatic_platform_detection). Automatic Platform Detection
 
@@ -394,32 +386,32 @@ A transparent solution to this problem is planned for a future release of GemIns
 h3(#option_1). Option 1 - Use the <code>-s</code>  or <code>--sudo</code> option on the <code>geminstaller</code> executable
 
 Examples:
-<pre>
+<pre><code>
 $ geminstaller -s
 $ geminstaller --sudo
-</pre>
+</code></pre>
 
 h3(#option_2). Option 2 - Run <code>sudo</code> or log in as root yourself
 
 Example of using sudo:
-<pre>
-$ sudo geminstaller
-</pre>
+<pre><code>
+  $ sudo geminstaller
+</code></pre>
 
 Examples of running geminstaller as root
-<pre>
-$ su -      # if you can log in as root on your system, OR
-$ sudo -s   # if you must use sudo to log in as root on your system 
-# geminstaller
-</pre>
+<pre><code>
+  $ su -      # if you can log in as root on your system, OR
+  $ sudo -s   # if you must use sudo to log in as root on your system
+  # geminstaller
+</code></pre>
 
 h3(#option_3). Option 3 - Make everything owned by the local user that runs geminstaller
 
 (replace <code><local user></code> with your username)
-<pre>
-$ cd /usr/local/lib/ruby # or wherever you have ruby installed
-$ sudo chown -R <local user> .
-</pre>
+<pre><code>
+  $ cd /usr/local/lib/ruby # or wherever you have ruby installed
+  $ sudo chown -R <local user> .
+</code></pre>
 
 h3(#tips_on_configuring_sudo). Tips on configuring sudo
 
@@ -429,11 +421,11 @@ You should consult the man or info pages on sudoers and visudo for more info (<c
 
 Here's an example of how <code>sudoers</code> might be configured to allow the local user to run the <code>'gem'</code>, <code>'ruby'</code>, and <code>'geminstaller'</code> commands via <code>sudo</code> without being prompted for a password.  Replace <code><local user></code> with your username, and replace '/usr/local/bin/' with the appropriate path if it is different on your system:
 
-<pre>
-$ sudo visudo
-add this line:
-<local user> ALL = NOPASSWD: /usr/local/bin/geminstaller, /usr/local/bin/ruby, /usr/local/bin/gem
-</pre>
+<pre><code>
+  $ sudo visudo
+  add this line:
+  <local user> ALL = NOPASSWD: /usr/local/bin/geminstaller, /usr/local/bin/ruby, /usr/local/bin/gem
+</code></pre>
 
 h2(#automatically_requiring_gems_with_the_autogem_method). Automatically Requiring Gems with the <code>autogem</code> Method
 
@@ -443,11 +435,11 @@ If there are some gems you don't want to auto-require, you can set the '<code>no
 
 To use it, invoke the <code>autogem</code> method, and pass a string of arguments, just like the GemInstaller command line, but it ignores arguments which are not applicable (such as -r or -s):
 
-<pre>
-...
-GemInstaller.autogem('--config=/path/to/one/geminstaller.yml,/path/to/another/geminstaller.yml')
-...
-</pre>
+<pre><code>
+  ...
+  GemInstaller.autogem('--config=/path/to/one/geminstaller.yml,/path/to/another/geminstaller.yml')
+  ...
+</code></pre>
 
 Alternately, you are not required to pass any args if you invoke the command from a ruby file which is in the same directory as a default-named <code>'geminstaller.yml'</code> file.
 

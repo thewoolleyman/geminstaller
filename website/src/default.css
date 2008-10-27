@@ -7,17 +7,19 @@ font:90% Verdana,Tahoma,Arial,sans-serif;
 margin:0;
 padding:0;
 text-align:center;
-}s
+}
 
 a {
-color:#505050;
+color:#3A5FCD;
 font-weight:bold;
-text-decoration:none;
+}
+
+a:visited {
+color:#551A8B;
 }
 
 a:hover {
 color:#808080;
-text-decoration:underline;
 }
 
 p {
@@ -25,7 +27,7 @@ line-height:1.5em;
 margin:0 0 15px;
 }
 
-code,pre {
+code {
 font-size:1.3em;
 }
 
@@ -164,5 +166,10 @@ color:#d0d0d0;
 font-weight:bold;
 }
 
+
+/* START webgen horizontal menu style */
+.webgen-menu-horiz ul { display: block; }
+.webgen-menu-horiz li { display: inline; }
+/* STOP webgen horizontal menu style */
 
 /*** End of file ***/

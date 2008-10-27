@@ -1,7 +1,6 @@
 ---
 title: Design
 ---
-<span id="release_process"/>
 h1. Design Notes
 
 These are some notes on the underlying design of GemInstaller, and the current state of development:
@@ -30,6 +29,7 @@ These are some notes on the underlying design of GemInstaller, and the current s
 * One of my motivations for creating GemInstaller was as an exercise to help me learn Ruby better.  If you see me doing anything obviously dumb or inefficient in the code or design, please let me know. Some of them I already know about, but haven't fixed, most I'm probably not aware of :)
 
 <span id="rubygems_compatibility"/>
+
 h1. Maintaining forward and backward compatibility with multiple RubyGems versions
 
 * I've put a lot of effort into ensuring that GemInstaller works with older versions of RubyGems, and run automated tests against several recent versions on Continuous Integration.
@@ -47,6 +47,7 @@ h1. Maintaining forward and backward compatibility with multiple RubyGems versio
 ** The "<code>prefer_binary_platform</code> config property":../documentation/documentation.html#prefer_binary_platform_config_property no longer applies, and has no effect.
 
 <span id="release_process"/>
+
 h1. Release Process
 
 Yeah, it's too manual.  Notes for improvement below.
@@ -73,13 +74,14 @@ Here's the improvements I need to make to the release process:
 * Rake task to automatically tag and release latest build from CI and tag
 
 <span id="rubygems_upgrade_process"/>
+
 h1. Rubygems Upgrade Process
 
 Process to test against new rubygems release.
 
-<pre>
+<pre><code>
 svn export http://rubygems.rubyforge.org/svn/tags/REL_X_Y_Z spec/fixture/rubygems_dist/rubygems-X.Y.Z
-</pre>
+</code></pre>
 
 * add spec/fixture/rubygems_dist/rubytems-X.Y.Z
 * checkin

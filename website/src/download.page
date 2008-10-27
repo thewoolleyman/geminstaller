@@ -5,8 +5,8 @@ h1. Installation / Download
 
 GemInstaller is a standard RubyGem, and can be installed as usual (prefix with <code>sudo</code> if necessary):
 
-<pre>
+<pre><code>
 gem install geminstaller
-</pre>
+</code></pre>
 
 Alternately, you can download and install the gem file from the GemInstaller RubyForge download page:  "http://rubyforge.org/frs/?group_id=1902":http://rubyforge.org/frs/?group_id=1902

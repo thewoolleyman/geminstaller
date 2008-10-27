@@ -1,0 +1,54 @@
+index.page:
+  in_menu: true
+  sort_info: 10
+
+documentation:
+  title: Documentation
+  sort_info: 20
+
+download.page:
+  in_menu: true
+  sort_info: 30
+
+faq.page:
+  in_menu: true
+  sort_info: 40
+
+community:
+  title: Community
+  sort_info: 50
+
+code:
+  title: Code
+  sort_info: 60
+
+documentation/index.page:
+  in_menu: true
+  sort_info: 10
+
+documentation/tutorials.page:
+  title: Tutorials
+  in_menu: true
+  sort_info: 20
+
+documentation/documentation.page:
+  title: Documentation
+  in_menu: true
+  sort_info: 30
+
+community/index.page:
+  in_menu: true
+  sort_info: 10
+
+community/links.page:
+  title: Links
+  in_menu: true
+  sort_info: 30
+
+code/index.page:
+  title: Design
+  in_menu: true
+  sort_info: 10
+
+
+

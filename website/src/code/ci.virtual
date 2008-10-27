@@ -1,0 +1,5 @@
+ci.html:
+  title: CI
+  url: http://ci.thewoolleyweb.com
+  in_menu: true
+  sort_info: 20
