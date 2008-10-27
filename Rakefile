@@ -87,11 +87,12 @@ task :webgen do
   # rm_rf "website/out"
   rm_rf "website/webgen.cache"
   # Use webgen/RedCloth versions from GemInstaller config
-  require 'geminstaller'
-  GemInstaller.autogem
-  ARGV.clear
-  ARGV.concat(['-d','website'])
-  load 'webgen'
+  # require 'geminstaller'
+  # GemInstaller.autogem
+  # ARGV.clear
+  # ARGV.concat(['-d','website'])
+  # load 'webgen'
+  sh 'webgen -d website'
 end
 
 desc "Move ri docs to website"
