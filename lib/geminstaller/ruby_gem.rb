@@ -45,7 +45,7 @@ module GemInstaller
     def <=>(other)
       compare = @name <=> other.name
       return compare if compare != 0
-      compare = @version <=> other.version
+      compare = @version <=> other.version # TODO: this should use rubygems version comparison, not string comparison
       return compare if compare != 0
       return 0 if (@platform == nil && other.platform == nil)
       return @platform <=> other.platform

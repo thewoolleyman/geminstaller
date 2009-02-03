@@ -5,9 +5,9 @@ gems:
 - name: testgem1
   version: v2.0
   fix_dependences: false
-- name: testgem2
-  version: v1.2
-  install_options: --backtrace    
 - name: testgem3
   version: v3.0
   check_for_upgrade: true
+- name: testgem2
+  version: v1.2
+  install_options: --backtrace    

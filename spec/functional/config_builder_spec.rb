@@ -43,7 +43,17 @@ describe GemInstaller::ConfigBuilder, "with a single config file path" do
   it "should assign paths array to config_file_paths_array instance variable" do
     @config_builder.config_file_paths_array.should==([@test_config_file_paths])
   end
+end
 
+describe GemInstaller::ConfigBuilder, "with a non-alphabetical ordering of gems in config file" do
+  it "retains order of gems from original file" do
+    @test_config_file_paths = File.expand_path("#{dir}/test_geminstaller_config_2.yml")
+    config_builder_spec_common_setup
+    @config_builder.build_config
+    @config.gems[0].name.should==("testgem1")
+    @config.gems[1].name.should==("testgem3")
+    @config.gems[2].name.should==("testgem2")
+  end
 end
 
 describe GemInstaller::ConfigBuilder, "with a config containing no gems" do
@@ -93,12 +103,12 @@ describe GemInstaller::ConfigBuilder, "with multiple config file paths" do
   end
   
   it "should successfully assemble a config object" do
-    @config.gems[0].name.should==("testgem1")
-    @config.gems[0].check_for_upgrade.should==(true)
-    @config.gems[0].fix_dependencies.should==(false)
+    testgem1_v11 = @config.gems.detect {|g| g.name == 'testgem1' && g.version == 'v1.1'}
+    testgem1_v11.check_for_upgrade.should==(true)
+    testgem1_v11.fix_dependencies.should==(false)
     
-    @config.gems[1].name.should==("testgem1")
-    @config.gems[1].version.should==("v2.0")
+    testgem1_v20 = @config.gems.detect {|g| g.name == 'testgem1' && g.version == 'v2.0'}
+    testgem1_v20.should_not be_nil
   end
 
   it "should take defaults from previous files if they are not overridden" do
@@ -106,19 +116,20 @@ describe GemInstaller::ConfigBuilder, "with multiple config file paths" do
   end
 
   it "should allow subsequent files to override defaults" do
-    @config.gems[2].name.should==("testgem2")
-    @config.gems[2].check_for_upgrade.should==(false)
+    testgem2 = @config.gems.detect {|g| g.name == 'testgem2'}
+    testgem2.version.should==("v1.2")
+    testgem2.check_for_upgrade.should==(false)
   end
   
   it "should allow subsequent files to override a gem"do
-    @config.gems[2].name.should==("testgem2")
-    @config.gems[2].install_options.should==(["--backtrace"])
+    testgem2 = @config.gems.detect {|g| g.name == 'testgem2'}
+    testgem2.install_options.should==(["--backtrace"])
   end
 
   it "should allow subsequent files to specify new gems"do
-    @config.gems[3].name.should==("testgem3")
-    @config.gems[3].version.should==("v3.0")
-    @config.gems[3].check_for_upgrade.should==(true)
+    testgem3 = @config.gems.detect {|g| g.name == 'testgem3'}
+    testgem3.version.should==("v3.0")
+    testgem3.check_for_upgrade.should==(true)
   end
 end
 

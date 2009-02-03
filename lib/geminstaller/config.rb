@@ -51,7 +51,6 @@ module GemInstaller
           :fix_dependencies => fix_dependencies)
         gems << gem
       end
-      gems.sort!
       return gems
     end
 
