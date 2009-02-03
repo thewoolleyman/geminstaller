@@ -60,11 +60,14 @@ start_local_gem_server.sh
 test/test_all.rb
 test/test_all_smoketests.rb
 website/config.yaml
-website/metainfo.yaml
 website/src/analytics.page
+website/src/code/ci.virtual
+website/src/code/coverage/index.virtual
 website/src/code/index.page
+website/src/code/rdoc/index.virtual
 website/src/community/index.page
 website/src/community/links.page
+website/src/community/rubyforge.virtual
 website/src/default.css
 website/src/default.template
 website/src/documentation/documentation.page
@@ -73,3 +76,5 @@ website/src/documentation/tutorials.page
 website/src/download.page
 website/src/faq.page
 website/src/index.page
+website/src/metainfo
+website/src/webgen.css

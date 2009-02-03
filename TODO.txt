@@ -13,10 +13,10 @@
   * geminstaller_merb_example_app
   * geminstaller_rails_example_app
 * Update Rails tutorial link with link to example app
-================ 0.4.0 release ===================
+================ 0.6.0 release ===================
 * fix smoke tests on CI
 * Investigate error when installing and loading gem in same session (like rails preinitializer) - Not reproducible - fixed in >1.1.0???
-================ 0.5.0 release ===================
+================ 0.7.0 release ===================
 * If permission error, auto-install under writable_gem_home ~/gems/1.8 (configurable), Gem.clear_paths, set ENV['GEM_HOME'] and ENV['GEM_PATH'] to ENV['HOME']pathsepGem::ConfigMap[:ruby_version], and issue warning (saying in order to prevent warning, a) set gem_home and gem_path: in ~/.gemrc, b) invoke via sudo (only if command line), c) make (and keep) current Gem.dir writeable, or d) add geminstaller (and ruby?) to sudoers file (security hole).  Properties: "[no_]use_writable_gem_home" and "writable_gem_home".
 * For RubyGems >=1.0.1, look at using Gem::SourceInfoCache instead of SourceIndex or --list command
 * Move classes which are unused against current RubyGems into Legacy module.
