@@ -26,7 +26,7 @@ ARGV.concat(args)
 success = false
 begin
   require 'spec'
-  success = ::Spec::Runner::CommandLine.run(rspec_options)
+  success = ::Spec::Runner::CommandLine.run
 ensure
   GemInstaller::TestGemHome.reset
 end
