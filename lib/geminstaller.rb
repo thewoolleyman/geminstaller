@@ -91,7 +91,8 @@ module GemInstaller
       $stderr_backup = $stderr.dup
       $stderr.reopen("/dev/null", "w")
       io = IO.popen(cmd)
-      $stderr = $stderr_backup.dup
+      $stderr.reopen($stderr_backup)
+      STDERR.reopen($stderr_backup) # Why are these not the same?  It is an old question: http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/ruby/ruby-talk/47596
       output = io.read
       next unless output =~ /#{path_key}/
       path = output.sub(path_key,'')
