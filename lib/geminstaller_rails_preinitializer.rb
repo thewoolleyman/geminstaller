@@ -4,7 +4,7 @@
 # or required in config/boot.rb before initialization for Rails < 2.0.  For example:
 #   require 'geminstaller_rails_preinitializer'
 #
-# If you require a different geminstaller configuration, copy this file into your Rails app,
+# If you require different geminstaller command options, copy this file into your Rails app,
 # modify it, and require your customized version.  For example:
 #   require "#{File.expand_path(RAILS_ROOT)}/config/custom_geminstaller_rails_preinitializer.rb"
 
@@ -30,6 +30,7 @@ module GemInstallerRailsPreinitializer
       #args += " --sudo" unless RUBY_PLATFORM =~ /mswin/
 
       # The 'install' method will auto-install gems as specified by the args and config
+      # IMPORTANT NOTE:  Under recent RubyGems versions, this will install to ~/.gem
       GemInstaller.install(args)
 
       # The 'autogem' method will automatically add all gems in the GemInstaller config to your load path,
