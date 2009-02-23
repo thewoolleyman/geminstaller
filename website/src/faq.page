@@ -3,9 +3,17 @@ title: FAQ
 ---
 h1. Frequently Asked Questions
 
+<span id="source_index_cannot_be_created_from_disk"/>
+Q: I got an error "source index cannot be created from disk"<br/>
+A: This is an incompatibility introduced in recent versions of RubyGems.  Upgrade to the latest version of GemInstaller.
+
+<span id="geminstaller_is_slow"/>
+Q: GemInstaller is taking FOREVER to run!<br/>
+A: First, run with the '-gall -rall' options to see all verbose output.  It is probably the underlying RubyGems command that is slow.  If you are on a version of RubyGems which is earlier than 1.2.0, there are know cache performance problems, and you should upgrade.  "This little script may help":http://gist.github.com/13223
+
 <span id="rails_config_gems"/>
 Q: Why not just use Rails' config.gems and rake tasks instead of GemInstaller?<br/>
-A: I'll come up with a feature comparison chart sometime.  For now, I'll mention a few reasons:  1) Rails itself cannot manage the Rails gems - but GemInstaller can via preinitializer.rb. 2) GemInstaller has more features that config.gems.  3) GemInstaller runs for any app or environment that needs to manage RubyGems, not just Rails.  Like Merb!  If you only use Rails, and none of these things matter to you, maybe you should consider using the Rails support :)
+A: I'll come up with a feature comparison chart sometime.  For now, I'll mention a few reasons:  1) Rails itself cannot manage the Rails gems - but GemInstaller can via preinitializer.rb. 2) GemInstaller has more features that config.gems.  3) GemInstaller runs for any app or environment that needs to manage RubyGems, not just Rails.  Like Merb!  If you only use Rails, and none of these things matter to you, maybe you should consider using the Rails support :)  See more discussion on "this rails ticket":http://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/59
 
 <span id="environment_vars_and_sudo"/>
 Q: Why can't I use environment variables via ERB in geminstaller.yml when using sudo?<br/>
