@@ -17,7 +17,7 @@ module GemInstallerRailsPreinitializer
       args = ''
 
       # Specify --geminstaller-output=all and --rubygems-output=all for maximum debug logging
-      args += ' --geminstaller-output=all --rubygems-output=all'
+      # args += ' --geminstaller-output=all --rubygems-output=all'
 
       # The 'exceptions' flag determines whether errors encountered while running GemInstaller
       # should raise exceptions (and abort Rails), or just return a nonzero return code
