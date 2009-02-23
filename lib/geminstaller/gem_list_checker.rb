@@ -15,7 +15,7 @@ module GemInstaller
       end
       
       if matched_lines.size > 1
-        error_message = "Error: more than one remote gem matches (this should not happen and is probably a bug in geminstaller).  Gem name = '#{gem.name}', install options = '#{gem.install_options}'.  Matching remote gems: \n"
+        error_message = "Error: more than one remote gem matches (this should not happen and is probably a bug in geminstaller).  Gem name = '#{gem.name}', install options = '#{gem.install_options.join(' ')}'.  Matching remote gems: \n"
         matched_lines.each do |line|
           error_message += line + "\n"
         end
@@ -23,7 +23,7 @@ module GemInstaller
       end
 
       if matched_lines.size == 0
-        error_message = "Error: Could not find remote gem to install.  Gem name = '#{gem.name}', Gem version = '#{gem.version}', install options = '#{gem.install_options}'"
+        error_message = "Error: Could not find remote gem to install.  Gem name = '#{gem.name}', Gem version = '#{gem.version}', install options = '#{gem.install_options.join(' ')}'.  Your remote gem server may be having problems.  You should try to list the remote gem yourself:  'gem list -r -v '#{gem.version}' #{common_args.join(' ')} #{gem.name}'.  If it exists on the server, try running geminstaller again.  Output of remote gem list command: \n#{remote_list}"
         raise GemInstaller::GemInstallerError.new(error_message)
       end
 
