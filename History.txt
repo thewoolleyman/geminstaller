@@ -1,3 +1,7 @@
+== 0.5.1 / yyyy-mm-dd
+* Print a very verbose and helpful error message if gem cannot be found on remote server.  Attempts to help http://thewoolleyweb.lighthouseapp.com/projects/11580/tickets/5-sometimes-installing-fails
+* Fix bug with stderr being swallowed silently when '--sudo' option is used.  
+
 == 0.5.0 / 2009-02-03
 * change default processing order of gems from alpha-version-platform to be order found in file (last config file wins).  Fixes http://thewoolleyweb.lighthouseapp.com/projects/11580/tickets/15-provide-a-way-to-specify-gem-processing-order .  Thanks to Brian Jenkins for helping!
 
