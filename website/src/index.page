@@ -24,7 +24,7 @@ It has been tested on all major platforms (mac, linux, windows), and has an "ext
 
 h2. How do I get it?
 
-GemInstaller can be "downloaded":http://rubyforge.org/frs/?group_id=1902 from RubyForge.
+GemInstaller can be installed with 'gem install geminstaller' or "downloaded":http://rubyforge.org/frs/?group_id=1902 from RubyForge.
 
 h2. How do I use it?
 
@@ -36,7 +36,7 @@ GemInstaller was created by "Chad Woolley":http://www.thewoolleyweb.com.
 
 h2. Why not just use Rails' config.gems?
 
-GemInstaller "has some advantages":faq.html#rails_config_gems over Rails' config.gems.
+GemInstaller "has advantages":faq.html#rails_config_gems over Rails' config.gems.
 
 h2(#known_issues). Known Issues
 
@@ -46,6 +46,9 @@ Please "report any others that you find":http://thewoolleyweb.lighthouseapp.com/
 
 h2(#history). History
 
+* 0.5.1
+** Print a very verbose and helpful error message if gem cannot be found on remote server.  Attempts to help "http://thewoolleyweb.lighthouseapp.com/projects/11580/tickets/5-sometimes-installing-fails":http://thewoolleyweb.lighthouseapp.com/projects/11580/tickets/5-sometimes-installing-fails
+** Fix bug with stderr being swallowed silently when '--sudo' option is used.  
 * 0.5.0
 ** change default processing order of gems from alpha-version-platform to be order found in file (last config file wins)
 * 0.4.5

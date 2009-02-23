@@ -13,7 +13,7 @@ A: First, run with the '-gall -rall' options to see all verbose output.  It is p
 
 <span id="rails_config_gems"/>
 Q: Why not just use Rails' config.gems and rake tasks instead of GemInstaller?<br/>
-A: I'll come up with a feature comparison chart sometime.  For now, I'll mention a few reasons:  1) Rails itself cannot manage the Rails gems - but GemInstaller can via preinitializer.rb. 2) GemInstaller has more features that config.gems.  3) GemInstaller runs for any app or environment that needs to manage RubyGems, not just Rails.  Like Merb!  If you only use Rails, and none of these things matter to you, maybe you should consider using the Rails support :)  See more discussion on "this rails ticket":http://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/59
+A: A few reasons:  1) There are known issues with config.gems, since it attempts to load dependencies while the Rails environment is initializing, resulting in the possibility of "circular dependencies":http://groups.google.com/group/rubyonrails-core/browse_thread/thread/cffe26aaf784acf9/2480c6d27da36bd2.  GemInstaller does not have these issues when run from config/preinitializer.rb.  2) Rails itself cannot manage the Rails gems - but GemInstaller can via preinitializer.rb. 3) GemInstaller has more features that config.gems.  4) GemInstaller runs for any app or environment that needs to manage RubyGems, not just Rails.  See more discussion on "this rails core list thread":http://groups.google.com/group/rubyonrails-core/browse_thread/thread/cffe26aaf784acf9/2480c6d27da36bd2 or "this rails ticket":http://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/59
 
 <span id="environment_vars_and_sudo"/>
 Q: Why can't I use environment variables via ERB in geminstaller.yml when using sudo?<br/>
@@ -23,7 +23,7 @@ Q: Why do some gems (like BlueCloth) always get reinstalled, even though they ar
 A: Dunno, this is either a bug in the gem or in RubyGems.  It isn't a problem with GemInstaller AFAIK, it happens even if you install manually via 'gem install'.  Haven't had time to debug, let me know if you figure it out.
 
 Q: What about gems like RMagick that have platform-specific binary dependencies?<br/>
-A: You are on your own, this is outside of the scope of GemInstaller.  The geminstaller.yml file is parsed with ERB, so you can put whatever hooks you want to perform necessary system setup and/or prereq validation.  You can also google or check the RMagick home page: "http://rmagick.rubyforge.org/":http://rmagick.rubyforge.org/
+A: You are on your own, this is outside of the scope of GemInstaller.  The geminstaller.yml file is parsed with ERB, so you can put whatever hooks you want to perform necessary system setup and/or prereq validation.  You can also google or check the RMagick home page: "http://rmagick.rubyforge.org/":http://rmagick.rubyforge.org/.  For Debian systems, check out the "AptInstaller":http://github.com/ngauthier/aptinstaller tool.
 
 Q: Why don't the tests/specs run on Windows?<br/>
 A: This has been improved with GemInstaller 0.3.0.  Using RubyGems 1.0.1 on Windows, install_smoketest.rb, autogem_smoketest.rb, and ruby test/test_all.rb all work.  See references to 'windows' on the "Code Page":code/index.html for more details.
