@@ -10,6 +10,7 @@ If anything is unclear, or if you'd like to see a tutorial on a topic, please su
 * "Integrating GemInstaller into Ruby on Rails":#integrating_geminstaller_into_ruby_on_rails
 * "Using Common or Shared Config Files or Snippets":#using_common_or_shared_config_files
 * "Running GemInstaller from Capistrano":#running_geminstaller_from_capistrano
+* "Running GemInstaller from Vlad the Deployer":#running_geminstaller_from_vlad_the_deployer
 
 h2(#installing_geminstaller). Installing GemInstaller
 
@@ -292,9 +293,45 @@ See also: Docs on the "<code>--config</code>":documentation.html#config_option o
 
 h2(#running_geminstaller_from_capistrano). Running GemInstaller from Capistrano
 
-GemInstaller can be hooked in as a capistrano task.  This is a way to avoid having the boot.rb hacks run in demo or production, and possibly cause problems with app startup in these environments.  It also is a way to avoid the current bug with Rails and Mongrel gems not being loaded correctly if they are upgraded during the app startup process.
+GemInstaller can be hooked in as a capistrano task.  This is a way to avoid having gems installed via the preinitializer.rb run in demo or production, and possibly cause problems with app startup in these environments (note you still want to Activate them in preinitializer.rb via GemInstaller.autorun).  It also is a way to avoid the current bug with Rails and Mongrel gems not being loaded correctly if they are upgraded during the app startup process.  Here's an example recipe:
 
-TODO: Finish writing this, for now see docs on  "Using GemInstaller from Other Ruby Apps":documentation.html#using_geminstaller_from_other_ruby_apps
+<pre><code>
+namespace :deploy do
+  desc "gem installer"
+  task :geminstaller, :roles => :app do
+    sudo "geminstaller -c #{current_release}/config/geminstaller.yml"
+  end
+end
+</code></pre>
 
 See also: Docs on "Using GemInstaller from Other Ruby Apps":documentation.html#using_geminstaller_from_other_ruby_apps.
 
+h2(#running_geminstaller_from_vlad_the_deployer). Running GemInstaller from Vlad the Deployer
+
+You can also run GemInstaller from "Vlad the Deployer":http://rubyhitsquad.com/Vlad_the_Deployer.html.  Check out "this gist":http://gist.github.com/72143 and "blog post":http://geminstallthat.wordpress.com/2009/02/28/using-geminstaller-with-vlad-the-deployer from "John Dewey":http://geminstallthat.wordpress.com .  Here's the contents of that gist:
+
+<pre><code>
+### lib/tasks/app.rake
+ 
+begin
+  require 'vlad'
+  Vlad.load :scm => :git, :web => :apache
+rescue LoadError
+  puts $!
+end
+ 
+### Extending 'vlad:update' with 'gems:geminstaller'
+namespace :vlad do
+  desc "Install gems via geminstaller."
+  remote_task :update, :roles => :app do
+    Rake::Task['gems:geminstaller'].invoke
+  end
+end
+ 
+namespace :gems do
+  desc "Run geminstaller."
+  remote_task :geminstaller, :roles => :app do
+    run "geminstaller --sudo -c #{current_path}/config/geminstaller.yml"
+  end
+end
+</code></pre>
