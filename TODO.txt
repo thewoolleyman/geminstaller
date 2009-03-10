@@ -134,5 +134,5 @@
 * Fix errors when using relative or ~/ dir in --config path
 * make verbose option specify --backtrace on all gem commands
 * Add support, syntax, and options for uninstalling gems - completely, or down to highest specified version.
-* add feature to automatically warn if there is a more recent version of the gem available and check_for_upgrade == false.  Use "gem outdated" command
+* add feature to automatically warn if there is a more recent version of the gem available and check_for_upgrade == false.  Use "gem outdated" command 
 ================ 0.later.1 Unprioritized ===================
