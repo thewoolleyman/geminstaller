@@ -147,4 +147,13 @@ task :debug_smoketest => [:clean] do
   run_smoketest 'spec/smoketest/debug_smoketest.rb'
 end
 
+desc 'CruiseControl.rb default task'
+task :cruise do
+  if File.exist?(File.dirname(__FILE__) + "/.git")
+    sh "git submodule init"
+    sh "git submodule update"
+  end
+  Rake::Task[:default].invoke
+end
+
 # vim: syntax=Ruby
