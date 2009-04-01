@@ -2,6 +2,7 @@
 
 require 'rubygems'
 begin
+  gem 'hoe', '= 1.8.3' # Hoe F#@%ed everything up >= 1.11.0, force old version 'til I can rip out dependencies on it
   require 'hoe'
 rescue LoadError
   abort "ERROR: GemInstaller has build- and test-time dependencies
