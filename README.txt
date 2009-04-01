@@ -1,6 +1,7 @@
 GemInstaller
     by Chad Woolley
     http://geminstaller.rubyforge.org
+    http://thewoolleyweb.lighthouseapp.com/projects/11580-geminstaller
 
 == DESCRIPTION:
 
@@ -25,9 +26,9 @@ GemInstaller provides automated installation, loading and activation of RubyGems
 
 Automated Gem installation, activation, and much more!
 
-=== Download:
+=== Bugs/Patches
 
-Downloads are available at http://rubyforge.org/frs/?group_id=1902
+http://thewoolleyweb.lighthouseapp.com/projects/11580-geminstaller
 
 === Quick Start:
 
