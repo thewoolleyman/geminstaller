@@ -164,8 +164,8 @@ end
 desc 'Update Git submodule for RubyGems trunk - warning - does a commit and push'
 task :git_submodule_update_and_push => [:git_submodule_update] do
   if File.exist?(File.dirname(__FILE__) + "/.git")
-    sh "cd dummyrepo && git pull && cd .."
-    sh "cd spec/fixture/rubygems_dist/rubygems-9.9.9/ && git pull && cd ../../../../"
+    sh "cd dummyrepo && git pull origin master && cd .."
+    sh "cd spec/fixture/rubygems_dist/rubygems-9.9.9/ && git pull origin master && cd ../../../../"
     git_commit_submodule_update('dummyrepo')
     git_commit_submodule_update('spec/fixture/rubygems_dist/rubygems-9.9.9')
     sh "git push"
