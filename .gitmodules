@@ -1,3 +1,6 @@
 [submodule "spec/fixture/rubygems_dist/rubygems-9.9.9"]
 	path = spec/fixture/rubygems_dist/rubygems-9.9.9
 	url = git://github.com/vvs/rubygems.git
+[submodule "dummyrepo"]
+	path = dummyrepo
+	url = git://github.com/thewoolleyman/dummyrepo.git
