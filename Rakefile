@@ -124,37 +124,61 @@ task :upload_website do
 end
 
 desc 'Run All Smoketests'
-task :all_smoketest => [:clean] do
+task :all_smoketest => [:git_submodule_update, :clean] do
   run_smoketest 'test/test_all_smoketests.rb'
 end
 
 desc 'Run Install Smoketest'
-task :install_smoketest => [:clean] do
+task :install_smoketest => [:git_submodule_update, :clean] do
   run_smoketest 'spec/smoketest/install_smoketest.rb'
 end
 
 desc 'Run AutoGem Smoketest'
-task :autogem_smoketest => [:clean] do
+task :autogem_smoketest => [:git_submodule_update, :clean] do
   run_smoketest 'spec/smoketest/autogem_smoketest.rb'
 end
 
 desc 'Run Rails Smoketest'
-task :rails_smoketest => [:clean] do
+task :rails_smoketest => [:git_submodule_update, :clean] do
   run_smoketest 'spec/smoketest/rails_smoketest.rb'
 end
 
 desc 'Run Debug Smoketest'
-task :debug_smoketest => [:clean] do
+task :debug_smoketest => [:git_submodule_update, :clean] do
   run_smoketest 'spec/smoketest/debug_smoketest.rb'
 end
 
 desc 'CruiseControl.rb default task'
-task :cruise do
+task :cruise => :git_submodule_update_and_push do
+  Rake::Task[:default].invoke
+end
+
+desc 'Update Git submodule for RubyGems trunk'
+task :git_submodule_update do
   if File.exist?(File.dirname(__FILE__) + "/.git")
     sh "git submodule init"
     sh "git submodule update"
   end
-  Rake::Task[:default].invoke
+end
+
+desc 'Update Git submodule for RubyGems trunk - warning - does a commit and push'
+task :git_submodule_update_and_push => [:git_submodule_update] do
+  if File.exist?(File.dirname(__FILE__) + "/.git")
+    sh "cd dummyrepo && git pull origin master && cd .."
+    sh "cd spec/fixture/rubygems_dist/rubygems-9.9.9/ && git pull origin master && cd ../../../../"
+    git_commit_submodule_update('dummyrepo')
+    git_commit_submodule_update('spec/fixture/rubygems_dist/rubygems-9.9.9')
+    sh "git push"
+  end
+end
+
+def git_commit_submodule_update(submodule_path)
+  sh "git commit #{submodule_path} -m 'update #{submodule_path} submodule'" do |ok, res|
+    if !ok and res.exitstatus != 1
+      puts "pattern not found (status = #{res.exitstatus})"
+      raise "git #{submodule_path} submodule commit failed"
+    end
+  end
 end
 
 # vim: syntax=Ruby
