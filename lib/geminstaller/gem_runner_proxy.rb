@@ -30,7 +30,9 @@ module GemInstaller
       end
       output_lines = @output_listener.read!
       output_lines.push(exit_status) if exit_status
-      return output_lines
+      output_lines.collect do |line|
+        line.split("\n")
+      end.flatten
     end
     
     def create_gem_runner
