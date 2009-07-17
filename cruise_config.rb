@@ -2,6 +2,8 @@
 require 'fileutils'
 
 Project.configure do |project|
+  project.triggered_by :dummyrepo
+  project.triggered_by :RubyGems
   project.email_notifier.emails = ['thewoolleyman@gmail.com']
   if project.name =~ /rubygems[_-](.*)$/ # geminstaller_using_rubygems_0-9-4
     rubygems_version = $1
