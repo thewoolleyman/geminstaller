@@ -149,11 +149,11 @@ task :debug_smoketest => [:git_submodule_update, :clean] do
 end
 
 desc 'CruiseControl.rb default task'
-task :cruise => :git_submodule_update_and_push do
+task :cruise => :git_submodule_commit_and_push do
   Rake::Task[:default].invoke
 end
 
-desc 'Update Git submodule for RubyGems trunk'
+desc 'Git submodules init and update'
 task :git_submodule_update do
   if File.exist?(File.dirname(__FILE__) + "/.git")
     sh "git submodule init"
@@ -161,18 +161,24 @@ task :git_submodule_update do
   end
 end
 
-desc 'Update Git submodule for RubyGems trunk - warning - does a commit and push'
-task :git_submodule_update_and_push => [:git_submodule_update] do
+desc 'Git submodules init, update, and pull'
+task :git_submodule_pull => [:git_submodule_update] do
   if File.exist?(File.dirname(__FILE__) + "/.git")
     sh "cd dummyrepo && git pull origin master && cd .."
     sh "cd spec/fixture/rubygems_dist/rubygems_trunk/ && git pull origin master && cd ../../../../"
-    git_commit_submodule_update('dummyrepo')
-    git_commit_submodule_update('spec/fixture/rubygems_dist/rubygems_trunk')
+  end
+end
+
+desc 'Git submodules init, update, pull, commit, and push - warning - does a commit and push to remote repo'
+task :git_submodule_commit_and_push => [:git_submodule_pull] do
+  if File.exist?(File.dirname(__FILE__) + "/.git")
+    git_commit_submodule_commit('dummyrepo')
+    git_commit_submodule_commit('spec/fixture/rubygems_dist/rubygems_trunk')
     sh "git push"
   end
 end
 
-def git_commit_submodule_update(submodule_path)
+def git_commit_submodule_commit(submodule_path)
   sh "git commit #{submodule_path} -m 'update #{submodule_path} submodule'" do |ok, res|
     if !ok and res.exitstatus != 1
       puts "pattern not found (status = #{res.exitstatus})"
