@@ -188,5 +188,3 @@ def git_commit_submodule_commit(submodule_path)
 end
 
 # vim: syntax=Ruby
-
-# DUMMY CHANGE
