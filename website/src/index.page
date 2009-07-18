@@ -20,7 +20,7 @@ GemInstaller provides automated installation, loading and activation of RubyGems
 
 GemInstaller can be used from the command line, or embedded to run automatically on startup for a Rails app or any other Ruby program.
 
-It has been tested on all major platforms (mac, linux, windows), and has an "extensive suite of tests":code/coverage/index.html which are "automatically run by Continuous Integration":http://ci.thewoolleyweb.com against recent versions of RubyGems (> 1.0.1 releases and trunk)..
+It has been tested on all major platforms (mac, linux, windows), and has an "extensive suite of tests":code/coverage/index.html which are "automatically run by Continuous Integration":http://ci.thewoolleyweb.com against recent versions of RubyGems (selected older releases and trunk)..
 
 h2. How do I get it?
 

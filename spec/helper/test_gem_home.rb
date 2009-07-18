@@ -1,5 +1,6 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/rubygems_installer")
+require File.expand_path("#{dir}/spec_utils")
 require 'fileutils'
 
 module GemInstaller
@@ -31,7 +32,6 @@ module GemInstaller
       rm_dirs
       create_dirs
       put_rubygems_on_load_path
-      require 'rubygems'
       init_gem_env_vars
       require geminstaller_lib_dir + "/geminstaller/rubygems_version_checker"
       install_sources if GemInstaller::RubyGemsVersionChecker.matches?('<= 0.9.4')
@@ -88,14 +88,18 @@ module GemInstaller
       end
     end
 
-    protected
-    
     def self.put_rubygems_on_load_path
       remove_rubygems_from_require_array
+      remove_rubygems_constants
       $LOAD_PATH.unshift(siterubyver_dir)
       $LOAD_PATH.unshift(rubygems_lib_dir)
+      require 'rubygems'
+      set_correct_rubygems_version_because_ryan_davis_is_god_of_rubygems_and_refuses_to_allow_it_to_be_changed_in_trunk
+      print "\nReset RubyGems version, ENV['RUBYGEMS_VERSION'] == '#{ENV['RUBYGEMS_VERSION']}', Gem::RubyGemsVersion == '#{Gem::RubyGemsVersion}'\n"
     end
     
+    protected
+
     def self.remove_rubygems_from_require_array
       require_array_copy = $".dup
       require_array_copy.each do |require_array_entry|
@@ -111,6 +115,60 @@ module GemInstaller
         # and define require to invoke the original require method 
         Kernel.send(:define_method, :require) {|path| unbound_gem_original_require.bind(Kernel).call(path) }
       end
+    end
+
+    def self.remove_rubygems_constants
+      return unless defined? Gem
+      constants_to_remove = [
+        {:class => Gem, :name => :RubyGemsVersion},
+        {:class => Gem, :name => :VERSION},
+        {:class => Gem, :name => :MUTEX},
+        {:class => Gem, :name => :RubyGemsPackageVersion},
+        {:class => Gem, :name => :WIN_PATTERNS},
+        {:class => Gem, :name => :MARSHAL_SPEC_DIR},
+        {:class => Gem, :name => :YAML_SPEC_DIR},
+        {:class => Gem::Version, :name => :VERSION_PATTERN},
+        {:class => Gem::Requirement, :name => :OPS},
+        {:class => Gem::Requirement, :name => :OP_RE},
+        {:class => Gem, :name => :Requirement},
+        {:class => Gem::Version, :name => :Requirement},
+        {:class => Gem::Dependency, :name => :TYPES},
+        {:class => Gem::Platform, :name => :RUBY},
+        {:class => Gem::Platform, :name => :CURRENT},
+        {:class => Gem::Specification, :name => :NONEXISTENT_SPECIFICATION_VERSION},
+        {:class => Gem::Specification, :name => :CURRENT_SPECIFICATION_VERSION},
+        {:class => Gem::Specification, :name => :SPECIFICATION_VERSION_HISTORY},
+        {:class => Gem::Specification, :name => :MARSHAL_FIELDS},
+        {:class => Gem::Specification, :name => :TODAY},
+        {:class => Gem, :name => :Cache},
+        {:class => Gem::ConfigFile, :name => :DEFAULT_BACKTRACE},
+        {:class => Gem::ConfigFile, :name => :DEFAULT_BENCHMARK},
+        {:class => Gem::ConfigFile, :name => :DEFAULT_BULK_THRESHOLD},
+        {:class => Gem::ConfigFile, :name => :DEFAULT_VERBOSITY},
+        {:class => Gem::ConfigFile, :name => :DEFAULT_UPDATE_SOURCES},
+        {:class => Gem::ConfigFile, :name => :OPERATING_SYSTEM_DEFAULTS},
+        {:class => Gem::ConfigFile, :name => :PLATFORM_DEFAULTS},
+        {:class => Gem::ConfigFile, :name => :SYSTEM_WIDE_CONFIG_FILE},
+        {:class => Gem::Command, :name => :HELP},
+      ]
+      constants_to_remove.each do |constant|
+        begin
+          constant[:class].send(:remove_const,constant[:name])
+        rescue NameError => e
+          puts "Error removing constant from installed RubyGems: #{e.message}"
+        end
+      end
+    end
+
+    def self.set_correct_rubygems_version_because_ryan_davis_is_god_of_rubygems_and_refuses_to_allow_it_to_be_changed_in_trunk
+      # http://rubyforge.org/pipermail/rubygems-developers/2009-June/004749.html
+      # http://rubyforge.org/pipermail/rubygems-developers/2009-June/004750.html
+      return unless rubygems_dist == 'trunk'
+      correct_version = Gem::RubyGemsVersion + '.1'
+      Gem.send(:remove_const,:RubyGemsVersion)
+      Gem.send(:remove_const,:VERSION)
+      Gem.const_set(:RubyGemsVersion, correct_version)
+      Gem.const_set(:VERSION, correct_version)
     end
 
     def self.init_gem_env_vars

@@ -32,6 +32,10 @@ These are some notes on the underlying design of GemInstaller, and the current s
 
 h1. Maintaining forward and backward compatibility with multiple RubyGems versions
 
+* BACKWARD COMPATIBILITY UPDATE: As of July 2009, I had to give up on being able to keep the test suite running against all old versions of RubyGems back to 0.8.11, and I've had to drop test support for some of the old versions.  The world moves on, and changes in Rspec, Rake, Hoe, Ruby, and Rubygems itself make it hard to make the tests themselves run under old versions of Rubygems.  GemInstaller ITSELF should still run against these versions, I just can't run the automated tests for them.  
+
+* FORWARD COMPATIBILITY UPDATE: Between my move to git (no more automagically-updating svn:externals, just lame manual git submodules), and Ryan Davis' code fisting and unreasonable godlike control over the RubyGems trunk version ([him](http://rubyforge.org/pipermail/rubygems-developers/2009-June/004749.html), [me](http://rubyforge.org/pipermail/rubygems-developers/2009-June/004750.html)), maintaining automated tests and version checks against the latest RubyGems trunk presented some challenges.  However, I have it working again, in an ugly Rube-Goldbergesque kind of way.  More details later...
+
 * I've put a lot of effort into ensuring that GemInstaller works with older versions of RubyGems, and run automated tests against several recent versions on Continuous Integration.
 
 * This wasn't as hard as it seems.  The hardest part was figuring out what was different between versions.  Once you understand that, you can add switch statements to perform different logic or tests depending on the version (which is easy if you use rubygems built in Version Requirement support - see GemInstaller::RubygemsVersionChecker).

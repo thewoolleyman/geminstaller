@@ -1,5 +1,8 @@
 # -*- ruby -*-
 
+require File.expand_path("#{File.dirname(__FILE__)}/spec/helper/test_gem_home")
+GemInstaller::TestGemHome.install_rubygems
+
 require 'rubygems'
 begin
   gem 'hoe', '= 1.8.3' # Hoe F#@%ed everything up >= 1.11.0, force old version 'til I can rip out dependencies on it
@@ -12,6 +15,7 @@ rescue LoadError
        these dependencies."
 end
 
+puts "Gem::RubyGemsVersion = #{Gem::RubyGemsVersion}"
 require './lib/geminstaller.rb'
 require './lib/geminstaller/hoe_extensions.rb'
 
@@ -156,6 +160,7 @@ end
 desc 'Git submodules init and update'
 task :git_submodule_update do
   if File.exist?(File.dirname(__FILE__) + "/.git")
+    # NOTE: If you remove a submodule, you must do 'git rm --cached [path to deleted submodule]' or else you will get warnings
     sh "git submodule init"
     sh "git submodule update"
   end
@@ -165,7 +170,7 @@ desc 'Git submodules init, update, and pull'
 task :git_submodule_pull => [:git_submodule_update] do
   if File.exist?(File.dirname(__FILE__) + "/.git")
     sh "cd dummyrepo && git pull origin master && cd .."
-    sh "cd spec/fixture/rubygems_dist/rubygems_trunk/ && git pull origin master && cd ../../../../"
+    sh "cd spec/fixture/rubygems_dist/rubygems-trunk/ && git pull origin master && cd ../../../../"
   end
 end
 
@@ -173,7 +178,7 @@ desc 'Git submodules init, update, pull, commit, and push - warning - does a com
 task :git_submodule_commit_and_push => [:git_submodule_pull] do
   if File.exist?(File.dirname(__FILE__) + "/.git")
     git_commit_submodule_commit('dummyrepo')
-    git_commit_submodule_commit('spec/fixture/rubygems_dist/rubygems_trunk')
+    git_commit_submodule_commit('spec/fixture/rubygems_dist/rubygems-trunk')
     sh "git push"
   end
 end

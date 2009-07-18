@@ -19,17 +19,6 @@ module GemInstaller
         "#{ruby_cmd} #{rubygems_bin_dir}/gem"
       end
       
-      def default_rubygems_version
-        "9.9.9"
-      end
-
-      def rubygems_version
-        if RUBY_PLATFORM =~ /mswin/ && ENV['RUBYGEMS_VERSION']
-          raise "ERROR: On Windows, the GemInstaller tests do not support overriding RUBYGEMS_VERSION.  Install RubyGems version #{default_rubygems_version}"
-        end
-        ENV['RUBYGEMS_VERSION'] || default_rubygems_version
-      end
-  
       def geminstaller_root_dir
         File.expand_path(File.dirname(__FILE__) + "/../..")
       end
@@ -58,9 +47,16 @@ module GemInstaller
       def siterubyver_dir
         "#{siteruby_dir}/1.8"
       end
-  
+
+      def rubygems_dist
+        if RUBY_PLATFORM =~ /mswin/ && ENV['RUBYGEMS_VERSION']
+          raise "ERROR: On Windows, the GemInstaller tests do not support overriding RUBYGEMS_VERSION.   Manually install the version of RubyGems you wish to test"
+        end
+        ENV['RUBYGEMS_VERSION'] || 'trunk'
+      end
+
       def rubygems_dist_dir
-        File.expand_path(File.dirname(__FILE__) + "/../fixture/rubygems_dist/rubygems-#{rubygems_version}")
+        File.expand_path(File.dirname(__FILE__) + "/../fixture/rubygems_dist/rubygems-#{rubygems_dist}")
       end
   
       def rubygems_lib_dir

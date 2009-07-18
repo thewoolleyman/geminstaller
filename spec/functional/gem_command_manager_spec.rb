@@ -40,7 +40,7 @@ describe "a GemCommandManager instance" do
     end
     
     expected_list = /.*stubgem-multiplatform \(#{expected_versions}\).*Multiplatform stub gem for testing geminstaller/m
-    list.join.should match expected_list
+    list.join.should match(expected_list)
   end
   
   if GemInstaller::RubyGemsVersionChecker.matches?('<=0.9.4') # Rubygems 0.9.5 and later automatically installs dependencies

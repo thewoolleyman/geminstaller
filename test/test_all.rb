@@ -1,7 +1,9 @@
-print "\nRunning all GemInstaller Tests, ENV['RUBYGEMS_VERSION'] == '#{ENV['RUBYGEMS_VERSION']}'\n\n"
+require File.expand_path("#{File.dirname(__FILE__)}/../spec/helper/test_gem_home")
+GemInstaller::TestGemHome.install_rubygems
 
-dir = File.dirname(__FILE__)
-specdir = File.expand_path("#{dir}/../spec")
+print "\nRunning all GemInstaller Tests, ENV['RUBYGEMS_VERSION'] == '#{ENV['RUBYGEMS_VERSION']}', Gem::RubyGemsVersion == '#{Gem::RubyGemsVersion}'\n\n"
+
+specdir = File.expand_path("#{File.dirname(__FILE__)}/../spec")
 require File.expand_path("#{specdir}/helper/spec_helper")
 
 spec_files = Dir.glob("#{specdir}/**/*_spec.rb")
