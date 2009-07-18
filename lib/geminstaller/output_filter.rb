@@ -26,8 +26,8 @@ module GemInstaller
     
     def format_rubygems_message(type, message)
       prefix = case type
-      when :stdout : "[RubyGems:stdout] "
-      when :stderr : "[RubyGems:stderr] "
+      when :stdout then "[RubyGems:stdout] "
+      when :stderr then "[RubyGems:stderr] "
       end
       "#{prefix}#{message}"
     end
