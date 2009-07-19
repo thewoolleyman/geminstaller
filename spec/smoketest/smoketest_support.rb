@@ -9,5 +9,10 @@ module GemInstaller
     def gem_home_dir
       "#{ENV['HOME']}/.geminstaller_smoketest_gem_home"
     end
+
+    def remove_gem_home_dir
+      require 'fileutils'
+      FileUtils.rm_rf(gem_home_dir)
+    end
   end
 end

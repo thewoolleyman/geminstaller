@@ -1,7 +1,6 @@
 dir = File.dirname(__FILE__)
 require File.expand_path("#{dir}/../helper/spec_utils")
 require File.expand_path("#{dir}/smoketest_support")
-require 'open3'
 
 module GemInstaller
   class DebugTest
@@ -9,6 +8,7 @@ module GemInstaller
     include GemInstaller::SmoketestSupport
 
     def run
+      remove_gem_home_dir
       dir = File.dirname(__FILE__)
       # heckle -> hoe -> rubyforge show a three-level dependency
       test_gems = ['x10-cm17a']
@@ -18,8 +18,10 @@ module GemInstaller
 
       test_gems.each do |gem|
         print "Uninstalling all versions of #{gem}.  This will give an error if it's not already installed.\n"
-        IO.popen("#{gem_home} #{gem_cmd} uninstall --all --ignore-dependencies --executables #{gem}") do |process| 
-          process.readlines.each do |line| 
+        cmd = "#{gem_home} #{gem_cmd} uninstall --all --ignore-dependencies --executables #{gem}"
+        print "#{cmd}\n"
+        IO.popen(cmd) do |process|
+          process.readlines.each do |line|
             print line
           end
         end
@@ -51,8 +53,8 @@ module GemInstaller
         print "\nRunning gem list for #{gem}, verify that it contains the expected version(s)"
         gem_found = false
         all_list_output = ''
-        IO.popen("#{gem_home} #{gem_cmd} list #{gem}") do |io| 
-          io.readlines.each do |line|
+        IO.popen("#{gem_home} #{gem_cmd} list #{gem}") do |process|
+          process.readlines.each do |line|
             print line
             all_list_output += " #{line}"
             gem_found = true if line.index(gem)
@@ -77,10 +79,16 @@ module GemInstaller
       print "\n\n"
       if success
         print "SUCCESS! FANFARE! All gems were successfully installed!\n\n"
-        return true
       else
-        raise RuntimeError.new("\n\nFAILURE: The following gems were not installed: #{missing_gems}\n\n")
+        print "\n\nFAILURE: The following gems were not installed: #{missing_gems}\n\n"
       end
+
+      geminstaller_cmd = "#{gem_home} #{ruby_cmd} #{geminstaller_executable} --silent --config=#{File.join(dir,'debug-smoketest-geminstaller-reinstall.yml')}"
+      print "Now (re)installing the latest version of the test gems, in case this hit your real gem home and uninstalled stuff.\n"
+      print "Running geminstaller: #{geminstaller_cmd}\n"
+      IO.popen(geminstaller_cmd) {|process| process.readlines.each {|line| print line}}
+      print "\n\n"
+      return success
     end
   end
 end

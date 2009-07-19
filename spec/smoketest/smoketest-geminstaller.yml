@@ -1,6 +1,6 @@
 ---
 defaults:
-  install_options: --include-dependencies
+  install_options:
 gems:
 - name: rutils
   version: '0.1.9'

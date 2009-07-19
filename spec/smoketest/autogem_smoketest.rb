@@ -11,6 +11,7 @@ module GemInstaller
     include GemInstaller::SmoketestSupport
 
     def run()
+      remove_gem_home_dir
       GemInstaller::TestGemHome.put_rubygems_on_load_path
       dir = File.dirname(__FILE__)
       use_sudo = true
