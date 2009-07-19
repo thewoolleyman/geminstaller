@@ -94,7 +94,7 @@ module GemInstaller
       $LOAD_PATH.unshift(siterubyver_dir)
       $LOAD_PATH.unshift(rubygems_lib_dir)
       require 'rubygems'
-      set_correct_rubygems_version_because_ryan_davis_is_god_of_rubygems_and_refuses_to_allow_it_to_be_changed_in_trunk
+      hack_in_correct_rubygems_version_because_rubygems_refuses_to_allow_it_to_be_changed_in_trunk
       print "\nReset RubyGems version, ENV['RUBYGEMS_VERSION'] == '#{ENV['RUBYGEMS_VERSION']}', Gem::RubyGemsVersion == '#{Gem::RubyGemsVersion}'\n"
     end
     
@@ -160,7 +160,7 @@ module GemInstaller
       end
     end
 
-    def self.set_correct_rubygems_version_because_ryan_davis_is_god_of_rubygems_and_refuses_to_allow_it_to_be_changed_in_trunk
+    def self.hack_in_correct_rubygems_version_because_rubygems_refuses_to_allow_it_to_be_changed_in_trunk
       # http://rubyforge.org/pipermail/rubygems-developers/2009-June/004749.html
       # http://rubyforge.org/pipermail/rubygems-developers/2009-June/004750.html
       return unless rubygems_dist == 'trunk'
