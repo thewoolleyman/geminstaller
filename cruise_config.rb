@@ -1,5 +1,6 @@
 # Project-specific configuration for CruiseControl.rb
 require 'fileutils'
+require 'socket'
 
 Project.configure do |project|
   triggers = []
@@ -10,7 +11,7 @@ Project.configure do |project|
     triggers << :dummyrepo
   end
   project.triggered_by *triggers
-  project.email_notifier.emails = ['thewoolleyman@gmail.com']
+  project.email_notifier.emails = ['thewoolleyman@gmail.com'] if Socket.gethostname =~ /(thewoolleyweb.com|ci.pivotallabs.com)/ 
   if project.name =~ /rubygems[_-](.*)$/ # geminstaller_using_rubygems_0-9-4
     rubygems_version = $1
     rubygems_version.gsub!('-','.')
