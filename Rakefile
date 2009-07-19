@@ -169,14 +169,15 @@ end
 desc 'Git submodules init, update, and pull'
 task :git_submodule_pull => [:git_submodule_update] do
   if File.exist?(File.dirname(__FILE__) + "/.git")
-    sh "cd dummyrepo && git pull origin master && cd .."
-    sh "cd spec/fixture/rubygems_dist/rubygems-trunk/ && git pull origin master && cd ../../../../"
+    sh "cd dummyrepo && git pull origin master && git status && cd .."
+    sh "cd spec/fixture/rubygems_dist/rubygems-trunk/ && git pull origin master && git status && cd ../../../../"
   end
 end
 
 desc 'Git submodules init, update, pull, commit, and push - warning - does a commit and push to remote repo'
 task :git_submodule_commit_and_push => [:git_submodule_pull] do
-  if File.exist?(File.dirname(__FILE__) + "/.git")
+  if File.exist?(File.dirname(__FILE__) + "/.git") && git_repo_writeable?
+    puts "Updating, committing, and pushing git submodule updates..."
     git_commit_submodule_commit('dummyrepo')
     git_commit_submodule_commit('spec/fixture/rubygems_dist/rubygems-trunk')
     sh "git push"
@@ -190,6 +191,10 @@ def git_commit_submodule_commit(submodule_path)
       raise "git #{submodule_path} submodule commit failed"
     end
   end
+end
+
+def git_repo_writeable?
+  `git config --get-regexp remote\..+\.url` =~ /git@/
 end
 
 # vim: syntax=Ruby
