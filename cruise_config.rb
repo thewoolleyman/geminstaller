@@ -9,7 +9,7 @@ Project.configure do |project|
   if File.exists?(File.expand_path(File.dirname(project.path)) + '/../../dummyrepo')
     triggers << :dummyrepo
   end
-  project.triggered_by triggers
+  project.triggered_by *triggers
   project.email_notifier.emails = ['thewoolleyman@gmail.com']
   if project.name =~ /rubygems[_-](.*)$/ # geminstaller_using_rubygems_0-9-4
     rubygems_version = $1
