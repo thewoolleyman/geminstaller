@@ -169,8 +169,8 @@ end
 desc 'Git submodules init, update, and pull'
 task :git_submodule_pull => [:git_submodule_update] do
   if File.exist?(File.dirname(__FILE__) + "/.git")
-    sh "cd dummyrepo && git pull origin master && git status && cd .."
-    sh "cd spec/fixture/rubygems_dist/rubygems-trunk/ && git pull origin master && git status && cd ../../../../"
+    sh "cd dummyrepo && git pull origin master && git status; cd .."
+    sh "cd spec/fixture/rubygems_dist/rubygems-trunk/ && git pull origin master && git status; cd ../../../../"
   end
 end
 
