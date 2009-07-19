@@ -155,8 +155,13 @@ task :debug_smoketest => [:git_submodule_update, :clean] do
 end
 
 desc 'CruiseControl.rb default task'
-task :cruise => :git_submodule_commit_and_push do
+task :cruise => [:geminstaller, :git_submodule_commit_and_push] do
   Rake::Task[:default].invoke
+end
+
+desc 'Run GemInstaller to install development dependencies'
+task :geminstaller do
+  system('geminstaller') || raise("'geminstaller' command failed")
 end
 
 desc 'Git submodules init and update'
