@@ -2,12 +2,14 @@
 require 'fileutils'
 
 Project.configure do |project|
+  triggers = []
   if File.exists?(File.expand_path(File.dirname(project.path)) + '/../../RubyGems')
-    project.triggered_by :RubyGems
+    triggers << :RubyGems
   end
   if File.exists?(File.expand_path(File.dirname(project.path)) + '/../../dummyrepo')
-    project.triggered_by :dummyrepo
+    triggers << :dummyrepo
   end
+  project.triggered_by triggers
   project.email_notifier.emails = ['thewoolleyman@gmail.com']
   if project.name =~ /rubygems[_-](.*)$/ # geminstaller_using_rubygems_0-9-4
     rubygems_version = $1
