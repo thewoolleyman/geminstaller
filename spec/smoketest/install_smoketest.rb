@@ -29,17 +29,6 @@ module GemInstaller
         'x10-cm17a' => ['1.0.1']
       }
 
-      test_gems.each do |gem|
-        print "Uninstalling all versions of #{gem}.  This will give an error if it's not already installed.\n"
-        cmd = "#{gem_home} #{gem_cmd} uninstall --all --ignore-dependencies --executables #{gem}"
-        print "#{cmd}\n"
-        IO.popen(cmd) do |process| 
-          process.readlines.each do |line| 
-            print line
-          end
-        end
-      end
-
       # verify gems are actually uninstalled before attempting to install them with GemInstaller
       test_gems.each do |gem|
         IO.popen("#{gem_home} #{gem_cmd} list #{gem}") do |process| 
@@ -97,11 +86,8 @@ module GemInstaller
         print "\n\nFAILURE: The following gems were not installed: #{missing_gems}\n\n"
       end
 
-      geminstaller_cmd = "#{gem_home} #{ruby_cmd} #{geminstaller_executable} --silent --config=#{File.join(dir,'smoketest-geminstaller-reinstall.yml')}"
-      print "Now (re)installing the latest version of the test gems, in case this hit your real gem home and uninstalled stuff.\n"
-      print "Running geminstaller: #{geminstaller_cmd}\n"
-      IO.popen(geminstaller_cmd) {|process| process.readlines.each {|line| print line}}
       print "\n\n"
+      remove_gem_home_dir
       return success
     end
   end

@@ -47,6 +47,7 @@ module GemInstaller
       \n"
         end
         stopped = true
+        @@gem_server_pid = nil
       end
       return stopped
     end

@@ -1,7 +1,9 @@
-GemInstaller
-    by Chad Woolley
-    http://geminstaller.rubyforge.org
-    http://thewoolleyweb.lighthouseapp.com/projects/11580-geminstaller
+= GemInstaller
+
+* http://geminstaller.rubyforge.org
+* http://thewoolleyweb.lighthouseapp.com/projects/11580-geminstaller
+* mailto:"GemInstaller Development" <geminstaller-development@rubyforge.org>
+* mailto:"Chad Woolley" <thewoolleyman@gmail.com>
 
 == DESCRIPTION:
 
@@ -10,7 +12,6 @@ Automated Gem installation, activation, and much more!
 == FEATURES:
   
 GemInstaller provides automated installation, loading and activation of RubyGems.  It uses a simple YAML config file to:
-
 * Automatically install the correct versions of all required gems wherever your app runs.
 * Automatically ensure installed gems and versions are consistent across multiple applications, machines, platforms, and environments 
 * Automatically activate correct versions of gems on the ruby load path when your app runs ('require_gem'/'gem')
@@ -24,7 +25,7 @@ GemInstaller provides automated installation, loading and activation of RubyGems
 
 == SYNOPSYS:
 
-Automated Gem installation, activation, and much more!
+See Quick Start at http://geminstaller.rubyforge.org/documentation/index.html
 
 === Bugs/Patches
 
@@ -33,6 +34,10 @@ http://thewoolleyweb.lighthouseapp.com/projects/11580-geminstaller
 === Quick Start:
 
 See http://geminstaller.rubyforge.org/documentation/index.html
+
+== REQUIREMENTS:
+
+* RubyGems
 
 == INSTALL:
 

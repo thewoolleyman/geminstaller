@@ -1,13 +1,15 @@
 ---
 # GemInstaller config file which specifies the actual build, test, and doc dependencies for GemInstaller itself.
 defaults:
-  install_options: --include-dependencies
+  install_options: --no-ri --no-rdoc
   fix_dependencies: true
 gems:
 - name: diff-lcs
   version: '>= 1.1.2'
 - name: hoe
-  version: '= 1.8.3'
+  version: '>= 2.3.2'
+- name: hoe-seattlerb
+  version: '>= 1.2.0'
 - name: open4
   version: '>= 0.9.6'
 - name: rake
@@ -19,7 +21,10 @@ gems:
 #  version: '= 3.0.4'
   version: '= 4.0.4'
 - name: rspec
-  version: '>= 1.1.12'
+  version: '>= 1.2.8'
+  # install dev dependencies for rspec, or else regression tests on older versions of rubygems with the dev dependencies
+  # bug (1.0, 1.1) fail - and currently Hoe swallows Rspec load error silently
+  install_options: --no-ri --no-rdoc --development
 - name: cmdparse
   version: '>= 2.0.2'
 - name: ruby-debug

@@ -3,11 +3,10 @@
 require File.expand_path("#{File.dirname(__FILE__)}/spec/helper/test_gem_home")
 GemInstaller::TestGemHome.install_rubygems
 
-require 'rubygems'
 begin
-  gem 'hoe', '= 1.8.3' # Hoe F#@%ed everything up >= 1.11.0, force old version 'til I can rip out dependencies on it
   require 'hoe'
-rescue LoadError
+rescue LoadError => e
+  puts e
   abort "ERROR: GemInstaller has build- and test-time dependencies
        on Hoe and other libraries.  Run the 'geminstaller'
        executable from the root of the geminstaller source
@@ -19,18 +18,17 @@ puts "Gem::RubyGemsVersion = #{Gem::RubyGemsVersion}"
 require './lib/geminstaller.rb'
 require './lib/geminstaller/hoe_extensions.rb'
 
-IndependentHoe.new('geminstaller', GemInstaller.version) do |p|
-  p.author = 'Chad Woolley'
-  p.email = 'thewoolleyman@gmail.com'
+IndependentHoe.plugin :seattlerb
+
+IndependentHoe.spec 'geminstaller' do |p|
+  developer 'Chad Woolley', 'thewoolleyman@gmail.com'
   p.rubyforge_name = 'geminstaller'
-  p.summary = p.paragraphs_of('README.txt', 1).first.split(/\n/)[2]
-  p.description = p.paragraphs_of('README.txt', 2..5).join("\n\n")
-  p.url = p.paragraphs_of('README.txt', 0).first.split(/\n/)[1..-1]
-  p.changes = p.paragraphs_of('History.txt', 0..1).join("\n\n")
-  p.clean_globs << 'coverage'
-  p.clean_globs << 'website/out'
-  p.clean_globs << 'website/output'
-  p.clean_globs << '**/webgen.cache'
+  p.version = GemInstaller.version
+  p.summary = "See http://geminstaller.rubyforge.org"
+  clean_globs << 'coverage'
+  clean_globs << 'website/out'
+  clean_globs << 'website/output'
+  clean_globs << '**/webgen.cache'
   p.extra_deps = []
 end
 
@@ -68,9 +66,13 @@ task :diff_manifest => :clean do
   Find.find '.' do |path|
     next unless File.file? path
     next if path =~ /\.svn|tmp$|CVS/
+    next if path =~ /\.git|\.gitmodules/
+    next if path =~ /dummyrepo/
     next if path =~ /\.iml|\.ipr|\.iws|\.kpf|\.tmproj|\.project/
+    next if path =~ /\.idea/
     next if path =~ /\.\/nbproject/
     next if path =~ /\.\/spec/
+    next if path =~ /\.\/test_suites/
     next if path =~ /\.\/pkg/
     next if path =~ /\.\/out/
     next if path =~ /\.\/website\/out/

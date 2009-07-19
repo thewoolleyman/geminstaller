@@ -119,6 +119,7 @@ module GemInstaller
 
     def self.remove_rubygems_constants
       return unless defined? Gem
+      # TODO: ignore undefined class name constants so it works under older rubygems versions (e.g. Gem::Command)
       constants_to_remove = [
         {:class => Gem, :name => :RubyGemsVersion},
         {:class => Gem, :name => :VERSION},
@@ -149,7 +150,7 @@ module GemInstaller
         {:class => Gem::ConfigFile, :name => :OPERATING_SYSTEM_DEFAULTS},
         {:class => Gem::ConfigFile, :name => :PLATFORM_DEFAULTS},
         {:class => Gem::ConfigFile, :name => :SYSTEM_WIDE_CONFIG_FILE},
-        {:class => Gem::Command, :name => :HELP},
+        {:class => Gem::Command, :name => :HELP}
       ]
       constants_to_remove.each do |constant|
         begin

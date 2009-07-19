@@ -9,7 +9,7 @@ require File.expand_path("#{specdir}/helper/spec_helper")
 spec_files = Dir.glob("#{specdir}/**/*_spec.rb")
 
 # put test_gem_home_spec first so we only have to perform the install once
-test_gem_home_path = Dir.glob("#{specdir}/functional/test_gem_home_spec.rb")[0]
+test_gem_home_path = Dir.glob("#{specdir}/functional/aaa_test_gem_home_spec.rb")[0]
 spec_files.delete(test_gem_home_path)
 spec_files.unshift(test_gem_home_path)
 spec_files.uniq
