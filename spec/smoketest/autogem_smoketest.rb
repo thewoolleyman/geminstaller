@@ -28,7 +28,7 @@ module GemInstaller
       config_files = "#{File.join(dir,'smoketest-geminstaller.yml')},#{File.join(dir,'smoketest-geminstaller-override.yml')}"
       geminstaller_cmd = "#{gem_home} #{ruby_cmd} #{geminstaller_executable} --config=#{config_files}"
       print "Running geminstaller: #{geminstaller_cmd}\n"
-      print "We won't verify installation, run smoketest.rb for that...\n"
+      print "We won't verify installation, run install_smoketest.rb for that...\n"
       print "Please be patient, it may take a bit, or may not work at all if rubyforge or your network connection is down, or you don't have proper permissions, or if there's a bug in geminstaller :)\n\n"
       IO.popen(geminstaller_cmd) {|process| process.readlines.each {|line| print line}}
       print "\n\n"
