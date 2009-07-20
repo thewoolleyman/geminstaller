@@ -149,9 +149,9 @@ module GemInstaller
         {:class => Gem::ConfigFile, :name => :DEFAULT_UPDATE_SOURCES},
         {:class => Gem::ConfigFile, :name => :OPERATING_SYSTEM_DEFAULTS},
         {:class => Gem::ConfigFile, :name => :PLATFORM_DEFAULTS},
-        {:class => Gem::ConfigFile, :name => :SYSTEM_WIDE_CONFIG_FILE},
-        {:class => Gem::Command, :name => :HELP}
+        {:class => Gem::ConfigFile, :name => :SYSTEM_WIDE_CONFIG_FILE}
       ]
+      constants_to_remove << {:class => Gem::Command, :name => :HELP} if defined? Gem::Command
       constants_to_remove.each do |constant|
         begin
           constant[:class].send(:remove_const,constant[:name])
