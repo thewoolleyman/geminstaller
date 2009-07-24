@@ -46,6 +46,8 @@ Please "report any others that you find":http://thewoolleyweb.lighthouseapp.com/
 
 h2(#history). History
 
+* 0.5.2
+** Support for Rubygems 1.3.5.
 * 0.5.1
 ** Print a very verbose and helpful error message if gem cannot be found on remote server.  Attempts to help "http://thewoolleyweb.lighthouseapp.com/projects/11580/tickets/5-sometimes-installing-fails":http://thewoolleyweb.lighthouseapp.com/projects/11580/tickets/5-sometimes-installing-fails
 ** Fix bug with stderr being swallowed silently when '--sudo' option is used.  
