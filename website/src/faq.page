@@ -26,7 +26,7 @@ Q: What about gems like RMagick that have platform-specific binary dependencies?
 A: You are on your own, this is outside of the scope of GemInstaller.  The geminstaller.yml file is parsed with ERB, so you can put whatever hooks you want to perform necessary system setup and/or prereq validation.  You can also google or check the RMagick home page: "http://rmagick.rubyforge.org/":http://rmagick.rubyforge.org/.  For Debian systems, check out the "AptInstaller":http://github.com/ngauthier/aptinstaller tool.
 
 Q: Why don't the tests/specs run on Windows?<br/>
-A: This has been improved with GemInstaller 0.3.0.  Using RubyGems 1.0.1 on Windows, install_smoketest.rb, autogem_smoketest.rb, and ruby test/test_all.rb all work.  See references to 'windows' on the "Code Page":code/index.html for more details.
+A: This has been improved with GemInstaller 0.3.0.  Using RubyGems 1.0.1 on Windows, install_smoketest.rb, autogem_smoketest.rb, and ruby test_suites/test_all.rb all work.  See references to 'windows' on the "Code Page":code/index.html for more details.
 
 Q: Why else should I support GemInstaller?<br/>
 A: GemInstaller has an extensive, multifaceted and multiplatform suite of specs and tests which is actively maintained against the latest trunk version of RubyGems and run via Continuous Integration.  It is valuable for alerting about regressions in RubyGems itself.  For example, leading up to the the RubyGems 1.2.0 release, the GemInstaller spec suite identified several regression bugs in RubyGems which were promptly reported and proactively fixed by awesome Eric Hodel and others before the release.

@@ -48,7 +48,7 @@ task :coverage do
   rm_rf "coverage"
   rm_rf "website/out/code/coverage"
   sh "mkdir -p website/out/code"
-  sh "rcov -o website/out/code/coverage test/test_all.rb"
+  sh "rcov -o website/out/code/coverage test_suites/test_all.rb"
 end
 
 task :coverage_no_fail do
@@ -131,7 +131,7 @@ end
 
 desc 'Run All Smoketests'
 task :all_smoketest => [:git_submodule_update, :clean] do
-  run_smoketest 'test/test_all_smoketests.rb'
+  run_smoketest 'test_suites/test_all_smoketests.rb'
 end
 
 desc 'Run Install Smoketest'

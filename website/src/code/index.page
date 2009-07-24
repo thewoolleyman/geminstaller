@@ -23,7 +23,7 @@ These are some notes on the underlying design of GemInstaller, and the current s
 * I'm a proponent of high code coverage.  I check periodically to ensure I maintain close to 100% code coverage, not counting platform- and version-specific code blocks (and I'll get around to those some day).  Also, the sudo recursive invocation stuff still needs some tests, but that's a bit tricky to automate.
 * The tests are "harder" on Windows (but run fine on mac/linux).  The app should work fine, but testing is pretty tricky.  I have all tests working against the latest rubygems (1.0.1).  Here's what does and doesn't work with tests against latest rubygems on windows:
   * install_smoketest.rb and autogem_smoketest.rb work
-  * ruby test/test_all.rb works
+  * ruby test_suites/test_all.rb works
   * rake default test task does not work (this seems to be a problem with hoe on windows)
   * Sometimes test suite still hangs after a while, this is probably some orphaned EmbeddedGemServer process somewhere.  A reboot should fix it - this is windows, after all!
 * One of my motivations for creating GemInstaller was as an exercise to help me learn Ruby better.  If you see me doing anything obviously dumb or inefficient in the code or design, please let me know. Some of them I already know about, but haven't fixed, most I'm probably not aware of :)
