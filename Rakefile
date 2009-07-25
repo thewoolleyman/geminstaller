@@ -173,6 +173,7 @@ task :git_submodule_update do
   end
 end
 
+# TODO: make these use submodule foreach option
 desc 'Git submodules init, update, and pull'
 task :git_submodule_pull => [:git_submodule_update] do
   if File.exist?(File.dirname(__FILE__) + "/.git")
@@ -181,6 +182,7 @@ task :git_submodule_pull => [:git_submodule_update] do
   end
 end
 
+# TODO: make these use submodule foreach option
 desc 'Git submodules init, update, pull, commit, and push - warning - does a commit and push to remote repo'
 task :git_submodule_commit_and_push => [:git_submodule_pull] do
   if File.exist?(File.dirname(__FILE__) + "/.git") && git_repo_writeable?
