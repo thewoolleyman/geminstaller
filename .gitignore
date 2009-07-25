@@ -7,3 +7,5 @@ spec/rubygems_test_dir
 spec/tmp/test_gem_home
 spec/tmp/test_gem.rc
 pkg
+website/out
+website/webgen.cache
