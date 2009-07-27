@@ -449,7 +449,8 @@ Here's an example of how <code>sudoers</code> might be configured to allow the l
 
 <pre><code>
   $ sudo visudo
-  add this line:
+  # ADD this line (Do NOT delete any existing lines, or you may 
+  # lose your sudo access and ability to administer your system!!!):
   <local user> ALL = NOPASSWD: /usr/local/bin/geminstaller, /usr/local/bin/ruby, /usr/local/bin/gem
 </code></pre>
 
