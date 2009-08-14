@@ -31,7 +31,13 @@ module GemInstallerRailsPreinitializer
 
       # The 'install' method will auto-install gems as specified by the args and config
       # IMPORTANT NOTE:  Under recent RubyGems versions, this will install to ~/.gem
-      GemInstaller.install(args)
+      # The forking is a workaround to 'check_for_upgrade' in the configuration file, which causes
+      # script/console crashes on Mac OS X. See http://www.ruby-forum.com/topic/101243 for all the
+      # gnarly details.
+      pid = fork do
+        GemInstaller.install(args)
+      end
+      Process.wait(pid)
 
       # The 'autogem' method will automatically add all gems in the GemInstaller config to your load path,
       # using the rubygems 'gem' method.  Note that only the *first* version of any given gem will be loaded.
