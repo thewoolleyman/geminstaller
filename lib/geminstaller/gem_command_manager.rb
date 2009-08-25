@@ -36,21 +36,18 @@ module GemInstaller
       run_args = ["dependency", name_regexp, "--version", version]
       run_args += additional_options
       output_lines = @gem_runner_proxy.run(run_args)
-      p output_lines
-      # dependency output has all lines in the first element
-      output_array = output_lines[0].split("\n")
       # drop the first line which just echoes the dependent gem
-      output_array.shift
+      output_lines.shift
       # drop the line containing 'requires' (rubygems < 0.9.0)
-      if output_array[0] == '  Requires'
-        output_array.shift
+      if output_lines[0] == '  Requires'
+        output_lines.shift
       end
       # drop all empty lines
-      output_array.reject! { |line| line == "" }
+      output_lines.reject! { |line| line == "" }
       # strip leading space
-      output_array.each { |line| line.strip! }
+      output_lines.each { |line| line.strip! }
       # convert into gems
-      output_gems = output_array.collect do |line|
+      output_gems = output_lines.collect do |line|
         name = line.split(' ')[0]
         version_spec = line.split(/[(,)]/)[1]
         GemInstaller::RubyGem.new(name, :version => version_spec)
