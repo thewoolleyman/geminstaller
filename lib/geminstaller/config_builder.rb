@@ -6,7 +6,7 @@ module GemInstaller
     attr_reader :config_file_paths_array
     attr_writer :file_reader, :yaml_loader, :config_file_paths, :output_filter
     
-    def initialize(default_config_file_paths_array = ['geminstaller.yml','config/geminstaller.yml'])
+    def initialize(default_config_file_paths_array = ['geminstaller.yml','config/geminstaller.yml','ci/geminstaller.yml'])
       @default_config_file_paths_array = default_config_file_paths_array
     end
     

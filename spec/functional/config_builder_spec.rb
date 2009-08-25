@@ -22,7 +22,7 @@ describe GemInstaller::ConfigBuilder, "with no config file path set and run from
   end
 
   it "should assign paths array to config_file_paths_array instance variable" do
-    @config_builder.config_file_paths_array.should==(['geminstaller.yml','config/geminstaller.yml'])
+    @config_builder.config_file_paths_array.should==(['geminstaller.yml','config/geminstaller.yml','ci/geminstaller.yml'])
   end
 end
 
