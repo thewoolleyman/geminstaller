@@ -27,6 +27,15 @@ describe "a GemRunnerProxy instance" do
     output.join("\n").should match(expected_output)
   end
 
+  it "should return multi-line output as an array" do
+    gem_runner_args = ["search", "--remote"]
+    gem_runner_args += install_options_for_testing
+    
+    output = @gem_runner_proxy.run(gem_runner_args)
+    
+    output.size.should be > 1
+  end
+
   it "should not throw an error if there is an normal rubygems exit via terminate_interaction" do
     gem_runner_args = ["--help"]
   
