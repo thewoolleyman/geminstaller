@@ -15,6 +15,9 @@ module GemInstaller
       
       exit_status = nil
       begin
+        # The call below is to work around RubyGem's behavior of caching (only) the last-used source when
+        # multiple gem commands for gems on different sources are issued via the API
+        Gem.sources.replace Gem.default_sources
         gem_runner.run(args)
       rescue SystemExit => system_exit
         if GemInstaller::RubyGemsVersionChecker.matches?('>1.0.1')
