@@ -21,7 +21,7 @@ GemInstaller provides automated installation, loading and activation of RubyGems
 * Allow for common configs to be reused across projects or environments by supporting multiple config files, including common config file snippets, and defaults with overrides.
 * Allow for dynamic selection of gems, versions, and platforms to be used based on environment vars or any other logic.
 * Avoid the "works on demo, breaks on production" syndrome
-* Solve world hunger, prevent the global energy crisis, and wash your socks.
+* Find lost socks.
 
 == SYNOPSYS:
 
