@@ -70,6 +70,7 @@ task :diff_manifest => :clean do
     next if path =~ /dummyrepo/
     next if path =~ /\.iml|\.ipr|\.iws|\.kpf|\.tmproj|\.project/
     next if path =~ /\.idea/
+    next if path =~ /tmtags/
     next if path =~ /\.\/nbproject/
     next if path =~ /\.\/spec/
     next if path =~ /\.\/test_suites/

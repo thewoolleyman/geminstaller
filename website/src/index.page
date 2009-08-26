@@ -46,6 +46,15 @@ Please "report any others that you find":http://thewoolleyweb.lighthouseapp.com/
 
 h2(#history). History
 
+* 0.5.3
+** Many long overdue bugfixes and patches, see http://tinyurl.com/geminstaller-0-5-3-release for details.
+** Thanks to Greg Fitzgerald, Britt Crawford, John Trupiano, Gabriel Gironda, and Eric Hodel for patches and assistance.
+** Issues with case statement under Ruby 1.9
+** GemInstaller cannot distinguish between gems that have the ame name but capitalized differently.
+** add ./ci as default location for config file
+** Disable GemInstaller install in default rails preinitializer.rb, but fork if it is used
+** autogem() fails when run for newly-installed gem
+** Sometimes installing fails due to RubyGems cache not being cleared between multiple API calls
 * 0.5.2
 ** Support for Rubygems 1.3.5.
 * 0.5.1
