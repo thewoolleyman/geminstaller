@@ -65,7 +65,7 @@ Yeah, it's too manual.  Notes for improvement below.
 ** install_smoketest.rb and autogem_smoketest.rb should pass for all RubyGems versions on mac/linux (if they are in a working state)
 ** test_all, install_smoketest.rb and autogem_smoketest.rb should pass for latest RubyGems version on windows (if they are in a working state)
 * Make sure everything is checked in
-* Make a tag in git
+* Make a tag in git (git tag x.y.z; git push origin x.y.z)
 * rake clean package
 * Upload gem to rubyforge
 * rake publish_website
