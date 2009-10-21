@@ -3,7 +3,7 @@ module GemInstaller
     # NOTE: available_versions should be sorted in descending order (highest versions first)
     # This method will return the first matching version
     def specify(version_requirement, available_versions, gem_name = nil)
-      rubygems_version_requirement = Gem::Version::Requirement.new [version_requirement]
+      rubygems_version_requirement = GemInstaller::REQUIREMENT_CLASS.new [version_requirement]
       if available_versions.respond_to? :to_str
         available_versions = available_versions.split(', ')
       end

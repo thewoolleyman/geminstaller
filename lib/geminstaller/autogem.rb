@@ -39,7 +39,7 @@ module GemInstaller
         rescue Gem::Exception => e
           exception_message = e.message
           exception_message.strip!
-          error_message = "Error: GemInstaller failed to actiate gem '#{name}', version '#{version}'.  This is probably because GemInstaller processes gems in order (was alphabetical prior to 0.5.0), and an earlier gem in your geminstaller.yml config already activated another version.  Use the 'gem dependency [-R]' command to track this down, and reorder/edit your config as necessary.  Original Gem::Exception was: '#{exception_message}'"
+          error_message = "Error: GemInstaller failed to activate gem '#{name}', version '#{version}'.  This may be because GemInstaller processes gems in order (was alphabetical prior to 0.5.0), and an earlier gem in your geminstaller.yml config already activated another version.  Use the 'gem dependency [-R]' command to track this down, and reorder/edit your config as necessary.  Original Gem::Exception was: '#{exception_message}'"
           raise GemInstaller::GemInstallerError.new(error_message)
         end
       end

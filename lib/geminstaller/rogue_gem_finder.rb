@@ -16,7 +16,7 @@ module GemInstaller
         config_match_found_for_local = false
         @config_gems_with_dependencies.each do |config_gem|
           name_matches = config_gem.name == local_gem.name
-          config_gem_version_requirement = Gem::Version::Requirement.new [config_gem.version]
+          config_gem_version_requirement = GemInstaller::REQUIREMENT_CLASS.new [config_gem.version]
           local_gem_version = Gem::Version.new(local_gem.version)
           version_matches = config_gem_version_requirement.satisfied_by?(local_gem_version)
           if (name_matches and version_matches)

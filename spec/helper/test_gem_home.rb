@@ -129,10 +129,8 @@ module GemInstaller
         {:class => Gem, :name => :MARSHAL_SPEC_DIR},
         {:class => Gem, :name => :YAML_SPEC_DIR},
         {:class => Gem::Version, :name => :VERSION_PATTERN},
-        {:class => Gem::Requirement, :name => :OPS},
-        {:class => Gem::Requirement, :name => :OP_RE},
         {:class => Gem, :name => :Requirement},
-        {:class => Gem::Version, :name => :Requirement},
+        {:class => Gem::Requirement, :name => :OPS},
         {:class => Gem::Dependency, :name => :TYPES},
         {:class => Gem::Platform, :name => :RUBY},
         {:class => Gem::Platform, :name => :CURRENT},
@@ -152,6 +150,11 @@ module GemInstaller
         {:class => Gem::ConfigFile, :name => :SYSTEM_WIDE_CONFIG_FILE}
       ]
       constants_to_remove << {:class => Gem::Command, :name => :HELP} if defined? Gem::Command
+      
+      # These things went away in Rubygems >1.3.5
+      constants_to_remove << {:class => Gem::Requirement, :name => :OP_RE}
+      constants_to_remove << {:class => Gem::Version, :name => :Requirement}
+      
       constants_to_remove.each do |constant|
         begin
           constant[:class].send(:remove_const,constant[:name])
