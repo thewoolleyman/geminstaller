@@ -1,7 +1,7 @@
 module GemInstaller
   class Application
     # we have accessors instead of just writers so that we can ensure it is assembled correctly in the dependency injector test
-    attr_accessor :config_builder, :install_processor, :output_filter, :arg_parser, :args, :options, :rogue_gem_finder
+    attr_accessor :config_builder, :install_processor, :output_filter, :arg_parser, :args, :options, :rogue_gem_finder, :bundler_exporter
     attr_writer :autogem
     
     def initialize
@@ -13,6 +13,10 @@ module GemInstaller
         exit_flag_and_return_code = handle_args
         if exit_flag_and_return_code[0]
           return exit_flag_and_return_code[1]
+        end
+        if @options[:bundler_export]
+          @bundler_exporter.output(@config_builder.build_config)
+          return 0
         end
         gems = create_gems_from_config
         if @options[:print_rogue_gems]

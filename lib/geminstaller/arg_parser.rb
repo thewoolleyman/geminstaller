@@ -47,6 +47,7 @@ module GemInstaller
         help_msg =                           "Show this message."
         print_rogue_gems_msg =               "Print a report of all locally installed gems which are not specified\n" +
         "                                     in the geminstaller config file."
+        bundler_export_msg =                 "Export a Bundler manifest Gemfile based on the geminstaller config"
         rubygems_output_msg =                "Comma-delimited list of output types to show from internal:\n" +
         "                                       RubyGems command invocation.\n" +
         "                                       Examples:\n" + 
@@ -86,6 +87,10 @@ module GemInstaller
 
         opts.on("-p", "--print-rogue-gems", print_rogue_gems_msg) do
           @options[:print_rogue_gems] = true
+        end
+
+        opts.on("-b", "--bundler-export", bundler_export_msg) do
+          @options[:bundler_export] = true
         end
 
         opts.on("-rTYPES", "--rubygems-output=TYPES", String, rubygems_output_msg) do |rubygems_output_flags|

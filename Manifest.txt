@@ -16,6 +16,7 @@ lib/geminstaller/application.rb
 lib/geminstaller/arg_parser.rb
 lib/geminstaller/autogem.rb
 lib/geminstaller/backward_compatibility.rb
+lib/geminstaller/bundler_exporter.rb
 lib/geminstaller/config.rb
 lib/geminstaller/config_builder.rb
 lib/geminstaller/enhanced_stream_ui.rb

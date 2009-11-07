@@ -177,6 +177,12 @@ describe "an ArgParser instance with rogue-gems option" do
     @options[:print_rogue_gems].should==(true)
   end
 
+  it "specified by --bundler-export should return bundler_export flag as true in options hash" do
+    @args.push("--bundler-export")
+    @arg_parser.parse(@args)
+    @options[:bundler_export].should==(true)
+  end
+
   it "specified by -p should return rogue_gems flag as true in options hash" do
     @args.push("-p")
     @arg_parser.parse(@args)

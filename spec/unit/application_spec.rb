@@ -175,6 +175,22 @@ describe "an application instance invoked with print-rogue-gems arg" do
   end
 end
 
+describe "an application instance invoked with bundler-export arg" do
+  before(:each) do
+    application_spec_setup_common
+    @mock_arg_parser.should_receive(:parse).with(nil)
+    @mock_arg_parser.should_receive(:output).and_return(nil)
+    @options[:bundler_export] = true
+  end
+
+  it "should invoke bundler_export" do    
+    @mock_config_builder.should_receive(:build_config).and_return {@stub_config_local}
+    @mock_bundler_exporter.should_receive(:output).once().with(@stub_config_local)
+    @application.install
+  end
+end
+
+
 def application_spec_setup_common
   @mock_arg_parser = mock("Mock Arg Parser")
   @mock_config_builder = mock("Mock Config Builder")
@@ -183,6 +199,7 @@ def application_spec_setup_common
   @mock_output_filter = mock("Mock Output Filter")
   @stub_gem = GemInstaller::RubyGem.new("gemname", :version => "1.0")
   @mock_rogue_gem_finder = mock("Mock RogueGemFinder")
+  @mock_bundler_exporter = mock("Mock BundlerExporter")
   @options = {}
 
   @stub_config_local = @stub_config
@@ -194,6 +211,7 @@ def application_spec_setup_common
   @application.install_processor = @mock_install_processor
   @application.output_filter = @mock_output_filter
   @application.rogue_gem_finder = @mock_rogue_gem_finder
+  @application.bundler_exporter = @mock_bundler_exporter
 end
 
 

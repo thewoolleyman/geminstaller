@@ -4,7 +4,7 @@ module GemInstaller
     attr_accessor :gem_runner, :gem_command_manager, :gem_list_checker, :app, :arg_parser, :options
     attr_accessor :install_processor, :missing_dependency_finder, :valid_platform_selector
     attr_accessor :output_listener, :outs_output_observer, :errs_output_observer, :output_filter, :autogem, :rogue_gem_finder
-    attr_accessor :gem_spec_manager, :source_index_search_adapter
+    attr_accessor :gem_spec_manager, :source_index_search_adapter, :bundler_exporter
     
     if GemInstaller::RubyGemsVersionChecker.matches?('<=0.9.4')
       attr_accessor :gem_interaction_handler, :noninteractive_chooser
@@ -37,6 +37,9 @@ module GemInstaller
       @config_builder.file_reader = @file_reader
       @config_builder.yaml_loader = @yaml_loader
       @config_builder.output_filter = @output_filter
+      
+      @bundler_exporter = GemInstaller::BundlerExporter.new
+      @bundler_exporter.output_proxy = @output_proxy
 
       @gem_source_index = Gem::SourceIndex.from_installed_gems
       @gem_source_index_proxy = GemInstaller::GemSourceIndexProxy.new
@@ -117,6 +120,7 @@ module GemInstaller
       @app = GemInstaller::Application.new
       @app.autogem = @autogem
       @app.rogue_gem_finder = @rogue_gem_finder
+      @app.bundler_exporter = @bundler_exporter
       @app.options = @options
       @app.arg_parser = @arg_parser
       @app.config_builder = @config_builder

@@ -3,7 +3,7 @@
 dir = File.dirname(__FILE__)
 
 begin
-  require 'geminstaller'
+  require ' geminstaller'
 rescue LoadError
   require 'rubygems'
   begin
