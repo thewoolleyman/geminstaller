@@ -46,6 +46,8 @@ Please "report any others that you find":http://thewoolleyweb.lighthouseapp.com/
 
 h2(#history). History
 
+* 0.5.4
+** Add -b / --bundler-export option to create bundler Gemfile - but make sure you only include direct dependencies, and let bundler handle the rest!
 * 0.5.3
 ** Many long overdue bugfixes and patches, see http://tinyurl.com/geminstaller-0-5-3-release for details.
 ** Thanks to Greg Fitzgerald, Britt Crawford, John Trupiano, Gabriel Gironda, and Eric Hodel for patches and assistance.

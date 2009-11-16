@@ -1,3 +1,6 @@
+== 0.5.4 / 2009-11-15
+* Add -b / --bundler-export option to create bundler Gemfile - but make sure you only include direct dependencies, and let bundler handle the rest!
+
 == 0.5.3 / 2009-08-25
 * Many long overdue bugfixes and patches, see http://tinyurl.com/geminstaller-0-5-3-release for details.
 * Thanks to Greg Fitzgerald, Britt Crawford, John Trupiano, Gabriel Gironda, and Eric Hodel for patches and assistance.
