@@ -12,6 +12,7 @@ h2. Table of Contents
 ** "<code>--redirect-stderr-to-stdout</code> option":#redirect_stderr_to_stdout_option
 ** "<code>--geminstaller-output</code> option":#geminstaller_output_option
 ** "<code>--rubygems-output</code> option":#rubygems_output_option
+** "<code>--bundler-export</code> option":#bundler_export_option
 ** "<code>--print-rogue-gems</code> option":#print_rogue_gems_option
 ** "<code>--sudo</code> option":#sudo_option
 ** "<code>--silent</code> option":#silent_option
@@ -142,6 +143,10 @@ GemInstaller works by automatically invoking RubyGems commands.  The <code>--rub
 * stdout: Prints standard output stream from RubyGems.
 * stderr: Prints standard error stream from RubyGems.
 * all: Prints all messages.  This is the same as specifying all of the other types (except 'none')
+
+h3(#bundler_export_option). <code>--bundler-export</code> option
+
+The <code>--bundler-export</code> writes a [Bundler](http://github.com/wycats/bundler) ([](http://github.com/wycats/bundler)) Gemfile based on your Geminstaller config(s).
 
 h3(#print_rogue_gems_option). <code>--print-rogue-gems</code> option
 
