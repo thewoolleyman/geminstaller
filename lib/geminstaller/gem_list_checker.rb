@@ -23,7 +23,7 @@ module GemInstaller
       end
 
       if matched_lines.size == 0
-        error_message = "Error: Could not find remote gem to install.  Gem name = '#{gem.name}', Gem version = '#{gem.version}', install options = '#{gem.install_options.join(' ')}'.  Your remote gem server may be having problems.  You should try to list the remote gem yourself:  'gem list -r -v '#{gem.version}' #{common_args.join(' ')} #{gem.name}'.  If it exists on the server, try running geminstaller again and report your experience here: http://thewoolleyweb.lighthouseapp.com/projects/11580-geminstaller/tickets/5-sometimes-installing-fails.  Output of remote gem list command: \n#{remote_list}"
+        error_message = "Error: Could not find remote gem to install.  Gem name = '#{gem.name}', Gem version = '#{gem.version}', install options = '#{gem.install_options.join(' ')}'.  Your remote gem server may be having problems.  You should try to list the remote gem yourself:  'gem list -r -v '#{gem.version}' #{common_args.join(' ')} #{gem.name}'.  If it exists on the server, try running geminstaller again and open a ticket here: http://thewoolleyweb.lighthouseapp.com/projects/11580-geminstaller.  Output of remote gem list command: \n#{remote_list}"
         raise GemInstaller::GemInstallerError.new(error_message)
       end
 
