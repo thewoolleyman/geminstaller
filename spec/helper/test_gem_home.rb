@@ -1,4 +1,5 @@
 dir = File.dirname(__FILE__)
+require File.expand_path("#{dir}/override_default_source")
 require File.expand_path("#{dir}/rubygems_installer")
 require File.expand_path("#{dir}/spec_utils")
 require 'fileutils'
@@ -35,6 +36,13 @@ module GemInstaller
       init_gem_env_vars
       require geminstaller_lib_dir + "/geminstaller/rubygems_version_checker"
       install_sources if GemInstaller::RubyGemsVersionChecker.matches?('<= 0.9.4')
+      GemInstaller::OverrideDefaultSource.override_default_gem_source
+      Gem::ConfigFile.class_eval do
+        # Do not let the users config file be read
+        def config_file_name
+          GemInstaller::TestGemHome.test_rubygems_config_file
+        end
+      end
       @@dirs_initialized = true
     end
 
@@ -49,7 +57,7 @@ module GemInstaller
       rm_config
       create_config
       GemInstaller::EmbeddedGemServer.start
-      cmd = "#{gem_cmd} update --source #{embedded_gem_server_url} --config-file #{config_file}"
+      cmd = "#{gem_cmd} update --config-file #{config_file}"
       puts "Updating from embedded gem server, cmd = #{cmd}"
       output = `#{cmd}`
       raise "Failure updating from embedded gem server, cmd = #{cmd}" unless $?.success?

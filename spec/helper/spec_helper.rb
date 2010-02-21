@@ -24,6 +24,8 @@ end
 # ruby-debug indirectly requires 'irb', which makes require of 'rdoc/rdoc' in rubygems doc_manager.rb blow up
 #require 'ruby-debug'
 
+require File.expand_path("#{dir}/override_default_source")
+GemInstaller::OverrideDefaultSource.override_default_gem_source
 
 at_exit do
   GemInstaller::TestGemHome.reset

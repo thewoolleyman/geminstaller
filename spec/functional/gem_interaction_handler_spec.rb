@@ -76,6 +76,7 @@ def should_choose_properly(list, expected_item_index)
 end
 
 def gem_interaction_handler_spec_setup_common(dependent_gem, dependency_gem)
+  GemInstaller::OverrideDefaultSource.override_default_gem_source
   @registry = GemInstaller::create_registry
   @gem_interaction_handler = @registry.gem_interaction_handler
   @dependent_gem = dependent_gem
