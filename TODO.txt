@@ -1,81 +1,35 @@
 =============== Unfiled =============
-* Tagline: "It's not just for installing gems!" - "removes the drudgery of installing, activating, and requiring gems"
-* move to Github
-  * autoupdate of rails trunk
-  * redirection of links to old svn
-* Rename autogem to activate
-* add GemInstaller.require
-* Replace Tagline / Summary / Readme with "Install, Activate, and Require"
-* Big Quick Start Link on homepage
-* Update config.gems faq item with link to rails tutorial
+* Pointers to Bundler in Readme, homepage, etc
+* Update config.gems faq item with link to bundler info
 * rename sample app to rails_fixture_app, update important files with comments pointing to fixture app
 * examples dir
-  * geminstaller_merb_example_app
   * geminstaller_rails_example_app
 * Update Rails tutorial link with link to example app
-================ 0.6.0 release ===================
-* fix smoke tests on CI
-* Investigate error when installing and loading gem in same session (like rails preinitializer) - Not reproducible - fixed in >1.1.0???
-================ 0.7.0 release ===================
-* If permission error, auto-install under writable_gem_home ~/gems/1.8 (configurable), Gem.clear_paths, set ENV['GEM_HOME'] and ENV['GEM_PATH'] to ENV['HOME']pathsepGem::ConfigMap[:ruby_version], and issue warning (saying in order to prevent warning, a) set gem_home and gem_path: in ~/.gemrc, b) invoke via sudo (only if command line), c) make (and keep) current Gem.dir writeable, or d) add geminstaller (and ruby?) to sudoers file (security hole).  Properties: "[no_]use_writable_gem_home" and "writable_gem_home".
-* For RubyGems >=1.0.1, look at using Gem::SourceInfoCache instead of SourceIndex or --list command
-* Move classes which are unused against current RubyGems into Legacy module.
-* Speed! What can be done to speed things up?
-* performance improvement: first try cache hit without all option, then with if not found.
-* add command line tool to automatically generate files - default file, rake task (geminstaller:run, geminstaller:install, geminstaller:autogem), and preinit hook.  Auto-detect rails vs. non-rails project and generate stuff accordingly.  --setup, --setup-rails.  Check for new-style boot.rb, fail if missing, check for RAILS_GEM_VERSION in environment.rb, warn if present.
-* Merb support.  init.rb.  See lightning talk.
-* Change 'run' to automatically automatically calls both 'install' and 'autogem', add 'no-install' and 'no-autogem' option (only applicable when invoked programatically) to suppress if desired
-* auto-install on app startup should not be the default unless use_writable_gem_home is implemented, because of sudo/rake doublerun/speed issues.  Update autogem missing gem error message accordingly.
-* also look for config file under RAILS_ROOT/config, if RAILS_ROOT is defined (somehow fails under textmate, if working dir is wrong)
+* docs - add example of using environment variable to control gem version without changing code (Rails)
 ================ 0.x.0 release ===================
+* cryptic message if "name:" is left off in yaml
+* fix smoke tests on CI
+* also look for config file under RAILS_ROOT/config, if RAILS_ROOT is defined (somehow fails under textmate, if working dir is wrong)
 * Change option handling to accept hashes in addition to strings when invoked programatically
 * rails_smoketest.rb is not working, always reinstalls existing gems
-* add option to use frozen edge rails before rails gem, understand the implications
-* add auto-install option if gem version error is detected, update error message saying to set option
-* cryptic message if "name:" is left off in yaml
-* Add option to auto-update rubygems to specified version.  See rubygems mailing list thread for details
-* set up sample rails project with geminstaller hook and sample test under CI.  Have cruise_config uninstall a dummy gem before rails tests, then have rails test ensure it was installed and loaded. (done but not running under CI yet)
-================ 0.x.x release ===================
-* turn smoketest into rake task, with correct return code handling, and hook up to cruise
-* look into and explain mongrel/webrick installation errors
-* add top-level method for uninstall of gems, and document (requested by Alex Chaffee and others)
-* docs - add example of using environment variable to control gem version without changing code (Rails)
 * docs - document and add sample file for preinitializer boot hook.  Explain why it can't be in environment.rb vs boot.rb or prinitializer (bottom line: env is not processed before Initializer, so can't be used to load rails gems)
-* tutorial: using common or shared config files, with different configs for different environments - test (rspec) vs. dev (capistrano) vs. demo/staging/prod, mention include_config option and pros/cons of different approaches
 * docs - rename "Documentation" page to "Manual"
-* rogue gems config generation - add warning and instructions for cleaning up auto-generated file.  For example, deleting rails dependencies
 * faq - mention 'cannot load error' from load, and why it happens (rubygems can only load one version)
 * faq - mention tradeoffs of optimistic version requirement (>=) vs pessimistic (=), specifically how mongrel specifies its dependencies
 * put mongrel/rails startup bug in tracker, add link in "known bugs" section on home page.
-* tutorial: running via capistrano
 * crossreference front page, tutorials, and docs
-================ 0.x.x release ===================
 * Namespace remaining un-namespaced constants
-* Allow array or eval'able string of gems to be passed as --gems arg or instead of args
-* Add @options[:gems], should be parsed from command line* root-owned gems: add -S | --sudo-only-if-allowed option, will only invoke sudo if GEMINSTALLER_ALLOW(S)_SUDO env var is set
-* root-owned gems: add automatic re-invoke with sudo option (with warning message) if permission error is caught
-* root-owned gems: Dynamically detect posix platform and check if gem repo is completely writeable.  Ignorable prompt?
 * docs - clean up sudo section.  Should be clearer about sudoers entry, and make sure that NOPASSWD is the last entry.  Rename from #dealing_with_sudo to #dealing_with_root_owned_gems, rewrite to reflect new best practices (different GEM_PATH or auto-sudo via capistrano)
 * tutorial: update running via capistrano to reference new sudo docs
-================ 0.x.x release ===================
 * handle installation of gem from file (requested by Alex Chaffee)
-* Investigate gem_plugin.  Plugin for mongrel???
-* Investigate making a Rails plugin
-================ 0.x.x release ===================
 * Why does RubyGems reinstall BlueCloth even though it is already installed?!?!? (remove from FAQ after solved)
 * Figure out how to suppress webrick messages from embedded gem server
 * add option to warn if any rogue gems are found
-================ 0.x.x release =====================
-================ 0.x.x finishing website ===================
 * autogem and run args can be passed as string or array
-* better test coverage for --sudo and --exception options
 * use rspec context_setup
 * split out geminstaller_spec into application_spec and geminstaller_spec.  Fix reference in docs / design
 * newlines printed between dots when "updating" message is included in error message
-* Error on activerecord for brand-new rubygems installation - couldn't find gem.  Did a gem list --remote activerecord, then it went away (got sudo error), then happened again, then worked when I passed -gall -rall options.
-* Fastthread = only shows version 0.6.2 on windows, rubygems 0.9 ???
 * geminstaller_spec autogem spec must have the GemRunner "initialized" or else the stub gem in test_gem_home won't be found by autogem.
-* fix_dependencies=true takes FOREVER on windows
 * echo stdin, lists presented for debug output levels
 * Just ignore sudo option on windows, rather than throwing an error
 * why does windows try to reinstall fxruby 1.6.6 when it is already installed???
@@ -87,7 +41,6 @@
 * Can GemInstaller handle multiple gem server sources via multiple config files?
 * Handle default gems that come with ruby/rubygems windows distro. 
 * refactor enhanced_stream_ui.ask_yes_no - does it need to catch the exception?  Also review context name (no OutputProxy) and use of StringIO, and exception tests.
-* rename enhanced_stream_ui to noninteractive_stream_ug
 * add multilevel dependency smoketests for autogem (old rails version)
 * refactor duplication in autogem/rogue_gem_finder using blocks
 * rubygems stdout - don't print prefix for single dot
@@ -96,19 +49,14 @@
 * Rails integration doesn't work under mongrel when invoked via executable (e.g, actionmailer gem not recognized after install, only after mongrel restart).  Does't occur under webrick, or if geminstaller is invoked programatically via class.
 * rails example doesn't print any warning if geminstaller is not installed
 * "Installing gem" messages are duplicated if info message is specified, one from rubygems, one from geminstaller.  See todo in install_processor.rb
-* boot.rb parsed twice under webrick?
 * commandecho doesn't print regexps correctly
 * code coverage for logic paths supporting old rubygems versions
 * spec_utils - use extend+include ClassAndInstanceMethods approach
 * clean up registry - third-party first, no dependency next, alphabetized
 * review/clean up ri/rdoc
 * Better errors for invalid yaml (unsupported keys)
-========= 0.x.0 release ==============
-* patch hoe to install_gem without sudo on windows
 * understand why '> 1' must be quoted to be a valid yaml value - see yaml_loader_spec.rb
-* tests failed when "partially" connected to network? (wireless at office)
 * tests fail with timeouts intermittently on windows
-* add more tests for dependencies to geminstaller_spec
 * reconcile methods for testing error messages - manually vs proc_should_raise_with_message.  Probably should patch rspec.
 * remove test_gem_home.reset from geminstaller_spec.rb WITHOUT breaking the test suite.
 * tests fail on windows - seems to be related to test_gem_home running twice.  smoketest still passes.
@@ -116,7 +64,6 @@
 * running binary via ruby out of bin dir will pick up gem first on load path if it is installed
 * verify that >= version spec works with a specific platform, if that platform is not available for the highest version
 * Check for write access, and exit with warning to use sudo if there is no write access.
-* store rubygems dist as a tar, and untar it on demand
 * Add spec file name to all contexts (or see if rspec can do it automatically)
 * Embedded gem_server process doesn't get killed on windows during tests - need to use ruby services, see comment in embedded_gem_server.rb
 * Embedded gem_server ports aren't handled correctly on linux during tests - port conflict on startup, open ports die off slowly after tests finish
@@ -135,4 +82,3 @@
 * make verbose option specify --backtrace on all gem commands
 * Add support, syntax, and options for uninstalling gems - completely, or down to highest specified version.
 * add feature to automatically warn if there is a more recent version of the gem available and check_for_upgrade == false.  Use "gem outdated" command 
-================ 0.later.1 Unprioritized ===================
