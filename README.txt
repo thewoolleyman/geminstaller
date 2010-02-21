@@ -5,6 +5,15 @@
 * mailto:"GemInstaller Development" <geminstaller-development@rubyforge.org>
 * mailto:"Chad Woolley" <thewoolleyman@gmail.com>
 
+
+== UPDATE - READ THIS
+
+* GemInstaller is being deprecated in favor of Bundler: http://github.com/carlhuda/bundler
+* There is a --bundler-export option on geminstaller to help GemInstaller users migrate to Bundler.
+* This site is outdated, and will remain that way.  I'll try to keep GemInstaller working with new RubyGems releases for as long as I can, but I won't do much else.  I've also given up on testing older Rubygems versions and Windows (although they should still work, feel free to open a bug if they don't).
+* Why Bundler instead of (some other tool)?  Dependency Management is a hard problem to solve properly.  Bundler does the right things.
+* If you think Bundler is too complex, then you probably don't understand the problem, or have never dealt (properly) with long-term or complex dependency management issues in the real world, or just like to be contrary.  Bundler resolves your entire Gem dependency graph and freezes it in your app.  If your tool of choice doesn't do this, it is inferior.  Perhaps very usable (like GemInstaller), but still inferior.  If you have problems with Bundler, I'd recommend opening an issue: http://github.com/carlhuda/bundler/issues
+
 == DESCRIPTION:
 
 Automated Gem installation, activation, and much more!

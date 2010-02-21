@@ -146,7 +146,7 @@ GemInstaller works by automatically invoking RubyGems commands.  The <code>--rub
 
 h3(#bundler_export_option). <code>--bundler-export</code> option
 
-The <code>--bundler-export</code> writes a "Bundler":http://github.com/wycats/bundler ("http://github.com/wycats/bundler":http://github.com/wycats/bundler) Gemfile based on your Geminstaller config(s).
+The <code>--bundler-export</code> writes a "Bundler":http://github.com/wycats/bundler ("http://github.com/carlhuda/bundler":http://github.com/carlhuda/bundler) Gemfile based on your Geminstaller config(s).  However, be aware that you may have unnecessary entries in your config, because Bundler resolves the entire dependency tree for you.  So, make sure you ONLY specify your application's DIRECT dependencies in your Bundler Gemfile.
 
 h3(#print_rogue_gems_option). <code>--print-rogue-gems</code> option
 

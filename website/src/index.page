@@ -1,6 +1,14 @@
 ---
 title: Overview
 ---
+h1. UPDATE - READ THIS
+
+* GemInstaller is being deprecated in favor of "Bundler":http://github.com/carlhuda/bundler
+* There is a "--bundler-export option":documentation/documentation.html#bundler_export_option on geminstaller to help GemInstaller users migrate to Bundler.
+* This site is outdated, and will remain that way.  I'll try to keep GemInstaller working with new RubyGems releases for as long as I can, but I won't do much else.  I've also given up on testing older Rubygems versions and Windows (although they should still work, feel free to open a bug if they don't).
+* Why Bundler instead of (some other tool)?  Dependency Management is a hard problem to solve properly.  Bundler does the right things.
+* If you think Bundler is too complex, then you probably don't understand the problem, or have never dealt (properly) with long-term or complex dependency management issues in the real world, or just like to be contrary.  Bundler resolves your entire Gem dependency graph and freezes it in your app.  If your tool of choice doesn't do this, it is inferior.  Perhaps very usable (like GemInstaller), but still inferior.  If you have problems with Bundler, I'd recommend "opening an issue":http://github.com/carlhuda/bundler/issues
+
 h1. Overview
 
 h2. What is GemInstaller?
@@ -16,7 +24,6 @@ GemInstaller provides automated installation, loading and activation of RubyGems
 * Allow for common configs to be reused across projects or environments by supporting multiple config files, including common config file snippets, and defaults with overrides.
 * Allow for dynamic selection of gems, versions, and platforms to be used based on environment vars or any other logic.
 * Avoid the "works on demo, breaks on production" syndrome.
-* Find lost socks.
 
 GemInstaller can be used from the command line, or embedded to run automatically on startup for a Rails app or any other Ruby program.
 
@@ -34,10 +41,6 @@ h2. Who is responsible for GemInstaller?
 
 GemInstaller was created by "Chad Woolley":http://www.thewoolleyweb.com.
 
-h2. Why not just use Rails' config.gems?
-
-GemInstaller "has advantages":faq.html#rails_config_gems over Rails' config.gems.
-
 h2(#known_issues). Known Issues
 
 I have a "list of high priority bugs and features":http://thewoolleyweb.lighthouseapp.com/projects/11580-geminstaller/tickets?q=tagged%3Ahigh_priority that need to be addressed before a 1.0 release.
@@ -47,7 +50,7 @@ Please "report any others that you find":http://thewoolleyweb.lighthouseapp.com/
 h2(#history). History
 
 * 0.5.4
-** Add -b / --bundler-export option to create bundler Gemfile - but make sure you only include direct dependencies, and let bundler handle the rest!
+** Add -b / "--bundler-export option":documentation/documentation.html#bundler_export_option to create bundler Gemfile - but make sure you only include direct dependencies, and let bundler handle the rest!
 * 0.5.3
 ** Many long overdue bugfixes and patches, see http://tinyurl.com/geminstaller-0-5-3-release for details.
 ** Thanks to Greg Fitzgerald, Britt Crawford, John Trupiano, Gabriel Gironda, and Eric Hodel for patches and assistance.
