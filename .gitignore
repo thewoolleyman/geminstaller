@@ -9,3 +9,4 @@ spec/tmp/test_gem.rc
 pkg
 website/out
 website/webgen.cache
+.DS_Store
