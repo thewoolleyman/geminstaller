@@ -157,6 +157,16 @@ describe GemInstaller::ConfigBuilder, "with an empty config file" do
   end
 end
 
+describe GemInstaller::ConfigBuilder, "with a config containing a prerelease gem" do
+  it "does not blow up" do
+    @test_config_file_paths = File.expand_path("#{dir}/../fixture/prerelease_geminstaller_config.yml")
+    @test_config_file_dir = File.dirname(@test_config_file_paths)
+    config_builder_spec_common_setup
+    version = @config.gems[0].version
+    version.should == '1.0.beta'
+  end
+end
+
 def config_builder_spec_fixture
   registry = GemInstaller::Registry.new
   @config_builder = registry.config_builder

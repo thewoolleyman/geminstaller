@@ -1,0 +1,4 @@
+---
+gems:
+  - name: testgem
+    version: 1.0.beta
