@@ -1,3 +1,6 @@
+== 0.5.5 / 2010-03-25
+* Add source to --bundler-export option.  Handle Rubygems errors when parsing gem prerelease versions in older Rubygems versions.
+
 == 0.5.4 / 2009-11-15
 * Add -b / --bundler-export option to create bundler Gemfile - but make sure you only include direct dependencies, and let bundler handle the rest!
 

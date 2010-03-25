@@ -77,6 +77,9 @@ task :diff_manifest => :clean do
     next if path =~ /\.\/pkg/
     next if path =~ /\.\/out/
     next if path =~ /\.\/website\/out/
+    next if path =~ /\.DS_Store/
+    next if path =~ /\.rvmrc/
+    next if path =~ /Gemfile/
     files << path[2..-1]
   end
   files = files.sort.join "\n"

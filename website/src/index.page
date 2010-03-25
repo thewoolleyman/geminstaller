@@ -49,6 +49,8 @@ Please "report any others that you find":http://thewoolleyweb.lighthouseapp.com/
 
 h2(#history). History
 
+* 0.5.5
+** Add source to --bundler-export option.  Handle Rubygems errors when parsing gem prerelease versions in older Rubygems versions.
 * 0.5.4
 ** Add -b / "--bundler-export option":documentation/documentation.html#bundler_export_option to create bundler Gemfile - but make sure you only include direct dependencies, and let bundler handle the rest!
 * 0.5.3
