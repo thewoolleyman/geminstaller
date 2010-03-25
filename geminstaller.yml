@@ -31,6 +31,8 @@ gems:
   version: '>= 0.9.3'
 - name: webgen
   version: '= 0.5.5'
+- name: minitest
+  version: '1.5.0'
 # - name: gettalong-webgen
 #   version: '>= 0.5.5.20081001'
 <% if RUBY_PLATFORM =~ /mswin/ %>
