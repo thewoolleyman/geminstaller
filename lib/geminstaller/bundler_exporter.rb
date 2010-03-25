@@ -9,7 +9,7 @@ module GemInstaller
     end
 
     def convert(config)
-      manifest = ""
+      manifest = "source :gemcutter\n"
       config.gems.each do |gem|
         manifest += %Q{gem "#{gem.name}", "#{gem.version}"\n}
       end

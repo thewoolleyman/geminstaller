@@ -17,11 +17,12 @@ describe "BundlerExporter" do
 
   it "should convert a geminstaller config into a bundler manifest" do
     manifest = @bundler_exporter.convert(@config)
+    manifest.should match(/^source :gemcutter/m)
     manifest.should match(/^gem "mygem", "> 0.1"/m)
   end
   
   it "should output" do
-    @mock_output_proxy.should_receive(:sysout).with(%Q{gem "mygem", "> 0.1"\n})
+    @mock_output_proxy.should_receive(:sysout).with(%Q{source :gemcutter\ngem "mygem", "> 0.1"\n})
     @bundler_exporter.output(@config)
   end
 end

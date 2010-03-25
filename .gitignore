@@ -10,3 +10,4 @@ pkg
 website/out
 website/webgen.cache
 .DS_Store
+Gemfile
