@@ -27,7 +27,15 @@ module GemInstaller
     end
     
     def search_greater_than_0_9_4(gem, version_requirement, platform_only = false)
-      dependency = Gem::Dependency.new(gem.name, version_requirement)
+      dependency = nil
+      begin
+        dependency = Gem::Dependency.new(gem.name, version_requirement)
+      rescue => e
+        msg = "Rubygems failed to parse gem: name='#{gem.name}', version='#{version_requirement}'.  Original Error:\n" +
+              "  #{e.inspect}\n" +
+              "If you are having problems with prerelease gems or non-numeric versions, please upgrade to the latest Rubygems."
+        raise GemInstaller::GemInstallerError.new(msg)
+      end
       @gem_source_index_proxy.refresh!
       @gem_source_index_proxy.search(dependency, platform_only)
     end

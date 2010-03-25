@@ -21,6 +21,11 @@ describe "a SourceIndexSearchAdapter instance" do
     @mock_gem_source_index_proxy.should_receive(:search).with('', GemInstaller::RubyGem.default_version)
     @source_index_search_adapter.all_local_specs
   end
+  else
+  it "raises a GemInstaller error if Gem::Dependency.new fails" do
+    Gem::Dependency.should_receive(:new).and_raise(ArgumentError)
+    lambda { @source_index_search_adapter.search(@sample_gem,@sample_gem.version) }.should raise_error(GemInstaller::GemInstallerError)
+  end
   end
 
 end
