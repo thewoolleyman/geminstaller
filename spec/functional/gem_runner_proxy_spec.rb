@@ -19,8 +19,11 @@ describe "a GemRunnerProxy instance" do
     if GemInstaller::RubyGemsVersionChecker.matches?('=0.9.5')
       # bug in 0.9.5 that double-lists versions
       expected_versions = "#{sample_multiplatform_gem_version}, #{sample_multiplatform_gem_version}, #{sample_multiplatform_gem_version_low}"
-    else
+    elsif GemInstaller::RubyGemsVersionChecker.matches?('<=1.3.6')
+      # no platforms in output prior to 1.3.7
       expected_versions = "#{sample_multiplatform_gem_version}, #{sample_multiplatform_gem_version_low}"
+    else
+      expected_versions = "#{sample_multiplatform_gem_version} ruby mswin32, #{sample_multiplatform_gem_version_low}"
     end
     
     expected_output = /#{sample_multiplatform_gem_name} \(#{expected_versions}\)/m

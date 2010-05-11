@@ -23,6 +23,10 @@ describe "a VersionSpecifier instance" do
     should_specify("~> 1.2", '2.1, 2.0, 1.3, 1.2, 1.1', '1.3')
   end
 
+  it "should handle platforms in version" do
+    should_specify("> 1", '1, 2 ruby mswin, 3', '2')
+  end
+
   # TODO: Should this work?  Gem::Requirement says it should...
 #  specify "should handle multiple version requirements" do    
 #    should_specify("> 0.3.13.1, < 0.3.13.4", '0.3.13.4, 0.3.13.3, 0.3.13.2, 0.3.13.1', '0.3.13.3')

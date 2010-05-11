@@ -8,7 +8,8 @@ module GemInstaller
         available_versions = available_versions.split(', ')
       end
       available_versions.each do |available_version_string|
-        available_version = Gem::Version.new(available_version_string)
+        available_version_string_without_platforms = available_version_string.split(' ').first
+        available_version = Gem::Version.new(available_version_string_without_platforms)
         if rubygems_version_requirement.satisfied_by?(available_version)
           return available_version.to_s
         end
