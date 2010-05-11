@@ -18,7 +18,7 @@ module GemInstaller
 
       # heckle -> hoe -> rubyforge show a three-level dependency
       required_gems = [
-        'ruby-doom-0.8', 
+        'ruby-doom-0.9', 
         'rutils-0.1.3', 
         'x10-cm17a-1.0.1', 
         'heckle-1.0.0',

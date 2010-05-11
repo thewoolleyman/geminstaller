@@ -24,7 +24,7 @@ module GemInstaller
       # heckle -> hoe -> rubyforge show a three-level dependency
       test_gems = ['ruby-doom', 'rutils', 'x10-cm17a', 'heckle', 'hoe', 'rubyforge']
       expected_versions = {
-        'ruby-doom' => ['0.8'],
+        'ruby-doom' => ['0.9'],
         'rutils' => ['0.1.3','0.1.9'],
         'x10-cm17a' => ['1.0.1']
       }
