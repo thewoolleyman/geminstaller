@@ -24,7 +24,8 @@ gems:
   version: '>= 1.2.8'
   # install dev dependencies for rspec, or else regression tests on older versions of rubygems with the dev dependencies
   # bug (1.0, 1.1) fail - and currently Hoe swallows Rspec load error silently
-  install_options: --no-ri --no-rdoc --development
+  # install_options: --no-ri --no-rdoc --development # but since 2010-05-10 rspec fails with dev dependencies
+  install_options: --no-ri --no-rdoc
 - name: cmdparse
   version: '>= 2.0.2'
 - name: ruby-debug
