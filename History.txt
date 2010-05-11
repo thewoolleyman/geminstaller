@@ -1,3 +1,6 @@
+== 0.5.6 / 2010-05-10
+* Handle platforms in gem list version output for Rubygems 1.3.7.
+
 == 0.5.5 / 2010-03-25
 * Add source to --bundler-export option.  Handle Rubygems errors when parsing gem prerelease versions in older Rubygems versions.
 
