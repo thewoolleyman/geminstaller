@@ -67,7 +67,7 @@ Yeah, it's too manual.  Notes for improvement below.
 * Make sure everything is checked in
 * Make a tag in git (git tag x.y.z; git push origin x.y.z)
 * rake clean package
-* Upload gem to rubyforge
+* Upload gem to rubygems.org (gem push pkg/geminstaller-x.y.z.gem)
 * rake publish_website
 * Bump the version in geminstaller.rb to the expected next release version.
 
